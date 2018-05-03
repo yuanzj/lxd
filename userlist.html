@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title id="title">后台管理系统</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="css/bootstrap-editable.css">
+    <link rel="stylesheet" href="assets/index.css">
+    <script src="assets/index.js"></script>
+    <script src="js/vue1.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min1.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
+    <!-- bootstrap-datetimepicker插件CSS-->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="js/bootstrap-table-zh-CN.min.js"></script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <![endif]-->
+<style>
+    body{  font-family: "Microsoft YaHei","微软雅黑 Light","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; font-size:13px;}
+    .like{
+           width: 20%;
+           height: 30%;
+       }
+     .smallImg{
+        width: 30px;
+        height: 30px;
+    } 
+    .red{
+        color: #FF0000
+    }
+    .green{
+   color:#20d44a
+    }
+    .yellow{
+        color:#FF9200
+    }
+	.orange{
+		color:#FF7100}
+    .nowwrp1{
+        overflow: hidden;
+       
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+		width:80px;
+		
+
+    }
+ .nowwrp{
+     white-space: nowrap;
+	 
+ }
+    .wrap-btn{
+        background: red;
+		
+    }
+.nav>li>a{
+	color:#999;
+	font-size:16px;
+	font-weight:400;}	
+.nav>li>a:hover{
+	
+	background:none;
+	}
+.nav>li>a:focus{
+	color:#FFF;
+	background:none;
+	}	
+.navbar-inverse .navbar-nav>li>a {
+    color: #9d9d9d;
+    font-size: 18px;
+}	
+.nav{
+	-ms-overflow-y:scroll;}
+	
+.nav-pills{
+	-ms-overflow-y:scroll;}
+.nav-stacked{
+	-ms-overflow-y:scroll;}
+.nav nav-pills nav-stacked{
+	-ms-overflow-y:scroll;}
+	
+.my-container {
+    float: left;
+    display: inline-block;
+    margin-right:30px;
+	margin-top: -15px;
+    margin-bottom: 5px;
+}
+
+.myLabel-content ,.myText-content,.myBtn-content{
+    float: left;
+    display: inline-block;
+  
+}
+.myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
+    height: 34px;
+   
+}
+.myBtn-content .btn {
+    margin-bottom: 10px;
+}	
+.btn-default {
+
+	
+	}
+.yonghutool{
+    margin-top: 3px;
+}
+</style>
+</head>
+<body>
+
+<div class="conts" id="divCenter" align="center" style="position: fixed; top: 50px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: none;z-index:909;left:0px;overflow: scroll;">
+    <img id="carpic3" src="#"  style="padding-top: 5%;width: 60%;height: auto;"/><a href="javascript:void(0);" onclick="picClose();">
+    <img src="img/close-150192_640.png" style="width: 50px;height: 50px;float: right;position:fixed;z-index: 999;margin-top: 70px;right: 80px;"></a>
+</div>
+<!--tupian-->
+<!--冻结-->
+<div id="wrap1" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
+    <div style="width: 620px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+       <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">账户操作</p>
+    </div>
+      <div style="width: 620px;height: 260px;background: #FFF;margin: 0 auto;opacity: 1">
+             <div style="float: left;margin-top: 30px;  padding-left:3%;">
+           <p style="padding: 10px; display: inline-block">余额(元): </p><div type="text" class=" unlock  " style="display: inline-block;width: 80px;margin-left: 15px;color:#777;"></div>
+            <p style="padding: 10px; display: inline-block">冻结余额（元）: </p><div type="text" class="  balance " style="display: inline-block;width: 80px;margin-left: 15px; color:#777;"></div>
+            <p style="padding: 10px; display: inline-block">赠送余额（元）: </p><div type="text" class=" virtual  " style="display: inline-block;width: 80px;margin-left: 15px;color:#777;"></div>
+            </div>
+          
+            <div style="float: left;margin-top: 40px;  padding-left:32%;">
+           <button type="button" class="btn btn-default "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:25px;">冻结账户</button>
+            <button type="button" class="btn btn-default " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:5px;">取消冻结</button> 
+            </div>
+       <div style="float: right;margin-top: 120px;margin-right: 40px">
+     <button type="button" class="btn btn-default " id="555" style="width: 100px;float: right;background: #636161;color:#F3F3F3;display: inline-block">取消</button>
+       </div>
+     </div>
+</div>
+<!-- Fixed navbar -->
+<form id="formId">
+<div id="eatTheWorld" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
+    <div style="width: 800px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">用户详情</p>
+    </div>
+    <div style="width: 800px;height: 300px;background: #FFF;margin: 0 auto;opacity: 1">
+
+      <div style="text-align:left;">
+       <p style="padding-top: 45px;padding-left: 33px; display: inline-block"><span style="color:red;">*</span>昵称：</p><input type="text" class="form-control ename" style="display: inline-block;width: 300px;margin-left: 2px;">
+      <p style="padding-top: 25px;padding-left: 1px; display: inline-block"><span style="color:red;">*</span>手机号码：</p><input type="text" class="form-control ephone" style="display: inline-block;width: 300px;margin-left: -2px;">
+       <p style="padding-top: 25px;padding-left: 20px; display: inline-block"><span style="color:red;">*</span>用户名：</p> <input type="text" class="form-control elogname" style="display: inline-block;width: 300px;margin-left: -1px;">
+       <p style="padding-top: 25px;padding-left: 2px; display: inline-block"><span style="color:red;">*</span>登录密码:</p><input type="text" class="form-control epassword" style="display: inline-block;width: 300px;margin-left: 7px;">
+        <p style="padding-top: 25px;padding-left: 12px; display: inline-block">真实姓名：</p><input type="text" class="form-control erealname" style="display: inline-block;width: 300px;margin-left: 4px;">
+       <p style="padding-top: 25px;padding-left: 3px; display: inline-block">身份证号：</p><input type="text" class="form-control eidcard" style="display: inline-block;width: 300px;margin-left: 2px;">
+       
+      
+
+        </div>
+     
+        
+        <div style="float: right;margin-top: 55px;margin-right: 45px">
+
+            <!--<button type="button" class="btn btn-default  sendAll" style="width: 100px;background: #169BD5;color:#F3F3F3">确定</button>-->
+
+
+
+            <button type="button" class="btn btn-default" id="add1" style="width: 100px;background: #636161;color:#F3F3F3">确定</button>
+            <!--  提示框-->
+
+
+            <button type="button" class="btn btn-default"  id="888" style="width: 100px; margin-left:15px;">取消</button>
+        </div><!--确定取消-->
+
+    </div>
+</div>
+</form>
+<!--编辑-->
+<div id="eatTheWorld2" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
+    <div style="width: 800px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">用户详情</p>
+    </div>
+    <div style="width: 800px;height: 300px;background: #FFF;margin: 0 auto;opacity: 1">
+<p style="padding-top: 20px;padding-left: 23px; display: inline-block">用户ID：<span style="font-weight: 700" class="userid">1234</span></p>
+      <div style="text-align:left;">
+      
+      <div>
+       <p style="padding-top: 25px;padding-left: 36px; display: inline-block">昵称：</p><input type="text" class="form-control name" style="display: inline-block;width: 300px;margin-left: 2px;">
+       <p style="padding-top: 25px;padding-left: 7px; display: inline-block">手机号码：</p><input type="text" class="form-control phone" style="display: inline-block;width: 300px;margin-left: -1px;">
+       </div>
+       <div>
+       <p style="padding-top: 25px;padding-left: 23px; display: inline-block">用户名：</p> <input type="text" class="form-control logname" style="display: inline-block;width: 300px;margin-left: -2px;">
+       <p style="padding-top: 25px;padding-left: 9px; display: inline-block">登录密码:</p><input type="text" class="form-control password" style="display: inline-block;width: 300px;margin-left: 7px;">
+       </div>
+       <div>
+       <p style="padding-top: 25px;padding-left: 11px; display: inline-block">真实姓名：</p><input type="text" class="form-control realname" style="display: inline-block;width: 300px;margin-left: 1px;">
+       <p style="padding-top: 25px;padding-left: 6px; display: inline-block">身份证号：</p><input type="text" class="form-control idcard" style="display: inline-block;width: 300px;margin-left: 1px;">
+</div>
+
+        </div>
+     
+        
+        <div style="float: right;margin-top: 25px;margin-right: 48px">
+
+            <!--<button type="button" class="btn btn-default  sendAll" style="width: 100px;background: #169BD5;color:#F3F3F3">确定</button>-->
+
+
+
+            <button type="button" class="btn btn-default" id="revise" style="width: 100px;background: #636161;color:#F3F3F3">确定</button>
+            <!--  提示框-->
+
+
+            <button type="button" class="btn btn-default"  id="999" style="width: 100px; margin-left:15px;">取消</button>
+        </div><!--确定取消-->
+
+    </div>
+</div>
+<!--网点-->
+    <div id="wrap" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
+         <div style="width: 800px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+           <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">网点列表</p>
+         </div>
+           <div style="width: 800px;height: 460px;background: #FFF;margin: 0 auto;opacity: 1">
+             <div data-toggle="distpicker"  class="form-group form-inline" style="padding-top:30px;">
+                <select data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 20px;"></select>
+                <select data-city="---- 选择市 ----" class="form-control selci" ></select>
+                <select data-district="---- 选择区 ----" class="form-control selco" ></select>
+                <button type="button" class="btn btn-default searchWD" style="margin-top: 0px;" >筛选</button>
+                  </div>
+              <div id="app" >
+                <label  style="display: block;margin-top: 0px" >
+                    <ul class="nav nav-pills nav-stacked" style="overflow-y: scroll;-ms-overflow-y:scroll; height:300px;" id="app1">
+                          <li  v-for="(item,index) in message"  style="font-size:15px; font-weight:400;" class="removeD"><a  @click="online(index,item.id,$event)"  class="hoverE">{{item.name}}({{item.address}})</a></li>
+                    </ul>
+                </label>
+              </div>
+    
+                   <div style="float: right;margin-top: 10px;margin-right: 45px">
+                <button type="button" class="btn btn-default  "  id="wrap-btn-on"  style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:10px;">确定</button>
+                <!--  提示框-->
+                <button type="button" class="btn btn-default " id="wrap-btn-off" style="width: 100px;display: inline-block;float: right">取消</button>
+                   </div>
+           </div>
+    </div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="">
+        <div class="navbar-header;">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" 
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+           
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li  class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"  style="margin-left: 10%;    white-space: nowrap;"  id="navbarID" >{{navname}}</a>
+                    <ul class="dropdown-menu" style="margin-left: 10%;    white-space: nowrap;">
+                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a></li>
+
+                        
+                    </ul>
+
+                </li>
+
+
+
+
+
+                <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
+                <li ><a href="index.html">车况列表</a></li>
+                <li><a href="#">车辆管理</a></li>
+                <li id="tabOption"><a href="wangdian.html">网点管理</a></li>
+                <li><a href="#">用户管理</a></li>
+
+
+
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="content">
+    <div class="container" style="width:97%; margin-top:-24px;">
+ <div id="toolbar" class="yonghutool">
+           
+      <div class="my-container">
+        
+        <div class="myText-content" style="margin-bottom: -15px;margin-top: 13px;">
+        
+      <div data-toggle="distpicker"  class="form-group form-inline">
+      <input type="text" class="form-control searchResult"  style="display: inline-block;width: 250px;"  placeholder="输入手机号或身份证号搜索用户" onblur="if(this.placeholder==''){this.placeholder='输入手机号或身份证号搜索用户'}" onfocus="if(this.placeholder=='输入手机号或身份证号搜索用户'){this.placeholder=''}" > <button type="button" class="btn btn-default searchCcu" style=";border-bottom-right-radius: 5px;border-top-right-radius: 5px;">            <span class="glyphicon glyphicon-search"></span></button>
+              </div>
+    
+
+        </div>
+    </div>
+        </div>
+        <table id="table"
+               data-search="false"
+               data-show-refresh="true"
+               data-show-toggle="false"
+               data-show-columns="false"
+               data-toolbar="#toolbar"
+               data-click-to-select="true"
+               data-show-export="false"
+               data-minimum-count-columns="2"
+               data-pagination="true"
+               data-id-field="ccuSn"
+               data-page-list="[10, 20, 50, 100, ALL]"
+               data-show-footer="false"
+               data-side-pagination="server"
+               data-url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/users"
+               data-cache="true"
+               data-response-handler="responseHandler"> 
+               
+        </table>
+
+        </div>
+
+    </div>
+
+       
+
+      
+    
+
+
+
+</body>
+<!--/jquery.文件-->
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script type="text/javascript" src="js/moment.js"></script>
+<!-- 最新的 Bootstrap 核心 Moment文件 -->
+<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+<!-- 最新的 Bootstrap 核心 DateTime文件 -->
+<script>
+    var des=sessionStorage.namedes
+    var eruval;
+    var nameindex=0
+    var uid;
+    var name = new Vue({
+        el: '#name',
+        data() {
+            return{message: JSON.parse(sessionStorage.name),
+                navname:"车精灵智能后台管理系统"
+
+            }
+        },
+        mounted(){
+            this.navname=this.message[0].name
+        },
+        methods:{
+            changeName:function (index) {
+                this.navname=this.message[index].name
+                nameindex=index
+                console.log(this.navname)
+                initTable()
+            }
+        }
+    })
+    document.getElementById("tabOption")
+    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color="white"
+    var $table = $('#table');
+    var dataResult;
+    var rr=1;
+    var timer=0;
+    var cc=0;
+    var  timer2=0;
+	var  url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users";
+    var  title=document.getElementById("title");
+    var navid=document.getElementById("navbarID");
+    var sinput=document.getElementsByClassName("show_Input")[0];
+
+    var inputval=document.getElementsByClassName("input_val")[0];
+    var etwDate;
+    function showInput() {
+        sinput.style.display="inline"
+    }
+function inputPush() {
+    var dropdownval=document.getElementsByClassName("dropdown-val")[0];
+    dropdownval.innerHTML=$(".input_val").val();
+    console.log($(".input_val").val());
+    sinput.style.display="none"
+}
+    function initTable() {
+       $table.bootstrapTable("destroy");
+        $table.bootstrapTable({
+            height: getHeight(),
+            url:url,
+            method: 'GET',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            striped: true,                              //是否显示行间隔色
+            ajaxOptions: {
+                headers: {
+                    "firm":JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                    "Authorization":sessionStorage.token
+                }
+            },
+            queryParams: queryParams,
+            minimumCountColumns: 2,
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 100,                       //每页的记录行数（*）
+            pageList: [10, 20, 100],        //可供选择的每页的行数（*）
+            columns: [
+                {
+                    field: '',
+                    title: '',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: function (value, row, index) {
+                        return '  <input type="checkbox" class="delete">'
+                    }
+                },
+                {
+                    field: '',
+                    title: '',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        /*console.log((dataResult.pageSize * (dataResult.currPage - 1)) + index + 1)*/
+                        return (dataResult.pageSize * (dataResult.currPage - 1)) + index + 1;
+                    }
+                },
+				{
+                    field: 'createTime',
+                    title: '创建时间',
+                    align: 'center',
+                    valign: 'middle',
+					formatter:ctimeFormatter
+					
+                },
+
+				{
+                    field: 'nickname',
+                    title: '昵称',
+                    align: 'center',
+                    valign: 'middle',
+					events: operateEvents,
+					formatter:nikFormatter
+					
+                },
+                {
+                    field: 'phoneNumber',
+                    title: '手机号码',
+                    align: 'center',
+                    valign: 'middle'
+                },
+
+				{
+                    field: 'realname',
+                    title: '姓名',
+                    align: 'center',
+                    valign: 'middle',
+					formatter:realFormatter
+                },
+				{
+                    field: 'gender',
+                    title: '性别',
+                    align: 'center',
+                    valign: 'middle',
+					formatter:genderFormatter
+                },
+
+				{
+                    field: 'identityNumber',
+                    title: '身份证号码',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'idCardImgs',
+                    title: '图片',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter:picsFormatter
+
+                },
+				{
+                    field: 'modifyTime',
+                    title: '修改时间',
+                    align: 'center',
+                    valign: 'middle',
+					formatter:mtimeFormatter
+                }
+
+            ]
+        });
+        // sometimes footer render error.
+    }
+    function editFormatter(value,row,index) {
+   
+		return [
+	        '<div>',
+            '<a class="edit1" href="#">',
+        '<i class="glyphicon glyphicon-edit" title="编辑用户信息">',
+             '</i>',
+             '</a>',
+            
+            '</div>'
+        ].join("")
+		
+		
+	}//编辑
+	function ctimeFormatter(value,row,index) {
+		if(row.createTime==null||row.createTime=="null")
+		{var inner=""}
+		else{
+	 var inner=row.createTime}
+	 
+        var color='nowwrp'
+        return [
+            '<span class='+color+'>'+inner+'</span>'
+        ].join('');
+	}//创建时间
+	function mtimeFormatter(value,row,index) {
+		if(row.modifyTime==null||row.modifyTime=="null")
+		{var inner=""}
+		else{
+	 var inner=row.modifyTime}
+        var color='nowwrp'
+		
+        return [
+            '<span class='+color+'>'+inner+'</span>'
+        ].join('');
+	}//修改时间
+	function nikFormatter(value,row,index) {
+        
+       return [
+	        '<div class="nowwrp">',
+//            '<a class="like2" href="#" title="操作">',
+              row.nickname,
+//            '</a>',
+            '</div>'
+        ].join("");
+	}//昵称
+    function picsFormatter(value,row,index) {
+        var srcfront;
+        var srcback;
+        var srchand;
+        var inner1;
+        var inner2;
+        var inner3;
+        if(row.idCardImgs!=null) {
+            if(row.idCardImgs.front!=null){
+                srcfront = row.idCardImgs.front;
+                inner1="<img src='./img/shouchi.png' width='30' height='22' style='margin-left: 2px' title='正面'>"
+
+            }else {
+                srcfront =1;
+                inner1=""
+
+            }
+            if(row.idCardImgs.back!=null){
+                srcback = row.idCardImgs.back;
+                inner2="<img src='./img/fanmian.png' width='30' height='22' style='margin-left: 2px' title='反面'>"
+            }else {
+                srcback =1;
+                inner2=""
+
+            }
+            if(row.idCardImgs.hand!=null){
+                srchand = row.idCardImgs.hand;
+                inner3="<img src='./img/zhengmian.png' width='30' height='22' style='margin-left: 2px' title='手持'>"
+            }else {
+                srchand =1;
+                inner3=""
+
+            }
+        }else {
+            srcfront = 1;
+            srcback = 1;
+            srchand = 1;
+        }
+        return [
+            '<a class="zhankai1" id="tbpic1">',
+            inner1,
+            '</a>',
+            '<a class="zhankai2" id="tbpic2">',
+            inner2,
+            '</a>',
+            '<a class="zhankai3" id="tbpic3">',
+            inner3,
+            '</a>'
+        ].join('');
+    }//图片
+	function realFormatter(value,row,index) {
+	if(row.realname==null||row.realname=="null")
+		{var inner=""}
+		else{
+	 var inner=row.realname}	
+        var color='nowwrp'
+        return [
+            '<span class='+color+'>'+inner+'</span>'
+        ].join('');
+	}//真实姓名
+	function genderFormatter(value,row,index) {
+		if(row.gender==0){var inner="男"}
+		if(row.gender==1){var inner="女"}
+		if(row.gender==null||row.gender=="null"){var inner=""}
+		 return [
+           '<span>'+inner+'</span>'
+       ].join('');
+		}//性别
+	function zhanghuFormatter(value,row,index) {
+		
+	if(row.accountEntity.status==null){
+			inner=""}
+			else{
+			if(row.accountEntity.status=="UNACTIVE"){
+				var color="red"
+				inner="冻结"}
+			if(row.accountEntity.status=="ACTIVE"){inner="正常"}
+        
+}
+    
+   return [
+            '<span class='+color+'>'+inner+'</span>'
+        ].join('');
+	}//账户状态	
+    function queryParams(params) {
+        var param = {
+            limit: this.pageSize, // 页面大小
+            page: this.pageNumber,
+        }
+        return param;
+    }
+    function responseHandler(res) {
+        dataResult = res;
+        if (res) {
+            return {
+                "rows": res.list,
+                "total": res.totalCount
+            };
+        } else {
+            return {
+                "rows": 10,
+                "total": 20
+            };
+        }
+        console.log(res);
+    }
+    var data1;
+    function ajax(url,method,success,err) {
+       $.ajax({
+           url: url,
+           method: method,
+           contentType: "application/json; charset=utf-8",
+           cache: false,
+           beforeSend: function (xhr) {
+               /* Authorization header */
+               xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+               xhr.setRequestHeader("Authorization", sessionStorage.token);
+           },
+           success: success,
+           error: err
+       });
+   }  //ajax 封装
+    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",function (data) {
+    data1=data
+}, function (jqXHR, textStatus, errorThrown) {
+       console.log("失败")
+       console.log(jqXHR);})
+    var DELETE_ARR=[]
+    var operateEvents = {
+//	'click .like2':function (e,value,row,index) {
+//		var ALL= row
+//        var A = ALL
+//		var g=ALL.accountEntity.unlockBalance
+//		var h=ALL.accountEntity.balance
+//		var i=ALL.accountEntity.virtualBalance
+//		$("#wrap1 .unlock").html(g)
+//		$("#wrap1 .balance").html(h)
+//		$("#wrap1 .virtual").html(i)
+//		var id=row.accountEntity.id
+//		console.log(id)
+//
+//		 $("#btn-6").unbind('click').on("click",function () {
+//                ajax("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/freeze","put",function (data) {
+//                    alert("冻结账户成功")
+//					$("#wrap1").hide()
+//					$table.bootstrapTable("refresh",{silent: true})
+//                    console.log("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/freeze","put")
+//                }, function (err) {
+//                    alert("冻结账户失败")
+//                    console.log(err)})
+//            })
+//			 $("#btn-7").unbind('click').on("click",function () {
+//                ajax("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/unfreeze","put",function (data) {
+//                    alert("取消冻结成功")
+//					$("#wrap1").hide()
+//					$table.bootstrapTable("refresh",{silent: true})
+//                    console.log("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/unfreeze","put")
+//                }, function (err) {
+//                    alert("取消冻结失败")
+//                    console.log(err)})
+//            })
+//		$("#wrap1").show()
+//		$("#555").on("click",function () {
+//            $("#wrap1").hide()
+//   })
+//		},
+	'click .edit1': function (e, value, row, index) {
+	    
+		$("#eatTheWorld2  .userid").html(row.id)
+        $("#eatTheWorld2  .name").val(row.nickname)
+		
+		$("#eatTheWorld2  .role").attr("disabled","true")
+        $("#eatTheWorld2  .logname").val(row.username)
+        $("#eatTheWorld2  .password").val(row.password)
+		$("#eatTheWorld2 .realname").val(row.realname)
+		$("#eatTheWorld2  .idcard").val(row.identityNumber)
+        $("#eatTheWorld2  .phone").val(row.phoneNumber)
+        
+		$("#eatTheWorld2").css("display","block")
+	    $("#999").on("click",function () {
+            $("#eatTheWorld2").hide()
+   })
+		},
+    'click .delete':function (e,value,row,index) {
+        DELETE_ARR.push(row.id)
+    },
+    'click .zhankai1': function (e, value, row, index){
+        var srcfront;
+        var v = document.getElementById('divCenter');
+        if(row.idCardImgs!=null) {
+            if(row.idCardImgs.front!=null){
+                srcfront = row.idCardImgs.front;
+                v.style.display = "block";
+                document.getElementById("carpic3").src=srcfront;
+
+            }else {
+                srcfront =1
+
+            }
+
+        }else {
+            srcfront = 1;
+        }
+    },
+    'click .zhankai2': function (e, value, row, index){
+        var srcback;
+        var v = document.getElementById('divCenter');
+        if(row.idCardImgs!=null) {
+            if(row.idCardImgs.back!=null){
+                srcback = row.idCardImgs.back;
+                v.style.display = "block";
+                document.getElementById("carpic3").src=srcback;
+
+            }else {
+                srcback =1
+
+            }
+        }else {
+
+            srcback = 1;
+
+        }
+    },
+    'click .zhankai3': function (e, value, row, index){
+        var srchand;
+        var v = document.getElementById('divCenter');
+        if(row.idCardImgs!=null) {
+            if(row.idCardImgs.hand!=null){
+                srchand = row.idCardImgs.hand;
+                v.style.display = "block";
+                document.getElementById("carpic3").src=srchand;
+            }else {
+                srchand =1
+
+            }
+        }else {
+            srchand = 1;
+        }
+    }
+    };
+	 $.ajax({
+       url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3",
+       method: "get",
+       contentType: "application/json; charset=utf-8",
+       cache: false,
+       beforeSend: function (xhr) {
+           /* Authorization header */
+           xhr.setRequestHeader("firm", sessionStorage.flag);
+           xhr.setRequestHeader("Authorization", sessionStorage.token);
+       },
+       success: function (data) {
+           app = new Vue({
+               el: '#app',
+               data: {message: data.list
+               },
+               methods:{
+                   online:function (index,id,ev) {
+                       for(var i=0;i<document.getElementsByClassName("hoverE").length;i++){
+                           document.getElementsByClassName("hoverE")[i].style.background="white"
+                           document.getElementsByClassName("hoverE")[i].style.color="#999"
+                       }
+                       console.log(id)
+                       id1=id
+ev.target.style.background="#d1c9c9" 
+                       ev.target.style.color="white"
+                   }
+               }
+           })
+       },
+       error: function (jqXHR, textStatus, errorThrown) {
+           console.log("失败")
+           console.log(jqXHR); 
+       }
+   });	 //list
+
+
+     var shape={
+        a:0,
+       next:function (e,newValue,event) {
+           e.lastElementChild.className=''
+           var li=document.createElement('li')
+             li.className='active'
+            li.innerHTML=`<a>${newValue}</a>`
+           li.onclick=event
+           e.appendChild(li)
+       },
+        last:function (e) {
+            if(!e.lastElementChild.lastElementChild) return
+         e.removeChild(e.lastElementChild )
+        }
+
+    }
+
+    function zhankaiPic1(){
+        var v = document.getElementById('divCenter');
+        v.style.display = "block";
+        document.getElementById("carpic3").src=srcfront;
+    }
+    function zhankaiPic2(){
+        var v = document.getElementById('divCenter');
+        v.style.display = "block";
+        document.getElementById("carpic3").src=srcback;
+    }
+    function zhankaiPic3(){
+        var v = document.getElementById('divCenter');
+        v.style.display = "block";
+        document.getElementById("carpic3").src=srchand;
+    }
+    function picClose() {
+        var v = document.getElementById('divCenter');
+        v.style.display = "none";
+    }
+    function deteleOdd(arr) {
+
+       function QC(arr) {
+           var s = [];
+//遍历数组
+           for(var i = 0;i<arr.length;i++){
+               if(s.indexOf(arr[i]) == -1){  //判断在s数组中是否存在，不存在则push到s数组中
+                   s.push(arr[i]);
+               }
+           }
+           return s
+       }
+       var odd=[]
+       var  s=QC(arr)
+
+       for (var i = 0; i < s.length; i++) {
+           var add=[]
+           for (var k = 0; k < arr.length; k++) {
+               if(s[i]==arr[k]){
+                   add.push(arr[k])
+               }
+
+           }
+           if(add.length%2!==0){
+               odd.push(s[i])
+           }
+       }
+
+       return odd
+   }
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) ;
+    }
+/*timer=setInterval(function () {
+     $table.bootstrapTable("refresh",{silent: true})
+    },50000)*/
+    $(window).resize(function () {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    $("#deletuser").on('click',function () {
+
+        if(deteleOdd(DELETE_ARR).length==0){
+
+            alert("请先选中要删除的用户")
+            return
+        }
+        if (confirm('您确定要删除已选用户吗?')) {
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users/",
+            contentType: "application/json; charset=utf-8",
+            method: "delete",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+            data:JSON.stringify(deteleOdd(DELETE_ARR)),
+            success: function (res) {
+                console.log("成功")
+                alert("用户删除成功")
+                $table.bootstrapTable("refresh",{silent: true})
+            },
+            error: function (err) {
+                if(err.status==403) alert("您没有权限执行此操作")
+				var json=JSON.parse(err.responseText);  
+                alert(json.error.msg); 
+            }
+        });
+}
+
+   else{
+   
+            }
+    });
+    initTable();
+    console.log(des);
+    
+	$(".searchWD").on("click",function () {      //wd
+        var a=$(".selpr").val()?"&province="+$(".selpr").val():"";
+        var b=$(".selci").val()?"&city="+$(".selci").val():"";
+		var c=$(".selco").val()?"&county="+$(".selco").val():"";
+       console.log("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3"+a+b+c);
+		  $.ajax({
+			url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3"+a+b+c+"&limit=900&page=1",
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (data) {
+            console.log(data);
+                $(".removeD").remove();
+                var d=document.getElementById("app1");
+                for(var  i=0;i<data.list.length;i++){
+                 var li=document.createElement("li");
+                 var a=document.createElement("a");
+                    a.className="hoverE";
+                    li.className="removeD";
+                    li.index=data.list[i].id;
+                    li.appendChild(a)
+                    d.appendChild(li)
+                    li.onclick=function (ev) {
+                        for(var i=0;i<document.getElementsByClassName("hoverE").length;i++){
+                            document.getElementsByClassName("hoverE")[i].style.background="white"
+                        }
+                        ev.target.style.background="#d1c9c9";
+                        id1=this.index
+                    };
+                    a.innerHTML=data.list[i].name+"("+data.list[i].address+")"
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败");
+                console.log(jqXHR);
+            }
+        });
+
+	   });
+    $("#wrap-btn-off").on("click",function () {
+    $("#wrap").hide()
+   });
+
+    $("#add1").unbind('click').on("click",function () {
+
+        var name=$("#eatTheWorld  .ename").val()
+        var logname=$("#eatTheWorld  .elogname").val();
+        var pass=$("#eatTheWorld  .epassword").val();
+		var real=$("#eatTheWorld  .erealname").val();
+		var idcard=$("#eatTheWorld  .eidcard").val();
+        var phonenum=$("#eatTheWorld  .ephone").val();
+       
+  var senddata={
+				"nickname":name,
+				"username":logname,
+				"password":pass,
+				"realname":real,
+				"identityNumber":idcard,
+				"phoneNumber":phonenum
+				
+				};
+				console.log(senddata);
+     $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users/",
+			type:'POST',
+            data: JSON.stringify(senddata),
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+      
+            success: function (res) {
+                console.log("成功");
+				alert("新增用户成功");
+				$table.bootstrapTable("refresh",{silent: true});
+				 $("#eatTheWorld").hide()
+            },
+            error: function (err) {
+				if(err.status==403) alert("您没有权限执行此操作");
+				alert("新增失败");
+                console.log(err)
+				 
+            }
+        });
+    });
+	    $("#revise").on("click",function () {
+        var id=$("#eatTheWorld2  .userid").html();
+        var a=$("#eatTheWorld2  .name").val();
+        var c=$("#eatTheWorld2  .logname").val();
+        var d=$("#eatTheWorld2  .password").val();
+		var e=$("#eatTheWorld2 .realname").val();
+		var f=$("#eatTheWorld2  .idcard").val();
+        var g=$("#eatTheWorld2  .phone").val();
+        var h=$("#eatTheWorld2  .mail").val();
+        var data={
+            "nickname":a,
+            "username":c,
+            "password":d,
+            "realname":e,
+            "identityNumber":f,
+            "phoneNumber":g,
+            "email":h
+        }
+        console.log(data)
+		var form = new FormData();
+  form.append("nickname",a);
+  form.append("username",c);
+  form.append("password",d);
+  form.append("realname",e);
+  form.append("identityNumber",f);
+  form.append("phoneNumber",g);
+  form.append("email",h);
+  
+     $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users/update/"+id,
+			
+            method: "post",
+			data:form,
+		    processData:false,
+		    contentType:false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+      
+            success: function (res) {
+                console.log("成功")
+				alert("修改成功")
+				$table.bootstrapTable("refresh",{silent: true})
+				 $("#eatTheWorld2").hide()
+            },
+            error: function (err) {
+				if(err.status==403) alert("您没有权限执行此操作")
+				
+                console.log(err)
+				
+                var json=JSON.parse(err.responseText);  
+                alert(json.error.msg);  
+            }
+        });
+    })
+	 $(".searchCcu").on("click",function () {
+ console.log("cjl3.rokyinfo.net:7200/api-user/v3.1/users?filter="+$(".searchResult").val())
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users?filter="+$(".searchResult").val(),
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function (xhr) {
+                /* Authorization header */
+                xhr.setRequestHeader("firm", sessionStorage.flag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (data) {
+                $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-user/v3.1/users?filter="+$(".searchResult").val(),pageNumber:1,pageSize:20});
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败")
+                console.log(jqXHR);
+            }
+        });
+
+
+    })
+</script>
+
+<script src="js/distpicker.data.js"></script>
+<script src="js/distpicker.js"></script>
+<script src="js/main.js"></script>
+</html>

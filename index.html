@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title id="title">后台管理系统</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="css/bootstrap-editable.css">
+    <link rel="stylesheet" href="assets/index.css">
+    <script src="js/vue1.js"></script>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min1.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
+    <!-- bootstrap-datetimepicker插件CSS-->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="js/bootstrap-table-zh-CN.min.js"></script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <![endif]-->
+    <style>
+        body{  font-family: "Microsoft YaHei","微软雅黑 Light","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; font-size:13px;}
+        .like{
+            width: 20%;
+            height: 30%;
+        }
+        .smallImg{
+            width: 30px;
+            height: 30px;
+        }
+        .red{
+            color: #FF0000
+        }
+        .green{
+            color:#20d44a
+        }
+        .yellow{
+            color:#FF9200
+        }
+        .orange{
+            color:#FF7100}
+        .nowwrp1{
+            overflow: hidden;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            width:90px;
+
+        }
+        .nowwrp{
+            white-space: nowrap;
+
+        }
+        .wrap-btn{
+            background: red;
+
+        }
+        .nav>li>a{
+            color:#999;
+            font-size:16px;
+			font-weight:400;}
+        .nav>li>a:hover{
+
+            background:none;
+        }
+        .nav>li>a:focus{
+            color:#FFF;
+            background:none;
+        }
+        .navbar-inverse .navbar-nav>li>a {
+            color: #9d9d9d;
+            font-size: 18px;
+        }
+        .nav{
+            -ms-overflow-y:scroll;}
+
+        .nav-pills{
+            -ms-overflow-y:scroll;}
+        .nav-stacked{
+            -ms-overflow-y:scroll;}
+        .nav nav-pills nav-stacked{
+            -ms-overflow-y:scroll;}
+
+        .my-container {
+            float: left;
+            display: inline-block;
+            margin-right:30px;
+            margin-top: -15px;
+        }
+
+        .myLabel-content ,.myText-content,.myBtn-content{
+            float: left;
+            display: inline-block;
+
+        }
+        .myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
+            height: 34px;
+
+        }
+        .myBtn-content .btn {
+            margin-bottom: 10px;
+        }
+        .btn-default {
+            margin-top: -4px;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="name">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="">
+        <div class="navbar-header;">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!--<li  class="dropdown" ><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"  style="margin-left:10%;    white-space: nowrap;"  id="navbarID" >{{navname}}</a>-->
+                    <!--<ul class="dropdown-menu" style="margin-left: 10%; width: 280px;" >-->
+                        <!--<li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a></li>-->
+                        <!---->
+                    <!--</ul>-->
+
+                <!--</li>-->
+
+
+
+
+
+
+                <li  v-for="(item,index)  in  tabName" style="margin-left: 2px;">
+                    <a href="#" class="whitelist" @click="changeIndex($event,index)">{{item}}</a></li>
+
+
+
+
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!------------------------------------------------------------------------------------------->
+
+<iframe :src="index" style="height: 100vh;width: 100%;z-index: -1;"  id="ifr" ></iframe>
+</div>
+
+</body>
+
+<script>
+
+
+    sessionStorage.Vname=0
+    var nameindex=0
+    var name = new Vue({
+        el: '#name',
+        data() {
+            return{message: JSON.parse(sessionStorage.name),
+                navname:"车精灵智能后台管理系统",
+                index:"map.html",
+                tabName:["地图展示","电池列表","电池管理","网点列表","网点管理","支付列表","用户列表"]
+
+            }
+        },
+        mounted(){
+            document.getElementsByClassName("whitelist")[0].style.color="white"
+            this.navname=this.message[0].name
+        },
+        methods:{
+            changeName:function (index) {
+                this.navname=this.message[index].name;
+                sessionStorage.Vname=index;
+                document.getElementById("ifr").src=document.getElementById("ifr").src
+                console.log(this.navname)
+            },
+            changeIndex:function (e,index) {
+console.log(index);
+                for(var i=0;i<document.getElementsByClassName("whitelist").length;i++){
+                    document.getElementsByClassName("whitelist")[i].style.color="#9d9d9d"
+                }
+
+                e.target.style.color="white";
+				if(e.target.innerHTML=="地图展示"){
+                    this.index="map.html"
+                }
+                if(e.target.innerHTML=="网点管理"){
+                    this.index="wangdian.html"
+                }
+                if(e.target.innerHTML=="网点列表"){
+                    this.index="storelist.html"
+                }
+                if(e.target.innerHTML=="电池列表"){
+                    this.index="status.html"
+                }
+                if(e.target.innerHTML=="支付列表"){
+                    this.index="order.html"
+                }
+				if(e.target.innerHTML=="用户列表"){
+                    this.index="userlist.html"
+                }
+				if(e.target.innerHTML=="电池管理"){
+                    this.index="cheliang2.html"
+                }
+
+
+
+            }
+        }
+    })
+
+</script>
+
+</html>

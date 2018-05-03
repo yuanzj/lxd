@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title id="title">后台管理系统</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="assets/index.css">
+    <script src="assets/index.js"></script>
+    <script src="js/vue1.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min1.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <![endif]-->
+    <style>
+        body{  font-family: "Microsoft YaHei","微软雅黑 Light","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; font-size:13px;}
+        .like{
+            width: 20%;
+            height: 30%;
+        }
+        .smallImg{
+            width: 30px;
+            height: 30px;
+        }
+        .red{
+            color: #FF0000
+        }
+        .green{
+            color:#20d44a
+        }
+        .yellow{
+            color:#FF9200
+        }
+        .orange{
+            color:#FF7100}
+        .nowwrp1{
+            overflow: hidden;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            width:90px;
+
+        }
+        .nowwrp{
+            white-space: nowrap;
+
+        }
+        .wrap-btn{
+            background: red;
+
+        }
+        .nav>li>a{
+            font-size:16px;
+            font-weight:400;}
+        .nav>li>a:hover{
+
+            background:none;
+        }
+        .nav>li>a:focus{
+            color:#FFF;
+            background:none;
+        }
+        .navbar-inverse .navbar-nav>li>a {
+            color: #9d9d9d;
+            font-size: 18px;
+        }
+        .nav{
+            -ms-overflow-y:scroll;}
+
+        .nav-pills{
+            -ms-overflow-y:scroll;}
+        .nav-stacked{
+            -ms-overflow-y:scroll;}
+        .nav nav-pills nav-stacked{
+            -ms-overflow-y:scroll;}
+
+        .my-container {
+            float: left;
+            display: inline-block;
+            margin-right:30px;
+            margin-top: -15px;
+        }
+
+        .myLabel-content ,.myText-content,.myBtn-content{
+            float: left;
+            display: inline-block;
+
+        }
+        .myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
+            height: 34px;
+
+        }
+        .myBtn-content .btn {
+            margin-bottom: 10px;
+        }
+        .btn-default {
+
+
+        }
+        .navli:hover{
+            background: #ccc;
+            color: white;
+        }
+        .nav-tabs>li>a{
+            font-size: 14px;
+        }
+        /*.topinline{height: 60px;*/
+        /*}*/
+        .content{
+            top: 50px;
+        }
+    </style>
+</head>
+<body >
+<div id="wrap-show"></div>
+<!--网点-->
+<div id="wrap" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
+    <div style="width: 800px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">网点列表</p>
+    </div>
+    <div style="width: 800px;height: 480px;background: #FFF;margin: 0 auto;opacity: 1">
+        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span></p>
+
+        <div data-toggle="distpicker"  class="form-group form-inline">
+            <select data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 20px;"></select>
+            <select data-city="---- 选择市 ----" class="form-control selci" ></select>
+            <select data-district="---- 选择区 ----" class="form-control selco" ></select>
+            <button type="button" class="btn btn-default searchWD2" style="margin-top: 0px;" >筛选</button>
+        </div>
+        <div id="app" >
+            <label  style="display: block;margin-top: 0px" >
+                <ul class="nav nav-pills nav-stacked" style="overflow-y: scroll;-ms-overflow-y:scroll; height:300px;" id="app1">
+                    <li  v-for="(item,index) in message"  style="font-size:15px; font-weight:400;" class="removeD"><a  @click="online(index,item.id,$event)"  class="hoverE">{{item.name}}({{item.address}})</a></li>
+                </ul>
+            </label>
+        </div>
+
+        <div style="float: right;margin-top: 10px;margin-right: 45px">
+            <button type="button" class="btn btn-default  "  id="wrap-btn-on" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:10px;">确定</button>
+            <!--  提示框-->
+            <button type="button" class="btn btn-default " id="wrap-btn-off" style="width: 100px;display: inline-block;float: right">取消</button>
+        </div>
+    </div>
+</div>
+<!--删除-->
+<div id="wrap-delet" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
+    <div style="width: 450px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">删除车辆</p>
+    </div>
+    <div style="width: 450px;height: 150px;background: #FFF;margin: 0 auto;opacity: 1">
+        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否确认取消车辆&nbsp;<span class="carNumber2">{{carid}}</span>&nbsp;的分配</p>
+
+        <div style="float: right;margin-top: 50px;margin-right: 25px">
+            <button type="button" class="btn btn-default " id="222" style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">是</button>
+            <button type="button" class="btn btn-default " id="111" style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">否</button>
+        </div>
+    </div>
+</div>
+
+<!-- Fixed navbar -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="">
+        <div class="navbar-header;">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li  class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"  style="margin-left: 10%; width: 280px;"  id="navbarID" >{{navname}}</a>
+                    <ul class="dropdown-menu" style="margin-left: 10%; width: 300px;">
+                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a></li>
+
+
+                    </ul>
+
+                </li>
+
+
+
+
+
+                <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
+                <li ><a href="index.html">车况列表</a></li>
+                <li id="tabOption"><a href="cheliang.html">车辆管理</a></li>
+                <li ><a href="wangdian.html">网点管理</a></li>
+                <li><a href="#">用户管理</a></li>
+
+
+
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="content">
+    <div class="container" style="width:97%;height: 100%">
+            <div  style="margin-top: 10px;padding-left: 0;padding-right: 0;">
+                <ul class="nav nav-tabs" id="mytabs">
+                    <li class="active" ><a href="chnormal.html" target="myFrame2">正常属性设备</a></li>
+                    <li><a href="chabnormal.html" target="myFrame2">异常属性设备</a></li>
+                    <li><a href="chquit.html" target="myFrame2">退库属性设备</a></li>
+                </ul>
+            </div>
+        <iframe id="myFrame2" name="myFrame2" src="chnormal.html" style="width: 100%;height: 100%;"></iframe>
+    </div>
+</div>
+
+
+
+</body>
+<!--/jquery.文件-->
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script type="text/javascript" src="js/moment.js"></script>
+<!-- 最新的 Bootstrap 核心 Moment文件 -->
+<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+<!-- 最新的 Bootstrap 核心 DateTime文件 -->
+
+<script>
+
+    $(function(){
+
+    $("#mytabs li").click(function() {
+        $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
+
+        $(this).addClass('active');                            // 添加当前元素的样式
+
+    });
+
+});
+</script>
+<script src="js/main.js"></script>
+</html>
