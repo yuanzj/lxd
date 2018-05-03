@@ -69,6 +69,11 @@
         <option selected = "selected" value="0">---二级渠道---</option>
 
     </select>
+    <select type="text" class="form-control zulinse" id="zulinse" style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
+        <option selected = "selected" value="0">-选择租赁状态-</option>
+        <option value="1">已租</option>
+        <option value="3">未租</option>
+    </select>
     <button type="button" data-title="搜索" class="btn btn-default glyphicon glyphicon-search searchDQ" style="box-shadow:0 0 10px rgba(0,0,0,0.32);color: #fff;border: 1px solid #2e77e5;background-color: #2e77e5;"></button>
 
 </div>
@@ -156,7 +161,6 @@
                         map.clearOverlays();
                         addstoremarker()
                     }
-                    console.log(url)
 
                 }
             });
@@ -493,304 +497,6 @@
             console.log(jqXHR);
         }
     });
-    $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=2&page=1&limit=1000",
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            cache: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data1) {
-                var listdata=data1.list;
-                $(".map").removeAttr('disabled');
-                $(".map").html("地图");
-
-                function translateOne(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//已租移动
-                function translateTwo(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//未租移动
-                function translateThree(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//已租静止
-                function translateFour(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//未租静止
-
-                for (var i = 0; i < listdata.length; i++) {
-                    var mapsn = listdata[i]['ccuSn'];
-                    var mapgg = listdata[i]['productEntity']['name'];
-                    var mapwd = listdata[i]['storeName'];
-                    var mapdz = listdata[i]['address'];
-                    var mapxm;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['realname']==null){
-                            mapxm = "无";
-                        }else {
-                            mapxm = listdata[i]['owner']['realname'];
-                        }
-                    }else {
-                        mapxm = "无"
-                    }
-                    var maplx;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['phoneNumber']==null){
-                            maplx = "无";
-                        }else {
-                            maplx = listdata[i]['owner']['phoneNumber'];
-                        }
-                    }else {
-                        maplx = "无"
-                    }
-                    var mapzq;
-                    if(listdata[i]['usedDays']==null){
-                        mapzq = "无"
-                    }else {
-                        mapzq = listdata[i]['usedDays'];
-                    }
-                    var mapyxq = listdata[i]['surplusTime'];
-                    var mapjy;
-                    if(listdata[i]['gear']==17){
-                        mapjy="禁用"
-                    }else if (listdata[i]['gear']==34){
-                        mapjy="启用"
-                    }else {
-                        mapjy=""
-                    }
-                    var mapzt;
-                    if (listdata[i]['status']==3){
-                        mapzt="移动"
-                    }else {
-                        mapzt="静止"
-                    }
-                    var mapdy = listdata[i]['voltageString'];
-                    var mapdl = listdata[i]['bmsSoc'];
-                    var maplc = listdata[i]['odo'];
-                    var mapjrlc = listdata[i]['dayOdo'];
-                    var mapgx = listdata[i]['reportTime'];
-                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
-                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
-                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
-                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
-                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
-                        +'更新时间：'+mapgx;
-                        if(listdata[i]['lon']&&listdata[i].status==3) {
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var stnm = listdata[i]['bmsSoc'];
-                            var convertor = new BMap.Convertor();
-                            var pointArr = [];
-                            pointArr.push(point);
-
-                            translateOne(pointArr, stnm, text);
-                        }
-                        else if(listdata[i]['lon']&&listdata[i].status!=3){
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var stnm = listdata[i]['bmsSoc'];
-                            var convertor = new BMap.Convertor();
-                            var pointArr = [];
-                            pointArr.push(point);
-
-                            translateThree(pointArr, stnm,text);
-                        }
-
-
-                }
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
     $.ajax({
             url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=3&page=1&limit=1000",
             method: "get",
@@ -1139,15 +845,9 @@
                 var listdata=data1.list;
 
                 function translateOne(pointArr) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/map_pins.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            map.addOverlay(marker);
-                        }
-                    });
+                        var myIcond = new BMap.Icon("./img/ebike_store.png", new BMap.Size(30,60));
+                        var marker = new BMap.Marker(pointArr[0],{icon:myIcond});
+                        map.addOverlay(marker);
                 }
 
                 for (var i = 0; i < listdata.length; i++) {
@@ -1157,8 +857,6 @@
                         var convertor = new BMap.Convertor();
                         var pointArr = [];
                         pointArr.push(point);
-
-
                         translateOne(pointArr);
                     }
 
@@ -1177,305 +875,6 @@
         map.clearOverlays();
         $.ajax({
             url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=1&page=1&limit=1000",
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            async: false,
-            cache: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data1) {
-                var listdata=data1.list;
-                $(".map").removeAttr('disabled');
-                $(".map").html("地图");
-
-                function translateOne(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//已租移动
-                function translateTwo(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//未租移动
-                function translateThree(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//已租静止
-                function translateFour(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
-                                });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//未租静止
-
-                for (var i = 0; i < listdata.length; i++) {
-                    var mapsn = listdata[i]['ccuSn'];
-                    var mapgg = listdata[i]['productEntity']['name'];
-                    var mapwd = listdata[i]['storeName'];
-                    var mapdz = listdata[i]['address'];
-                    var mapxm;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['realname']==null){
-                            mapxm = "无";
-                        }else {
-                            mapxm = listdata[i]['owner']['realname'];
-                        }
-                    }else {
-                        mapxm = "无"
-                    }
-                    var maplx;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['phoneNumber']==null){
-                            maplx = "无";
-                        }else {
-                            maplx = listdata[i]['owner']['phoneNumber'];
-                        }
-                    }else {
-                        maplx = "无"
-                    }
-                    var mapzq;
-                    if(listdata[i]['usedDays']==null){
-                        mapzq = "无"
-                    }else {
-                        mapzq = listdata[i]['usedDays'];
-                    }
-                    var mapyxq = listdata[i]['surplusTime'];
-                    var mapjy;
-                    if(listdata[i]['gear']==17){
-                        mapjy="禁用"
-                    }else if (listdata[i]['gear']==34){
-                        mapjy="启用"
-                    }else {
-                        mapjy=""
-                    }
-                    var mapzt;
-                    if (listdata[i]['status']==3){
-                        mapzt="移动"
-                    }else {
-                        mapzt="静止"
-                    }
-                    var mapdy = listdata[i]['voltageString'];
-                    var mapdl = listdata[i]['bmsSoc'];
-                    var maplc = listdata[i]['odo'];
-                    var mapjrlc = listdata[i]['dayOdo'];
-                    var mapgx = listdata[i]['reportTime'];
-                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
-                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
-                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
-                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
-                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
-                        +'更新时间：'+mapgx;
-                        if(listdata[i]['lon']&&listdata[i].status==3) {
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var stnm = listdata[i]['bmsSoc'];
-                            var convertor = new BMap.Convertor();
-                            var pointArr = [];
-                            pointArr.push(point);
-
-
-                            translateOne(pointArr, stnm, text);
-                        }
-                        else if(listdata[i]['lon']&&listdata[i].status!=3){
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var stnm = listdata[i]['bmsSoc'];
-                            var convertor = new BMap.Convertor();
-                            var pointArr = [];
-                            pointArr.push(point);
-
-                            translateThree(pointArr, stnm,text);
-                        }
-
-
-                }
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
-        $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=2&page=1&limit=1000",
             method: "get",
             contentType: "application/json; charset=utf-8",
             async: false,
@@ -2074,346 +1473,56 @@
         });
     }
     $(".searchDQ").on("click",function () {
+        var myselect4 = document.getElementById("zulinse");
+        var index4 = myselect4.selectedIndex;
+        zulin = myselect4.options[index4].value;
+        console.log(zulin);
+        if (zulin == "0") {
+
         map.clearOverlays();
-      var url;
-      var a=$(".selpr").val();
+        var url;
+        var a = $(".selpr").val();
+        var b = $(".selci").val();
+        var c = $(".selco").val();
 
-      var b=$(".selci").val();
-      var c=$(".selco").val();
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
+        var myselect2 = document.getElementById("guigese");
+        var index2 = myselect2.selectedIndex;
+        idstore2 = myselect2.options[index2].value;
+        var myselect2 = document.getElementById("guigese");
+        var index2 = myselect2.selectedIndex;
+        idstore2 = myselect2.options[index2].value;
 
-      var myselect=document.getElementById("sectionName-s");
-      var index=myselect.selectedIndex ;
-      idstore1=myselect.options[index].value;
-      var myselect2=document.getElementById("guigese");
-      var index2=myselect2.selectedIndex ;
-      idstore2=myselect2.options[index2].value;
-      url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&sort=ue.end_time,desc";
-      if(a==""){
-          url=url
-      }else {
-          url=url+"&province="+a
-      }
-        if(b==""){
-            url=url
-        }else {
-            url=url+"&city="+b
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&sort=ue.end_time,desc";
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
         }
-        if(c==""){
-            url=url
-        }else {
-            url=url+"&county="+c
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
         }
-      if(idstore1=="0"){
-          url=url
-      }else {
-          if(idstore2=="0"){
-              url=url+"&dealerId="+idstore1
-          }else {
-              url = url+"&storeId="+idstore2
-          }
-      }
-      console.log(url);
-      $.ajax({
-          url: url+"&storeTypes=0,40&filterType=1",
-          method: "get",
-          contentType: "application/json; charset=utf-8",
-          cache: false,
-          beforeSend: function (xhr) {
-              /* Authorization header */
-              xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-              xhr.setRequestHeader("Authorization", sessionStorage.token);
-          },
-          success: function (data1) {
-
-
-              var listdata=data1.list;
-              $(".map").removeAttr('disabled');
-              $(".map").html("地图");
-
-              function translateOne(pointArr, stnm,text) {
-                  convertor.translate(pointArr, 1, 5, function(data) {
-                      var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                      if (data.status === 0) {
-                          var geoc = new BMap.Geocoder();
-
-                          var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                          var labelStyle = {
-                              color: "#31c065",
-                              fontFamily:"微软雅黑",
-                              border:"none",
-                              background:"transparent",
-                              fontWeight:"bold"
-                          };
-                          switch((stnm + '').length) {
-                              case 1:
-                                  labelStyle.fontSize = "14px";
-                                  offsetSize = new BMap.Size(7, 3);
-                                  break;
-                              case 2:
-                                  labelStyle.fontSize = "12px";
-                                  offsetSize = new BMap.Size(3, 3);
-                                  break;
-                              case 3:
-                                  labelStyle.fontSize = "10px";
-                                  offsetSize = new BMap.Size(0, 3);
-                                  break;
-                              default:
-                                  break;
-                          }
-                          var label = new BMap.Label(stnm, {offset: offsetSize
-                          });
-
-                          label.setStyle(labelStyle);
-                          marker.setLabel(label);
-                          map.addOverlay(marker);
-
-                          marker.addEventListener("click", function () {
-                              var addre;
-                              geoc.getLocation(data.points[0], function(rs){
-                                  var addComp = rs.addressComponents;
-                                  addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                  $('#dizhi').html(addre)
-
-                              });
-                              var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                              this.openInfoWindow(infoWindow); });
-                      }
-                  });
-              }//已租移动
-              function translateTwo(pointArr, stnm,text) {
-                  convertor.translate(pointArr, 1, 5, function(data) {
-                      var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                      if (data.status === 0) {
-                          var geoc = new BMap.Geocoder();
-                          var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                          var labelStyle = {
-                              color: "#31c065",
-                              fontFamily:"微软雅黑",
-                              border:"none",
-                              background:"transparent",
-                              fontWeight:"bold"
-                          };
-                          switch((stnm + '').length) {
-                              case 1:
-                                  labelStyle.fontSize = "14px";
-                                  offsetSize = new BMap.Size(7, 3);
-                                  break;
-                              case 2:
-                                  labelStyle.fontSize = "12px";
-                                  offsetSize = new BMap.Size(3, 3);
-                                  break;
-                              case 3:
-                                  labelStyle.fontSize = "10px";
-                                  offsetSize = new BMap.Size(0, 3);
-                                  break;
-                              default:
-                                  break;
-                          }
-                          var label = new BMap.Label(stnm, {offset: offsetSize
-                          });
-
-                          label.setStyle(labelStyle);
-                          marker.setLabel(label);
-                          map.addOverlay(marker);
-                          marker.addEventListener("click", function () {
-                              var addre;
-                              geoc.getLocation(data.points[0], function(rs){
-                                  var addComp = rs.addressComponents;
-                                  addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                  $('#dizhi').html(addre)
-
-                              });
-                              var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                              this.openInfoWindow(infoWindow); });
-                      }
-                  });
-              }//未租移动
-              function translateThree(pointArr, stnm,text) {
-                  convertor.translate(pointArr, 1, 5, function(data) {
-                      var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                      if (data.status === 0) {
-                          var geoc = new BMap.Geocoder();
-                          var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                          var labelStyle = {
-                              color: "#fff",
-                              fontFamily:"微软雅黑",
-                              border:"none",
-                              background:"transparent",
-                              fontWeight:"bold"
-                          };
-                          switch((stnm + '').length) {
-                              case 1:
-                                  labelStyle.fontSize = "14px";
-                                  offsetSize = new BMap.Size(7, 3);
-                                  break;
-                              case 2:
-                                  labelStyle.fontSize = "12px";
-                                  offsetSize = new BMap.Size(3, 3);
-                                  break;
-                              case 3:
-                                  labelStyle.fontSize = "10px";
-                                  offsetSize = new BMap.Size(0, 3);
-                                  break;
-                              default:
-                                  break;
-                          }
-                          var label = new BMap.Label(stnm, {offset: offsetSize
-                          });
-
-                          label.setStyle(labelStyle);
-                          marker.setLabel(label);
-                          map.addOverlay(marker);
-                          marker.addEventListener("click", function () {
-                              var addre;
-                              geoc.getLocation(data.points[0], function(rs){
-                                  var addComp = rs.addressComponents;
-                                  addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                  $('#dizhi').html(addre)
-
-                              });
-                              var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                              this.openInfoWindow(infoWindow); });
-                      }
-                  });
-              }//已租静止
-              function translateFour(pointArr, stnm,text) {
-                  convertor.translate(pointArr, 1, 5, function(data) {
-                      var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                      if (data.status === 0) {
-                          var geoc = new BMap.Geocoder();
-                          var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                          var labelStyle = {
-                              color: "#fff",
-                              fontFamily:"微软雅黑",
-                              border:"none",
-                              background:"transparent",
-                              fontWeight:"bold"
-                          };
-                          switch((stnm + '').length) {
-                              case 1:
-                                  labelStyle.fontSize = "14px";
-                                  offsetSize = new BMap.Size(7, 3);
-                                  break;
-                              case 2:
-                                  labelStyle.fontSize = "12px";
-                                  offsetSize = new BMap.Size(3, 3);
-                                  break;
-                              case 3:
-                                  labelStyle.fontSize = "10px";
-                                  offsetSize = new BMap.Size(0, 3);
-                                  break;
-                              default:
-                                  break;
-                          }
-                          var label = new BMap.Label(stnm, {offset: offsetSize
-                          });
-
-                          label.setStyle(labelStyle);
-                          marker.setLabel(label);
-                          map.addOverlay(marker);
-                          marker.addEventListener("click", function () {
-                              var addre;
-                              geoc.getLocation(data.points[0], function(rs){
-                                  var addComp = rs.addressComponents;
-                                  addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                  $('#dizhi').html(addre)
-
-                              });
-                              var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                              this.openInfoWindow(infoWindow); });
-                      }
-                  });
-              }//未租静止
-
-              for (var i = 0; i < listdata.length; i++) {
-                  var mapsn = listdata[i]['ccuSn'];
-                  var mapgg = listdata[i]['productEntity']['name'];
-                  var mapwd = listdata[i]['storeName'];
-                  var mapdz = listdata[i]['address'];
-                  var mapxm;
-                  if(listdata[i]['owner']!=null){
-                      if(listdata[i]['owner']['realname']==null){
-                          mapxm = "无";
-                      }else {
-                          mapxm = listdata[i]['owner']['realname'];
-                      }
-                  }else {
-                      mapxm = "无"
-                  }
-                  var maplx;
-                  if(listdata[i]['owner']!=null){
-                      if(listdata[i]['owner']['phoneNumber']==null){
-                          maplx = "无";
-                      }else {
-                          maplx = listdata[i]['owner']['phoneNumber'];
-                      }
-                  }else {
-                      maplx = "无"
-                  }
-                  var mapzq;
-                  if(listdata[i]['usedDays']==null){
-                      mapzq = "无"
-                  }else {
-                      mapzq = listdata[i]['usedDays'];
-                  }
-                  var mapyxq = listdata[i]['surplusTime'];
-                  var mapjy;
-                  if(listdata[i]['gear']==17){
-                      mapjy="禁用"
-                  }else if (listdata[i]['gear']==34){
-                      mapjy="启用"
-                  }else {
-                      mapjy=""
-                  }
-                  var mapzt;
-                  if (listdata[i]['status']==3){
-                      mapzt="移动"
-                  }else {
-                      mapzt="静止"
-                  }
-                  var mapdy = listdata[i]['voltageString'];
-                  var mapdl = listdata[i]['bmsSoc'];
-                  var maplc = listdata[i]['odo'];
-                  var mapjrlc = listdata[i]['dayOdo'];
-                  var mapgx = listdata[i]['reportTime'];
-                  var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
-                      +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
-                      +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
-                      +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-                      +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
-                      +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
-                      +'更新时间：'+mapgx;
-                      if(listdata[i]['lon']&&listdata[i].status==3) {
-                          var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                          var stnm = listdata[i]['bmsSoc'];
-                          var convertor = new BMap.Convertor();
-                          var pointArr = [];
-                          pointArr.push(point);
-
-
-                          translateOne(pointArr, stnm, text);
-                      }
-                      else if(listdata[i]['lon']&&listdata[i].status!=3){
-                          var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                          var stnm = listdata[i]['bmsSoc'];
-                          var convertor = new BMap.Convertor();
-                          var pointArr = [];
-                          pointArr.push(point);
-
-                          translateThree(pointArr, stnm,text);
-                      }
-
-
-              }
-
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-              console.log("失败");
-              console.log(jqXHR);
-          }
-      });
-      $.ajax({
-            url: url+"&storeTypes=0,40&filterType=2",
+        if (c == "") {
+            url = url
+        } else {
+            url = url + "&county=" + c
+        }
+        if (idstore1 == "0") {
+            url = url
+        } else {
+            if (idstore2 == "0") {
+                url = url + "&dealerId=" + idstore1
+            } else {
+                url = url + "&storeId=" + idstore2
+            }
+        }
+        console.log(url);
+        $.ajax({
+            url: url + "&storeTypes=0,40&filterType=1",
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -2425,25 +1534,25 @@
             success: function (data1) {
 
 
-                var listdata=data1.list;
+                var listdata = data1.list;
                 $(".map").removeAttr('disabled');
                 $(".map").html("地图");
 
-                function translateOne(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                function translateOne(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         if (data.status === 0) {
                             var geoc = new BMap.Geocoder();
 
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
                             var labelStyle = {
                                 color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
                             };
-                            switch((stnm + '').length) {
+                            switch ((stnm + '').length) {
                                 case 1:
                                     labelStyle.fontSize = "14px";
                                     offsetSize = new BMap.Size(7, 3);
@@ -2459,7 +1568,8 @@
                                 default:
                                     break;
                             }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
                             });
 
                             label.setStyle(labelStyle);
@@ -2468,31 +1578,32 @@
 
                             marker.addEventListener("click", function () {
                                 var addre;
-                                geoc.getLocation(data.points[0], function(rs){
+                                geoc.getLocation(data.points[0], function (rs) {
                                     var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                                     $('#dizhi').html(addre)
 
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
                         }
                     });
                 }//已租移动
-                function translateTwo(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                function translateTwo(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
                         if (data.status === 0) {
                             var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
                             var labelStyle = {
                                 color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
                             };
-                            switch((stnm + '').length) {
+                            switch ((stnm + '').length) {
                                 case 1:
                                     labelStyle.fontSize = "14px";
                                     offsetSize = new BMap.Size(7, 3);
@@ -2508,7 +1619,8 @@
                                 default:
                                     break;
                             }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
                             });
 
                             label.setStyle(labelStyle);
@@ -2516,31 +1628,32 @@
                             map.addOverlay(marker);
                             marker.addEventListener("click", function () {
                                 var addre;
-                                geoc.getLocation(data.points[0], function(rs){
+                                geoc.getLocation(data.points[0], function (rs) {
                                     var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                                     $('#dizhi').html(addre)
 
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
                         }
                     });
                 }//未租移动
-                function translateThree(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                function translateThree(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         if (data.status === 0) {
                             var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
                             var labelStyle = {
                                 color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
                             };
-                            switch((stnm + '').length) {
+                            switch ((stnm + '').length) {
                                 case 1:
                                     labelStyle.fontSize = "14px";
                                     offsetSize = new BMap.Size(7, 3);
@@ -2556,7 +1669,8 @@
                                 default:
                                     break;
                             }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
                             });
 
                             label.setStyle(labelStyle);
@@ -2564,31 +1678,32 @@
                             map.addOverlay(marker);
                             marker.addEventListener("click", function () {
                                 var addre;
-                                geoc.getLocation(data.points[0], function(rs){
+                                geoc.getLocation(data.points[0], function (rs) {
                                     var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                                     $('#dizhi').html(addre)
 
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
                         }
                     });
                 }//已租静止
-                function translateFour(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                function translateFour(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
                         if (data.status === 0) {
                             var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
                             var labelStyle = {
                                 color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
                             };
-                            switch((stnm + '').length) {
+                            switch ((stnm + '').length) {
                                 case 1:
                                     labelStyle.fontSize = "14px";
                                     offsetSize = new BMap.Size(7, 3);
@@ -2604,7 +1719,8 @@
                                 default:
                                     break;
                             }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
                             });
 
                             label.setStyle(labelStyle);
@@ -2612,14 +1728,15 @@
                             map.addOverlay(marker);
                             marker.addEventListener("click", function () {
                                 var addre;
-                                geoc.getLocation(data.points[0], function(rs){
+                                geoc.getLocation(data.points[0], function (rs) {
                                     var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                                     $('#dizhi').html(addre)
 
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
                         }
                     });
                 }//未租静止
@@ -2630,59 +1747,1016 @@
                     var mapwd = listdata[i]['storeName'];
                     var mapdz = listdata[i]['address'];
                     var mapxm;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['realname']==null){
+                    if (listdata[i]['owner'] != null) {
+                        if (listdata[i]['owner']['realname'] == null) {
                             mapxm = "无";
-                        }else {
+                        } else {
                             mapxm = listdata[i]['owner']['realname'];
                         }
-                    }else {
+                    } else {
                         mapxm = "无"
                     }
                     var maplx;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['phoneNumber']==null){
+                    if (listdata[i]['owner'] != null) {
+                        if (listdata[i]['owner']['phoneNumber'] == null) {
                             maplx = "无";
-                        }else {
+                        } else {
                             maplx = listdata[i]['owner']['phoneNumber'];
                         }
-                    }else {
+                    } else {
                         maplx = "无"
                     }
                     var mapzq;
-                    if(listdata[i]['usedDays']==null){
+                    if (listdata[i]['usedDays'] == null) {
                         mapzq = "无"
-                    }else {
+                    } else {
                         mapzq = listdata[i]['usedDays'];
                     }
                     var mapyxq = listdata[i]['surplusTime'];
                     var mapjy;
-                    if(listdata[i]['gear']==17){
-                        mapjy="禁用"
-                    }else if (listdata[i]['gear']==34){
-                        mapjy="启用"
-                    }else {
-                        mapjy=""
+                    if (listdata[i]['gear'] == 17) {
+                        mapjy = "禁用"
+                    } else if (listdata[i]['gear'] == 34) {
+                        mapjy = "启用"
+                    } else {
+                        mapjy = ""
                     }
                     var mapzt;
-                    if (listdata[i]['status']==3){
-                        mapzt="移动"
-                    }else {
-                        mapzt="静止"
+                    if (listdata[i]['status'] == 3) {
+                        mapzt = "移动"
+                    } else {
+                        mapzt = "静止"
                     }
                     var mapdy = listdata[i]['voltageString'];
                     var mapdl = listdata[i]['bmsSoc'];
                     var maplc = listdata[i]['odo'];
                     var mapjrlc = listdata[i]['dayOdo'];
                     var mapgx = listdata[i]['reportTime'];
-                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
-                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
-                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
-                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
-                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
-                        +'更新时间：'+mapgx;
-                        if(listdata[i]['lon']&&listdata[i].status==3) {
+                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;' + mapsn + '</br>' + '规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapgg + '</br>' + '网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapwd
+                        + '</br>' + '租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzq + '</br>'
+                        + '有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapyxq + '</br>' + '用户姓名：' + mapxm + '</br>' + '联系方式：' + maplx
+                        + '</br>' + '禁用状态：' + mapjy + '</br>' + '状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzt + '</br>' + '电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                        + mapdy + '</br>' + '电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapdl + '</br>' + '里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + maplc
+                        + 'km' + '</br>' + '今日里程：' + mapjrlc + 'km' + '</br>'
+                        + '更新时间：' + mapgx;
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var stnm = listdata[i]['bmsSoc'];
+                        var convertor = new BMap.Convertor();
+                        var pointArr = [];
+                        pointArr.push(point);
+
+
+                        translateOne(pointArr, stnm, text);
+                    }
+                    else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var stnm = listdata[i]['bmsSoc'];
+                        var convertor = new BMap.Convertor();
+                        var pointArr = [];
+                        pointArr.push(point);
+
+                        translateThree(pointArr, stnm, text);
+                    }
+
+
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败");
+                console.log(jqXHR);
+            }
+        });
+//      $.ajax({
+//            url: url+"&storeTypes=0,40&filterType=2",
+//            method: "get",
+//            contentType: "application/json; charset=utf-8",
+//            cache: false,
+//            beforeSend: function (xhr) {
+//                /* Authorization header */
+//                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+//                xhr.setRequestHeader("Authorization", sessionStorage.token);
+//            },
+//            success: function (data1) {
+//
+//
+//                var listdata=data1.list;
+//                $(".map").removeAttr('disabled');
+//                $(".map").html("地图");
+//
+//                function translateOne(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#31c065",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//已租移动
+//                function translateTwo(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#31c065",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//未租移动
+//                function translateThree(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#fff",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//已租静止
+//                function translateFour(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#fff",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//未租静止
+//
+//                for (var i = 0; i < listdata.length; i++) {
+//                    var mapsn = listdata[i]['ccuSn'];
+//                    var mapgg = listdata[i]['productEntity']['name'];
+//                    var mapwd = listdata[i]['storeName'];
+//                    var mapdz = listdata[i]['address'];
+//                    var mapxm;
+//                    if(listdata[i]['owner']!=null){
+//                        if(listdata[i]['owner']['realname']==null){
+//                            mapxm = "无";
+//                        }else {
+//                            mapxm = listdata[i]['owner']['realname'];
+//                        }
+//                    }else {
+//                        mapxm = "无"
+//                    }
+//                    var maplx;
+//                    if(listdata[i]['owner']!=null){
+//                        if(listdata[i]['owner']['phoneNumber']==null){
+//                            maplx = "无";
+//                        }else {
+//                            maplx = listdata[i]['owner']['phoneNumber'];
+//                        }
+//                    }else {
+//                        maplx = "无"
+//                    }
+//                    var mapzq;
+//                    if(listdata[i]['usedDays']==null){
+//                        mapzq = "无"
+//                    }else {
+//                        mapzq = listdata[i]['usedDays'];
+//                    }
+//                    var mapyxq = listdata[i]['surplusTime'];
+//                    var mapjy;
+//                    if(listdata[i]['gear']==17){
+//                        mapjy="禁用"
+//                    }else if (listdata[i]['gear']==34){
+//                        mapjy="启用"
+//                    }else {
+//                        mapjy=""
+//                    }
+//                    var mapzt;
+//                    if (listdata[i]['status']==3){
+//                        mapzt="移动"
+//                    }else {
+//                        mapzt="静止"
+//                    }
+//                    var mapdy = listdata[i]['voltageString'];
+//                    var mapdl = listdata[i]['bmsSoc'];
+//                    var maplc = listdata[i]['odo'];
+//                    var mapjrlc = listdata[i]['dayOdo'];
+//                    var mapgx = listdata[i]['reportTime'];
+//                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
+//                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
+//                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
+//                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+//                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
+//                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
+//                        +'更新时间：'+mapgx;
+//                        if(listdata[i]['lon']&&listdata[i].status==3) {
+//                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+//                            var stnm = listdata[i]['bmsSoc'];
+//                            var convertor = new BMap.Convertor();
+//                            var pointArr = [];
+//                            pointArr.push(point);
+//
+//
+//                            translateOne(pointArr, stnm, text);
+//                        }
+//                        else if(listdata[i]['lon']&&listdata[i].status!=3){
+//                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+//                            var stnm = listdata[i]['bmsSoc'];
+//                            var convertor = new BMap.Convertor();
+//                            var pointArr = [];
+//                            pointArr.push(point);
+//
+//                            translateThree(pointArr, stnm,text);
+//                        }
+//
+//
+//                }
+//
+//
+//            },
+//            error: function (jqXHR, textStatus, errorThrown) {
+//                console.log("失败");
+//                console.log(jqXHR);
+//            }
+//        });
+        $.ajax({
+            url: url + "&storeTypes=0,40&filterType=3",
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function (xhr) {
+                /* Authorization header */
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (data1) {
+
+
+                var listdata = data1.list;
+                $(".map").removeAttr('disabled');
+                $(".map").html("地图");
+
+                function translateOne(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                        if (data.status === 0) {
+                            var geoc = new BMap.Geocoder();
+
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                            var labelStyle = {
+                                color: "#31c065",
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
+                            };
+                            switch ((stnm + '').length) {
+                                case 1:
+                                    labelStyle.fontSize = "14px";
+                                    offsetSize = new BMap.Size(7, 3);
+                                    break;
+                                case 2:
+                                    labelStyle.fontSize = "12px";
+                                    offsetSize = new BMap.Size(3, 3);
+                                    break;
+                                case 3:
+                                    labelStyle.fontSize = "10px";
+                                    offsetSize = new BMap.Size(0, 3);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
+                            });
+
+                            label.setStyle(labelStyle);
+                            marker.setLabel(label);
+                            map.addOverlay(marker);
+
+                            marker.addEventListener("click", function () {
+                                var addre;
+                                geoc.getLocation(data.points[0], function (rs) {
+                                    var addComp = rs.addressComponents;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    $('#dizhi').html(addre)
+
+                                });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
+                        }
+                    });
+                }//已租移动
+                function translateTwo(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+                        if (data.status === 0) {
+                            var geoc = new BMap.Geocoder();
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                            var labelStyle = {
+                                color: "#31c065",
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
+                            };
+                            switch ((stnm + '').length) {
+                                case 1:
+                                    labelStyle.fontSize = "14px";
+                                    offsetSize = new BMap.Size(7, 3);
+                                    break;
+                                case 2:
+                                    labelStyle.fontSize = "12px";
+                                    offsetSize = new BMap.Size(3, 3);
+                                    break;
+                                case 3:
+                                    labelStyle.fontSize = "10px";
+                                    offsetSize = new BMap.Size(0, 3);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
+                            });
+
+                            label.setStyle(labelStyle);
+                            marker.setLabel(label);
+                            map.addOverlay(marker);
+                            marker.addEventListener("click", function () {
+                                var addre;
+                                geoc.getLocation(data.points[0], function (rs) {
+                                    var addComp = rs.addressComponents;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    $('#dizhi').html(addre)
+
+                                });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
+                        }
+                    });
+                }//未租移动
+                function translateThree(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                        if (data.status === 0) {
+                            var geoc = new BMap.Geocoder();
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                            var labelStyle = {
+                                color: "#fff",
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
+                            };
+                            switch ((stnm + '').length) {
+                                case 1:
+                                    labelStyle.fontSize = "14px";
+                                    offsetSize = new BMap.Size(7, 3);
+                                    break;
+                                case 2:
+                                    labelStyle.fontSize = "12px";
+                                    offsetSize = new BMap.Size(3, 3);
+                                    break;
+                                case 3:
+                                    labelStyle.fontSize = "10px";
+                                    offsetSize = new BMap.Size(0, 3);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
+                            });
+
+                            label.setStyle(labelStyle);
+                            marker.setLabel(label);
+                            map.addOverlay(marker);
+                            marker.addEventListener("click", function () {
+                                var addre;
+                                geoc.getLocation(data.points[0], function (rs) {
+                                    var addComp = rs.addressComponents;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    $('#dizhi').html(addre)
+
+                                });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
+                        }
+                    });
+                }//已租静止
+                function translateFour(pointArr, stnm, text) {
+                    convertor.translate(pointArr, 1, 5, function (data) {
+                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+                        if (data.status === 0) {
+                            var geoc = new BMap.Geocoder();
+                            var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                            var labelStyle = {
+                                color: "#fff",
+                                fontFamily: "微软雅黑",
+                                border: "none",
+                                background: "transparent",
+                                fontWeight: "bold"
+                            };
+                            switch ((stnm + '').length) {
+                                case 1:
+                                    labelStyle.fontSize = "14px";
+                                    offsetSize = new BMap.Size(7, 3);
+                                    break;
+                                case 2:
+                                    labelStyle.fontSize = "12px";
+                                    offsetSize = new BMap.Size(3, 3);
+                                    break;
+                                case 3:
+                                    labelStyle.fontSize = "10px";
+                                    offsetSize = new BMap.Size(0, 3);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            var label = new BMap.Label(stnm, {
+                                offset: offsetSize
+                            });
+
+                            label.setStyle(labelStyle);
+                            marker.setLabel(label);
+                            map.addOverlay(marker);
+                            marker.addEventListener("click", function () {
+                                var addre;
+                                geoc.getLocation(data.points[0], function (rs) {
+                                    var addComp = rs.addressComponents;
+                                    addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                    $('#dizhi').html(addre)
+
+                                });
+                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                this.openInfoWindow(infoWindow);
+                            });
+                        }
+                    });
+                }//未租静止
+
+                for (var i = 0; i < listdata.length; i++) {
+                    var mapsn = listdata[i]['ccuSn'];
+                    var mapgg = listdata[i]['productEntity']['name'];
+                    var mapwd = listdata[i]['storeName'];
+                    var mapdz = listdata[i]['address'];
+                    var mapxm;
+                    if (listdata[i]['owner'] != null) {
+                        if (listdata[i]['owner']['realname'] == null) {
+                            mapxm = "无";
+                        } else {
+                            mapxm = listdata[i]['owner']['realname'];
+                        }
+                    } else {
+                        mapxm = "无"
+                    }
+                    var maplx;
+                    if (listdata[i]['owner'] != null) {
+                        if (listdata[i]['owner']['phoneNumber'] == null) {
+                            maplx = "无";
+                        } else {
+                            maplx = listdata[i]['owner']['phoneNumber'];
+                        }
+                    } else {
+                        maplx = "无"
+                    }
+                    var mapzq;
+                    if (listdata[i]['usedDays'] == null) {
+                        mapzq = "无"
+                    } else {
+                        mapzq = listdata[i]['usedDays'];
+                    }
+                    var mapyxq = listdata[i]['surplusTime'];
+                    var mapjy;
+                    if (listdata[i]['gear'] == 17) {
+                        mapjy = "禁用"
+                    } else if (listdata[i]['gear'] == 34) {
+                        mapjy = "启用"
+                    } else {
+                        mapjy = ""
+                    }
+                    var mapzt;
+                    if (listdata[i]['status'] == 3) {
+                        mapzt = "移动"
+                    } else {
+                        mapzt = "静止"
+                    }
+                    var mapdy = listdata[i]['voltageString'];
+                    var mapdl = listdata[i]['bmsSoc'];
+                    var maplc = listdata[i]['odo'];
+                    var mapjrlc = listdata[i]['dayOdo'];
+                    var mapgx = listdata[i]['reportTime'];
+                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;' + mapsn + '</br>' + '规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapgg + '</br>' + '网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapwd
+                        + '</br>' + '租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzq + '</br>'
+                        + '有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapyxq + '</br>' + '用户姓名：' + mapxm + '</br>' + '联系方式：' + maplx
+                        + '</br>' + '禁用状态：' + mapjy + '</br>' + '状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzt + '</br>' + '电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                        + mapdy + '</br>' + '电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapdl + '</br>' + '里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + maplc
+                        + 'km' + '</br>' + '今日里程：' + mapjrlc + 'km' + '</br>'
+                        + '更新时间：' + mapgx;
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var stnm = listdata[i]['bmsSoc'];
+                        var convertor = new BMap.Convertor();
+                        var pointArr = [];
+                        pointArr.push(point);
+
+
+                        translateTwo(pointArr, stnm, text);
+                    }
+                    else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var stnm = listdata[i]['bmsSoc'];
+                        var convertor = new BMap.Convertor();
+                        var pointArr = [];
+                        pointArr.push(point);
+
+                        translateFour(pointArr, stnm, text);
+                    }
+
+
+                }
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败");
+                console.log(jqXHR);
+            }
+        });
+    }else if(zulin=="1"){
+            map.clearOverlays();
+            var url;
+            var a = $(".selpr").val();
+            var b = $(".selci").val();
+            var c = $(".selco").val();
+
+            var myselect = document.getElementById("sectionName-s");
+            var index = myselect.selectedIndex;
+            idstore1 = myselect.options[index].value;
+            var myselect2 = document.getElementById("guigese");
+            var index2 = myselect2.selectedIndex;
+            idstore2 = myselect2.options[index2].value;
+            var myselect2 = document.getElementById("guigese");
+            var index2 = myselect2.selectedIndex;
+            idstore2 = myselect2.options[index2].value;
+            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&sort=ue.end_time,desc";
+            if (a == "") {
+                url = url
+            } else {
+                url = url + "&province=" + a
+            }
+            if (b == "") {
+                url = url
+            } else {
+                url = url + "&city=" + b
+            }
+            if (c == "") {
+                url = url
+            } else {
+                url = url + "&county=" + c
+            }
+            if (idstore1 == "0") {
+                url = url
+            } else {
+                if (idstore2 == "0") {
+                    url = url + "&dealerId=" + idstore1
+                } else {
+                    url = url + "&storeId=" + idstore2
+                }
+            }
+            console.log(url);
+            $.ajax({
+                url: url + "&storeTypes=0,40&filterType=1",
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                beforeSend: function (xhr) {
+                    /* Authorization header */
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data1) {
+
+
+                    var listdata = data1.list;
+                    $(".map").removeAttr('disabled');
+                    $(".map").html("地图");
+
+                    function translateOne(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#31c065",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
+                                });
+
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
+                            }
+                        });
+                    }//已租移动
+                    function translateTwo(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#31c065",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
+                                });
+
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
+                            }
+                        });
+                    }//未租移动
+                    function translateThree(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#fff",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
+                                });
+
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
+                            }
+                        });
+                    }//已租静止
+                    function translateFour(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#fff",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
+                                });
+
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
+                            }
+                        });
+                    }//未租静止
+
+                    for (var i = 0; i < listdata.length; i++) {
+                        var mapsn = listdata[i]['ccuSn'];
+                        var mapgg = listdata[i]['productEntity']['name'];
+                        var mapwd = listdata[i]['storeName'];
+                        var mapdz = listdata[i]['address'];
+                        var mapxm;
+                        if (listdata[i]['owner'] != null) {
+                            if (listdata[i]['owner']['realname'] == null) {
+                                mapxm = "无";
+                            } else {
+                                mapxm = listdata[i]['owner']['realname'];
+                            }
+                        } else {
+                            mapxm = "无"
+                        }
+                        var maplx;
+                        if (listdata[i]['owner'] != null) {
+                            if (listdata[i]['owner']['phoneNumber'] == null) {
+                                maplx = "无";
+                            } else {
+                                maplx = listdata[i]['owner']['phoneNumber'];
+                            }
+                        } else {
+                            maplx = "无"
+                        }
+                        var mapzq;
+                        if (listdata[i]['usedDays'] == null) {
+                            mapzq = "无"
+                        } else {
+                            mapzq = listdata[i]['usedDays'];
+                        }
+                        var mapyxq = listdata[i]['surplusTime'];
+                        var mapjy;
+                        if (listdata[i]['gear'] == 17) {
+                            mapjy = "禁用"
+                        } else if (listdata[i]['gear'] == 34) {
+                            mapjy = "启用"
+                        } else {
+                            mapjy = ""
+                        }
+                        var mapzt;
+                        if (listdata[i]['status'] == 3) {
+                            mapzt = "移动"
+                        } else {
+                            mapzt = "静止"
+                        }
+                        var mapdy = listdata[i]['voltageString'];
+                        var mapdl = listdata[i]['bmsSoc'];
+                        var maplc = listdata[i]['odo'];
+                        var mapjrlc = listdata[i]['dayOdo'];
+                        var mapgx = listdata[i]['reportTime'];
+                        var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;' + mapsn + '</br>' + '规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapgg + '</br>' + '网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapwd
+                            + '</br>' + '租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzq + '</br>'
+                            + '有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapyxq + '</br>' + '用户姓名：' + mapxm + '</br>' + '联系方式：' + maplx
+                            + '</br>' + '禁用状态：' + mapjy + '</br>' + '状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzt + '</br>' + '电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + mapdy + '</br>' + '电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapdl + '</br>' + '里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + maplc
+                            + 'km' + '</br>' + '今日里程：' + mapjrlc + 'km' + '</br>'
+                            + '更新时间：' + mapgx;
+                        if (listdata[i]['lon'] && listdata[i].status == 3) {
                             var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
                             var stnm = listdata[i]['bmsSoc'];
                             var convertor = new BMap.Convertor();
@@ -2692,297 +2766,946 @@
 
                             translateOne(pointArr, stnm, text);
                         }
-                        else if(listdata[i]['lon']&&listdata[i].status!=3){
+                        else if (listdata[i]['lon'] && listdata[i].status != 3) {
                             var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
                             var stnm = listdata[i]['bmsSoc'];
                             var convertor = new BMap.Convertor();
                             var pointArr = [];
                             pointArr.push(point);
 
-                            translateThree(pointArr, stnm,text);
+                            translateThree(pointArr, stnm, text);
                         }
 
 
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("失败");
+                    console.log(jqXHR);
                 }
+            });
+//      $.ajax({
+//            url: url+"&storeTypes=0,40&filterType=2",
+//            method: "get",
+//            contentType: "application/json; charset=utf-8",
+//            cache: false,
+//            beforeSend: function (xhr) {
+//                /* Authorization header */
+//                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+//                xhr.setRequestHeader("Authorization", sessionStorage.token);
+//            },
+//            success: function (data1) {
+//
+//
+//                var listdata=data1.list;
+//                $(".map").removeAttr('disabled');
+//                $(".map").html("地图");
+//
+//                function translateOne(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#31c065",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//已租移动
+//                function translateTwo(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#31c065",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//未租移动
+//                function translateThree(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#fff",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//已租静止
+//                function translateFour(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#fff",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//未租静止
+//
+//                for (var i = 0; i < listdata.length; i++) {
+//                    var mapsn = listdata[i]['ccuSn'];
+//                    var mapgg = listdata[i]['productEntity']['name'];
+//                    var mapwd = listdata[i]['storeName'];
+//                    var mapdz = listdata[i]['address'];
+//                    var mapxm;
+//                    if(listdata[i]['owner']!=null){
+//                        if(listdata[i]['owner']['realname']==null){
+//                            mapxm = "无";
+//                        }else {
+//                            mapxm = listdata[i]['owner']['realname'];
+//                        }
+//                    }else {
+//                        mapxm = "无"
+//                    }
+//                    var maplx;
+//                    if(listdata[i]['owner']!=null){
+//                        if(listdata[i]['owner']['phoneNumber']==null){
+//                            maplx = "无";
+//                        }else {
+//                            maplx = listdata[i]['owner']['phoneNumber'];
+//                        }
+//                    }else {
+//                        maplx = "无"
+//                    }
+//                    var mapzq;
+//                    if(listdata[i]['usedDays']==null){
+//                        mapzq = "无"
+//                    }else {
+//                        mapzq = listdata[i]['usedDays'];
+//                    }
+//                    var mapyxq = listdata[i]['surplusTime'];
+//                    var mapjy;
+//                    if(listdata[i]['gear']==17){
+//                        mapjy="禁用"
+//                    }else if (listdata[i]['gear']==34){
+//                        mapjy="启用"
+//                    }else {
+//                        mapjy=""
+//                    }
+//                    var mapzt;
+//                    if (listdata[i]['status']==3){
+//                        mapzt="移动"
+//                    }else {
+//                        mapzt="静止"
+//                    }
+//                    var mapdy = listdata[i]['voltageString'];
+//                    var mapdl = listdata[i]['bmsSoc'];
+//                    var maplc = listdata[i]['odo'];
+//                    var mapjrlc = listdata[i]['dayOdo'];
+//                    var mapgx = listdata[i]['reportTime'];
+//                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
+//                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
+//                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
+//                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+//                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
+//                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
+//                        +'更新时间：'+mapgx;
+//                        if(listdata[i]['lon']&&listdata[i].status==3) {
+//                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+//                            var stnm = listdata[i]['bmsSoc'];
+//                            var convertor = new BMap.Convertor();
+//                            var pointArr = [];
+//                            pointArr.push(point);
+//
+//
+//                            translateOne(pointArr, stnm, text);
+//                        }
+//                        else if(listdata[i]['lon']&&listdata[i].status!=3){
+//                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+//                            var stnm = listdata[i]['bmsSoc'];
+//                            var convertor = new BMap.Convertor();
+//                            var pointArr = [];
+//                            pointArr.push(point);
+//
+//                            translateThree(pointArr, stnm,text);
+//                        }
+//
+//
+//                }
+//
+//
+//            },
+//            error: function (jqXHR, textStatus, errorThrown) {
+//                console.log("失败");
+//                console.log(jqXHR);
+//            }
+//        });
+        }else if(zulin=="3"){
+            map.clearOverlays();
+            var url;
+            var a = $(".selpr").val();
+            var b = $(".selci").val();
+            var c = $(".selco").val();
 
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
+            var myselect = document.getElementById("sectionName-s");
+            var index = myselect.selectedIndex;
+            idstore1 = myselect.options[index].value;
+            var myselect2 = document.getElementById("guigese");
+            var index2 = myselect2.selectedIndex;
+            idstore2 = myselect2.options[index2].value;
+            var myselect2 = document.getElementById("guigese");
+            var index2 = myselect2.selectedIndex;
+            idstore2 = myselect2.options[index2].value;
+            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&sort=ue.end_time,desc";
+            if (a == "") {
+                url = url
+            } else {
+                url = url + "&province=" + a
             }
-        });
-      $.ajax({
-            url: url+"&storeTypes=0,40&filterType=3",
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data1) {
+            if (b == "") {
+                url = url
+            } else {
+                url = url + "&city=" + b
+            }
+            if (c == "") {
+                url = url
+            } else {
+                url = url + "&county=" + c
+            }
+            if (idstore1 == "0") {
+                url = url
+            } else {
+                if (idstore2 == "0") {
+                    url = url + "&dealerId=" + idstore1
+                } else {
+                    url = url + "&storeId=" + idstore2
+                }
+            }
+            console.log(url);
+//      $.ajax({
+//            url: url+"&storeTypes=0,40&filterType=2",
+//            method: "get",
+//            contentType: "application/json; charset=utf-8",
+//            cache: false,
+//            beforeSend: function (xhr) {
+//                /* Authorization header */
+//                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+//                xhr.setRequestHeader("Authorization", sessionStorage.token);
+//            },
+//            success: function (data1) {
+//
+//
+//                var listdata=data1.list;
+//                $(".map").removeAttr('disabled');
+//                $(".map").html("地图");
+//
+//                function translateOne(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#31c065",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//已租移动
+//                function translateTwo(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#31c065",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//未租移动
+//                function translateThree(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#fff",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//已租静止
+//                function translateFour(pointArr, stnm,text) {
+//                    convertor.translate(pointArr, 1, 5, function(data) {
+//                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+//                        if (data.status === 0) {
+//                            var geoc = new BMap.Geocoder();
+//                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
+//                            var labelStyle = {
+//                                color: "#fff",
+//                                fontFamily:"微软雅黑",
+//                                border:"none",
+//                                background:"transparent",
+//                                fontWeight:"bold"
+//                            };
+//                            switch((stnm + '').length) {
+//                                case 1:
+//                                    labelStyle.fontSize = "14px";
+//                                    offsetSize = new BMap.Size(7, 3);
+//                                    break;
+//                                case 2:
+//                                    labelStyle.fontSize = "12px";
+//                                    offsetSize = new BMap.Size(3, 3);
+//                                    break;
+//                                case 3:
+//                                    labelStyle.fontSize = "10px";
+//                                    offsetSize = new BMap.Size(0, 3);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            var label = new BMap.Label(stnm, {offset: offsetSize
+//                            });
+//
+//                            label.setStyle(labelStyle);
+//                            marker.setLabel(label);
+//                            map.addOverlay(marker);
+//                            marker.addEventListener("click", function () {
+//                                var addre;
+//                                geoc.getLocation(data.points[0], function(rs){
+//                                    var addComp = rs.addressComponents;
+//                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//                                    $('#dizhi').html(addre)
+//
+//                                });
+//                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
+//                                this.openInfoWindow(infoWindow); });
+//                        }
+//                    });
+//                }//未租静止
+//
+//                for (var i = 0; i < listdata.length; i++) {
+//                    var mapsn = listdata[i]['ccuSn'];
+//                    var mapgg = listdata[i]['productEntity']['name'];
+//                    var mapwd = listdata[i]['storeName'];
+//                    var mapdz = listdata[i]['address'];
+//                    var mapxm;
+//                    if(listdata[i]['owner']!=null){
+//                        if(listdata[i]['owner']['realname']==null){
+//                            mapxm = "无";
+//                        }else {
+//                            mapxm = listdata[i]['owner']['realname'];
+//                        }
+//                    }else {
+//                        mapxm = "无"
+//                    }
+//                    var maplx;
+//                    if(listdata[i]['owner']!=null){
+//                        if(listdata[i]['owner']['phoneNumber']==null){
+//                            maplx = "无";
+//                        }else {
+//                            maplx = listdata[i]['owner']['phoneNumber'];
+//                        }
+//                    }else {
+//                        maplx = "无"
+//                    }
+//                    var mapzq;
+//                    if(listdata[i]['usedDays']==null){
+//                        mapzq = "无"
+//                    }else {
+//                        mapzq = listdata[i]['usedDays'];
+//                    }
+//                    var mapyxq = listdata[i]['surplusTime'];
+//                    var mapjy;
+//                    if(listdata[i]['gear']==17){
+//                        mapjy="禁用"
+//                    }else if (listdata[i]['gear']==34){
+//                        mapjy="启用"
+//                    }else {
+//                        mapjy=""
+//                    }
+//                    var mapzt;
+//                    if (listdata[i]['status']==3){
+//                        mapzt="移动"
+//                    }else {
+//                        mapzt="静止"
+//                    }
+//                    var mapdy = listdata[i]['voltageString'];
+//                    var mapdl = listdata[i]['bmsSoc'];
+//                    var maplc = listdata[i]['odo'];
+//                    var mapjrlc = listdata[i]['dayOdo'];
+//                    var mapgx = listdata[i]['reportTime'];
+//                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
+//                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
+//                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
+//                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+//                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
+//                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
+//                        +'更新时间：'+mapgx;
+//                        if(listdata[i]['lon']&&listdata[i].status==3) {
+//                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+//                            var stnm = listdata[i]['bmsSoc'];
+//                            var convertor = new BMap.Convertor();
+//                            var pointArr = [];
+//                            pointArr.push(point);
+//
+//
+//                            translateOne(pointArr, stnm, text);
+//                        }
+//                        else if(listdata[i]['lon']&&listdata[i].status!=3){
+//                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+//                            var stnm = listdata[i]['bmsSoc'];
+//                            var convertor = new BMap.Convertor();
+//                            var pointArr = [];
+//                            pointArr.push(point);
+//
+//                            translateThree(pointArr, stnm,text);
+//                        }
+//
+//
+//                }
+//
+//
+//            },
+//            error: function (jqXHR, textStatus, errorThrown) {
+//                console.log("失败");
+//                console.log(jqXHR);
+//            }
+//        });
+            $.ajax({
+                url: url + "&storeTypes=0,40&filterType=3",
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                beforeSend: function (xhr) {
+                    /* Authorization header */
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data1) {
 
 
-                var listdata=data1.list;
-                $(".map").removeAttr('disabled');
-                $(".map").html("地图");
+                    var listdata = data1.list;
+                    $(".map").removeAttr('disabled');
+                    $(".map").html("地图");
 
-                function translateOne(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
+                    function translateOne(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
 
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#31c065",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//已租移动
-                function translateTwo(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#31c065",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
 
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
 
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//未租移动
-                function translateThree(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
                             }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
+                        });
+                    }//已租移动
+                    function translateTwo(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#31c065",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//已租静止
-                function translateFour(pointArr, stnm,text) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            var labelStyle = {
-                                color: "#fff",
-                                fontFamily:"微软雅黑",
-                                border:"none",
-                                background:"transparent",
-                                fontWeight:"bold"
-                            };
-                            switch((stnm + '').length) {
-                                case 1:
-                                    labelStyle.fontSize = "14px";
-                                    offsetSize = new BMap.Size(7, 3);
-                                    break;
-                                case 2:
-                                    labelStyle.fontSize = "12px";
-                                    offsetSize = new BMap.Size(3, 3);
-                                    break;
-                                case 3:
-                                    labelStyle.fontSize = "10px";
-                                    offsetSize = new BMap.Size(0, 3);
-                                    break;
-                                default:
-                                    break;
+
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
                             }
-                            var label = new BMap.Label(stnm, {offset: offsetSize
-                            });
-
-                            label.setStyle(labelStyle);
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-                            marker.addEventListener("click", function () {
-                                var addre;
-                                geoc.getLocation(data.points[0], function(rs){
-                                    var addComp = rs.addressComponents;
-                                    addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                    $('#dizhi').html(addre)
-
+                        });
+                    }//未租移动
+                    function translateThree(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#fff",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
                                 });
-                                var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text+"<br/>"+"地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span  id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                                this.openInfoWindow(infoWindow); });
-                        }
-                    });
-                }//未租静止
 
-                for (var i = 0; i < listdata.length; i++) {
-                    var mapsn = listdata[i]['ccuSn'];
-                    var mapgg = listdata[i]['productEntity']['name'];
-                    var mapwd = listdata[i]['storeName'];
-                    var mapdz = listdata[i]['address'];
-                    var mapxm;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['realname']==null){
-                            mapxm = "无";
-                        }else {
-                            mapxm = listdata[i]['owner']['realname'];
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
+                            }
+                        });
+                    }//已租静止
+                    function translateFour(pointArr, stnm, text) {
+                        convertor.translate(pointArr, 1, 5, function (data) {
+                            var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+                            if (data.status === 0) {
+                                var geoc = new BMap.Geocoder();
+                                var marker = new BMap.Marker(data.points[0], {icon: myIcond});
+                                var labelStyle = {
+                                    color: "#fff",
+                                    fontFamily: "微软雅黑",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontWeight: "bold"
+                                };
+                                switch ((stnm + '').length) {
+                                    case 1:
+                                        labelStyle.fontSize = "14px";
+                                        offsetSize = new BMap.Size(7, 3);
+                                        break;
+                                    case 2:
+                                        labelStyle.fontSize = "12px";
+                                        offsetSize = new BMap.Size(3, 3);
+                                        break;
+                                    case 3:
+                                        labelStyle.fontSize = "10px";
+                                        offsetSize = new BMap.Size(0, 3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                var label = new BMap.Label(stnm, {
+                                    offset: offsetSize
+                                });
+
+                                label.setStyle(labelStyle);
+                                marker.setLabel(label);
+                                map.addOverlay(marker);
+                                marker.addEventListener("click", function () {
+                                    var addre;
+                                    geoc.getLocation(data.points[0], function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        $('#dizhi').html(addre)
+
+                                    });
+                                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + text + "<br/>" + "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span  id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                                    this.openInfoWindow(infoWindow);
+                                });
+                            }
+                        });
+                    }//未租静止
+
+                    for (var i = 0; i < listdata.length; i++) {
+                        var mapsn = listdata[i]['ccuSn'];
+                        var mapgg = listdata[i]['productEntity']['name'];
+                        var mapwd = listdata[i]['storeName'];
+                        var mapdz = listdata[i]['address'];
+                        var mapxm;
+                        if (listdata[i]['owner'] != null) {
+                            if (listdata[i]['owner']['realname'] == null) {
+                                mapxm = "无";
+                            } else {
+                                mapxm = listdata[i]['owner']['realname'];
+                            }
+                        } else {
+                            mapxm = "无"
                         }
-                    }else {
-                        mapxm = "无"
-                    }
-                    var maplx;
-                    if(listdata[i]['owner']!=null){
-                        if(listdata[i]['owner']['phoneNumber']==null){
-                            maplx = "无";
-                        }else {
-                            maplx = listdata[i]['owner']['phoneNumber'];
+                        var maplx;
+                        if (listdata[i]['owner'] != null) {
+                            if (listdata[i]['owner']['phoneNumber'] == null) {
+                                maplx = "无";
+                            } else {
+                                maplx = listdata[i]['owner']['phoneNumber'];
+                            }
+                        } else {
+                            maplx = "无"
                         }
-                    }else {
-                        maplx = "无"
-                    }
-                    var mapzq;
-                    if(listdata[i]['usedDays']==null){
-                        mapzq = "无"
-                    }else {
-                        mapzq = listdata[i]['usedDays'];
-                    }
-                    var mapyxq = listdata[i]['surplusTime'];
-                    var mapjy;
-                    if(listdata[i]['gear']==17){
-                        mapjy="禁用"
-                    }else if (listdata[i]['gear']==34){
-                        mapjy="启用"
-                    }else {
-                        mapjy=""
-                    }
-                    var mapzt;
-                    if (listdata[i]['status']==3){
-                        mapzt="移动"
-                    }else {
-                        mapzt="静止"
-                    }
-                    var mapdy = listdata[i]['voltageString'];
-                    var mapdl = listdata[i]['bmsSoc'];
-                    var maplc = listdata[i]['odo'];
-                    var mapjrlc = listdata[i]['dayOdo'];
-                    var mapgx = listdata[i]['reportTime'];
-                    var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;'+mapsn+'</br>'+'规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapgg+'</br>'+'网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapwd
-                        +'</br>'+'租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzq+'</br>'
-                        +'有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapyxq+'</br>'+'用户姓名：'+mapxm+'</br>'+'联系方式：'+maplx
-                        +'</br>'+'禁用状态：'+mapjy+'</br>'+'状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapzt+'</br>'+'电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-                        +mapdy+'</br>'+'电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+mapdl+'</br>'+'里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+maplc
-                        +'km'+'</br>'+'今日里程：'+mapjrlc+'km'+'</br>'
-                        +'更新时间：'+mapgx;
-                        if(listdata[i]['lon']&&listdata[i].status==3) {
+                        var mapzq;
+                        if (listdata[i]['usedDays'] == null) {
+                            mapzq = "无"
+                        } else {
+                            mapzq = listdata[i]['usedDays'];
+                        }
+                        var mapyxq = listdata[i]['surplusTime'];
+                        var mapjy;
+                        if (listdata[i]['gear'] == 17) {
+                            mapjy = "禁用"
+                        } else if (listdata[i]['gear'] == 34) {
+                            mapjy = "启用"
+                        } else {
+                            mapjy = ""
+                        }
+                        var mapzt;
+                        if (listdata[i]['status'] == 3) {
+                            mapzt = "移动"
+                        } else {
+                            mapzt = "静止"
+                        }
+                        var mapdy = listdata[i]['voltageString'];
+                        var mapdl = listdata[i]['bmsSoc'];
+                        var maplc = listdata[i]['odo'];
+                        var mapjrlc = listdata[i]['dayOdo'];
+                        var mapgx = listdata[i]['reportTime'];
+                        var text = '序列号：&nbsp;&nbsp;&nbsp;&nbsp;' + mapsn + '</br>' + '规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapgg + '</br>' + '网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapwd
+                            + '</br>' + '租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzq + '</br>'
+                            + '有效期:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapyxq + '</br>' + '用户姓名：' + mapxm + '</br>' + '联系方式：' + maplx
+                            + '</br>' + '禁用状态：' + mapjy + '</br>' + '状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapzt + '</br>' + '电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                            + mapdy + '</br>' + '电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + mapdl + '</br>' + '里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + maplc
+                            + 'km' + '</br>' + '今日里程：' + mapjrlc + 'km' + '</br>'
+                            + '更新时间：' + mapgx;
+                        if (listdata[i]['lon'] && listdata[i].status == 3) {
                             var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
                             var stnm = listdata[i]['bmsSoc'];
                             var convertor = new BMap.Convertor();
@@ -2992,26 +3715,27 @@
 
                             translateTwo(pointArr, stnm, text);
                         }
-                        else if(listdata[i]['lon']&&listdata[i].status!=3){
+                        else if (listdata[i]['lon'] && listdata[i].status != 3) {
                             var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
                             var stnm = listdata[i]['bmsSoc'];
                             var convertor = new BMap.Convertor();
                             var pointArr = [];
                             pointArr.push(point);
 
-                            translateFour(pointArr, stnm,text);
+                            translateFour(pointArr, stnm, text);
                         }
 
 
+                    }
+
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("失败");
+                    console.log(jqXHR);
                 }
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
+            });
+        }
 
 
   });
