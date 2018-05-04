@@ -2228,9 +2228,6 @@ if (confirm('您确定要删除已选网点吗?')) {
                 success:function(data){
                     var len=data.list.length;
                     $('#sectionName-s').attr("length",'0');
-                    $('#sectionName-s2').empty();
-
-
                     $('#channel-1').attr("length",'0');
                     $('#channel-1').empty();
                     for(i=0;i<len;i++){
