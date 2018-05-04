@@ -350,10 +350,23 @@
                     </select>
                     <button type="button" class="btn btn-default searchDQ3" >查询</button>
                 </div>
+                <div data-toggle="distpicker" id="table4"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
+
+                    <select  data-province="---- 选择省 ----" class="form-control selpr4"></select>
+                    <select  data-city="---- 选择市 ----" class="form-control selci4" ></select>
+                    <select  data-district="---- 选择区 ----" class="form-control selco4" ></select>
+
+                    <select type="text" class="form-control guigese" id="guigese4" style="display: inline-block;width: 140px;margin-left: 2px;">
+                        <option selected = "selected" value="0">---选择规格---</option>
+
+                    </select>
+                    <button type="button" class="btn btn-default searchDQ4" >查询</button>
+                </div>
                 <script type="text/javascript">
-                    document.getElementById("table1").style.display="block";
+                    document.getElementById("table1").style.display="none";
                     document.getElementById("table2").style.display="none";
                     document.getElementById("table3").style.display="none";
+                    document.getElementById("table4").style.display="none";
 
                 </script>
             </div>
@@ -406,6 +419,7 @@
         document.getElementById("table1").style.display="block";
         document.getElementById("table2").style.display="none";
         document.getElementById("table3").style.display="none";
+        document.getElementById("table4").style.display="none";
 
 
     });
@@ -413,6 +427,7 @@
         document.getElementById("table1").style.display="none";
         document.getElementById("table2").style.display="block";
         document.getElementById("table3").style.display="none";
+        document.getElementById("table4").style.display="none";
 
 
     });
@@ -420,6 +435,15 @@
         document.getElementById("table1").style.display="none";
         document.getElementById("table2").style.display="none";
         document.getElementById("table3").style.display="block";
+        document.getElementById("table4").style.display="none";
+
+
+    });
+    $("#tabletab4").on("click",function () {
+        document.getElementById("table1").style.display="none";
+        document.getElementById("table2").style.display="none";
+        document.getElementById("table3").style.display="none";
+        document.getElementById("table4").style.display="none";
 
 
     });
@@ -1260,7 +1284,7 @@
     });
     function getMissiveType(){
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1",
+                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=100&page=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData:false,

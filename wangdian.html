@@ -162,6 +162,7 @@
                     <th style="text-align: center;">租赁价格</th>
                     <th style="text-align: center;">经销商收益</th>
                     <th style="text-align: center;">门店收益</th>
+                    <th style="text-align: center;">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tbMain">
@@ -276,7 +277,7 @@
     <div style="width: 750px;height: 340px;background: #FFF;margin: 0 auto;opacity: 1">
         <div>
             <p style="padding-top: 60px;padding-left: 15px; display: inline-block">经销商名称：</p>
-            <input type="text" class="form-control jxname" style="display: inline-block;width: 250px;margin-left: 4px;">
+            <input type="text" class="form-control jxname" style="display: inline-block;width: 250px;margin-left: 1px;">
             <p style="padding-top: 20px;padding-left: 30px; display: inline-block">经销商类型：</p>
             <select class="form-control jxtype" id="jxtype" style="width: 250px;display: inline-block;margin-left: 5px">
                 <option   selected>-- 请选择 --</option>
@@ -300,7 +301,7 @@
         </div>
         <div>
             <p style="padding-top: 20px;padding-left: 15px; display: inline-block">初始密码：</p>
-            <input type="text" class="form-control jxpassword" style="display: inline-block;width: 250px;margin-left: 15px;">
+            <input type="text" class="form-control jxpassword" style="display: inline-block;width: 250px;margin-left: 14px;">
         </div>
 
         <div style="float: right;margin-top: 55px;margin-right: 55px">
@@ -1365,15 +1366,23 @@ ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",fun
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                console.log(data)
-                render(data.list)
+                render(data.list);
                 function render(list) {
                     for (var i = 0; i < list.length; i++) {
                         var tr = document.createElement('tr')
-                        tr.innerHTML = '<td>'+list[i].specificationName+'</td><td>'+list[i].price+'</td><td>'+list[i].dealerRate+'</td><td>'+list[i].storeRate+'</td>'
+                        tr.innerHTML = '<td>'+list[i].specificationName+'</td><td>'+'<input style="width: 70%" type="text" ' +
+                            'value='+list[i].price+' id=' + list[i].id + ' /></td><td>'+'<input style="width: 70%" type="text" ' +
+                            'id='+'2'+list[i].id+' value='+list[i].dealerRate+' /></td><td>'+'<input style="width: 70%" type="text" id='+'3'+list[i].id+' ' +
+                            'value='+list[i].storeRate+' /></td><td style="width: 50px"><button style="height: 25px;width: 40px;font-size: 12px;" ' +
+                            'onclick="Event(this)">修改</button></td>';
+
                         document.getElementById('tbMain').appendChild(tr)
+
+
                     }
                 }
+
+
 
 
             },
@@ -1385,9 +1394,9 @@ ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",fun
 //            $(".carNumber").html(row.ccuSn)
 //            $(".miaoshu").html(row.faultDetail)
 //            $(".jianyi").html(row.faultAnalyze)
-        $("#dianchishu").show()
+        $("#dianchishu").show();
         $("#666").on("click",function () {
-            $("#tbMain  tr").empty("")
+            $("#tbMain  tr").empty("");
             $("#dianchishu").hide()
         })
         },
@@ -1397,7 +1406,49 @@ ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",fun
     }
 
 	};
-    function QC(arr) {
+    Event = function(node) {
+        var parents = node.parentNode.parentNode;
+        var child = parents.children;
+        var input_obj = child[1];
+        console.log(input_obj)
+        var activ_id = input_obj.innerHTML;
+        console.log(activ_id)
+       var id=activ_id.substring(activ_id.indexOf('id="')+4,activ_id.lastIndexOf('"'));
+        console.log(id)
+        var a =$("#"+id).val();
+        var b =$("#2"+id).val();
+        var c =$("#3"+id).val();
+
+        var peizhijson={
+            id:id,
+
+            price:a,
+
+            dealerRate:b,
+
+            storeRate:c
+
+        };
+        console.log(JSON.stringify(peizhijson))
+        $.ajax({
+            url: " http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/"+id,
+            contentType: "application/json; charset=utf-8",
+            method: "put",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+            data:JSON.stringify(peizhijson),
+            success: function (res) {
+                console.log("成功")
+                $table.bootstrapTable("refresh",{silent: true})
+            },
+            error: function (err) {
+            }
+        });
+    };
+
+        function QC(arr) {
        var s = [];
 //遍历数组
        for(var i = 0;i<arr.length;i++){
@@ -1625,7 +1676,7 @@ if (confirm('您确定要删除已选网点吗?')) {
                 console.log("成功");
                 alert("新增网点成功");
                 $table.bootstrapTable("refresh",{silent: true});
-                $("#addstorehouse").hide();
+                $("#adddealer").hide();
             },
             error: function (err) {
                 if(err.status==403) alert("您没有权限执行此操作");
@@ -1670,7 +1721,7 @@ if (confirm('您确定要删除已选网点吗?')) {
                 console.log("成功");
                 alert("新增网点成功");
                 $table.bootstrapTable("refresh",{silent: true});
-                $("#addstorehouse").hide();
+                $("#addstore").hide();
             },
             error: function (err) {
                 if(err.status==403) alert("您没有权限执行此操作");
@@ -1788,8 +1839,6 @@ if (confirm('您确定要删除已选网点吗?')) {
         var e=$("#editstore  .emdsheng").val();
         var f=$("#editstore  .emdshi").val();
         var g=$("#editstore  .emdqu").val();
-
-        var i=$("#editstore  .emddealer").val();
         var j=$("#editstore  .emdlon").val();
         var k=$("#editstore  .emdlat").val();
         var l=$("#editstore  .emdaddress").val();
