@@ -489,6 +489,7 @@
     var navid=document.getElementById("navbarID");
 
     function initTable() {
+
         $table.bootstrapTable("destroy");
         $table.bootstrapTable({
             height: getHeight(),
@@ -686,13 +687,97 @@
         }
     }//租金
     function queryParams(params) {
+        var a=$(".selpr").val();
+        console.log(a);
+        var b=$(".selci").val();
+        var c=$(".selco").val();
+
+        var myselect=document.getElementById("sectionName-s");
+        var index=myselect.selectedIndex ;
+        idstore1=myselect.options[index].value;
+
+        var myselect5=document.getElementById("erjise");
+        var index5=myselect5.selectedIndex ;
+        idstore2=myselect5.options[index5].value;
+
+        var myselect2=document.getElementById("guigese");
+        var index2=myselect2.selectedIndex ;
+        idpro=myselect2.options[index2].value;
+
+        var myselect3=document.getElementById("zhifuse");
+        var index3=myselect3.selectedIndex ;
+        payment=myselect3.options[index3].innerHTML;
+        paymentvalue=myselect3.options[index3].value;
+
+        var myselect4=document.getElementById("leixingse");
+        var index4=myselect4.selectedIndex ;
+        leixing=myselect4.options[index4].innerHTML;
+        leixingvalue=myselect4.options[index4].value;
         var param = {
             limit: this.pageSize, // 页面大小
             page: this.pageNumber,
             onLine:orOnLine,
             fault:orFault
-        };
 
+        };
+        if(a==""){
+            param=param
+        }else {
+
+            var key="province";
+            var value = a
+            param[key] = value;
+        }
+        if(b==""){
+            param=param
+        }else {
+            var key="city";
+            var value = b;
+            param[key] = value;
+        }
+        if(c==""){
+            param=param
+        }else {
+            var key="county";
+            var value = c
+            param[key] = value;
+        }
+        if(idstore1=="0"){
+            param=param
+        }else {
+            var key="dealerId";
+            var value = idstore1
+            param[key] = value;
+        }
+        if(idstore2=="0"){
+            param=param
+        }else {
+            var key="storeId";
+            var value = idstore2;
+            param[key] = value;
+        }
+        if(idpro=="0"){
+            param=param
+        }else {
+            var key="productId";
+            var value = idpro
+            param[key] = value;
+        }
+        if(paymentvalue!="0") {
+            var key="payment";
+            var value = payment
+            param[key] = value;
+        }else if(paymentvalue=="0"){
+            param=param
+        }
+        if(leixingvalue!="9") {
+            var key="chargeType";
+            var value = leixingvalue
+            param[key] = value;
+        }else if(leixingvalue=="9"){
+            param=param
+        }
+        console.info(param);
         return param;
     }
     function responseHandler(res) {
@@ -1003,6 +1088,7 @@
     });
     $(".searchDQ").on("click",function () {
         var url;
+
         var a=$(".selpr").val();
         console.log(a);
         var b=$(".selci").val();
@@ -1069,6 +1155,7 @@
             url=url;
         }
 
+
         console.log(url);
         $.ajax({
             url: url,
@@ -1081,8 +1168,7 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh', {'url': url});
-
+                $("#table").bootstrapTable('refresh', {url:url});
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");

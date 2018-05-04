@@ -555,13 +555,7 @@
                     "Authorization":sessionStorage.token
                 }
             },
-            queryParams:     function queryParams(params) {
-                var param = {
-                    limit: this.pageSize, // 页面大小
-                    page: this.pageNumber
-                };
-                return param;
-            },
+            queryParams: queryParams,
             minimumCountColumns: 2,
             pageNumber: 1,                       //初始化加载第一页，默认第一页
             pageSize: 100,                       //每页的记录行数（*）
@@ -819,6 +813,211 @@
             ]
         });
         // sometimes footer render error.
+    }
+    function queryParams(params) {
+        var a=$(".selpr1").val();
+        var b=$(".selci1").val();
+        var c=$(".selco1").val();
+        var a2=$(".selpr2").val();
+        var b2=$(".selci2").val();
+        var c2=$(".selco2").val();
+        var a3=$(".selpr3").val();
+        var b3=$(".selci3").val();
+        var c3=$(".selco3").val();
+
+        var myselect=document.getElementById("sectionName-s");
+        var index=myselect.selectedIndex ;
+        idstore1=myselect.options[index].value;
+        var myselect2=document.getElementById("guigese");
+        var index2=myselect2.selectedIndex ;
+        idpro=myselect2.options[index2].value;
+        var myselect3=document.getElementById("erjise");
+        var index3=myselect3.selectedIndex ;
+        idstore2=myselect3.options[index3].value;
+        var myselect4=document.getElementById("zulinse");
+        var index4=myselect4.selectedIndex ;
+        zulin=myselect4.options[index4].value;
+
+        var myselect21=document.getElementById("sectionName-s2");
+        var index21=myselect21.selectedIndex ;
+        idstore12=myselect21.options[index21].value;
+        var myselect22=document.getElementById("guigese2");
+        var index22=myselect22.selectedIndex ;
+        idpro2=myselect22.options[index22].value;
+        var myselect23=document.getElementById("erjise2");
+        var index23=myselect23.selectedIndex ;
+        idstore22=myselect23.options[index23].value;
+        var myselect24=document.getElementById("zulinse2");
+        var index24=myselect24.selectedIndex ;
+        zulin2=myselect24.options[index24].value;
+
+        var myselect31=document.getElementById("sectionName-s3");
+        var index31=myselect31.selectedIndex ;
+        idstore13=myselect31.options[index31].value;
+        var myselect32=document.getElementById("guigese3");
+        var index32=myselect32.selectedIndex ;
+        idpro3=myselect32.options[index32].value;
+        var myselect33=document.getElementById("erjise3");
+        var index33=myselect33.selectedIndex ;
+        idstore23=myselect33.options[index33].value;
+        var myselect34=document.getElementById("zulinse3");
+        var index34=myselect34.selectedIndex ;
+        zulin3=myselect34.options[index34].value;
+        var param = {
+            limit: this.pageSize, // 页面大小
+            page: this.pageNumber
+        };
+        if(a==""){
+            param=param
+        }else {
+
+            var key="province";
+            var value = a
+            param[key] = value;
+        }
+        if(b==""){
+            param=param
+        }else {
+            var key="city";
+            var value = b;
+            param[key] = value;
+        }
+        if(c==""){
+            param=param
+        }else {
+            var key="county";
+            var value = c
+            param[key] = value;
+        }
+        if(idstore1=="0"){
+            param=param
+        }else {
+            var key="dealerId";
+            var value = idstore1
+            param[key] = value;
+        }
+        if(idstore2=="0"){
+            param=param
+        }else {
+            var key="storeId";
+            var value = idstore2;
+            param[key] = value;
+        }
+        if(idpro=="0"){
+            param=param
+        }else {
+            var key="productId";
+            var value = idpro
+            param[key] = value;
+        }
+        if(zulin=="0"){
+            param=param
+        }else {
+            var key="filterType";
+            var value = zulin
+            param[key] = value;
+        }
+        if(a2==""){
+            param=param
+        }else {
+
+            var key="province";
+            var value = a2
+            param[key] = value;
+        }
+        if(b2==""){
+            param=param
+        }else {
+            var key="city";
+            var value = b2;
+            param[key] = value;
+        }
+        if(c2==""){
+            param=param
+        }else {
+            var key="county";
+            var value = c2
+            param[key] = value;
+        }
+        if(idstore12=="0"){
+            param=param
+        }else {
+            var key="dealerId";
+            var value = idstore12
+            param[key] = value;
+        }
+        if(idstore22=="0"){
+            param=param
+        }else {
+            var key="storeId";
+            var value = idstore22;
+            param[key] = value;
+        }
+        if(idpro2=="0"){
+            param=param
+        }else {
+            var key="productId";
+            var value = idpro2
+            param[key] = value;
+        }
+        if(zulin2=="0"){
+            param=param
+        }else {
+            var key="filterType";
+            var value = zulin2
+            param[key] = value;
+        }
+        if(a3==""){
+            param=param
+        }else {
+
+            var key="province";
+            var value = a3
+            param[key] = value;
+        }
+        if(b3==""){
+            param=param
+        }else {
+            var key="city";
+            var value = b3;
+            param[key] = value;
+        }
+        if(c3==""){
+            param=param
+        }else {
+            var key="county";
+            var value = c3
+            param[key] = value;
+        }
+        if(idstore13=="0"){
+            param=param
+        }else {
+            var key="dealerId";
+            var value = idstore13
+            param[key] = value;
+        }
+        if(idstore23=="0"){
+            param=param
+        }else {
+            var key="storeId";
+            var value = idstore23;
+            param[key] = value;
+        }
+        if(idpro3=="0"){
+            param=param
+        }else {
+            var key="productId";
+            var value = idpro3
+            param[key] = value;
+        }
+        if(zulin3=="0"){
+            param=param
+        }else {
+            var key="filterType";
+            var value = zulin3
+            param[key] = value;
+        }
+        return param;
     }
     function createTimeFormatter(value,row,index) {
         var inner=row.createTime
@@ -1491,7 +1690,22 @@
         var index4=myselect4.selectedIndex ;
         zulin=myselect4.options[index4].value;
         console.log(zulin);
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&province=" + a + "&city=" + b + "&county=" + c
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1"
+        if(a==""){
+            url=url
+        }else {
+            url=url+"&province="+a
+        }
+        if(b==""){
+            url=url
+        }else {
+            url=url+"&city="+b
+        }
+        if(c==""){
+            url=url
+        }else {
+            url=url+"&county="+c
+        }
         if(idstore1=="0"){
             if(idpro=="0"){
                 if(zulin=="0"){
@@ -1550,9 +1764,7 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-
                 $("#table").bootstrapTable('refresh', {'url': url});
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
