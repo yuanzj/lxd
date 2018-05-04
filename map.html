@@ -1495,7 +1495,7 @@
         var index2 = myselect2.selectedIndex;
         idstore2 = myselect2.options[index2].value;
 
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&sort=ue.end_time,desc";
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&page=1&limit=1000";
         if (a == "") {
             url = url
         } else {
@@ -2452,7 +2452,7 @@
             var myselect2 = document.getElementById("guigese");
             var index2 = myselect2.selectedIndex;
             idstore2 = myselect2.options[index2].value;
-            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&sort=ue.end_time,desc";
+            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&page=1&limit=1000";
             if (a == "") {
                 url = url
             } else {
@@ -3769,7 +3769,7 @@
         if(idstore1=="0"){
             url=url
         }else {
-                url=url+"&dealerId="+idstore1
+                url=url+"&parentId="+idstore1
         }
         console.log(url);
         $.ajax({
@@ -3786,15 +3786,11 @@
                 var listdata=data1.list;
 
                 function translateOne(pointArr) {
-                    convertor.translate(pointArr, 1, 5, function(data) {
-                        var myIcond = new BMap.Icon("./img/map_pins.png", new BMap.Size(30,60));
-                        if (data.status === 0) {
-                            var geoc = new BMap.Geocoder();
+                        var myIcond = new BMap.Icon("./img/ebike_store.png", new BMap.Size(30,60));
+                        var marker = new BMap.Marker(pointArr[0],{icon:myIcond});
+                        map.addOverlay(marker);
 
-                            var marker = new BMap.Marker(data.points[0],{icon:myIcond});
-                            map.addOverlay(marker);
-                        }
-                    });
+
                 }
 
                 for (var i = 0; i < listdata.length; i++) {
