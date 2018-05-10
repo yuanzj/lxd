@@ -259,13 +259,14 @@
     </div>
     <div style="width: 600px;height: 220px;background: #FFF;margin: 0 auto;opacity: 1">
         <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span></p>
-        <div style="float: left;margin-top: 20px; padding-left:125px;width: 100%;">
+        <div style="float: left;margin-top: 20px; padding-left:70px;width: 100%;">
             <button type="button" class="btn btn-default " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:20px;">启用</button>
             <button type="button" class="btn btn-default " id="btn-6" style="width: 100px;display: inline-block;float: left;margin-right:20px;">停止</button>
             <button type="button" class="btn btn-default " id="btn-5" style="width: 100px;display: inline-block;float: left;margin-right:20px;">重启</button>
+            <button type="button" class="btn btn-default " id="btn-tz" style="width: 100px;display: inline-block;float: left;margin-right:20px;">退租</button>
         </div>
         <!--<div style="float: left;margin-top: 30px;  padding-left:34%;">-->
-            <!--<button type="button" class="btn btn-default "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:5px;">冻结设备</button>-->
+            <!--<button type="button" class="btn btn-default "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:5px;">冻结电池</button>-->
             <!--<button type="button" class="btn btn-default " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:5px;">取消冻结</button>-->
         <!--</div>-->
         <div style="float: right;margin-top: 60px;margin-right: 40px">
@@ -278,10 +279,10 @@
 <!-- cardetailsyc  -->
 <div id="wrap-remov" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
     <div style="width: 450px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">设备移除</p>
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">电池移除</p>
     </div>
     <div style="width: 450px;height: 150px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否移除异常设备&nbsp;<span class="carNumber">{{carid}}</span></p>
+        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否移除异常电池&nbsp;<span class="carNumber">{{carid}}</span></p>
 
         <div style="float: right;margin-top: 50px;margin-right: 25px">
             <button type="button" class="btn btn-default " id="rem-y" style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">是</button>
@@ -392,12 +393,13 @@
  <div class="container" style="width:97%; margin-top:-24px;">
    <div class="fixed-table-toolbar">
        <ul class="nav nav-tabs mytabs" id="mytabs">
-           <li class="item active" id="tabletab5"><a href="#" >异常设备</a></li>
-           <li class="item" id="tabletab2"><a href="#" >逾期租赁设备</a></li>
-           <li class="item" id="tabletab1"><a href="#">已租赁设备</a></li>
+           <li class="item active" id="tabletab5"><a href="#" >异常电池</a></li>
+           <li class="item" id="tabletab6"><a href="#" >售后电池</a></li>
+           <li class="item" id="tabletab2"><a href="#" >逾期租赁电池</a></li>
+           <li class="item" id="tabletab1"><a href="#">已租赁电池</a></li>
 
-           <li class="item" id="tabletab3"><a href="#" >待租赁设备</a></li>
-           <li class="item" id="tabletab4"><a href="#" >仓库设备</a></li>
+           <li class="item" id="tabletab3"><a href="#" >待租赁电池</a></li>
+           <li class="item" id="tabletab4"><a href="#" >仓库电池</a></li>
        </ul>
    </div>
      <div id="toolbar">
@@ -416,11 +418,11 @@
 
                 <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" onChange="move1()"
                         style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---一级渠道---</option>
+                    <option selected = "selected" value="0">---分站---</option>
                 </select>
 
                 <select type="text" class="form-control erjise" id="erjise" style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---二级渠道---</option>
+                    <option selected = "selected" value="0">---驿站---</option>
 
                 </select>
 
@@ -443,11 +445,11 @@
 
                 <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse" onChange="move2()"
                         style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---一级渠道---</option>
+                    <option selected = "selected" value="0">---分站---</option>
                 </select>
 
                 <select type="text" class="form-control erjise" id="erjise2" style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---二级渠道---</option>
+                    <option selected = "selected" value="0">---驿站---</option>
 
                 </select>
 
@@ -470,11 +472,11 @@
 
                 <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse" onChange="move3()"
                         style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---一级渠道---</option>
+                    <option selected = "selected" value="0">---分站---</option>
                 </select>
 
                 <select type="text" class="form-control erjise" id="erjise3" style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---二级渠道---</option>
+                    <option selected = "selected" value="0">---驿站---</option>
 
                 </select>
 
@@ -497,11 +499,11 @@
 
                 <select type="text" name="sectionName-s" id="sectionName-s4" class="form-control wangdianse"
                         style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---一级渠道---</option>
+                    <option selected = "selected" value="0">---分站---</option>
                 </select>
 
                 <!--<select type="text" class="form-control erjise" id="erjise4" style="display: inline-block;width: 140px;margin-left: 2px;">-->
-                    <!--<option selected = "selected" value="0">-&#45;&#45;二级渠道-&#45;&#45;</option>-->
+                    <!--<option selected = "selected" value="0">-&#45;&#45;驿站-&#45;&#45;</option>-->
 
                 <!--</select>-->
 
@@ -524,15 +526,42 @@
 
                 <select type="text" name="sectionName-s" id="sectionName-s5" class="form-control wangdianse" onChange="move5()"
                         style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---一级渠道---</option>
+                    <option selected = "selected" value="0">---分站---</option>
                 </select>
 
                 <select type="text" class="form-control erjise" id="erjise5" style="display: inline-block;width: 140px;margin-left: 2px;">
-                    <option selected = "selected" value="0">---二级渠道---</option>
+                    <option selected = "selected" value="0">---驿站---</option>
 
                 </select>
 
                 <select type="text" class="form-control guigese" id="guigese5" style="display: inline-block;width: 140px;margin-left: 2px;">
+                    <option selected = "selected" value="0">---选择规格---</option>
+
+                </select>
+                <button type="button" class="btn btn-default searchDQ5" >查询</button>
+            </div>
+            <div data-toggle="distpicker" id="table6"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
+                <input type="text" class="form-control searchResult6"  style="display: inline-block;width: 200px;"
+                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}" >
+                <button type="button" class="btn btn-default searchCcu6" style=";border-bottom-right-radius: 5px;border-top-right-radius: 5px;">
+                    <span class="glyphicon glyphicon-search"></span></button>
+
+                <select  data-province="---- 选择省 ----" class="form-control selpr6" style="margin-left: 20px;"></select>
+                <select  data-city="---- 选择市 ----" class="form-control selci6" ></select>
+                <select  data-district="---- 选择区 ----" class="form-control selco6" ></select>
+
+                <select type="text" name="sectionName-s" id="sectionName-s6" class="form-control wangdianse" onChange="move5()"
+                        style="display: inline-block;width: 140px;margin-left: 2px;">
+                    <option selected = "selected" value="0">---分站---</option>
+                </select>
+
+                <select type="text" class="form-control erjise" id="erjise6" style="display: inline-block;width: 140px;margin-left: 2px;">
+                    <option selected = "selected" value="0">---驿站---</option>
+
+                </select>
+
+                <select type="text" class="form-control guigese" id="guigese6" style="display: inline-block;width: 140px;margin-left: 2px;">
                     <option selected = "selected" value="0">---选择规格---</option>
 
                 </select>
@@ -544,6 +573,7 @@
                 document.getElementById("table3").style.display="none";
                 document.getElementById("table4").style.display="none";
                 document.getElementById("table5").style.display="block";
+                document.getElementById("table6").style.display="none";
 
             </script>
          </div>
@@ -601,6 +631,15 @@
        document.getElementById("table3").style.display="none";
        document.getElementById("table4").style.display="none";
        document.getElementById("table5").style.display="block";
+       document.getElementById("table6").style.display="none";
+   });
+   $("#tabletab6").on("click",function () {
+       document.getElementById("table1").style.display="none";
+       document.getElementById("table2").style.display="none";
+       document.getElementById("table3").style.display="none";
+       document.getElementById("table4").style.display="none";
+       document.getElementById("table5").style.display="none";
+       document.getElementById("table6").style.display="block";
    });
    $("#tabletab1").on("click",function () {
        document.getElementById("table1").style.display="block";
@@ -608,6 +647,7 @@
        document.getElementById("table3").style.display="none";
        document.getElementById("table4").style.display="none";
        document.getElementById("table5").style.display="none";
+       document.getElementById("table6").style.display="none";
 
    });
    $("#tabletab2").on("click",function () {
@@ -616,6 +656,7 @@
        document.getElementById("table3").style.display="none";
        document.getElementById("table4").style.display="none";
        document.getElementById("table5").style.display="none";
+       document.getElementById("table6").style.display="none";
 
    });
    $("#tabletab3").on("click",function () {
@@ -624,6 +665,7 @@
        document.getElementById("table3").style.display="block";
        document.getElementById("table4").style.display="none";
        document.getElementById("table5").style.display="none";
+       document.getElementById("table6").style.display="none";
    });
    $("#tabletab4").on("click",function () {
        document.getElementById("table1").style.display="none";
@@ -631,6 +673,7 @@
        document.getElementById("table3").style.display="none";
        document.getElementById("table4").style.display="block";
        document.getElementById("table5").style.display="none";
+       document.getElementById("table6").style.display="none";
    });
    var url;
    url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&exceptionFlag=1&sort=ue.end_time,desc";
@@ -643,7 +686,7 @@
            $(".item").each(function(index, element) {
                if($(this).hasClass("active")){
 
-                   if($(this).text()=="已租赁设备"){
+                   if($(this).text()=="已租赁电池"){
                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&storeTypes=0,40&filterType=1&sort=ue.end_time,desc";
                        $(function () {
                            initTable();
@@ -651,30 +694,38 @@
                            $table.bootstrapTable("hideColumn","re");
                        });
 
-                   }else if($(this).text()=="逾期租赁设备"){
+                   }else if($(this).text()=="逾期租赁电池"){
                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&storeTypes=0,40&filterType=2&sort=ue.end_time,desc";
                        $(function () {
                            initTable();
                            $table.bootstrapTable("hideColumn","w");
                            $table.bootstrapTable("hideColumn","re");
                        });
-                   }else if($(this).text()=="待租赁设备") {
+                   }else if($(this).text()=="待租赁电池") {
                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&storeTypes=0,40&filterType=3&sort=ue.store_code,asc";
                        $(function () {
                            initTable();
                            $table.bootstrapTable("hideColumn","w");
                            $table.bootstrapTable("hideColumn","re");
                        });
-                   }else if($(this).text()=="仓库设备") {
+                   }else if($(this).text()=="仓库电池") {
                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&category=0&sort=ue.store_code,asc";
                        $(function () {
                            initTable();
                            $table.bootstrapTable("hideColumn","w");
                            $table.bootstrapTable("hideColumn","re");
                        });
-                   }else if($(this).text()=="异常设备") {
+                   }else if($(this).text()=="异常电池") {
                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&exceptionFlag=1&sort=ue.end_time,desc";
                        initTable();
+
+                   }else if($(this).text()=="售后电池") {
+                       url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&afterSaleFlag=1&sort=ue.end_time,desc";
+                       $(function () {
+                           initTable();
+                           $table.bootstrapTable("hideColumn","w");
+
+                       });
 
                    }
                    console.log(url)
@@ -964,7 +1015,7 @@
             var inner;
             $(".item").each(function(index, element) {
                 if($(this).hasClass("active")){
-                    if($(this).text()=="异常设备"){
+                    if($(this).text()=="异常电池"){
                          inner=row.ccuSn;
                     }
                     else {
@@ -1617,7 +1668,7 @@
     function removeFormatter(value, row, index) {
         return [
             '<div class="nowwrp">',
-            '<a class="like8" href="#" title="移除设备号">',
+            '<a class="like8" href="#" title="移除">',
             '<i class="glyphicon glyphicon-remove">',
             '</i>',
             '</a>',
@@ -1861,7 +1912,7 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/"+row.ccuSn+"/clean-exception-flag");
                 if($(this).hasClass("active")){
 
-                    if($(this).text()=="异常设备"){
+                    if($(this).text()=="异常电池"){
 
 
 
@@ -1912,11 +1963,11 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
                         });
                         $("#btn-6").unbind('click').on("click",function () {
                             ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn="+row.ccuSn+"&useStatus=1","put",function (data) {
-                                alert("冻结设备成功")
+                                alert("冻结电池成功")
                                 $table.bootstrapTable("refresh",{silent: true})
                                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn="+row.ccuSn+"&useStatus=1","get")
                             }, function (err) {
-                                alert("冻结设备失败")
+                                alert("冻结电池失败")
                                 console.log(err)})
                         })
                         $("#btn-7").unbind('click').on("click",function () {
@@ -1926,6 +1977,15 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
                                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn="+row.ccuSn+"&useStatus=0","get")
                             }, function (err) {
                                 alert("取消冻结失败")
+                                console.log(err)})
+                        })
+                        $("#btn-tz").unbind('click').on("click",function () {
+                            ajax("http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/force-finish-order?ccuSn="+row.ccuSn,"put",function (data) {
+                                alert("退租成功")
+                                $table.bootstrapTable("refresh",{silent: true})
+                                console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/force-finish-order?ccuSn="+row.ccuSn)
+                            }, function (err) {
+                                alert("退租失败")
                                 console.log(err)})
                         })
                         $("#555").on("click",function () {
@@ -2803,11 +2863,31 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
            })
        },
         'click .like8':function (e,value,row,index) {
-                ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/"+row.ccuSn+"/clean-exception-flag","get",function (data) {
-                    $("#table").bootstrapTable('refresh');
-                }, function (err) {
-                    alert("移除失败");
-                    console.log(err)});
+            $(".item").each(function(index, element) {
+                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/"+row.ccuSn+"/clean-exception-flag");
+                if($(this).hasClass("active")){
+
+                    if($(this).text()=="异常电池"){
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/"+row.ccuSn+"/clean-exception-flag","get",function (data) {
+                            $("#table").bootstrapTable('refresh');
+                        }, function (err) {
+                            alert("移除失败");
+                            console.log(err)});
+
+
+
+                    }
+                    else if($(this).text()=="售后电池") {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn="+row.ccuSn+"&afterSaleFlag=0","put",function (data) {
+                            $("#table").bootstrapTable('refresh');
+                        }, function (err) {
+                            alert("移除失败");
+                            console.log(err)});
+                    }
+
+
+                }
+            });
 
        }
     };

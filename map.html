@@ -46,7 +46,7 @@
     <div class="container" style="width:97%; margin-top:-24px;">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab1"><a href="#" >设备地图</a></li>
+                <li class="item active" id="tabletab1"><a href="#" >电池地图</a></li>
                 <li class="item" id="tabletab2"><a href="#" >网点地图</a></li>
             </ul>
         </div>
@@ -62,11 +62,11 @@
 
     <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" onChange="move2()"
             style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---一级渠道---</option>
+        <option selected = "selected" value="0">---分站---</option>
     </select>
 
     <select type="text" class="form-control guigese" id="guigese" style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---二级渠道---</option>
+        <option selected = "selected" value="0">---驿站---</option>
 
     </select>
     <select type="text" class="form-control zulinse" id="zulinse" style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
@@ -84,7 +84,7 @@
 
     <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
             style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---一级渠道---</option>
+        <option selected = "selected" value="0">---分站---</option>
     </select>
 
     <button type="button" data-title="搜索" class="btn btn-default glyphicon glyphicon-search searchDQ2" style="box-shadow:0 0 10px rgba(0,0,0,0.32);color: #fff;border: 1px solid #2e77e5;background-color: #2e77e5;"></button>
@@ -154,7 +154,7 @@
             $(".item").each(function(index, element) {
                 if($(this).hasClass("active")){
 
-                    if($(this).text()=="设备地图"){
+                    if($(this).text()=="电池地图"){
                         refreshmarker();
 
                     }else if($(this).text()=="网点地图"){

@@ -230,8 +230,8 @@
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
                 <li class="item active" id="tabletab2"><a href="#" >仓库</a></li>
-                <li class="item" id="tabletab1"><a href="#">经销商</a></li>
-                <li class="item" id="tabletab3"><a href="#" >门店</a></li>
+                <li class="item" id="tabletab1"><a href="#">分站</a></li>
+                <li class="item" id="tabletab3"><a href="#" >驿站</a></li>
             </ul>
         </div>
         <div id="toolbar">
@@ -244,7 +244,7 @@
 
                     <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---一级渠道---</option>
+                        <option selected = "selected" value="0">---分站---</option>
                     </select>
 
                     <button type="button" class="btn btn-default searchDQ" >查询</button>
@@ -257,7 +257,7 @@
 
                     <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---一级渠道---</option>
+                        <option selected = "selected" value="0">---分站---</option>
                     </select>
 
                     <button type="button" class="btn btn-default searchDQ2" >查询</button>
@@ -270,7 +270,7 @@
 
                     <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---一级渠道---</option>
+                        <option selected = "selected" value="0">---分站---</option>
                     </select>
 
                     <button type="button" class="btn btn-default searchDQ3" >查询</button>
@@ -376,7 +376,7 @@
                             $table.bootstrapTable("hideColumn","rentPercent");
                             $table.bootstrapTable("hideColumn","dealer");
                         });
-                    }else if($(this).text()=="经销商") {
+                    }else if($(this).text()=="分站") {
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
@@ -384,7 +384,7 @@
                             $table.bootstrapTable("hideColumn","name");
                             $table.bootstrapTable("hideColumn","dealer");
                         });
-                    }else if($(this).text()=="门店") {
+                    }else if($(this).text()=="驿站") {
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
@@ -483,7 +483,7 @@
                 {
 
                     field: 'k',
-                    title: '经销商',
+                    title: '分站',
                     align: 'center',
                     valign: 'middle',
                     formatter:jxsFormatter
@@ -492,14 +492,14 @@
                 {
 
                     field: 'dealer',
-                    title: '经销商',
+                    title: '分站',
                     align: 'center',
                     valign: 'middle'
 
                 },
                 {
                     field: 'm',
-                    title: '门店',
+                    title: '驿站',
                     align: 'center',
                     valign: 'middle',
                     formatter:mendianFormatter
@@ -569,7 +569,7 @@
         return [
             '<span>'+inner+'</span>'
         ].join('');
-    }//k经销商
+    }//k分站
     function lxFormatter(value,row,index) {
         var inner;
         if(row.type==40){
@@ -592,7 +592,7 @@
         return [
             '<span>'+inner+'</span>'
         ].join('');
-    }//门店
+    }//驿站
     function totalbattFormatter(value, row, index) {
         return [
             '<div class="nowwrp">',
@@ -620,7 +620,7 @@
         var inner;
         $(".item").each(function(index, element) {
             if($(this).hasClass("active")){
-                if($(this).text()=="异常设备"){
+                if($(this).text()=="异常电池"){
                     inner=row.ccuSn;
                 }
                 else {
@@ -1001,7 +1001,7 @@
     function removeFormatter(value, row, index) {
         return [
             '<div class="nowwrp">',
-            '<a class="like8" href="#" title="移除设备号">',
+            '<a class="like8" href="#" title="移除电池号">',
             '<i class="glyphicon glyphicon-remove">',
             '</i>',
             '</a>',
@@ -1205,7 +1205,7 @@
             }
         });
 
-    });//经销商
+    });//分站
     $(".searchDQ2").on("click",function () {
         var url;
         var a=$(".selpr2").val();
@@ -1337,7 +1337,7 @@
             }
         });
 
-    });//门店
+    });//驿站
 
 
 

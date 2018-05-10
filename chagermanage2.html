@@ -245,9 +245,9 @@
     <div class="container" style="width:97%; margin-top:-24px;">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab1"><a href="#">正常属性设备</a></li>
-                <li class="item" id="tabletab2"><a href="#" >异常属性设备</a></li>
-                <li class="item" id="tabletab3"><a href="#" >退库属性设备</a></li>
+                <li class="item active" id="tabletab1"><a href="#">正常属性电池</a></li>
+                <li class="item" id="tabletab2"><a href="#" >异常属性电池</a></li>
+                <li class="item" id="tabletab3"><a href="#" >退库属性电池</a></li>
             </ul>
         </div>
         <div id="toolbar">
@@ -406,10 +406,10 @@
             $(".item").each(function(index, element) {
                 if($(this).hasClass("active")){
 
-                    if($(this).text()=="正常属性设备"){
+                    if($(this).text()=="正常属性电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=10&productFilter=1&lifeStatusFilter=1";
 
-                    }else if($(this).text()=="异常属性设备"){
+                    }else if($(this).text()=="异常属性电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=10&invalidProduct=true"
                     }else {
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=10&invalidDevice=true"
@@ -643,7 +643,7 @@
 
 
         ].join("")
-    }//经销商
+    }//分站
     function dailiFormatter(value,row,index) {
         if(row.agentEntity!=null){
             if(row.agentEntity.nickname==null){inner=""}

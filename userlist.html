@@ -449,14 +449,7 @@ function inputPush() {
                         return (dataResult.pageSize * (dataResult.currPage - 1)) + index + 1;
                     }
                 },
-				{
-                    field: 'createTime',
-                    title: '创建时间',
-                    align: 'center',
-                    valign: 'middle',
-					formatter:ctimeFormatter
-					
-                },
+
 
 				{
                     field: 'nickname',
@@ -488,10 +481,17 @@ function inputPush() {
                     valign: 'middle',
 					formatter:genderFormatter
                 },
+                {
+                    field: 'yue',
+                    title: '余额',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:yueFormatter
+                },
 
 				{
-                    field: 'identityNumber',
-                    title: '身份证号码',
+                    field: 'rentOrderStatus',
+                    title: '状态',
                     align: 'center',
                     valign: 'middle'
                 },
@@ -502,6 +502,14 @@ function inputPush() {
                     valign: 'middle',
                     events: operateEvents,
                     formatter:picsFormatter
+
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:ctimeFormatter
 
                 },
 				{
@@ -530,6 +538,13 @@ function inputPush() {
 		
 		
 	}//编辑
+    function yueFormatter(value,row,index) {
+        var inner;
+        inner=row.accountEntity.unlockBalance
+        return [
+            '<span>'+inner+'</span>'
+        ].join('');
+    }//余额
 	function ctimeFormatter(value,row,index) {
 		if(row.createTime==null||row.createTime=="null")
 		{var inner=""}
@@ -691,43 +706,6 @@ function inputPush() {
        console.log(jqXHR);})
     var DELETE_ARR=[]
     var operateEvents = {
-//	'click .like2':function (e,value,row,index) {
-//		var ALL= row
-//        var A = ALL
-//		var g=ALL.accountEntity.unlockBalance
-//		var h=ALL.accountEntity.balance
-//		var i=ALL.accountEntity.virtualBalance
-//		$("#wrap1 .unlock").html(g)
-//		$("#wrap1 .balance").html(h)
-//		$("#wrap1 .virtual").html(i)
-//		var id=row.accountEntity.id
-//		console.log(id)
-//
-//		 $("#btn-6").unbind('click').on("click",function () {
-//                ajax("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/freeze","put",function (data) {
-//                    alert("冻结账户成功")
-//					$("#wrap1").hide()
-//					$table.bootstrapTable("refresh",{silent: true})
-//                    console.log("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/freeze","put")
-//                }, function (err) {
-//                    alert("冻结账户失败")
-//                    console.log(err)})
-//            })
-//			 $("#btn-7").unbind('click').on("click",function () {
-//                ajax("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/unfreeze","put",function (data) {
-//                    alert("取消冻结成功")
-//					$("#wrap1").hide()
-//					$table.bootstrapTable("refresh",{silent: true})
-//                    console.log("http://cjl3.rokyinfo.net:7200/api-pay/v3.1/accounts/"+id+"/unfreeze","put")
-//                }, function (err) {
-//                    alert("取消冻结失败")
-//                    console.log(err)})
-//            })
-//		$("#wrap1").show()
-//		$("#555").on("click",function () {
-//            $("#wrap1").hide()
-//   })
-//		},
 	'click .edit1': function (e, value, row, index) {
 	    
 		$("#eatTheWorld2  .userid").html(row.id)
@@ -777,12 +755,9 @@ function inputPush() {
 
             }else {
                 srcback =1
-
             }
         }else {
-
             srcback = 1;
-
         }
     },
     'click .zhankai3': function (e, value, row, index){

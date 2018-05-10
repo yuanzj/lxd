@@ -180,8 +180,15 @@
             <select data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 20px;"></select>
             <select data-city="---- 选择市 ----" class="form-control selci" ></select>
             <select data-district="---- 选择区 ----" class="form-control selco" ></select>
+            <select type="text" name="sectionName-s5" id="sectionName-s5" class="form-control fenzhan"
+                    style="display: inline-block;width: 140px;margin-left: 2px;">
+                <option selected = "selected" value="0">---分站---</option>
+            </select>
             <button type="button" class="btn btn-default searchWD2" style="margin-top: 0px;" >筛选</button>
         </div>
+
+
+
         <div id="app" >
             <label  style="display: block;margin-top: 0px" >
                 <ul class="nav nav-pills nav-stacked" style="overflow-y: scroll;-ms-overflow-y:scroll; height:300px;" id="app1">
@@ -246,9 +253,9 @@
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
                 <li class="item active" id="tabletab4"><a href="#">订单列表</a></li>
-                <li class="item" id="tabletab1"><a href="#">正常属性设备</a></li>
-                <li class="item" id="tabletab2"><a href="#" >异常属性设备</a></li>
-                <li class="item" id="tabletab3"><a href="#" >退库属性设备</a></li>
+                <li class="item" id="tabletab1"><a href="#">正常属性电池</a></li>
+                <li class="item" id="tabletab2"><a href="#" >异常属性电池</a></li>
+                <li class="item" id="tabletab3"><a href="#" >退库属性电池</a></li>
             </ul>
         </div>
         <div id="toolbar">
@@ -267,11 +274,11 @@
 
                     <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" onChange="move1()"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---一级渠道---</option>
+                        <option selected = "selected" value="0">---分站---</option>
                     </select>
 
                     <select type="text" class="form-control erjise" id="erjise" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---二级渠道---</option>
+                        <option selected = "selected" value="0">---驿站---</option>
 
                     </select>
 
@@ -299,11 +306,11 @@
 
                     <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse" onChange="move2()"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---一级渠道---</option>
+                        <option selected = "selected" value="0">---分站---</option>
                     </select>
 
                     <select type="text" class="form-control erjise" id="erjise2" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---二级渠道---</option>
+                        <option selected = "selected" value="0">---驿站---</option>
 
                     </select>
 
@@ -331,11 +338,11 @@
 
                     <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse" onChange="move3()"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---一级渠道---</option>
+                        <option selected = "selected" value="0">---分站---</option>
                     </select>
 
                     <select type="text" class="form-control erjise" id="erjise3" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---二级渠道---</option>
+                        <option selected = "selected" value="0">---驿站---</option>
 
                     </select>
 
@@ -458,7 +465,7 @@
             $(".item").each(function(index, element) {
                 if($(this).hasClass("active")){
 
-                    if($(this).text()=="正常属性设备"){
+                    if($(this).text()=="正常属性电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1";
                         $(function () {
                             initTable();
@@ -475,7 +482,7 @@
                             $table.bootstrapTable("hideColumn","totalPrice");
                             $table.bootstrapTable("hideColumn","createTime12");
                         });
-                    }else if($(this).text()=="异常属性设备"){
+                    }else if($(this).text()=="异常属性电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
                         $(function () {
                             initTable();
@@ -492,7 +499,7 @@
                             $table.bootstrapTable("hideColumn","totalPrice");
                             $table.bootstrapTable("hideColumn","createTime12");
                         });
-                    }else if($(this).text()=="退库属性设备") {
+                    }else if($(this).text()=="退库属性电池") {
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
                         $(function () {
                             initTable();
@@ -601,7 +608,7 @@
 
                 },{
                     field: 'createTime5',
-                    title: '经销商',
+                    title: '分站',
                     align: 'center',
                     valign: 'middle',
                     formatter:jingxFormatter
@@ -1142,7 +1149,7 @@
 
 
         ].join("")
-    }//经销商
+    }//分站
     function dailiFormatter(value,row,index) {
         if(row.agentEntity!=null){
             if(row.agentEntity.nickname==null){inner=""}
@@ -1237,7 +1244,7 @@
 
 
     $.ajax({
-        url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=2,3,5,6,20,40,60&sort=code,asc&limit=900&page=1",
+        url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=900&page=1",
         method: "get",
         contentType: "application/json; charset=utf-8",
         cache: false,
@@ -1294,12 +1301,22 @@
         $("#wrap").hide()
     });
     $(".searchWD2").on("click",function () {      //wd
-        var a=$(".selpr").val()?"&province="+$(".selpr").val():""
-        var b=$(".selci").val()?"&city="+$(".selci").val():""
-        var c=$(".selco").val()?"&county="+$(".selco").val():""
-        console.log("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=2,3,5,6,20,40,60"+a+b+c)
+        var a=$(".selpr").val()?"&province="+$(".selpr").val():"";
+        var b=$(".selci").val()?"&city="+$(".selci").val():"";
+        var c=$(".selco").val()?"&county="+$(".selco").val():"";
+        var myselect=document.getElementById("sectionName-s5");
+        var index=myselect.selectedIndex ;
+        idstore1=myselect.options[index].value;
+        console.log(idstore1);
+        var url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=100&page=1"+a+b+c;
+        if(idstore1=="0"){
+            url=url;
+        }else {
+            url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?showFlag=0&sort=code,asc&limit=100&page=1"+a+b+c+"&parentId="+idstore1
+        }
+        console.log(url);
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=2,3,5,6,20,40,60"+a+b+c+"&limit=900&page=1",
+            url: url,
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1308,17 +1325,17 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                console.log(data)
-                $(".removeD").remove()
-                var d=document.getElementById("app1")
+                console.log(data);
+                $(".removeD").remove();
+                var d=document.getElementById("app1");
                 for(var  i=0;i<data.list.length;i++){
-                    var li=document.createElement("li")
-                    var a=document.createElement("a")
-                    a.className="hoverE"
-                    li.className="removeD"
-                    li.index=data.list[i].id
-                    li.appendChild(a)
-                    d.appendChild(li)
+                    var li=document.createElement("li");
+                    var a=document.createElement("a");
+                    a.className="hoverE";
+                    li.className="removeD";
+                    li.index=data.list[i].id;
+                    li.appendChild(a);
+                    d.appendChild(li);
                     li.onclick=function (ev) {
                         for(var i=0;i<document.getElementsByClassName("hoverE").length;i++){
                             document.getElementsByClassName("hoverE")[i].style.background="white"
@@ -1326,7 +1343,12 @@
                         ev.target.style.background="#d1c9c9"
                         id1=this.index
                     }
-                    a.innerHTML=data.list[i].name+"("+data.list[i].address+")"
+                    if(idstore1=="0"){
+                        a.innerHTML = data.list[i].name + "(" + data.list[i].address + ")"
+                    }
+                    else {
+                        a.innerHTML = data.list[i].dealer + data.list[i].name + "(" + data.list[i].address + ")"
+                    }
                 }
 
             },
@@ -1480,6 +1502,7 @@
     $(function(){
         getMissiveType();
         getMissiveType2();
+        wangdianshaix3();
     });
     function getMissiveType(){
         $.ajax({
@@ -1522,6 +1545,27 @@
                         $("#guigese").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
                         $("#guigese2").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
                         $("#guigese3").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                    }
+                }
+            }
+        );
+    }
+    function wangdianshaix3(){
+        $.ajax({
+                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                processData:false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success:function(data){
+                    var len=data.list.length;
+                    $('#sectionName-s').attr("length",'0');
+                    for(i=0;i<len;i++){
+                        $("#sectionName-s5").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
                     }
                 }
             }

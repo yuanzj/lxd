@@ -230,7 +230,7 @@
             <button type="button" class="btn btn-default " id="btn-5" style="width: 100px;display: inline-block;float: left;margin-right:5px;">重启</button>
         </div>
         <div style="float: left;margin-top: 30px;  padding-left:34%;">
-            <button type="button" class="btn btn-default "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:5px;">冻结设备</button>
+            <button type="button" class="btn btn-default "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:5px;">冻结电池</button>
             <button type="button" class="btn btn-default " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:5px;">取消冻结</button>
         </div>
         <div style="float: right;margin-top: 100px;margin-right: 40px">
@@ -273,10 +273,10 @@
     <div class="container" style="width:97%; margin-top:-24px;">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab1"><a href="#">已租赁设备</a></li>
-                <li class="item" id="tabletab2"><a href="#" >逾期租赁设备</a></li>
-                <li class="item" id="tabletab3"><a href="#" >待租赁设备</a></li>
-                <li class="item" id="tabletab4"><a href="#" >库存设备</a></li>
+                <li class="item active" id="tabletab1"><a href="#">已租赁电池</a></li>
+                <li class="item" id="tabletab2"><a href="#" >逾期租赁电池</a></li>
+                <li class="item" id="tabletab3"><a href="#" >待租赁电池</a></li>
+                <li class="item" id="tabletab4"><a href="#" >库存电池</a></li>
             </ul>
         </div>
         <div id="toolbar">
@@ -477,14 +477,14 @@
 
             $(".item").each(function(index, element) {
                 if($(this).hasClass("active")){
-                    if($(this).text()=="已租赁设备"){
+                    if($(this).text()=="已租赁电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=10&filterType=1&storeTypes=0,40&sort=ue.end_time,desc";
 
-                    }else if($(this).text()=="逾期租赁设备"){
+                    }else if($(this).text()=="逾期租赁电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=10&filterType=2&storeTypes=0,40&sort=ue.end_time,desc"
-                    }else if($(this).text()=="待租赁设备"){
+                    }else if($(this).text()=="待租赁电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=10&filterType=3&storeTypes=0,40&sort=ue.store_code,asc"
-                    }else if($(this).text()=="库存设备"){
+                    }else if($(this).text()=="库存电池"){
                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=10&storeTypes=20&sort=ue.store_code,asc"
                     }
                     console.log(url)
@@ -1184,11 +1184,11 @@
             })
             $("#btn-6").unbind('click').on("click",function () {
                 ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn="+row.ccuSn+"&useStatus=1","put",function (data) {
-                    alert("冻结设备成功")
+                    alert("冻结电池成功")
                     $table.bootstrapTable("refresh",{silent: true})
                     console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn="+row.ccuSn+"&useStatus=1","get")
                 }, function (err) {
-                    alert("冻结设备失败")
+                    alert("冻结电池失败")
                     console.log(err)})
             })
             $("#btn-7").unbind('click').on("click",function () {
