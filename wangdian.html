@@ -160,8 +160,8 @@
                 <tr style="margin-top: 20px;height: 30px;">
                     <th style="text-align: center;">产品规格</th>
                     <th style="text-align: center;">租赁价格</th>
-                    <th style="text-align: center;">经销商收益</th>
-                    <th style="text-align: center;">门店收益</th>
+                    <th style="text-align: center;">分站收益</th>
+                    <th style="text-align: center;">驿站收益</th>
                     <th style="text-align: center;">操作</th>
                 </tr>
                 </thead>
@@ -191,7 +191,7 @@
               <option   selected value="s1">-- 请选择 --</option>
               <option   value="SC">合作租赁网点</option>
               <option   value="BJ">合作维修网点</option>
-              <option   value="SB">设备仓库</option>
+              <option   value="SB">电池仓库</option>
               <option   value="ZY">直营租赁网点</option>
               <option   value="CS">研发测试</option>
 
@@ -269,16 +269,16 @@
 </div>
 <!--新增仓库-->
 
-<!--新增经销商-->
+<!--新增分站-->
 <div id="adddealer" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
     <div style="width: 750px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">新增经销商</p>
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">新增分站</p>
     </div>
     <div style="width: 750px;height: 340px;background: #FFF;margin: 0 auto;opacity: 1">
         <div>
-            <p style="padding-top: 60px;padding-left: 15px; display: inline-block">经销商名称：</p>
+            <p style="padding-top: 60px;padding-left: 15px; display: inline-block">分站名称：</p>
             <input type="text" class="form-control jxname" style="display: inline-block;width: 250px;margin-left: 1px;">
-            <p style="padding-top: 20px;padding-left: 30px; display: inline-block">经销商类型：</p>
+            <p style="padding-top: 20px;padding-left: 30px; display: inline-block">分站类型：</p>
             <select class="form-control jxtype" id="jxtype" style="width: 250px;display: inline-block;margin-left: 5px">
                 <option   selected>-- 请选择 --</option>
                 <option>直营</option>
@@ -313,18 +313,18 @@
 
     </div>
 </div>
-<!--新增经销商-->
+<!--新增分站-->
 
-<!--新增门店-->
+<!--新增驿站-->
 <div id="addstore" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
     <div style="width: 750px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">新增门店</p>
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">新增驿站</p>
     </div>
     <div style="width: 750px;height: 450px;background: #FFF;margin: 0 auto;opacity: 1">
         <div>
-            <p style="padding-top: 60px;padding-left: 15px; display: inline-block">门店名称：</p>
+            <p style="padding-top: 60px;padding-left: 15px; display: inline-block">驿站名称：</p>
             <input type="text" class="form-control mdname" style="display: inline-block;width: 250px;margin-left: 15px;">
-            <p style="padding-top: 20px;padding-left: 30px; display: inline-block">门店类型：</p>
+            <p style="padding-top: 20px;padding-left: 30px; display: inline-block">驿站类型：</p>
             <select class="form-control mdtype" id="mdtype" style="width: 250px;display: inline-block;margin-left: 5px">
                 <option   selected>-- 请选择 --</option>
                 <option value="40">直营</option>
@@ -334,12 +334,12 @@
 
         </div>
         <div>
-            <p style="padding-top: 20px;padding-left: 15px; display: inline-block">所属经销商：</p>
+            <p style="padding-top: 20px;padding-left: 15px; display: inline-block">所属分站：</p>
             <!--<input type="text" class="form-control mddealer" style="display: inline-block;width: 250px;">-->
 
             <select type="text" name="sectionName-s" id="channel-1" class="form-control wangdianse"
                     style="display: inline-block;width: 140px;margin-left: 2px;">
-                <option selected = "selected" value="0">---一级渠道---</option>
+                <option selected = "selected" value="0">---分站---</option>
             </select>
 
 
@@ -382,7 +382,7 @@
 
     </div>
 </div>
-<!--新增门店-->
+<!--新增驿站-->
 
 <!--编辑-->
 <div id="eatTheWorld2" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
@@ -401,7 +401,7 @@
           <option value="3">合作租赁网点-饿了么</option>
           <option value="5">合作维修网点</option>
           <option value="6">合作租赁网点-其他</option>
-          <option value="20">设备仓库</option>
+          <option value="20">电池仓库</option>
           <option value="40">直营租赁网点</option>
       </select>
        </div>
@@ -491,16 +491,16 @@
 </div>
 <!--编辑仓库-->
 
-<!--编辑经销商-->
+<!--编辑分站-->
 <div id="editdealer" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
     <div style="width: 750px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">编辑经销商信息</p>
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">编辑分站信息</p>
     </div>
     <div style="width: 750px;height: 320px;background: #FFF;margin: 0 auto;opacity: 1">
         <div>
-            <p style="padding-top: 30px;padding-left: 15px; display: inline-block">经销商编号：</p>
+            <p style="padding-top: 30px;padding-left: 15px; display: inline-block">分站编号：</p>
             <input type="text" class="form-control ejxcode" disabled="disabled" style="display: inline-block;width: 250px;">
-            <p style="padding-top: 20px;padding-left: 17px; display: inline-block">经销商名称：</p>
+            <p style="padding-top: 20px;padding-left: 17px; display: inline-block">分站名称：</p>
             <input type="text" class="form-control ejxname" style="display: inline-block;width: 250px;margin-left: 4px;">
 
         </div>
@@ -511,7 +511,7 @@
             <input type="text" class="form-control ejxcontact" style="display: inline-block;width: 250px;margin-left: 4px;">
         </div>
         <div>
-            <p style="padding-top: 20px;padding-left: 15px; display: inline-block">经销商类型：</p>
+            <p style="padding-top: 20px;padding-left: 15px; display: inline-block">分站类型：</p>
             <select type="text"  disabled="disabled" id="ss1" class="form-control carmanPhone ejxtype" style="display: inline-block;width: 200px;">
 
                 <option>直营</option>
@@ -536,24 +536,24 @@
 
     </div>
 </div>
-<!--编辑经销商-->
+<!--编辑分站-->
 
-<!--编辑门店-->
+<!--编辑驿站-->
 <div id="editstore" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:1009;left:0px;">
     <div style="width: 750px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">编辑门店信息</p>
+        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">编辑驿站信息</p>
     </div>
     <div style="width: 750px;height: 400px;background: #FFF;margin: 0 auto;opacity: 1">
         <div>
-            <p style="padding-top: 30px;padding-left: 15px; display: inline-block">门店编号：</p>
+            <p style="padding-top: 30px;padding-left: 15px; display: inline-block">驿站编号：</p>
             <input type="text" class="form-control emdcode" disabled="disabled" style="display: inline-block;width: 250px;margin-left: 13px">
-            <p style="padding-top: 20px;padding-left: 17px; display: inline-block">门店名称：</p>
+            <p style="padding-top: 20px;padding-left: 17px; display: inline-block">驿站名称：</p>
             <input type="text" class="form-control emdname" style="display: inline-block;width: 250px;margin-left: 4px;">
 
         </div>
 
         <div>
-            <p style="padding-top: 20px;padding-left: 15px; display: inline-block">经销商类型：</p>
+            <p style="padding-top: 20px;padding-left: 15px; display: inline-block">分站类型：</p>
             <select type="text"  disabled="disabled" id="ss2" class="form-control carmanPhone emdtype" style="display: inline-block;width: 200px;">
 
                 <option>直营</option>
@@ -561,7 +561,7 @@
                 <option>其他</option>
 
             </select>
-            <p style="padding-top: 20px;padding-left: 54px; display: inline-block">所属经销商：</p>
+            <p style="padding-top: 20px;padding-left: 54px; display: inline-block">所属分站：</p>
             <input type="text" disabled="disabled" class="form-control emddealer" style="display: inline-block;width: 250px;margin-left: 4px;">
         </div>
         <div id="distpicker6" style="padding-top: 10px;margin-left: 15px">
@@ -596,7 +596,7 @@
 
     </div>
 </div>
-<!--编辑门店-->
+<!--编辑驿站-->
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="">
@@ -640,8 +640,8 @@
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
                 <li class="item active" id="tabletab1"><a href="#" >仓库管理</a></li>
-                <li class="item" id="tabletab2"><a href="#" >经销商管理</a></li>
-                <li class="item" id="tabletab3"><a href="#">门店管理</a></li>
+                <li class="item" id="tabletab2"><a href="#" >分站管理</a></li>
+                <li class="item" id="tabletab3"><a href="#">驿站管理</a></li>
             </ul>
         </div>
  <div id="toolbar">
@@ -657,13 +657,13 @@
 
               <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse"
                       style="display: inline-block;width: 140px;margin-left: 2px;">
-                  <option selected = "selected" value="0">---一级渠道---</option>
+                  <option selected = "selected" value="0">---分站---</option>
               </select>
               <button type="button" class="btn btn-default searchDQ" >查询</button>
           </div>
           <div data-toggle="distpicker"  class=" form-inline topinline" id="table2" style="margin-top: 15px;margin-bottom: -15px;">
-              <button  class="btn btn-default add-station" id="btn-addstation2">新增经销商</button>
-              <button  class="btn btn-default add-station" id="btn-delete2">删除经销商</button>
+              <button  class="btn btn-default add-station" id="btn-addstation2">新增分站</button>
+              <button  class="btn btn-default add-station" id="btn-delete2">删除分站</button>
 
               <select  data-province="---- 选择省 ----" class="form-control selpr2" style="margin-left: 20px;"></select>
               <select  data-city="---- 选择市 ----" class="form-control selci2" ></select>
@@ -671,13 +671,13 @@
 
               <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
                       style="display: inline-block;width: 140px;margin-left: 2px;">
-                  <option selected = "selected" value="0">---一级渠道---</option>
+                  <option selected = "selected" value="0">---分站---</option>
               </select>
               <button type="button" class="btn btn-default searchDQ2" >查询</button>
           </div>
           <div data-toggle="distpicker"  class=" form-inline topinline" id="table3" style="margin-top: 15px;margin-bottom: -15px;">
-              <button  class="btn btn-default add-station" id="btn-addstation3">新增门店</button>
-              <button  class="btn btn-default add-station" id="btn-delete3">删除门店</button>
+              <button  class="btn btn-default add-station" id="btn-addstation3">新增驿站</button>
+              <button  class="btn btn-default add-station" id="btn-delete3">删除驿站</button>
 
               <select  data-province="---- 选择省 ----" class="form-control selpr3" style="margin-left: 20px;"></select>
               <select  data-city="---- 选择市 ----" class="form-control selci3" ></select>
@@ -685,7 +685,7 @@
 
               <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse"
                       style="display: inline-block;width: 140px;margin-left: 2px;">
-                  <option selected = "selected" value="0">---一级渠道---</option>
+                  <option selected = "selected" value="0">---分站---</option>
               </select>
               <button type="button" class="btn btn-default searchDQ3" >查询</button>
           </div>
@@ -804,7 +804,6 @@
                             $table.bootstrapTable("hideColumn","c");
                             $table.bootstrapTable("hideColumn","d");
                             $table.bootstrapTable("hideColumn","e");
-                            $table.bootstrapTable("hideColumn","f");
                             $table.bootstrapTable("hideColumn","address");
                             $table.bootstrapTable("hideColumn","lon");
                             $table.bootstrapTable("hideColumn","lat");
@@ -812,20 +811,19 @@
                             $table.bootstrapTable("hideColumn","dealer");
                         });
 
-                    }else if($(this).text()=="经销商管理"){
+                    }else if($(this).text()=="分站管理"){
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&sort=code,asc";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn","a");
                             $table.bootstrapTable("hideColumn","d");
                             $table.bootstrapTable("hideColumn","e");
-                            $table.bootstrapTable("hideColumn","f");
                             $table.bootstrapTable("hideColumn","address");
                             $table.bootstrapTable("hideColumn","lon");
                             $table.bootstrapTable("hideColumn","lat");
                             $table.bootstrapTable("hideColumn","dealer");
                         });
-                    }else if($(this).text()=="门店管理") {
+                    }else if($(this).text()=="驿站管理") {
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&sort=code,asc";
                         $(function () {
                             initTable();
@@ -934,20 +932,20 @@
                 },
                 {
                     field: 's',
-                    title: '经销商名称',
+                    title: '分站名称',
                     align: 'center',
                     valign: 'middle',
                     formatter:cknameFormatter
                 },
                 {
                     field: 'dealer',
-                    title: '经销商名称',
+                    title: '分站名称',
                     align: 'center',
                     valign: 'middle'
                 },
                 {
                     field: 'c',
-                    title: '经销商类型',
+                    title: '分站类型',
                     align: 'center',
                     valign: 'middle',
                     formatter:jxstypeFormatter
@@ -955,24 +953,17 @@
                 },
                 {
                     field: 'd',
-                    title: '门店名称',
+                    title: '驿站名称',
                     align: 'center',
                     valign: 'middle',
                     formatter:cknameFormatter
                 },
                 {
                     field: 'e',
-                    title: '门店类型',
+                    title: '驿站类型',
                     align: 'center',
                     valign: 'middle',
                     formatter:jxstypeFormatter
-                },
-                {
-                    field: 'f',
-                    title: '所在地区',
-                    align: 'center',
-                    valign: 'middle',
-                    formatter:cknameFormatter
                 },
                 {
                     field: 'address',
@@ -1045,7 +1036,7 @@
         ].join("")
 
 
-    }//经销商类型
+    }//分站类型
     function editFormatter(value,row,index) {
 
 		return [
@@ -1080,7 +1071,7 @@
             inner="合作租赁网点"
         }
         else if(row.type==20){
-            inner="设备仓库"
+            inner="电池仓库"
         }
         else if(row.type==40){
             inner="直营租赁网点"
@@ -1111,7 +1102,7 @@
             inner="其他"
         }
         else if(row.type==20){
-            inner="设备仓库"
+            inner="电池仓库"
         }
         else if(row.type==40){
             inner="直营租赁网点"
@@ -1142,7 +1133,7 @@
 
 
     ].join("")
-		 }//经销商
+		 }//分站
 	function dailiFormatter(value,row,index) {
 		 if(row.agentEntity!=null){
 	   if(row.agentEntity.nickname==null){inner=""}
@@ -1276,7 +1267,7 @@ ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",fun
                         $("#editstorehouse").hide()
                     })
 
-                }else if($(this).text()=="经销商管理"){
+                }else if($(this).text()=="分站管理"){
                     var m=row.type;
                     console.log(m)
                     var  ss = document.getElementById('ss1');
@@ -1310,7 +1301,7 @@ ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",fun
                     $("#cleddealer").on("click",function () {
                         $("#editdealer").hide()
                     })
-                }else if($(this).text()=="门店管理") {
+                }else if($(this).text()=="驿站管理") {
                     var n=row.type;
                     console.log(n)
                     var  ss1 = document.getElementById('ss2');
@@ -1429,7 +1420,6 @@ ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",fun
             storeRate:c
 
         };
-        console.log(JSON.stringify(peizhijson))
         $.ajax({
             url: " http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/"+id,
             contentType: "application/json; charset=utf-8",
@@ -1631,7 +1621,7 @@ if (confirm('您确定要删除已选网点吗?')) {
                 console.log(err)
             }
         });
-    });//新增门店
+    });//新增驿站
     $("#add4").on("click",function () {
 
         var a =$("#adddealer  .jxname").val();
@@ -1684,7 +1674,7 @@ if (confirm('您确定要删除已选网点吗?')) {
                 console.log(err)
             }
         });
-    });//新增经销商
+    });//新增分站
     $("#add3").on("click",function () {
 
         var a =$("#addstorehouse  .ckname").val();
@@ -1830,7 +1820,7 @@ if (confirm('您确定要删除已选网点吗?')) {
             }
         });
 
-    });//编辑经销商
+    });//编辑分站
     $("#edit5").on("click",function (value, row, index) {
         var a =$("#editstore  .emdname").val();
         var b=$("#editstore  .emdtype").val();
@@ -1892,7 +1882,7 @@ if (confirm('您确定要删除已选网点吗?')) {
             }
         });
 
-    });//编辑门店
+    });//编辑驿站
 
     $(".searchDQ").on("click",function () {
         var url;
@@ -2025,7 +2015,7 @@ if (confirm('您确定要删除已选网点吗?')) {
             }
         });
 
-    });//经销商
+    });//分站
     $(".searchDQ3").on("click",function () {
         var url;
         var a=$(".selpr3").val();
@@ -2069,7 +2059,7 @@ if (confirm('您确定要删除已选网点吗?')) {
                 }
             }
         }
-        console.log(url)
+        console.log(url);
         $.ajax({
             url: url,
             method: "get",
@@ -2091,7 +2081,7 @@ if (confirm('您确定要删除已选网点吗?')) {
             }
         });
 
-    });//门店
+    });//驿站
     $(".searchLX").on("click",function () {
 
         var a=$(".lx1").val();
@@ -2121,7 +2111,7 @@ if (confirm('您确定要删除已选网点吗?')) {
                 }
                 else if(a=="BJ" && b=="合作维修网点"){
                     $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=5&sort=code,asc"});}
-                else if(a=="SB" && b=="设备仓库"){
+                else if(a=="SB" && b=="电池仓库"){
                     $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=20&sort=code,asc"});}
                 else if(a=="ZY" && b=="直营租赁网点"){
                     $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=40&sort=code,asc"});}
@@ -2177,7 +2167,6 @@ if (confirm('您确定要删除已选网点吗?')) {
         $table.bootstrapTable("hideColumn","c");
         $table.bootstrapTable("hideColumn","d");
         $table.bootstrapTable("hideColumn","e");
-        $table.bootstrapTable("hideColumn","f");
         $table.bootstrapTable("hideColumn","address");
         $table.bootstrapTable("hideColumn","lon");
         $table.bootstrapTable("hideColumn","lat");
@@ -2277,7 +2266,7 @@ if (confirm('您确定要删除已选网点吗?')) {
             <!--比对value值，实现对应二级text值的动态生成-->
         }else if(s1.value=="SB")
         {
-            add=new Array("设备仓库");
+            add=new Array("电池仓库");
             <!--比对value值，实现对应二级text值的动态生成-->
         }else if(s1.value=="ZY")
         {
@@ -2320,7 +2309,7 @@ if (confirm('您确定要删除已选网点吗?')) {
             <!--比对value值，实现对应二级text值的动态生成-->
         }else if(s1.value=="SB")
         {
-            add=new Array("设备仓库");
+            add=new Array("电池仓库");
             <!--比对value值，实现对应二级text值的动态生成-->
         }else if(s1.value=="ZY")
         {
