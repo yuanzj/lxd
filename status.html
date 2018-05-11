@@ -2747,9 +2747,23 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
     },
         'click .like7':function (e,value,row,index) {
            var sn=row.ccuSn;
+           var url;
+            $(".item").each(function(index, element) {
+                if($(this).hasClass("active")){
 
+                    if($(this).text()=="仓库电池"){
+                        url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&category=0&ccuSn="+sn
+                    }
+                    else{
+                        url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&ccuSn="+sn
+                    }
+
+
+                }
+            });
+                console.log(url)
            $.ajax({
-               url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&ccuSn="+sn,
+               url: url,
                method: "get",
                contentType: "application/json; charset=utf-8",
                cache: false,
@@ -2997,7 +3011,7 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
    });
     $(".searchCcu4").on("click",function () {
        $.ajax({
-           url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&ccuSn="+$(".searchResult4").val(),
+           url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&category=0&ccuSn="+$(".searchResult4").val(),
            method: "get",
            contentType: "application/json; charset=utf-8",
            cache: false,
@@ -3007,7 +3021,7 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
                xhr.setRequestHeader("Authorization", sessionStorage.token);
            },
            success: function (data) {
-               $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&ccuSn="+$(".searchResult4").val()});
+               $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&category=0&ccuSn="+$(".searchResult4").val()});
            },
            error: function (jqXHR, textStatus, errorThrown) {
                console.log("失败")
