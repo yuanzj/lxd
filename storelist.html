@@ -229,7 +229,8 @@
     <div class="container" style="width:97%; margin-top:-24px;">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab2"><a href="#" >仓库</a></li>
+                <li class="item active" id="tabletab4"><a href="#" >统计</a></li>
+                <li class="item" id="tabletab2"><a href="#" >仓库</a></li>
                 <li class="item" id="tabletab1"><a href="#">分站</a></li>
                 <li class="item" id="tabletab3"><a href="#" >驿站</a></li>
             </ul>
@@ -277,7 +278,7 @@
                 </div>
                 <script type="text/javascript">
                     document.getElementById("table1").style.display="none";
-                    document.getElementById("table2").style.display="block";
+                    document.getElementById("table2").style.display="none";
                     document.getElementById("table3").style.display="none";
 
 
@@ -349,9 +350,15 @@
         document.getElementById("table3").style.display="block";
 
     });
+    $("#tabletab4").on("click",function () {
+        document.getElementById("table1").style.display="none";
+        document.getElementById("table2").style.display="none";
+        document.getElementById("table3").style.display="none";
+
+    });
 
     var url;
-    url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
+    url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
     $(function(){
 
         $("#mytabs li").click(function() {
@@ -365,6 +372,11 @@
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
+                            $table.bootstrapTable("hideColumn","zhandian");
+                            $table.bootstrapTable("hideColumn","zongshu");
+                            $table.bootstrapTable("hideColumn","yizu");
+                            $table.bootstrapTable("hideColumn","daizu");
+                            $table.bootstrapTable("hideColumn","zulinlv");
                             $table.bootstrapTable("hideColumn","k");
                             $table.bootstrapTable("hideColumn","l");
                             $table.bootstrapTable("hideColumn","m");
@@ -380,6 +392,11 @@
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
+                            $table.bootstrapTable("hideColumn","zhandian");
+                            $table.bootstrapTable("hideColumn","zongshu");
+                            $table.bootstrapTable("hideColumn","yizu");
+                            $table.bootstrapTable("hideColumn","daizu");
+                            $table.bootstrapTable("hideColumn","zulinlv");
                             $table.bootstrapTable("hideColumn","m");
                             $table.bootstrapTable("hideColumn","name");
                             $table.bootstrapTable("hideColumn","dealer");
@@ -388,11 +405,37 @@
                         url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
+                            $table.bootstrapTable("hideColumn","zhandian");
+                            $table.bootstrapTable("hideColumn","zongshu");
+                            $table.bootstrapTable("hideColumn","yizu");
+                            $table.bootstrapTable("hideColumn","daizu");
+                            $table.bootstrapTable("hideColumn","zulinlv");
                             $table.bootstrapTable("hideColumn","name");
                             $table.bootstrapTable("hideColumn","depositAmount");
                             $table.bootstrapTable("hideColumn","k");
                         });
-                    }
+                    }else if($(this).text()=="统计") {
+                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
+                         $(function () {
+                             initTable();
+                             $table.bootstrapTable("hideColumn","code");
+                             $table.bootstrapTable("hideColumn","province");
+                             $table.bootstrapTable("hideColumn","city");
+                             $table.bootstrapTable("hideColumn","county");
+                             $table.bootstrapTable("hideColumn","name");
+                             $table.bootstrapTable("hideColumn","k");
+                             $table.bootstrapTable("hideColumn","l");
+                             $table.bootstrapTable("hideColumn","m");
+                             $table.bootstrapTable("hideColumn","depositAmount");
+                             $table.bootstrapTable("hideColumn","balance");
+                             $table.bootstrapTable("hideColumn","income");
+                             $table.bootstrapTable("hideColumn","batteryRentedCount");
+                             $table.bootstrapTable("hideColumn","batteryUnusedCount");
+                             $table.bootstrapTable("hideColumn","batteryTotalCount");
+                             $table.bootstrapTable("hideColumn","rentPercent");
+                             $table.bootstrapTable("hideColumn","dealer");
+                         });
+                     }
                     console.log(url)
 
                 }
@@ -443,6 +486,47 @@
                         /*console.log((dataResult.pageSize * (dataResult.currPage - 1)) + index + 1)*/
                         return (dataResult.pageSize * (dataResult.currPage - 1)) + index + 1;
                     }
+                },
+                {
+                    field: 'zhandian',
+                    title: '站点',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:zhandianFormatter
+
+                },
+                {
+                    field: 'zongshu',
+                    title: '总电池数',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter:zongshuFormatter
+
+                },
+                {
+                    field: 'yizu',
+                    title: '已租赁数',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:yizuFormatter
+
+                },
+                {
+                    field: 'daizu',
+                    title: '待租赁数',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:daizuFormatter
+
+                },
+                {
+                    field: 'zulinlv',
+                    title: '租赁率',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:zulinlvFormatter
+
                 },
 
 
@@ -563,6 +647,43 @@
         });
         // sometimes footer render error.
     }
+    function zhandianFormatter(value,row,index) {
+        var inner = row.storeCategoryName;
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }//站点
+    function zongshuFormatter(value,row,index) {
+        return [
+            '<div class="nowwrp">',
+            '<a class="batterytotal" href="#" title="统计详情">',
+            row.batteryTotalCount+"",
+            '</a>',
+            '</div>'
+        ].join("")
+    }//总电池数
+    function yizuFormatter(value,row,index) {
+        var inner = row.batteryRentedCount;
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }//已租赁数
+    function daizuFormatter(value,row,index) {
+        var inner = row.batteryUnusedCount;
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }//待租赁数
+    function zulinlvFormatter(value,row,index) {
+        var inner = row.rentPercent+"%";
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }//租赁率
     function jxsFormatter(value,row,index) {
         var inner=row.name;
 
@@ -1061,37 +1182,77 @@
     }
     var operateEvents = {
         'click .batterytotal': function (e,value,row,index) {
-            $.ajax({
-                url:"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics?storeId="+row.id,
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                beforeSend: function (xhr) {
-                    /* Authorization header */
-                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success: function (data) {
-                    console.log(data)
-                    render(data)
-                    function render(list) {
-                        for (var i = 0; i < list.length; i++) {
-                            var tr = document.createElement('tr')
-                            tr.innerHTML = '<td>'+list[i].specification+'</td><td>'+list[i].batteryTotalCount+'</td><td>'+list[i].batteryRentedCount+'</td><td>'+list[i].batteryUnusedCount+'</td><td>'+list[i].rentPercent+'%'+'</td>'
-                            document.getElementById('tbMain').appendChild(tr)
-                        }
+            $(".item").each(function(index, element) {
+                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/"+row.ccuSn+"/clean-exception-flag");
+                if($(this).hasClass("active")){
+
+                    if($(this).text()=="统计"){
+                        $.ajax({
+                            url:"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category="+row.category,
+                            method: "get",
+                            contentType: "application/json; charset=utf-8",
+                            cache: false,
+                            beforeSend: function (xhr) {
+                                /* Authorization header */
+                                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                                xhr.setRequestHeader("Authorization", sessionStorage.token);
+                            },
+                            success: function (data) {
+                                render(data)
+                                function render(list) {
+                                    for (var i = 0; i < list.length; i++) {
+                                        var tr = document.createElement('tr')
+                                        tr.innerHTML = '<td>'+list[i].specification+'</td><td>'+list[i].batteryTotalCount+'</td><td>'+list[i].batteryRentedCount+'</td><td>'+list[i].batteryUnusedCount+'</td><td>'+list[i].rentPercent+'%'+'</td>'
+                                        document.getElementById('tbMain').appendChild(tr)
+                                    }
+                                }
+
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("失败");
+                                console.log(jqXHR);
+                            }
+                        });
+
+
+
+                    }
+                    else {
+                        $.ajax({
+                            url:"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics?storeId="+row.id,
+                            method: "get",
+                            contentType: "application/json; charset=utf-8",
+                            cache: false,
+                            beforeSend: function (xhr) {
+                                /* Authorization header */
+                                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                                xhr.setRequestHeader("Authorization", sessionStorage.token);
+                            },
+                            success: function (data) {
+                                render(data)
+                                function render(list) {
+                                    for (var i = 0; i < list.length; i++) {
+                                        var tr = document.createElement('tr')
+                                        tr.innerHTML = '<td>'+list[i].specification+'</td><td>'+list[i].batteryTotalCount+'</td><td>'+list[i].batteryRentedCount+'</td><td>'+list[i].batteryUnusedCount+'</td><td>'+list[i].rentPercent+'%'+'</td>'
+                                        document.getElementById('tbMain').appendChild(tr)
+                                    }
+                                }
+
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("失败");
+                                console.log(jqXHR);
+                            }
+                        });
+
                     }
 
 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("失败");
-                    console.log(jqXHR);
                 }
             });
-//            $(".carNumber").html(row.ccuSn)
-//            $(".miaoshu").html(row.faultDetail)
-//            $(".jianyi").html(row.faultAnalyze)
+
             $("#dianchishu").show()
             $("#666").on("click",function () {
                 $("#tbMain  tr").empty("")
@@ -1347,6 +1508,12 @@
 <script type="text/javascript">
 
     $(function(){
+
+        $table.bootstrapTable("hideColumn","code");
+        $table.bootstrapTable("hideColumn","province");
+        $table.bootstrapTable("hideColumn","city");
+        $table.bootstrapTable("hideColumn","county");
+        $table.bootstrapTable("hideColumn","name");
         $table.bootstrapTable("hideColumn","k");
         $table.bootstrapTable("hideColumn","l");
         $table.bootstrapTable("hideColumn","m");
@@ -1355,6 +1522,7 @@
         $table.bootstrapTable("hideColumn","income");
         $table.bootstrapTable("hideColumn","batteryRentedCount");
         $table.bootstrapTable("hideColumn","batteryUnusedCount");
+        $table.bootstrapTable("hideColumn","batteryTotalCount");
         $table.bootstrapTable("hideColumn","rentPercent");
         $table.bootstrapTable("hideColumn","dealer");
         getMissiveType();
