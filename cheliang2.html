@@ -309,10 +309,12 @@
                     <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse" onChange="move2()"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
                         <option selected = "selected" value="0">---分站---</option>
+                        <option value="wu">无</option>
                     </select>
 
                     <select type="text" class="form-control erjise" id="erjise2" style="display: inline-block;width: 140px;margin-left: 2px;">
                         <option selected = "selected" value="0">---驿站---</option>
+                        <option value="wu">无</option>
 
                     </select>
 
@@ -341,10 +343,12 @@
                     <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse" onChange="move3()"
                             style="display: inline-block;width: 140px;margin-left: 2px;">
                         <option selected = "selected" value="0">---分站---</option>
+                        <option value="wu">无</option>
                     </select>
 
                     <select type="text" class="form-control erjise" id="erjise3" style="display: inline-block;width: 140px;margin-left: 2px;">
                         <option selected = "selected" value="0">---驿站---</option>
+                        <option value="wu">无</option>
 
                     </select>
 
@@ -900,16 +904,24 @@
         }
         if(idstore1=="0"){
             param=param
+        }else if(idstore1=="wu") {
+            var key="noDealerFlag";
+            var value = "true"
+            param[key] = value;
         }else {
-            var key="dealerId";
+            var key=" dealerId";
             var value = idstore1
             param[key] = value;
         }
         if(idstore2=="0"){
             param=param
+        }else if(idstore2=="wu") {
+            var key="noStationFlag";
+            var value = "true"
+            param[key] = value;
         }else {
-            var key="storeId";
-            var value = idstore2;
+            var key=" storeId";
+            var value = idstore2
             param[key] = value;
         }
         if(idpro=="0"){
@@ -950,16 +962,24 @@
         }
         if(idstore12=="0"){
             param=param
+        }else if(idstore12=="wu") {
+            var key="noDealerFlag";
+            var value = "true"
+            param[key] = value;
         }else {
-            var key="dealerId";
+            var key=" dealerId";
             var value = idstore12
             param[key] = value;
         }
         if(idstore22=="0"){
             param=param
+        }else if(idstore22=="wu") {
+            var key="noStationFlag";
+            var value = "true"
+            param[key] = value;
         }else {
-            var key="storeId";
-            var value = idstore22;
+            var key=" storeId";
+            var value = idstore22
             param[key] = value;
         }
         if(idpro2=="0"){
@@ -1000,16 +1020,24 @@
         }
         if(idstore13=="0"){
             param=param
+        }else if(idstore13=="wu") {
+            var key="noDealerFlag";
+            var value = "true"
+            param[key] = value;
         }else {
-            var key="dealerId";
+            var key=" dealerId";
             var value = idstore13
             param[key] = value;
         }
         if(idstore23=="0"){
             param=param
+        }else if(idstore23=="wu") {
+            var key="noStationFlag";
+            var value = "true"
+            param[key] = value;
         }else {
-            var key="storeId";
-            var value = idstore23;
+            var key=" storeId";
+            var value = idstore23
             param[key] = value;
         }
         if(idpro3=="0"){
@@ -1737,66 +1765,90 @@
         zulin=myselect4.options[index4].value;
         console.log(zulin);
         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1"
-        if(a==""){
-            url=url
-        }else {
-            url=url+"&province="+a
-        }
-        if(b==""){
-            url=url
-        }else {
-            url=url+"&city="+b
-        }
-        if(c==""){
-            url=url
-        }else {
-            url=url+"&county="+c
-        }
-        if(idstore1=="0"){
-            if(idpro=="0"){
-                if(zulin=="0"){
-                    url=url
-                }else {
-                    url=url+"&filterType="+zulin
-                }
-            }else {
-                if(zulin=="0"){
-                    url=url+"&productId="+idpro
-                }else {
-                    url=url+"&productId="+idpro+"&filterType="+zulin
-                }
-            }
-        }else {
-           if(idstore2=="0"){
-               if(idpro=="0"){
-                   if(zulin=="0"){
-                       url=url+"&dealerId="+idstore1
-                   }else {
-                       url=url+"&dealerId="+idstore1+"&filterType="+zulin
-                   }
-               }else {
-                   if(zulin=="0"){
-                       url=url+"&dealerId="+idstore1+"&productId="+idpro
-                   }else {
-                       url=url+"&dealerId="+idstore1+"&productId="+idpro+"&filterType="+zulin
-                   }
-               }
-           }else {
-               if(idpro=="0"){
-                   if(zulin=="0"){
-                       url=url+"&storeId="+idstore2
-                   }else {
-                       url=url+"&storeId="+idstore2+"&filterType="+zulin
-                   }
-               }else {
-                   if(zulin=="0"){
-                       url=url+"&storeId="+idstore2+"&productId="+idpro
-                   }else {
-                       url=url+"&storeId="+idstore2+"&productId="+idpro+"&filterType="+zulin
-                   }
-               }
-           }
-        }
+//        if(a==""){
+//            url=url
+//        }else {
+//            url=url+"&province="+a
+//        }
+//        if(b==""){
+//            url=url
+//        }else {
+//            url=url+"&city="+b
+//        }
+//        if(c==""){
+//            url=url
+//        }else {
+//            url=url+"&county="+c
+//        }
+//        if (idstore1=="0"){
+//            url=url
+//        }else if(idstore1=="wu"){
+//            url=url+"&noDealerFlag=true"
+//        }else {
+//            url=url+"&dealerId="+idstore1
+//        }
+//        if (idstore2=="0"){
+//            url=url
+//        }else if(idstore2=="wu"){
+//            url=url+"&noStationFlag=true"
+//        }else {
+//            url=url+"&storeId="+idstore2
+//        }
+//        if (idpro=="0"){
+//            url=url
+//        }else {
+//            url=url+"&productId="+idpro
+//        }
+//        if(zulin=="0"){
+//            url=url
+//        }else {
+//            url=url+"&filterType="+zulin
+//        }
+//        if(idstore1=="0"){
+//            if(idpro=="0"){
+//                if(zulin=="0"){
+//                    url=url
+//                }else {
+//                    url=url+"&filterType="+zulin
+//                }
+//            }else {
+//                if(zulin=="0"){
+//                    url=url+"&productId="+idpro
+//                }else {
+//                    url=url+"&productId="+idpro+"&filterType="+zulin
+//                }
+//            }
+//        }else {
+//           if(idstore2=="0"){
+//               if(idpro=="0"){
+//                   if(zulin=="0"){
+//                       url=url+"&dealerId="+idstore1
+//                   }else {
+//                       url=url+"&dealerId="+idstore1+"&filterType="+zulin
+//                   }
+//               }else {
+//                   if(zulin=="0"){
+//                       url=url+"&dealerId="+idstore1+"&productId="+idpro
+//                   }else {
+//                       url=url+"&dealerId="+idstore1+"&productId="+idpro+"&filterType="+zulin
+//                   }
+//               }
+//           }else {
+//               if(idpro=="0"){
+//                   if(zulin=="0"){
+//                       url=url+"&storeId="+idstore2
+//                   }else {
+//                       url=url+"&storeId="+idstore2+"&filterType="+zulin
+//                   }
+//               }else {
+//                   if(zulin=="0"){
+//                       url=url+"&storeId="+idstore2+"&productId="+idpro
+//                   }else {
+//                       url=url+"&storeId="+idstore2+"&productId="+idpro+"&filterType="+zulin
+//                   }
+//               }
+//           }
+//        }
         console.log(url)
 
         $.ajax({
@@ -1842,51 +1894,45 @@
         var index4=myselect4.selectedIndex ;
         zulin=myselect4.options[index4].value;
         console.log(zulin);
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true&province=" + a + "&city=" + b + "&county=" + c
-        if(idstore1=="0"){
-            if(idpro=="0"){
-                if(zulin=="0"){
-                    url=url
-                }else {
-                    url=url+"&filterType="+zulin
-                }
-            }else {
-                if(zulin=="0"){
-                    url=url+"&productId="+idpro
-                }else {
-                    url=url+"&productId="+idpro+"&filterType="+zulin
-                }
-            }
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
+        if(a==""){
+            url=url
         }else {
-            if(idstore2=="0"){
-                if(idpro=="0"){
-                    if(zulin=="0"){
-                        url=url+"&dealerId="+idstore1
-                    }else {
-                        url=url+"&dealerId="+idstore1+"&filterType="+zulin
-                    }
-                }else {
-                    if(zulin=="0"){
-                        url=url+"&dealerId="+idstore1+"&productId="+idpro
-                    }else {
-                        url=url+"&dealerId="+idstore1+"&productId="+idpro+"&filterType="+zulin
-                    }
-                }
-            }else {
-                if(idpro=="0"){
-                    if(zulin=="0"){
-                        url=url+"&storeId="+idstore2
-                    }else {
-                        url=url+"&storeId="+idstore2+"&filterType="+zulin
-                    }
-                }else {
-                    if(zulin=="0"){
-                        url=url+"&storeId="+idstore2+"&productId="+idpro
-                    }else {
-                        url=url+"&storeId="+idstore2+"&productId="+idpro+"&filterType="+zulin
-                    }
-                }
-            }
+            url=url+"&province="+a
+        }
+        if(b==""){
+            url=url
+        }else {
+            url=url+"&city="+b
+        }
+        if(c==""){
+            url=url
+        }else {
+            url=url+"&county="+c
+        }
+        if (idstore1=="0"){
+            url=url
+        }else if(idstore1=="wu"){
+            url=url+"&noDealerFlag=true"
+        }else {
+            url=url+"&dealerId="+idstore1
+        }
+        if (idstore2=="0"){
+            url=url
+        }else if(idstore2=="wu"){
+            url=url+"&noStationFlag=true"
+        }else {
+            url=url+"&storeId="+idstore2
+        }
+        if (idpro=="0"){
+            url=url
+        }else {
+            url=url+"&productId="+idpro
+        }
+        if(zulin=="0"){
+            url=url
+        }else {
+            url=url+"&filterType="+zulin
         }
         console.log(url)
 
@@ -1935,7 +1981,47 @@
         var index4=myselect4.selectedIndex ;
         zulin=myselect4.options[index4].value;
         console.log(zulin);
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true&province=" + a + "&city=" + b + "&county=" + c
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
+        if(a==""){
+            url=url
+        }else {
+            url=url+"&province="+a
+        }
+        if(b==""){
+            url=url
+        }else {
+            url=url+"&city="+b
+        }
+        if(c==""){
+            url=url
+        }else {
+            url=url+"&county="+c
+        }
+        if (idstore1=="0"){
+            url=url
+        }else if(idstore1=="wu"){
+            url=url+"&noDealerFlag=true"
+        }else {
+            url=url+"&dealerId="+idstore1
+        }
+        if (idstore2=="0"){
+            url=url
+        }else if(idstore2=="wu"){
+            url=url+"&noStationFlag=true"
+        }else {
+            url=url+"&storeId="+idstore2
+        }
+        if (idpro=="0"){
+            url=url
+        }else {
+            url=url+"&productId="+idpro
+        }
+        if(zulin=="0"){
+            url=url
+        }else {
+            url=url+"&filterType="+zulin
+        }
+        console.log(url)
 
         $.ajax({
             url: url,
@@ -2068,7 +2154,7 @@
             },
             success:function(data){
                 var len=data.list.length;
-                myselect2.length=1;
+                myselect2.length=2;
                 for(i=0;i<len;i++){
                     $("#erjise").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
                 }
