@@ -439,6 +439,9 @@
             contentType: "application/json; charset=utf-8",
             cache: false,
             striped: true,                              //是否显示行间隔色
+            onLoadError: function (data) {
+                $table.bootstrapTable("refresh",{silent: true});
+            },
             ajaxOptions: {
                 headers: {
                     "firm":JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,

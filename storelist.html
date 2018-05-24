@@ -13,12 +13,12 @@
     <script src="js/axios.js"></script>
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <!-- echart-->
-    <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.min.js"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
+
     <link rel="stylesheet" href="css/bootstrap.min1.css">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
 
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
     <!-- bootstrap-datetimepicker插件CSS-->
@@ -37,158 +37,37 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
     <![endif]-->
-    <style>
-        body{  font-family: "Microsoft YaHei","微软雅黑 Light","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; font-size:13px;}
-        .like{
-            width: 20%;
-            height: 30%;
-        }
-        .smallImg{
-            width: 30px;
-            height: 30px;
-        }
-        .red{
-            color: #8e8e8e
-        }
-        .green{
-            color:#20d44a
-        }
-        .yellow{
-            color:#FF9200
-        }
-        .orange{
-            color:#FF7100}
-        .nowwrp1{
-            overflow: hidden;
-
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            width:90px;
-
-        }
-        .nowwrp{
-            white-space: nowrap;
-
-        }
-        .wrap-btn{
-            background: red;
-
-        }
-        .nav>li>a{
-            font-size:16px;
-            font-weight:400;}
-        .nav>li>a:hover{
-
-            background:none;
-        }
-        .nav>li>a:focus{
-            color:#FFF;
-            background:none;
-        }
-        .navbar-inverse .navbar-nav>li>a {
-            color: #9d9d9d;
-            font-size: 18px;
-        }
-        .nav{
-            -ms-overflow-y:scroll;}
-
-        .nav-pills{
-            -ms-overflow-y:scroll;}
-        .nav-stacked{
-            -ms-overflow-y:scroll;}
-        .nav nav-pills nav-stacked{
-            -ms-overflow-y:scroll;}
-
-        .my-container {
-            float: left;
-            display: inline-block;
-            margin-right:30px;
-            margin-bottom: 4px;
-            margin-top: -3px;
-        }
-
-        .myLabel-content ,.myText-content,.myBtn-content{
-            float: left;
-            display: inline-block;
-
-        }
-        .myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
-            height: 34px;
-
-        }
-        .myBtn-content .btn {
-            margin-bottom: 10px;
-        }
-        .btn-default {
-
-
-        }
-        .btnchart{
-
-            color:black;
-
-        }
-        .btnchart1{
-            background-color: rgba(46, 46, 46, 0.74);
-            border: 1px solid rgba(46, 46, 46, 0.14);
-            color: white;
-
-        }
-        .btnchart1:hover {
-            background-color: rgba(46, 46, 46, 0.69);
-            color: white;
-        }
-
-
-        /*active 要在后面 否则会被hover覆盖*/
-
-
-        .btnchart1:focus {
-            background-color: rgba(46, 46, 46, 0.74);
-            color: white;
-        }
-
-
-        .btnchart:active {
-            background-color: rgba(46, 46, 46, 0.8);
-            color: white;
-        }
-        .topinline{height: 60px;
-        }
-        .anchorBL{display:none;}
-        .nav-tabs>li>a{
-            font-size: 14px;
-        }
-    </style>
-
 </head>
 <body>
 
 <!-- dianchishu  -->
-<div id="dianchishu" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">
+<div id="dianchishu" class="wrap-div">
     <div style="width: 600px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">电池详情</p>
+        <p class="wrap-title">电池详情</p>
     </div>
     <div style="width: 600px;background: #FFF;margin: 0 auto;opacity: 1">
         <div style="padding-top: 20px;padding-bottom: 80px">
-        <table style="width: 95%;margin-left: 2.5%;text-align: center;" border="1" cellspacing="0">
-            <thead>
-            <tr style="margin-top: 20px;height: 30px;">
-                <th style="text-align: center;">电池规格</th>
-                <th style="text-align: center;">总电池数</th>
-                <th style="text-align: center;">已租赁数</th>
-                <th style="text-align: center;">待租赁数</th>
-                <th style="text-align: center;">租赁率</th>
-            </tr>
-            </thead>
-            <tbody id="tbMain"></tbody>
-        </table>
+            <table style="width: 95%;margin-left: 2.5%;text-align: center;" border="1" cellspacing="0">
+                <thead>
+                <tr style="margin-top: 20px;height: 30px;">
+                    <th style="text-align: center;">电池规格</th>
+                    <th style="text-align: center;">总电池数</th>
+                    <th style="text-align: center;">已租赁数</th>
+                    <th style="text-align: center;">待租赁数</th>
+                    <th style="text-align: center;">租赁率</th>
+                </tr>
+                </thead>
+                <tbody id="tbMain"></tbody>
+            </table>
             <div style="float: right;margin-top: 30px;margin-right: 20px">
-                <button type="button" class="btn btn-default  "  id="666" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block">关闭</button>
+                <button type="button" class="btn btn-default" id="666"
+                        style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block">关闭
+                </button>
             </div>
         </div>
     </div>
@@ -210,9 +89,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li  class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"  style="margin-left: 10%;     white-space: nowrap;"  id="navbarID" >{{navname}}</a>
+                <li class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"
+                                                  style="margin-left: 10%;     white-space: nowrap;" id="navbarID">{{navname}}</a>
                     <ul class="dropdown-menu" style="margin-left: 10%; white-space: nowrap;">
-                        <li ><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a></li>
+                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a>
+                        </li>
                     </ul>
                 </li>
                 <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
@@ -226,66 +107,66 @@
 </nav>
 
 <div class="content">
-    <div class="container" style="width:97%; margin-top:-24px;">
+    <div class="container">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab4"><a href="#" >统计</a></li>
-                <li class="item" id="tabletab2"><a href="#" >仓库</a></li>
+                <li class="item active" id="tabletab4"><a href="#">统计</a></li>
+                <li class="item" id="tabletab2"><a href="#">仓库</a></li>
                 <li class="item" id="tabletab1"><a href="#">分站</a></li>
-                <li class="item" id="tabletab3"><a href="#" >驿站</a></li>
+                <li class="item" id="tabletab3"><a href="#">驿站</a></li>
             </ul>
         </div>
         <div id="toolbar">
-            <div class="my-container">
+            <div class="my-container-cheliang">
 
-                <div data-toggle="distpicker" id="table1"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
-                    <select  data-province="---- 选择省 ----" class="form-control selpr"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco" ></select>
+                <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
+                    <select data-province="---- 选择省 ----" class="form-control selpr"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse"
-                            style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---分站---</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse">
+                        <option selected="selected" value="0">---分站---</option>
                     </select>
 
-                    <button type="button" class="btn btn-default searchDQ" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ">查询</button>
                 </div>
-                <div data-toggle="distpicker" id="table2"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
+                <div data-toggle="distpicker" id="table2" class="form-inline topinline cheliang">
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr2"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci2" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco2" ></select>
+                    <select data-province="---- 选择省 ----" class="form-control selpr2"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci2"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco2"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
-                            style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---分站---</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse">
+                        <option selected="selected" value="0">---分站---</option>
                     </select>
 
-                    <button type="button" class="btn btn-default searchDQ2" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ2">查询</button>
                 </div>
-                <div data-toggle="distpicker" id="table3"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
+                <div data-toggle="distpicker" id="table3" class="form-inline topinline cheliang">
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr3"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci3" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco3" ></select>
+                    <select data-province="---- 选择省 ----" class="form-control selpr3"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci3"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco3"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse"
-                            style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---分站---</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse">
+                        <option selected="selected" value="0">---分站---</option>
                     </select>
 
-                    <button type="button" class="btn btn-default searchDQ3" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ3">查询</button>
+                </div>
+                <div data-toggle="distpicker" id="table4" class="form-inline topinline cheliang">
                 </div>
                 <script type="text/javascript">
-                    document.getElementById("table1").style.display="none";
-                    document.getElementById("table2").style.display="none";
-                    document.getElementById("table3").style.display="none";
+                    document.getElementById("table1").style.display = "none";
+                    document.getElementById("table2").style.display = "none";
+                    document.getElementById("table3").style.display = "none";
+                    document.getElementById("table4").style.display = "block";
 
 
                 </script>
             </div>
         </div>
-        <div  id="map"></div>
+        <div id="map"></div>
         <table id="table"
                data-search="false"
                data-show-refresh="true"
@@ -319,128 +200,131 @@
 <script>
 
 
-    window.onload = function(){
-        document.getElementById('name').disabled=true;
+    window.onload = function () {
+        document.getElementById('name').disabled = true;
     };
-    var nameindex=0;
-    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color="white";
+    var nameindex = 0;
+    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color = "white";
     var $table = $('#table');
     var dataResult;
-    var rr=1;
+    var rr = 1;
     var orFault;
-    var  orOnLine;
-    var timer=0;
-    var cc=0;
-    var  timer2=0;
-    $("#tabletab1").on("click",function () {
-        document.getElementById("table1").style.display="block";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("table3").style.display="none";
+    var orOnLine;
+    var timer = 0;
+    var cc = 0;
+    var timer2 = 0;
+    $("#tabletab1").on("click", function () {
+        document.getElementById("table1").style.display = "block";
+        document.getElementById("table2").style.display = "none";
+        document.getElementById("table3").style.display = "none";
+        document.getElementById("table4").style.display = "none";
 
     });
-    $("#tabletab2").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="block";
-        document.getElementById("table3").style.display="none";
+    $("#tabletab2").on("click", function () {
+        document.getElementById("table1").style.display = "none";
+        document.getElementById("table2").style.display = "block";
+        document.getElementById("table3").style.display = "none";
+        document.getElementById("table4").style.display = "none";
 
     });
-    $("#tabletab3").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("table3").style.display="block";
+    $("#tabletab3").on("click", function () {
+        document.getElementById("table1").style.display = "none";
+        document.getElementById("table2").style.display = "none";
+        document.getElementById("table3").style.display = "block";
+        document.getElementById("table4").style.display = "none";
 
     });
-    $("#tabletab4").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("table3").style.display="none";
+    $("#tabletab4").on("click", function () {
+        document.getElementById("table1").style.display = "none";
+        document.getElementById("table2").style.display = "none";
+        document.getElementById("table3").style.display = "none";
+        document.getElementById("table4").style.display = "block";
 
     });
 
     var url;
-    url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
-    $(function(){
+    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
+    $(function () {
 
-        $("#mytabs li").click(function() {
+        $("#mytabs li").click(function () {
             $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
 
             $(this).addClass('active');                            // 添加当前元素的样式
-            $(".item").each(function(index, element) {
-                if($(this).hasClass("active")){
+            $(".item").each(function (index, element) {
+                if ($(this).hasClass("active")) {
 
-                     if($(this).text()=="仓库"){
-                        url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
+                    if ($(this).text() == "仓库") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","zhandian");
-                            $table.bootstrapTable("hideColumn","zongshu");
-                            $table.bootstrapTable("hideColumn","yizu");
-                            $table.bootstrapTable("hideColumn","daizu");
-                            $table.bootstrapTable("hideColumn","zulinlv");
-                            $table.bootstrapTable("hideColumn","k");
-                            $table.bootstrapTable("hideColumn","l");
-                            $table.bootstrapTable("hideColumn","m");
-                            $table.bootstrapTable("hideColumn","depositAmount");
-                            $table.bootstrapTable("hideColumn","balance");
-                            $table.bootstrapTable("hideColumn","income");
-                            $table.bootstrapTable("hideColumn","batteryRentedCount");
-                            $table.bootstrapTable("hideColumn","batteryUnusedCount");
-                            $table.bootstrapTable("hideColumn","rentPercent");
-                            $table.bootstrapTable("hideColumn","dealer");
+                            $table.bootstrapTable("hideColumn", "zhandian");
+                            $table.bootstrapTable("hideColumn", "zongshu");
+                            $table.bootstrapTable("hideColumn", "yizu");
+                            $table.bootstrapTable("hideColumn", "daizu");
+                            $table.bootstrapTable("hideColumn", "zulinlv");
+                            $table.bootstrapTable("hideColumn", "k");
+                            $table.bootstrapTable("hideColumn", "l");
+                            $table.bootstrapTable("hideColumn", "m");
+                            $table.bootstrapTable("hideColumn", "depositAmount");
+                            $table.bootstrapTable("hideColumn", "balance");
+                            $table.bootstrapTable("hideColumn", "income");
+                            $table.bootstrapTable("hideColumn", "batteryRentedCount");
+                            $table.bootstrapTable("hideColumn", "batteryUnusedCount");
+                            $table.bootstrapTable("hideColumn", "rentPercent");
+                            $table.bootstrapTable("hideColumn", "dealer");
                         });
-                    }else if($(this).text()=="分站") {
-                        url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
+                    } else if ($(this).text() == "分站") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","zhandian");
-                            $table.bootstrapTable("hideColumn","zongshu");
-                            $table.bootstrapTable("hideColumn","yizu");
-                            $table.bootstrapTable("hideColumn","daizu");
-                            $table.bootstrapTable("hideColumn","zulinlv");
-                            $table.bootstrapTable("hideColumn","m");
-                            $table.bootstrapTable("hideColumn","name");
-                            $table.bootstrapTable("hideColumn","dealer");
+                            $table.bootstrapTable("hideColumn", "zhandian");
+                            $table.bootstrapTable("hideColumn", "zongshu");
+                            $table.bootstrapTable("hideColumn", "yizu");
+                            $table.bootstrapTable("hideColumn", "daizu");
+                            $table.bootstrapTable("hideColumn", "zulinlv");
+                            $table.bootstrapTable("hideColumn", "m");
+                            $table.bootstrapTable("hideColumn", "name");
+                            $table.bootstrapTable("hideColumn", "dealer");
                         });
-                    }else if($(this).text()=="驿站") {
-                        url ="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
+                    } else if ($(this).text() == "驿站") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","zhandian");
-                            $table.bootstrapTable("hideColumn","zongshu");
-                            $table.bootstrapTable("hideColumn","yizu");
-                            $table.bootstrapTable("hideColumn","daizu");
-                            $table.bootstrapTable("hideColumn","zulinlv");
-                            $table.bootstrapTable("hideColumn","name");
-                            $table.bootstrapTable("hideColumn","depositAmount");
-                            $table.bootstrapTable("hideColumn","k");
+                            $table.bootstrapTable("hideColumn", "zhandian");
+                            $table.bootstrapTable("hideColumn", "zongshu");
+                            $table.bootstrapTable("hideColumn", "yizu");
+                            $table.bootstrapTable("hideColumn", "daizu");
+                            $table.bootstrapTable("hideColumn", "zulinlv");
+                            $table.bootstrapTable("hideColumn", "name");
+                            $table.bootstrapTable("hideColumn", "depositAmount");
+                            $table.bootstrapTable("hideColumn", "k");
                         });
-                    }else if($(this).text()=="统计") {
-                         url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
-                         $(function () {
-                             initTable();
-                             $table.bootstrapTable("hideColumn","code");
-                             $table.bootstrapTable("hideColumn","province");
-                             $table.bootstrapTable("hideColumn","city");
-                             $table.bootstrapTable("hideColumn","county");
-                             $table.bootstrapTable("hideColumn","name");
-                             $table.bootstrapTable("hideColumn","k");
-                             $table.bootstrapTable("hideColumn","l");
-                             $table.bootstrapTable("hideColumn","m");
-                             $table.bootstrapTable("hideColumn","depositAmount");
-                             $table.bootstrapTable("hideColumn","balance");
-                             $table.bootstrapTable("hideColumn","income");
-                             $table.bootstrapTable("hideColumn","batteryRentedCount");
-                             $table.bootstrapTable("hideColumn","batteryUnusedCount");
-                             $table.bootstrapTable("hideColumn","batteryTotalCount");
-                             $table.bootstrapTable("hideColumn","rentPercent");
-                             $table.bootstrapTable("hideColumn","dealer");
-                         });
-                     }
+                    } else if ($(this).text() == "统计") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
+                        $(function () {
+                            initTable();
+                            $table.bootstrapTable("hideColumn", "code");
+                            $table.bootstrapTable("hideColumn", "province");
+                            $table.bootstrapTable("hideColumn", "city");
+                            $table.bootstrapTable("hideColumn", "county");
+                            $table.bootstrapTable("hideColumn", "name");
+                            $table.bootstrapTable("hideColumn", "k");
+                            $table.bootstrapTable("hideColumn", "l");
+                            $table.bootstrapTable("hideColumn", "m");
+                            $table.bootstrapTable("hideColumn", "depositAmount");
+                            $table.bootstrapTable("hideColumn", "balance");
+                            $table.bootstrapTable("hideColumn", "income");
+                            $table.bootstrapTable("hideColumn", "batteryRentedCount");
+                            $table.bootstrapTable("hideColumn", "batteryUnusedCount");
+                            $table.bootstrapTable("hideColumn", "batteryTotalCount");
+                            $table.bootstrapTable("hideColumn", "rentPercent");
+                            $table.bootstrapTable("hideColumn", "dealer");
+                        });
+                    }
                     console.log(url)
 
                 }
             });
-
 
 
         });
@@ -448,26 +332,27 @@
     });
 
 
-
-
-    var  title=document.getElementById("title");
-    var navid=document.getElementById("navbarID");
+    var title = document.getElementById("title");
+    var navid = document.getElementById("navbarID");
 
     function initTable() {
         $table.bootstrapTable("destroy");
 
         $table.bootstrapTable({
             height: getHeight(),
-            url:url,
+            url: url,
             method: 'GET',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             cache: false,
             striped: true,                              //是否显示行间隔色
+            onLoadError: function (data) {
+                $table.bootstrapTable("refresh", {silent: true});
+            },
             ajaxOptions: {
                 headers: {
-                    "firm":JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
-                    "Authorization":sessionStorage.token
+                    "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                    "Authorization": sessionStorage.token
                 }
             },
             queryParams: queryParams,
@@ -492,7 +377,7 @@
                     title: '站点',
                     align: 'center',
                     valign: 'middle',
-                    formatter:zhandianFormatter
+                    formatter: zhandianFormatter
 
                 },
                 {
@@ -501,7 +386,7 @@
                     align: 'center',
                     valign: 'middle',
                     events: operateEvents,
-                    formatter:zongshuFormatter
+                    formatter: zongshuFormatter
 
                 },
                 {
@@ -509,7 +394,7 @@
                     title: '已租赁数',
                     align: 'center',
                     valign: 'middle',
-                    formatter:yizuFormatter
+                    formatter: yizuFormatter
 
                 },
                 {
@@ -517,7 +402,7 @@
                     title: '待租赁数',
                     align: 'center',
                     valign: 'middle',
-                    formatter:daizuFormatter
+                    formatter: daizuFormatter
 
                 },
                 {
@@ -525,7 +410,7 @@
                     title: '租赁率',
                     align: 'center',
                     valign: 'middle',
-                    formatter:zulinlvFormatter
+                    formatter: zulinlvFormatter
 
                 },
 
@@ -570,7 +455,7 @@
                     title: '分站',
                     align: 'center',
                     valign: 'middle',
-                    formatter:jxsFormatter
+                    formatter: jxsFormatter
 
                 },
                 {
@@ -586,13 +471,13 @@
                     title: '驿站',
                     align: 'center',
                     valign: 'middle',
-                    formatter:mendianFormatter
-                },{
+                    formatter: mendianFormatter
+                }, {
                     field: 'l',
                     title: '类型',
                     align: 'center',
                     valign: 'middle',
-                    formatter:lxFormatter
+                    formatter: lxFormatter
                 },
 
                 {
@@ -619,7 +504,7 @@
                     align: 'center',
                     valign: 'middle',
                     events: operateEvents,
-                    formatter:totalbattFormatter
+                    formatter: totalbattFormatter
                 },
                 {
 
@@ -647,102 +532,104 @@
         });
         // sometimes footer render error.
     }
-    function zhandianFormatter(value,row,index) {
+
+    function zhandianFormatter(value, row, index) {
         var inner = row.storeCategoryName;
 
         return [
             '<span>' + inner + '</span>'
         ].join('');
     }//站点
-    function zongshuFormatter(value,row,index) {
+    function zongshuFormatter(value, row, index) {
         return [
             '<div class="nowwrp">',
             '<a class="batterytotal" href="#" title="统计详情">',
-            row.batteryTotalCount+"",
+            row.batteryTotalCount + "",
             '</a>',
             '</div>'
         ].join("")
     }//总电池数
-    function yizuFormatter(value,row,index) {
+    function yizuFormatter(value, row, index) {
         var inner = row.batteryRentedCount;
 
         return [
             '<span>' + inner + '</span>'
         ].join('');
     }//已租赁数
-    function daizuFormatter(value,row,index) {
+    function daizuFormatter(value, row, index) {
         var inner = row.batteryUnusedCount;
 
         return [
             '<span>' + inner + '</span>'
         ].join('');
     }//待租赁数
-    function zulinlvFormatter(value,row,index) {
-        var inner = row.rentPercent+"%";
+    function zulinlvFormatter(value, row, index) {
+        var inner = row.rentPercent + "%";
 
         return [
             '<span>' + inner + '</span>'
         ].join('');
     }//租赁率
-    function jxsFormatter(value,row,index) {
-        var inner=row.name;
+    function jxsFormatter(value, row, index) {
+        var inner = row.name;
 
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//k分站
-    function lxFormatter(value,row,index) {
+    function lxFormatter(value, row, index) {
         var inner;
-        if(row.type==40){
-            inner="直营"
-        }else if(row.type==70){
-            inner="代理"
-        }else if(row.type==80){
-            inn="其他"
-        }else {
-            inner=""
+        if (row.type == 40) {
+            inner = "直营"
+        } else if (row.type == 70) {
+            inner = "代理"
+        } else if (row.type == 80) {
+            inn = "其他"
+        } else {
+            inner = ""
         }
 
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//类型
-    function mendianFormatter(value,row,index) {
-        var inner=row.name;
+    function mendianFormatter(value, row, index) {
+        var inner = row.name;
 
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//驿站
     function totalbattFormatter(value, row, index) {
         return [
             '<div class="nowwrp">',
             '<a class="batterytotal" href="#" title="电池详情">',
-            row.batteryTotalCount+"",
+            row.batteryTotalCount + "",
             '</a>',
             '</div>'
         ].join("")
     }//总电池数
-    function createTimeFormatter(value,row,index) {
-        var inner=row.createTime;
-        var color='nowwrp1';
+    function createTimeFormatter(value, row, index) {
+        var inner = row.createTime;
+        var color = 'nowwrp1';
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//
-    function reportTimerFormatter(value,row,index) {
-        var inner=row.reportTime;
-        var color='nowwrp1';
+    function reportTimerFormatter(value, row, index) {
+        var inner = row.reportTime;
+        var color = 'nowwrp1';
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }
-    function snFormatter(value,row,index){
+
+    function snFormatter(value, row, index) {
         var inner;
-        $(".item").each(function(index, element) {
-            if($(this).hasClass("active")){
-                if($(this).text()=="异常电池"){
-                    inner=row.ccuSn;
+        $(".item").each(function (index, element) {
+            if ($(this).hasClass("active")) {
+                if ($(this).text() == "异常电池") {
+                    inner = row.ccuSn;
                 }
                 else {
                     inner = '<a id="like2" class="like2" href="#" title="车辆远程操控">' + row.ccuSn + '</a>';
@@ -752,11 +639,11 @@
             return inner
         });
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
 
     }//序列号
-    function volFormatter(value,row,index){
+    function volFormatter(value, row, index) {
         return [
             '<div class="nowwrp">',
             '<a class="like4" href="#" title="点击查看电压趋势">',
@@ -766,90 +653,99 @@
         ].join("")
 
     }//电压
-    function standFormatter(value,row,index) {
+    function standFormatter(value, row, index) {
         var inner;
-        if(row.productEntity!=null && row.productEntity!="null"){
-            if(row.productEntity.name!=null && row.productEntity.name!="null") {
+        if (row.productEntity != null && row.productEntity != "null") {
+            if (row.productEntity.name != null && row.productEntity.name != "null") {
                 inner = row.productEntity.name;
             }
-            else{
-                inner="-";
+            else {
+                inner = "-";
             }
         }
-        else{
-            inner="-";
+        else {
+            inner = "-";
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//规格
-    function lineFormatter(value,row,index) {
-        var color='nowwrp';
-        if(row.storeName==null){
-            inner="";
+    function lineFormatter(value, row, index) {
+        var color = 'nowwrp';
+        if (row.storeName == null) {
+            inner = "";
             return [
-                '<span class='+color+'>'+inner+'</span>'
+                '<span class=' + color + '>' + inner + '</span>'
             ].join("")
         }
-        else{
+        else {
 
-            inner=row.storeName;
+            inner = row.storeName;
             return [
-                '<span class='+color+'>'+inner+'</span>'
+                '<span class=' + color + '>' + inner + '</span>'
             ].join("")
         }
     }//网点
     function realFormatter(value, row, index) {
         var inner;
-        if(row.owner==null||row.owner=="null"){inner=""}
-        else{
-            if(row.owner.realname==null){inner=""}
+        if (row.owner == null || row.owner == "null") {
+            inner = ""
+        }
+        else {
+            if (row.owner.realname == null) {
+                inner = ""
+            }
             else {
-                inner=row.owner.realname
+                inner = row.owner.realname
             }
         }
-        var color='nowwrp';
+        var color = 'nowwrp';
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//用户姓名
     function linkFormatter(value, row, index) {
-        if(row.owner==null||row.owner=="null"){inner=""}
-        else{
-            var inner=row.owner.phoneNumber}
-        var color='nowwrp'
+        if (row.owner == null || row.owner == "null") {
+            inner = ""
+        }
+        else {
+            var inner = row.owner.phoneNumber
+        }
+        var color = 'nowwrp'
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//联系方式
     function yajin1Formatter(value, row, index) {
-        if(row.orderEntity!=null&&row.orderEntity!="null") {
+        if (row.orderEntity != null && row.orderEntity != "null") {
             var inner = row.orderEntity.deposit;
-        }else{
+        } else {
             var inner = "-"
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }//押金
     function operateFormatter(value, row, index) {
-        var car =row.ebikeStatus==0?"img/u217.png":row.ebikeStatus==100?"img/u209.png":"img/u207.png";
+        var car = row.ebikeStatus == 0 ? "img/u217.png" : row.ebikeStatus == 100 ? "img/u209.png" : "img/u207.png";
         return [
             '<a class="like" href="#">',
-            '<img  class="smallImg" src='+car+' />',
+            '<img  class="smallImg" src=' + car + ' />',
             '</a>'
         ].join('');
     }
+
     function queryParams(params) {
         var param = {
             limit: this.pageSize, // 页面大小
             page: this.pageNumber,
-            onLine:orOnLine,
-            fault:orFault
+            onLine: orOnLine,
+            fault: orFault
         };
 
         return param;
     }
+
     function responseHandler(res) {
         dataResult = res;
         if (res) {
@@ -865,204 +761,233 @@
         }
         console.log(res);
     }
+
     function jinyongFormatter(value, row, index) {
         var inner;
-        var gear=row.gear;
-        if(gear==17){
-            inner="禁用"
+        var gear = row.gear;
+        if (gear == 17) {
+            inner = "禁用"
         }
-        else if(gear==34){
-            inner="启用"
+        else if (gear == 34) {
+            inner = "启用"
         }
         else {
-            inner="-"
+            inner = "-"
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }
+
     function onlineFormatter(value, row, index) {
-        if(row.online==null){
-            inner=""}
-        else{
-            var inner=row.online?"在线":"离线 "
-            var  color=row.online?"":"red"
+        if (row.online == null) {
+            inner = ""
+        }
+        else {
+            var inner = row.online ? "在线" : "离线 "
+            var color = row.online ? "" : "red"
 
         }
 
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
 
     } //在线
-    function usestFormatter(value, row, index){
-        if(row.useStatus==null){
-            inner=""}
-        else{
-            var inner=row.useStatus?"冻结":"正常 "
-            var  color=row.useStatus?"red":""
+    function usestFormatter(value, row, index) {
+        if (row.useStatus == null) {
+            inner = ""
+        }
+        else {
+            var inner = row.useStatus ? "冻结" : "正常 "
+            var color = row.useStatus ? "red" : ""
 
         }
 
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//使用状态
-    function useFormatter(value, row, index){
-        var inner=row.usedDays+"天"
+    function useFormatter(value, row, index) {
+        var inner = row.usedDays + "天"
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//使用时间
     function zhuangtFormatter(value, row, index) {
         var inner;
-        if(row.status==3){
-            inner="移动"
+        if (row.status == 3) {
+            inner = "移动"
         }
         else {
-            inner="静止"
+            inner = "静止"
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
 
     }//状态
-    function youxFormatter(value, row, index){
-        var color='nowwrp'
-        var inner=row.surplusTime
+    function youxFormatter(value, row, index) {
+        var color = 'nowwrp'
+        var inner = row.surplusTime
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
 
     }	//有效期
-    function simFormatter(value, row, index){
-        var color='nowwrp'
+    function simFormatter(value, row, index) {
+        var color = 'nowwrp'
 
-        if(row.simValidityTime==null){inner="-"}
-        else{inner=row.simValidityTime}
+        if (row.simValidityTime == null) {
+            inner = "-"
+        }
+        else {
+            inner = row.simValidityTime
+        }
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
 
     }	//sim
-    function odoFormatter(value, row, index){
+    function odoFormatter(value, row, index) {
 
-        if(row.odo==null){
-            inner="0km"}
+        if (row.odo == null) {
+            inner = "0km"
+        }
 
-        else
-        {var inner=row.odo+"km"}
+        else {
+            var inner = row.odo + "km"
+        }
         return [
             '<a class="like5" href="#" title="点击查看里程变化">',
-            '<span>'+inner+'</span>',
+            '<span>' + inner + '</span>',
             '</a>'
         ].join('');
     }//里程
-    function dayodoFormatter(value, row, index){
-        if(row.dayOdo==null){
-            inner="0km"}
-        else
-        {var inner=row.dayOdo+"km"}
+    function dayodoFormatter(value, row, index) {
+        if (row.dayOdo == null) {
+            inner = "0km"
+        }
+        else {
+            var inner = row.dayOdo + "km"
+        }
         return [
             '<a class="like6" href="#" title="当日轨迹">',
-            '<span>'+inner+'</span>',
+            '<span>' + inner + '</span>',
             '</a>'
         ].join('');
     }//今日里程
-    function modoFormatter(value, row, index){
+    function modoFormatter(value, row, index) {
 
-        if(row.odo==null){
-            inner="0km"}
+        if (row.odo == null) {
+            inner = "0km"
+        }
 
-        else
-        {var inner=row.monthODO+"km"}
+        else {
+            var inner = row.monthODO + "km"
+        }
         return [
 
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
 
         ].join('');
     }//本月里程
-    function liulFormatter(value, row, index){
-        if(row.dataUsage==-1){
-            var color='nowwrp'
-            inner="第三方SIM"}
-        else{
-            var inner= (row.dataUsage != "" ?  (row.dataUsage+"M") : "-");
+    function liulFormatter(value, row, index) {
+        if (row.dataUsage == -1) {
+            var color = 'nowwrp'
+            inner = "第三方SIM"
+        }
+        else {
+            var inner = (row.dataUsage != "" ? (row.dataUsage + "M") : "-");
         }
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//流量
     function flagFormatter(value, row, index) {
-        var inner=row.faultFlag?"有故障":"无故障 "
-        var  color=row.faultFlag?"red":""
+        var inner = row.faultFlag ? "有故障" : "无故障 "
+        var color = row.faultFlag ? "red" : ""
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }  //故障
-    function gztimeFormatter(value, row, index){
-        var color='nowwrp1'
-        if(row.faultTime!=null){
-            var inner=row.faultTime
+    function gztimeFormatter(value, row, index) {
+        var color = 'nowwrp1'
+        if (row.faultTime != null) {
+            var inner = row.faultTime
         }
-        else{inner=""}
+        else {
+            inner = ""
+        }
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//故障时间
-    function guzhangFormatter(value, row, index){
-        var color='nowwrp'
-        if(row.faultDetail==null)
-        { inner=""
+    function guzhangFormatter(value, row, index) {
+        var color = 'nowwrp'
+        if (row.faultDetail == null) {
+            inner = ""
             return [
-                '<span class='+color+'>'+inner+'</span>'
+                '<span class=' + color + '>' + inner + '</span>'
             ].join('');
 
         }
-        else{
-            inner=row.faultDetail
+        else {
+            inner = row.faultDetail
             return [
-                '<span class='+color+'>'+inner+'</span>'
-            ].join('');}
+                '<span class=' + color + '>' + inner + '</span>'
+            ].join('');
+        }
     }//故障详情
     function sourceFormatter(value, row, index) {
-        var inner=row.source;
-        if(row.source==0){inner='GPRS'}
-        else if(row.source==1){inner='BT'}
-        else{inner=''}
+        var inner = row.source;
+        if (row.source == 0) {
+            inner = 'GPRS'
+        }
+        else if (row.source == 1) {
+            inner = 'BT'
+        }
+        else {
+            inner = ''
+        }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }  //来源
     function bmcFormatter(value, row, index) {
-        if(row.bmsSoc>100){
-            var inner=row.bmsSoc?row.bmsSoc-100+"格":""
-            var  color=row.bmsSoc-100==2?"yellow":row.bmsSoc-100==1?"orange":""
+        if (row.bmsSoc > 100) {
+            var inner = row.bmsSoc ? row.bmsSoc - 100 + "格" : ""
+            var color = row.bmsSoc - 100 == 2 ? "yellow" : row.bmsSoc - 100 == 1 ? "orange" : ""
         }
-        else if(row.bmsSoc==0){
-            if(row.bmsSoh>100){
-                inner="0格"
-                color="red"}
-            else{
-                inner="0%"
-                color="red"
+        else if (row.bmsSoc == 0) {
+            if (row.bmsSoh > 100) {
+                inner = "0格"
+                color = "red"
+            }
+            else {
+                inner = "0%"
+                color = "red"
             }
 
 
         }
-        else if(row.bmsSoc==null){inner="-"}
-        else{
-            var inner=row.bmsSoc+"%"
+        else if (row.bmsSoc == null) {
+            inner = "-"
+        }
+        else {
+            var inner = row.bmsSoc + "%"
         }
 
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
 
     }  //电量
     function addressFormatter(value, row, index) {
-        var inner=row.address;
-        if(row.address==null){inner=''}
+        var inner = row.address;
+        if (row.address == null) {
+            inner = ''
+        }
         return [
             '<a class="like7" href="#" title="查看当前定位">',
             '<i class="glyphicon glyphicon-map-marker">',
@@ -1072,29 +997,30 @@
     }  //地址
     function reasonFormatter(value, row, index) {
         var inner;
-        if(row.bmsExceptionReason==0){
-            inner="离线"
+        if (row.bmsExceptionReason == 0) {
+            inner = "离线"
         }
-        else if(row.bmsExceptionReason==1) {
-            inner="欠压"
-        }else if(row.bmsExceptionReason==2){
-            inner="异动"
-        }else {
-            inner="-"
+        else if (row.bmsExceptionReason == 1) {
+            inner = "欠压"
+        } else if (row.bmsExceptionReason == 2) {
+            inner = "异动"
+        } else {
+            inner = "-"
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
 
     }
+
     function reportTimeFormatter(value, row, index) {
         var inner;
-        if (row.reportTime==null||row.reportTime=="null"){
-            inner="";
+        if (row.reportTime == null || row.reportTime == "null") {
+            inner = "";
             return [
                 '<span>' + inner + '</span>'
             ].join('');
-        }else {
+        } else {
             var date1 = row.reportTime;  //开始时间
             var date2 = new Date();    //结束时间
             var date3 = date2.getTime() - new Date(date1).getTime();   //时间差的毫秒数
@@ -1129,8 +1055,10 @@
             '</div>'
         ].join("")
     }
+
     var data1;
-    function ajax(url,method,success,err) {
+
+    function ajax(url, method, success, err) {
         $.ajax({
             url: url,
             method: method,
@@ -1145,50 +1073,54 @@
             error: err
         });
     }  //ajax 封装
-    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",function (data) {
-        data1=data
+    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1", "get", function (data) {
+        data1 = data
     }, function (jqXHR, textStatus, errorThrown) {
         console.log("失败");
-        console.log(jqXHR);});
+        console.log(jqXHR);
+    });
     var ueId;
     var id1;
 
-    var poins=function (data) {
+    var poins = function (data) {
 
         if (!data) return;
-        var points=[];
-        var num=parseInt(data.length/10);
-        function  sliceArr(arr,size) {
-            var result=[];
-            for(var i=0;i<Math.ceil(arr.length / size);i++){
-                var start=i*size;
-                var end=(i+1)*size;
-                result.push(arr.slice(start,end))
+        var points = [];
+        var num = parseInt(data.length / 10);
+
+        function sliceArr(arr, size) {
+            var result = [];
+            for (var i = 0; i < Math.ceil(arr.length / size); i++) {
+                var start = i * size;
+                var end = (i + 1) * size;
+                result.push(arr.slice(start, end))
             }
 
             return result
         }
-        for(var  i=0;i<data.length;i++){
-            points.push(new BMap.Point(data[i]['lon'],data[i]['lat']))
+
+        for (var i = 0; i < data.length; i++) {
+            points.push(new BMap.Point(data[i]['lon'], data[i]['lat']))
         }
-        var arr=sliceArr(points,5);
+        var arr = sliceArr(points, 5);
         return arr
     };
 
-    function addMarker(point){
+    function addMarker(point) {
 
         var marker = new BMap.Marker(point);
         map.addOverlay(marker);
     }
-    var operateEvents = {
-        'click .batterytotal': function (e,value,row,index) {
-            $(".item").each(function(index, element) {
-                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/"+row.ccuSn+"/clean-exception-flag");
-                if($(this).hasClass("active")){
 
-                    if($(this).text()=="统计"){
+    var operateEvents = {
+        'click .batterytotal': function (e, value, row, index) {
+            $(".item").each(function (index, element) {
+                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag");
+                if ($(this).hasClass("active")) {
+
+                    if ($(this).text() == "统计") {
                         $.ajax({
-                            url:"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category="+row.category,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category=" + row.category,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             cache: false,
@@ -1199,10 +1131,11 @@
                             },
                             success: function (data) {
                                 render(data)
+
                                 function render(list) {
                                     for (var i = 0; i < list.length; i++) {
                                         var tr = document.createElement('tr')
-                                        tr.innerHTML = '<td>'+list[i].specification+'</td><td>'+list[i].batteryTotalCount+'</td><td>'+list[i].batteryRentedCount+'</td><td>'+list[i].batteryUnusedCount+'</td><td>'+list[i].rentPercent+'%'+'</td>'
+                                        tr.innerHTML = '<td>' + list[i].specification + '</td><td>' + list[i].batteryTotalCount + '</td><td>' + list[i].batteryRentedCount + '</td><td>' + list[i].batteryUnusedCount + '</td><td>' + list[i].rentPercent + '%' + '</td>'
                                         document.getElementById('tbMain').appendChild(tr)
                                     }
                                 }
@@ -1216,11 +1149,10 @@
                         });
 
 
-
                     }
                     else {
                         $.ajax({
-                            url:"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics?storeId="+row.id,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics?storeId=" + row.id,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             cache: false,
@@ -1231,10 +1163,11 @@
                             },
                             success: function (data) {
                                 render(data)
+
                                 function render(list) {
                                     for (var i = 0; i < list.length; i++) {
                                         var tr = document.createElement('tr')
-                                        tr.innerHTML = '<td>'+list[i].specification+'</td><td>'+list[i].batteryTotalCount+'</td><td>'+list[i].batteryRentedCount+'</td><td>'+list[i].batteryUnusedCount+'</td><td>'+list[i].rentPercent+'%'+'</td>'
+                                        tr.innerHTML = '<td>' + list[i].specification + '</td><td>' + list[i].batteryTotalCount + '</td><td>' + list[i].batteryRentedCount + '</td><td>' + list[i].batteryUnusedCount + '</td><td>' + list[i].rentPercent + '%' + '</td>'
                                         document.getElementById('tbMain').appendChild(tr)
                                     }
                                 }
@@ -1254,19 +1187,21 @@
             });
 
             $("#dianchishu").show()
-            $("#666").on("click",function () {
+            $("#666").on("click", function () {
                 $("#tbMain  tr").empty("")
                 $("#dianchishu").hide()
             })
         }//总电池数
     };
+
     function getHeight() {
-        if(document.body.clientWidth>1389) {
-            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true)-42;
-        }else{
-            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true)-70;
+        if (document.body.clientWidth > 1389) {
+            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 42;
+        } else {
+            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 70;
         }
     }
+
     initTable();
 
     $(window).resize(function () {
@@ -1276,11 +1211,11 @@
     });
 
 
-    $("#wrap-btn-on").on("click",function () {
-        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId="+id1+"&ueId="+ueId);
+    $("#wrap-btn-on").on("click", function () {
+        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId);
         console.log("已发送");
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId="+id1+"&ueId="+ueId,
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId,
             method: "put",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1288,57 +1223,57 @@
                 /* Authorization header */
                 xhr.setRequestHeader("firm", sessionStorage.flag);
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },success:function (data) {
+            }, success: function (data) {
                 console.log("成功");
-                $table.bootstrapTable("refresh",{silent: true});
+                $table.bootstrapTable("refresh", {silent: true});
                 $("#wrap").hide()
             },
-            error:function (err) {
+            error: function (err) {
                 console.log(err)
-            }})
+            }
+        })
     });
-    $("#wrap-btn-off").on("click",function () {
+    $("#wrap-btn-off").on("click", function () {
         $("#wrap").hide()
     });
-
-    $(".searchDQ").on("click",function () {
+    $(".searchDQ").on("click", function () {
         var url;
-        var a=$(".selpr").val();
+        var a = $(".selpr").val();
         console.log(a);
-        var b=$(".selci").val();
-        var c=$(".selco").val();
+        var b = $(".selci").val();
+        var c = $(".selco").val();
 
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
-        if(a==""){
-            if(idstore1=="0"){
-                url=url
-            }else {
-                url=url+"&id="+idstore1
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
+        if (a == "") {
+            if (idstore1 == "0") {
+                url = url
+            } else {
+                url = url + "&id=" + idstore1
             }
 
-        }else {
+        } else {
             if (b == "") {
                 if (idstore1 == "0") {
                     url = url + "&province=" + a
                 } else {
                     url = url + "&province=" + a + "&id=" + idstore1
                 }
-            }else {
-                if(c==""){
+            } else {
+                if (c == "") {
                     if (idstore1 == "0") {
                         url = url = url + "&province=" + a + "&city=" + b
-                    }else {
-                        url = url = url + "&province=" + a + "&city=" + b+ "&id=" + idstore1
+                    } else {
+                        url = url = url + "&province=" + a + "&city=" + b + "&id=" + idstore1
                     }
-                }else {
+                } else {
                     if (idstore1 == "0") {
                         url = url = url + "&province=" + a + "&city=" + b + "&county=" + c
-                    }else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c+ "&id=" + idstore1
+                    } else {
+                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c + "&id=" + idstore1
                     }
                 }
             }
@@ -1367,44 +1302,44 @@
         });
 
     });//分站
-    $(".searchDQ2").on("click",function () {
+    $(".searchDQ2").on("click", function () {
         var url;
-        var a=$(".selpr2").val();
+        var a = $(".selpr2").val();
         console.log(a);
-        var b=$(".selci2").val();
-        var c=$(".selco2").val();
+        var b = $(".selci2").val();
+        var c = $(".selco2").val();
 
-        var myselect=document.getElementById("sectionName-s2");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s2");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
-        if(a==""){
-            if(idstore1=="0"){
-                url=url
-            }else {
-                url=url+"&id="+idstore1
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
+        if (a == "") {
+            if (idstore1 == "0") {
+                url = url
+            } else {
+                url = url + "&id=" + idstore1
             }
 
-        }else {
+        } else {
             if (b == "") {
                 if (idstore1 == "0") {
                     url = url + "&province=" + a
                 } else {
                     url = url + "&province=" + a + "&id=" + idstore1
                 }
-            }else {
-                if(c==""){
+            } else {
+                if (c == "") {
                     if (idstore1 == "0") {
                         url = url = url + "&province=" + a + "&city=" + b
-                    }else {
-                        url = url = url + "&province=" + a + "&city=" + b+ "&id=" + idstore1
+                    } else {
+                        url = url = url + "&province=" + a + "&city=" + b + "&id=" + idstore1
                     }
-                }else {
+                } else {
                     if (idstore1 == "0") {
                         url = url = url + "&province=" + a + "&city=" + b + "&county=" + c
-                    }else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c+ "&id=" + idstore1
+                    } else {
+                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c + "&id=" + idstore1
                     }
                 }
             }
@@ -1433,45 +1368,45 @@
         });
 
     });//仓库
-    $(".searchDQ3").on("click",function () {
+    $(".searchDQ3").on("click", function () {
         var url;
-        var a=$(".selpr3").val();
+        var a = $(".selpr3").val();
         console.log(a);
-        var b=$(".selci3").val();
-        var c=$(".selco3").val();
+        var b = $(".selci3").val();
+        var c = $(".selco3").val();
 
-        var myselect=document.getElementById("sectionName-s3");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s3");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
 
-        url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
-        if(a==""){
-            if(idstore1=="0"){
-                url=url
-            }else {
-                url=url+"&parentId="+idstore1
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
+        if (a == "") {
+            if (idstore1 == "0") {
+                url = url
+            } else {
+                url = url + "&parentId=" + idstore1
             }
 
-        }else {
+        } else {
             if (b == "") {
                 if (idstore1 == "0") {
                     url = url + "&province=" + a
                 } else {
                     url = url + "&province=" + a + "&parentId=" + idstore1
                 }
-            }else {
-                if(c==""){
+            } else {
+                if (c == "") {
                     if (idstore1 == "0") {
                         url = url = url + "&province=" + a + "&city=" + b
-                    }else {
-                        url = url = url + "&province=" + a + "&city=" + b+ "&parentId=" + idstore1
+                    } else {
+                        url = url = url + "&province=" + a + "&city=" + b + "&parentId=" + idstore1
                     }
-                }else {
+                } else {
                     if (idstore1 == "0") {
                         url = url = url + "&province=" + a + "&city=" + b + "&county=" + c
-                    }else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c+ "&parentId=" + idstore1
+                    } else {
+                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c + "&parentId=" + idstore1
                     }
                 }
             }
@@ -1501,95 +1436,104 @@
     });//驿站
 
 
-
-
-
 </script>
 <script type="text/javascript">
 
-    $(function(){
+    $(function () {
 
-        $table.bootstrapTable("hideColumn","code");
-        $table.bootstrapTable("hideColumn","province");
-        $table.bootstrapTable("hideColumn","city");
-        $table.bootstrapTable("hideColumn","county");
-        $table.bootstrapTable("hideColumn","name");
-        $table.bootstrapTable("hideColumn","k");
-        $table.bootstrapTable("hideColumn","l");
-        $table.bootstrapTable("hideColumn","m");
-        $table.bootstrapTable("hideColumn","depositAmount");
-        $table.bootstrapTable("hideColumn","balance");
-        $table.bootstrapTable("hideColumn","income");
-        $table.bootstrapTable("hideColumn","batteryRentedCount");
-        $table.bootstrapTable("hideColumn","batteryUnusedCount");
-        $table.bootstrapTable("hideColumn","batteryTotalCount");
-        $table.bootstrapTable("hideColumn","rentPercent");
-        $table.bootstrapTable("hideColumn","dealer");
+        $table.bootstrapTable("hideColumn", "code");
+        $table.bootstrapTable("hideColumn", "province");
+        $table.bootstrapTable("hideColumn", "city");
+        $table.bootstrapTable("hideColumn", "county");
+        $table.bootstrapTable("hideColumn", "name");
+        $table.bootstrapTable("hideColumn", "k");
+        $table.bootstrapTable("hideColumn", "l");
+        $table.bootstrapTable("hideColumn", "m");
+        $table.bootstrapTable("hideColumn", "depositAmount");
+        $table.bootstrapTable("hideColumn", "balance");
+        $table.bootstrapTable("hideColumn", "income");
+        $table.bootstrapTable("hideColumn", "batteryRentedCount");
+        $table.bootstrapTable("hideColumn", "batteryUnusedCount");
+        $table.bootstrapTable("hideColumn", "batteryTotalCount");
+        $table.bootstrapTable("hideColumn", "rentPercent");
+        $table.bootstrapTable("hideColumn", "dealer");
         getMissiveType();
         getMissiveType1();
         getMissiveType2();
     });
-    function getMissiveType(){
+
+    function getMissiveType() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#sectionName-s").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#sectionName-s').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType()
                 }
             }
         );
     }
-    function getMissiveType1(){
+
+    function getMissiveType1() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0&showFlag=0&sort=code,asc&limit=100&page=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    for(i=0;i<len;i++){
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#sectionName-s').attr("length", '0');
+                    for (i = 0; i < len; i++) {
 
-                        $("#sectionName-s2").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                        $("#sectionName-s2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
 
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType1()
                 }
             }
         );
     }
-    function getMissiveType2(){
+
+    function getMissiveType2() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#sectionName-s3").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#sectionName-s').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#sectionName-s3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType2()
                 }
             }
         );
@@ -1604,22 +1548,23 @@
         });
         $('#datetimepicker3').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate()
+            defaultDate: getNowFormatDate()
         });
         $('#datetimepicker4').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate2()
+            defaultDate: getNowFormatDate2()
         });
         $('#datetimepicker5').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate3()
+            defaultDate: getNowFormatDate3()
         });
         $('#datetimepicker6').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate2()
+            defaultDate: getNowFormatDate2()
         });
 
     });
+
     function getNowFormatDate() {
         var date = new Date();
         var date2 = new Date(date.getTime() - 7 * 24 * 3600 * 1000);
@@ -1638,6 +1583,7 @@
             + seperator2 + 00;
         return currentdate;
     }
+
     function getNowFormatDate2() {
         var date = new Date();
         var seperator1 = "-";
@@ -1655,6 +1601,7 @@
             + seperator2 + date.getSeconds();
         return currentdate;
     }
+
     function getNowFormatDate3() {
         var date = new Date();
         var date2 = new Date(date.getTime() - 30 * 24 * 3600 * 1000);

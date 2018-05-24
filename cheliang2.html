@@ -14,11 +14,9 @@
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <!-- echart-->
-    <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min1.css">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
 
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
     <!-- bootstrap-datetimepicker插件CSS-->
@@ -40,181 +38,68 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <![endif]-->
-    <style>
-        body{  font-family: "Microsoft YaHei","微软雅黑 Light","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; font-size:13px;}
-        .like{
-            width: 20%;
-            height: 30%;
-        }
-        .smallImg{
-            width: 30px;
-            height: 30px;
-        }
-        .red{
-            color: #8e8e8e
-        }
-        .green{
-            color:#20d44a
-        }
-        .yellow{
-            color:#FF9200
-        }
-        .orange{
-            color:#FF7100}
-        .nowwrp1{
-            overflow: hidden;
-
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            width:90px;
-
-        }
-        .nowwrp{
-            white-space: nowrap;
-
-        }
-        .wrap-btn{
-            background: red;
-
-        }
-        .nav>li>a{
-            font-size:16px;
-            font-weight:400;}
-        .nav>li>a:hover{
-
-            background:none;
-        }
-        .nav>li>a:focus{
-            color:#FFF;
-            background:none;
-        }
-        .navbar-inverse .navbar-nav>li>a {
-            color: #9d9d9d;
-            font-size: 18px;
-        }
-        .nav{
-            -ms-overflow-y:scroll;}
-
-        .nav-pills{
-            -ms-overflow-y:scroll;}
-        .nav-stacked{
-            -ms-overflow-y:scroll;}
-        .nav nav-pills nav-stacked{
-            -ms-overflow-y:scroll;}
-
-        .my-container {
-            float: left;
-            display: inline-block;
-            margin-right:30px;
-            margin-bottom: 4px;
-            margin-top: -3px;
-        }
-
-        .myLabel-content ,.myText-content,.myBtn-content{
-            float: left;
-            display: inline-block;
-
-        }
-        .myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
-            height: 34px;
-
-        }
-        .myBtn-content .btn {
-            margin-bottom: 10px;
-        }
-        .btn-default {
-
-
-        }
-        .btnchart{
-
-            color:black;
-
-        }
-        .btnchart1{
-            background-color: rgba(46, 46, 46, 0.74);
-            border: 1px solid rgba(46, 46, 46, 0.14);
-            color: white;
-
-        }
-        .btnchart1:hover {
-            background-color: rgba(46, 46, 46, 0.69);
-            color: white;
-        }
-
-
-        /*active 要在后面 否则会被hover覆盖*/
-
-
-        .btnchart1:focus {
-            background-color: rgba(46, 46, 46, 0.74);
-            color: white;
-        }
-
-
-        .btnchart:active {
-            background-color: rgba(46, 46, 46, 0.8);
-            color: white;
-        }
-        .topinline{height: 60px;
-        }
-        .anchorBL{display:none;}
-        .nav-tabs>li>a{
-            font-size: 14px;
-        }
-    </style>
-
 </head>
 <body>
 <div id="wrap-show"></div>
 <!--网点-->
-<div id="wrap" style="position: fixed; top: 0px; width: 100%; height: 100%; display: none;z-index:909;left:0px;">
-    <div style="width: 800px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">网点列表</p>
+<div id="wrap" class="wrap-div">
+    <div class="wrap-bar-store">
+        <p class="wrap-title">网点列表</p>
     </div>
     <div style="width: 800px;height: 480px;background: #FFF;margin: 0 auto;opacity: 1;box-shadow:0 4px 10px rgba(0,0,0,0.46);">
-        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span></p>
+        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span>
+        </p>
 
-        <div data-toggle="distpicker"  class="form-group form-inline">
+        <div data-toggle="distpicker" class="form-group form-inline">
             <select data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 20px;"></select>
-            <select data-city="---- 选择市 ----" class="form-control selci" ></select>
-            <select data-district="---- 选择区 ----" class="form-control selco" ></select>
+            <select data-city="---- 选择市 ----" class="form-control selci"></select>
+            <select data-district="---- 选择区 ----" class="form-control selco"></select>
             <select type="text" name="sectionName-s5" id="sectionName-s5" class="form-control fenzhan"
                     style="display: inline-block;width: 140px;margin-left: 2px;">
-                <option selected = "selected" value="0">---分站---</option>
+                <option selected="selected" value="0">---分站---</option>
             </select>
-            <button type="button" class="btn btn-default searchWD2" style="margin-top: 0px;" >筛选</button>
+            <button type="button" class="mybtn button-primary searchWD2" style="margin-top: 0px;">筛选</button>
         </div>
 
 
-
-        <div id="app" >
-            <label  style="display: block;margin-top: 0px" >
-                <ul class="nav nav-pills nav-stacked" style="overflow-y: scroll;-ms-overflow-y:scroll; height:300px;" id="app1">
-                    <li  v-for="(item,index) in message"  style="font-size:15px; font-weight:400;" class="removeD"><a  @click="online(index,item.id,$event)"  class="hoverE">{{item.name}}({{item.address}})</a></li>
+        <div id="app">
+            <label style="display: block;margin-top: 0px">
+                <ul class="nav nav-pills nav-stacked" style="overflow-y: scroll;-ms-overflow-y:scroll; height:300px;"
+                    id="app1">
+                    <li v-for="(item,index) in message" style="font-size:15px; font-weight:400;" class="removeD"><a
+                            @click="online(index,item.id,$event)" class="hoverE">{{item.name}}({{item.address}})</a>
+                    </li>
                 </ul>
             </label>
         </div>
 
         <div style="float: right;margin-top: 10px;margin-right: 45px">
-            <button type="button" class="btn btn-default  "  id="wrap-btn-on" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:10px;">确定</button>
+            <button type="button" class="btn btn-default " id="wrap-btn-on"
+                    style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:10px;">确定
+            </button>
             <!--  提示框-->
-            <button type="button" class="btn btn-default " id="wrap-btn-off" style="width: 100px;display: inline-block;float: right">取消</button>
+            <button type="button" class="btn btn-default" id="wrap-btn-off"
+                    style="width: 100px;display: inline-block;float: right">取消
+            </button>
         </div>
     </div>
 </div>
 <!--删除-->
 <div id="wrap-delet" style="position: fixed; top: 0px; width: 100%; height: 100%; display: none;z-index:909;left:0px;">
     <div style="width: 450px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">删除车辆</p>
+        <p class="wrap-title">删除车辆</p>
     </div>
     <div style="width: 450px;height: 150px;background: #FFF;margin: 0 auto;opacity: 1;box-shadow:0 4px 10px rgba(0,0,0,0.46);">
-        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否确认取消车辆&nbsp;<span class="carNumber2">{{carid}}</span>&nbsp;的分配</p>
+        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否确认取消车辆&nbsp;<span
+                class="carNumber2">{{carid}}</span>&nbsp;的分配</p>
 
         <div style="float: right;margin-top: 50px;margin-right: 25px">
-            <button type="button" class="btn btn-default " id="222" style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">是</button>
-            <button type="button" class="btn btn-default " id="111" style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">否</button>
+            <button type="button" class="btn btn-default" id="222"
+                    style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">是
+            </button>
+            <button type="button" class="btn btn-default" id="111"
+                    style="width: 90px;display: inline-block">否
+            </button>
         </div>
     </div>
 </div>
@@ -233,9 +118,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li  class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"  style="margin-left: 10%;     white-space: nowrap;"  id="navbarID" >{{navname}}</a>
+                <li class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"
+                                                  style="margin-left: 10%;     white-space: nowrap;" id="navbarID">{{navname}}</a>
                     <ul class="dropdown-menu" style="margin-left: 10%; white-space: nowrap;">
-                        <li ><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a></li>
+                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a>
+                        </li>
                     </ul>
                 </li>
                 <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
@@ -249,137 +136,131 @@
 </nav>
 
 <div class="content">
-    <div class="container" style="width:97%; margin-top:-24px;">
+    <div class="container">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
                 <li class="item active" id="tabletab4"><a href="#">订单列表</a></li>
                 <li class="item" id="tabletab1"><a href="#">正常属性电池</a></li>
-                <li class="item" id="tabletab2"><a href="#" >异常属性电池</a></li>
-                <li class="item" id="tabletab3"><a href="#" >退库属性电池</a></li>
+                <li class="item" id="tabletab2"><a href="#">异常属性电池</a></li>
+                <li class="item" id="tabletab3"><a href="#">退库属性电池</a></li>
             </ul>
         </div>
         <div id="toolbar">
-            <div class="my-container">
+            <div class="my-container-cheliang">
 
-                <div data-toggle="distpicker" id="table1"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
-                    <input type="text" class="form-control searchResult"  style="display: inline-block;width: 200px;"
+                <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
+                    <input type="text" class="form-control search-input searchResult"
                            placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}" >
-                    <button type="button" class="btn btn-default searchCcu" style=";border-bottom-right-radius: 5px;border-top-right-radius: 5px;">
+                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                    <button type="button" class="mybtn button-primary searchCcusn searchCcu">
                         <span class="glyphicon glyphicon-search"></span></button>
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr1" style="margin-left: 20px;"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci1" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco1" ></select>
+                    <select data-province="---- 选择省 ----" class="form-control selpr1"
+                            style="margin-left: 20px;"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci1"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco1"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" onChange="move1()"
-                            style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---分站---</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse"
+                            onChange="move1()">
+                        <option selected="selected" value="0">---分站---</option>
                         <option value="wu">无</option>
                     </select>
 
-                    <select type="text" class="form-control erjise" id="erjise" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---驿站---</option>
+                    <select type="text" class="form-control erjise" id="erjise">
+                        <option selected="selected" value="0">---驿站---</option>
                         <option value="wu">无</option>
 
                     </select>
 
-                    <select type="text" class="form-control guigese" id="guigese" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---选择规格---</option>
+                    <select type="text" class="form-control guigese" id="guigese">
+                        <option selected="selected" value="0">---选择规格---</option>
 
                     </select>
-                    <select type="text" class="form-control zulinse" id="zulinse" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">-选择租赁状态-</option>
+                    <select type="text" class="form-control zulinse" id="zulinse">
+                        <option selected="selected" value="0">-选择租赁状态-</option>
                         <option value="1">已租</option>
                         <option value="3">未租</option>
                     </select>
-                    <button type="button" class="btn btn-default searchDQ" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ">查询</button>
                 </div>
-                <div data-toggle="distpicker" id="table2"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
-                    <input type="text" class="form-control searchResult2"  style="display: inline-block;width: 200px;"
+                <div data-toggle="distpicker" id="table2" class="form-inline topinline cheliang">
+                    <input type="text" class="form-control search-input searchResult2"
                            placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}" >
-                    <button type="button" class="btn btn-default searchCcu2" style=";border-bottom-right-radius: 5px;border-top-right-radius: 5px;">
+                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                    <button type="button" class="mybtn button-primary searchCcusn searchCcu2">
                         <span class="glyphicon glyphicon-search"></span></button>
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr2" style="margin-left: 20px;"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci2" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco2" ></select>
+                    <select data-province="---- 选择省 ----" class="form-control selpr2"
+                            style="margin-left: 20px;"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci2"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco2"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse" onChange="move2()"
-                            style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---分站---</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
+                            onChange="move2()">
+                        <option selected="selected" value="0">---分站---</option>
                         <option value="wu">无</option>
                     </select>
 
-                    <select type="text" class="form-control erjise" id="erjise2" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---驿站---</option>
+                    <select type="text" class="form-control erjise" id="erjise2">
+                        <option selected="selected" value="0">---驿站---</option>
                         <option value="wu">无</option>
 
                     </select>
 
-                    <select type="text" class="form-control guigese" id="guigese2" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---选择规格---</option>
+                    <select type="text" class="form-control guigese" id="guigese2">
+                        <option selected="selected" value="0">---选择规格---</option>
 
                     </select>
-                    <select type="text" class="form-control zulinse" id="zulinse2" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">-选择租赁状态-</option>
+                    <select type="text" class="form-control zulinse" id="zulinse2">
+                        <option selected="selected" value="0">-选择租赁状态-</option>
                         <option value="1">已租</option>
                         <option value="3">未租</option>
                     </select>
-                    <button type="button" class="btn btn-default searchDQ2" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ2">查询</button>
                 </div>
-                <div data-toggle="distpicker" id="table3"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
-                    <input type="text" class="form-control searchResult3"  style="display: inline-block;width: 200px;"
+                <div data-toggle="distpicker" id="table3" class="form-inline topinline cheliang">
+                    <input type="text" class="form-control search-input searchResult3"
                            placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}" >
-                    <button type="button" class="btn btn-default searchCcu3" style=";border-bottom-right-radius: 5px;border-top-right-radius: 5px;">
+                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                    <button type="button" class="mybtn button-primary searchCcusn searchCcu3">
                         <span class="glyphicon glyphicon-search"></span></button>
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr3" style="margin-left: 20px;"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci3" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco3" ></select>
+                    <select data-province="---- 选择省 ----" class="form-control selpr3"
+                            style="margin-left: 20px;"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci3"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco3"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse" onChange="move3()"
-                            style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---分站---</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse"
+                            onChange="move3()">
+                        <option selected="selected" value="0">---分站---</option>
                         <option value="wu">无</option>
                     </select>
 
-                    <select type="text" class="form-control erjise" id="erjise3" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---驿站---</option>
+                    <select type="text" class="form-control erjise" id="erjise3">
+                        <option selected="selected" value="0">---驿站---</option>
                         <option value="wu">无</option>
 
                     </select>
 
-                    <select type="text" class="form-control guigese" id="guigese3" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---选择规格---</option>
+                    <select type="text" class="form-control guigese" id="guigese3">
+                        <option selected="selected" value="0">---选择规格---</option>
 
                     </select>
-                    <select type="text" class="form-control zulinse" id="zulinse3" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">-选择租赁状态-</option>
+                    <select type="text" class="form-control zulinse" id="zulinse3">
+                        <option selected="selected" value="0">-选择租赁状态-</option>
                         <option value="1">已租</option>
                         <option value="3">未租</option>
                     </select>
-                    <button type="button" class="btn btn-default searchDQ3" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ3">查询</button>
                 </div>
-                <div data-toggle="distpicker" id="table4"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
+                <div data-toggle="distpicker" id="table4" class="form-inline topinline cheliang">
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr4"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci4" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco4" ></select>
-
-                    <select type="text" class="form-control guigese" id="guigese4" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---选择规格---</option>
-
-                    </select>
-                    <button type="button" class="btn btn-default searchDQ4" >查询</button>
                 </div>
                 <script type="text/javascript">
-                    document.getElementById("table1").style.display="none";
-                    document.getElementById("table2").style.display="none";
-                    document.getElementById("table3").style.display="none";
-                    document.getElementById("table4").style.display="none";
+                    document.getElementById("table1").style.display = "none";
+                    document.getElementById("table2").style.display = "none";
+                    document.getElementById("table3").style.display = "none";
+                    document.getElementById("table4").style.display = "block";
 
                 </script>
             </div>
@@ -456,85 +337,85 @@
         document.getElementById("table1").style.display="none";
         document.getElementById("table2").style.display="none";
         document.getElementById("table3").style.display="none";
-        document.getElementById("table4").style.display="none";
+        document.getElementById("table4").style.display="block";
 
 
     });
     var url;
     url ="http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc";
-    $(function(){
+    $(function () {
 
-        $("#mytabs li").click(function() {
+        $("#mytabs li").click(function () {
             $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
 
             $(this).addClass('active');                            // 添加当前元素的样式
-            $(".item").each(function(index, element) {
-                if($(this).hasClass("active")){
+            $(".item").each(function (index, element) {
+                if ($(this).hasClass("active")) {
 
-                    if($(this).text()=="正常属性电池"){
-                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1";
+                    if ($(this).text() == "正常属性电池") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1";
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","createTime1");
-                            $table.bootstrapTable("hideColumn","createTime2");
-                            $table.bootstrapTable("hideColumn","createTime3");
-                            $table.bootstrapTable("hideColumn","createTime4");
-                            $table.bootstrapTable("hideColumn","createTime5");
-                            $table.bootstrapTable("hideColumn","createTime6");
-                            $table.bootstrapTable("hideColumn","createTime7");
-                            $table.bootstrapTable("hideColumn","createTime8");
-                            $table.bootstrapTable("hideColumn","createTime9");
-                            $table.bootstrapTable("hideColumn","count");
-                            $table.bootstrapTable("hideColumn","totalPrice");
-                            $table.bootstrapTable("hideColumn","createTime12");
+                            $table.bootstrapTable("hideColumn", "createTime1");
+                            $table.bootstrapTable("hideColumn", "createTime2");
+                            $table.bootstrapTable("hideColumn", "createTime3");
+                            $table.bootstrapTable("hideColumn", "createTime4");
+                            $table.bootstrapTable("hideColumn", "createTime5");
+                            $table.bootstrapTable("hideColumn", "createTime6");
+                            $table.bootstrapTable("hideColumn", "createTime7");
+                            $table.bootstrapTable("hideColumn", "createTime8");
+                            $table.bootstrapTable("hideColumn", "createTime9");
+                            $table.bootstrapTable("hideColumn", "count");
+                            $table.bootstrapTable("hideColumn", "totalPrice");
+                            $table.bootstrapTable("hideColumn", "createTime12");
                         });
-                    }else if($(this).text()=="异常属性电池"){
-                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
+                    } else if ($(this).text() == "异常属性电池") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","createTime1");
-                            $table.bootstrapTable("hideColumn","createTime2");
-                            $table.bootstrapTable("hideColumn","createTime3");
-                            $table.bootstrapTable("hideColumn","createTime4");
-                            $table.bootstrapTable("hideColumn","createTime5");
-                            $table.bootstrapTable("hideColumn","createTime6");
-                            $table.bootstrapTable("hideColumn","createTime7");
-                            $table.bootstrapTable("hideColumn","createTime8");
-                            $table.bootstrapTable("hideColumn","createTime9");
-                            $table.bootstrapTable("hideColumn","count");
-                            $table.bootstrapTable("hideColumn","totalPrice");
-                            $table.bootstrapTable("hideColumn","createTime12");
+                            $table.bootstrapTable("hideColumn", "createTime1");
+                            $table.bootstrapTable("hideColumn", "createTime2");
+                            $table.bootstrapTable("hideColumn", "createTime3");
+                            $table.bootstrapTable("hideColumn", "createTime4");
+                            $table.bootstrapTable("hideColumn", "createTime5");
+                            $table.bootstrapTable("hideColumn", "createTime6");
+                            $table.bootstrapTable("hideColumn", "createTime7");
+                            $table.bootstrapTable("hideColumn", "createTime8");
+                            $table.bootstrapTable("hideColumn", "createTime9");
+                            $table.bootstrapTable("hideColumn", "count");
+                            $table.bootstrapTable("hideColumn", "totalPrice");
+                            $table.bootstrapTable("hideColumn", "createTime12");
                         });
-                    }else if($(this).text()=="退库属性电池") {
-                        url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
+                    } else if ($(this).text() == "退库属性电池") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","createTime1");
-                            $table.bootstrapTable("hideColumn","createTime2");
-                            $table.bootstrapTable("hideColumn","createTime3");
-                            $table.bootstrapTable("hideColumn","createTime4");
-                            $table.bootstrapTable("hideColumn","createTime5");
-                            $table.bootstrapTable("hideColumn","createTime6");
-                            $table.bootstrapTable("hideColumn","createTime7");
-                            $table.bootstrapTable("hideColumn","createTime8");
-                            $table.bootstrapTable("hideColumn","createTime9");
-                            $table.bootstrapTable("hideColumn","count");
-                            $table.bootstrapTable("hideColumn","totalPrice");
-                            $table.bootstrapTable("hideColumn","createTime12");
+                            $table.bootstrapTable("hideColumn", "createTime1");
+                            $table.bootstrapTable("hideColumn", "createTime2");
+                            $table.bootstrapTable("hideColumn", "createTime3");
+                            $table.bootstrapTable("hideColumn", "createTime4");
+                            $table.bootstrapTable("hideColumn", "createTime5");
+                            $table.bootstrapTable("hideColumn", "createTime6");
+                            $table.bootstrapTable("hideColumn", "createTime7");
+                            $table.bootstrapTable("hideColumn", "createTime8");
+                            $table.bootstrapTable("hideColumn", "createTime9");
+                            $table.bootstrapTable("hideColumn", "count");
+                            $table.bootstrapTable("hideColumn", "totalPrice");
+                            $table.bootstrapTable("hideColumn", "createTime12");
                         });
-                    }else if($(this).text()=="订单列表"){
-                        url ="http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc"
+                    } else if ($(this).text() == "订单列表") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc"
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn","createTime");
-                            $table.bootstrapTable("hideColumn","stand");
-                            $table.bootstrapTable("hideColumn","aveVoltageDesc");
-                            $table.bootstrapTable("hideColumn","orderStatusDesc");
-                            $table.bootstrapTable("hideColumn","a");
-                            $table.bootstrapTable("hideColumn","b");
-                            $table.bootstrapTable("hideColumn","c");
-                            $table.bootstrapTable("hideColumn","d");
-                            $table.bootstrapTable("hideColumn","branch");
+                            $table.bootstrapTable("hideColumn", "createTime");
+                            $table.bootstrapTable("hideColumn", "stand");
+                            $table.bootstrapTable("hideColumn", "aveVoltageDesc");
+                            $table.bootstrapTable("hideColumn", "orderStatusDesc");
+                            $table.bootstrapTable("hideColumn", "a");
+                            $table.bootstrapTable("hideColumn", "b");
+                            $table.bootstrapTable("hideColumn", "c");
+                            $table.bootstrapTable("hideColumn", "d");
+                            $table.bootstrapTable("hideColumn", "branch");
                         });
 
                     }
@@ -556,16 +437,19 @@
         $table.bootstrapTable("destroy");
         $table.bootstrapTable({
             height: getHeight(),
-            url:url,
+            url: url,
             method: 'GET',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             cache: false,
             striped: true,                              //是否显示行间隔色
+            onLoadError: function (data) {
+                $table.bootstrapTable("refresh", {silent: true});
+            },
             ajaxOptions: {
                 headers: {
-                    "firm":JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
-                    "Authorization":sessionStorage.token
+                    "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                    "Authorization": sessionStorage.token
                 }
             },
             queryParams: queryParams,
@@ -589,82 +473,82 @@
                     title: '时间',
                     align: 'center',
                     valign: 'middle',
-                    formatter:createTimeFormatter
+                    formatter: createTimeFormatter
 
-                },{
+                }, {
                     field: 'createTime2',
                     title: '省',
                     align: 'center',
                     valign: 'middle',
-                    formatter:shengFormatter
+                    formatter: shengFormatter
 
-                },{
+                }, {
                     field: 'createTime3',
                     title: '市',
                     align: 'center',
                     valign: 'middle',
-                    formatter:shiFormatter
+                    formatter: shiFormatter
 
-                },{
+                }, {
                     field: 'createTime4',
                     title: '区/县',
                     align: 'center',
                     valign: 'middle',
-                    formatter:quFormatter
+                    formatter: quFormatter
 
-                },{
+                }, {
                     field: 'createTime5',
                     title: '分站',
                     align: 'center',
                     valign: 'middle',
-                    formatter:jingxFormatter
+                    formatter: jingxFormatter
 
-                },{
+                }, {
                     field: 'createTime6',
                     title: '联系人',
                     align: 'center',
                     valign: 'middle',
-                    formatter:linkmanFormatter
+                    formatter: linkmanFormatter
 
-                },{
+                }, {
                     field: 'createTime7',
                     title: '联系方式',
                     align: 'center',
                     valign: 'middle',
-                    formatter:linkcFormatter
+                    formatter: linkcFormatter
 
-                },{
+                }, {
                     field: 'createTime8',
                     title: '详细地址',
                     align: 'center',
                     valign: 'middle',
-                    formatter:xiangxFormatter
+                    formatter: xiangxFormatter
 
-                },{
+                }, {
                     field: 'createTime9',
                     title: '电池规格',
                     align: 'center',
                     valign: 'middle',
-                    formatter:dcguigeFormatter
+                    formatter: dcguigeFormatter
 
-                },{
+                }, {
                     field: 'count',
                     title: '数量',
                     align: 'center',
                     valign: 'middle'
 
-                },{
+                }, {
                     field: 'totalPrice',
                     title: '保证金',
                     align: 'center',
                     valign: 'middle'
 
-                },{
+                }, {
                     field: 'createTime12',
                     title: '订单状态',
                     align: 'center',
                     valign: 'middle',
-                    formatter:ddstatusFormatter
+                    formatter: ddstatusFormatter
 
                 },
                 {
@@ -679,7 +563,7 @@
                     title: '规格',
                     align: 'center',
                     valign: 'middle',
-                    formatter:standFormatter
+                    formatter: standFormatter
 
                 },
                 {
@@ -695,7 +579,7 @@
                     title: '电压',
                     align: 'center',
                     valign: 'middle',
-                    formatter:aveFormatter
+                    formatter: aveFormatter
 
                 },
                 {
@@ -703,7 +587,7 @@
                     title: '租赁',
                     align: 'center',
                     valign: 'middle',
-                    formatter:orderFormatter
+                    formatter: orderFormatter
 
                 },
 
@@ -712,18 +596,23 @@
                     title: '省',
                     align: 'center',
                     valign: 'middle',
-                    formatter:function provinceFormatter(value,row,index) {
-                        if(row.ebikeStoreEntity!=null){
-                            if(row.ebikeStoreEntity.province==null||row.ebikeStoreEntity.province=="null"){inner=""}
+                    formatter: function provinceFormatter(value, row, index) {
+                        if (row.ebikeStoreEntity != null) {
+                            if (row.ebikeStoreEntity.province == null || row.ebikeStoreEntity.province == "null") {
+                                inner = ""
+                            }
 
-                            else{
-                                var inner=row.ebikeStoreEntity?row.ebikeStoreEntity.province:""}
+                            else {
+                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.province : ""
+                            }
                         }
-                        else{inner=""}
-                        var color='nowwrp'
+                        else {
+                            inner = ""
+                        }
+                        var color = 'nowwrp'
                         return [
 
-                            '<span class='+color+'>'+inner+'</span>'
+                            '<span class=' + color + '>' + inner + '</span>'
 
 
                         ].join("")
@@ -735,18 +624,23 @@
                     title: '市',
                     align: 'center',
                     valign: 'middle',
-                    formatter:   function cityFormatter(value,row,index) {
-                        if(row.ebikeStoreEntity!=null){
-                            if(row.ebikeStoreEntity.city==null||row.ebikeStoreEntity.city=="null"){inner=""}
+                    formatter: function cityFormatter(value, row, index) {
+                        if (row.ebikeStoreEntity != null) {
+                            if (row.ebikeStoreEntity.city == null || row.ebikeStoreEntity.city == "null") {
+                                inner = ""
+                            }
 
-                            else{
-                                var inner=row.ebikeStoreEntity?row.ebikeStoreEntity.city:""}
+                            else {
+                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.city : ""
+                            }
                         }
-                        else{inner=""}
-                        var color='nowwrp'
+                        else {
+                            inner = ""
+                        }
+                        var color = 'nowwrp'
                         return [
 
-                            '<span class='+color+'>'+inner+'</span>'
+                            '<span class=' + color + '>' + inner + '</span>'
 
 
                         ].join("")
@@ -758,18 +652,23 @@
                     title: '区/县',
                     align: 'center',
                     valign: 'middle',
-                    formatter:    function countyFormatter(value,row,index) {
-                        if(row.ebikeStoreEntity!=null){
-                            if(row.ebikeStoreEntity.county==null||row.ebikeStoreEntity.county=="null"){inner=""}
+                    formatter: function countyFormatter(value, row, index) {
+                        if (row.ebikeStoreEntity != null) {
+                            if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
+                                inner = ""
+                            }
 
-                            else{
-                                var inner=row.ebikeStoreEntity?row.ebikeStoreEntity.county:""}
+                            else {
+                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
+                            }
                         }
-                        else{inner=""}
-                        var color='nowwrp'
+                        else {
+                            inner = ""
+                        }
+                        var color = 'nowwrp'
                         return [
 
-                            '<span class='+color+'>'+inner+'</span>'
+                            '<span class=' + color + '>' + inner + '</span>'
 
 
                         ].join("")
@@ -783,16 +682,16 @@
                     align: 'left',
                     valign: 'middle',
                     events: operateEvents, //11
-                    formatter:   function storeFormatter(value,row,index) {
-                        var color='nowwrp'
-                        var name=row.ebikeStoreEntity?row.ebikeStoreEntity.name:""
+                    formatter: function storeFormatter(value, row, index) {
+                        var color = 'nowwrp'
+                        var name = row.ebikeStoreEntity ? row.ebikeStoreEntity.name : ""
                         return [
                             '<a class="like1" href="#">',
                             '<i class="glyphicon glyphicon-edit" title="选择所属网点">',
                             '</i>',
                             '</a>',
                             "&nbsp;&nbsp;&nbsp;",
-                            '<span class='+color+'>'+name+'</span>'
+                            '<span class=' + color + '>' + name + '</span>'
                         ].join("")
 
                     }
@@ -803,8 +702,7 @@
                     title: '编辑',
                     align: 'center',
                     valign: 'middle',
-                    formatter:   function carFormatter(value,row,index) {
-
+                    formatter: function carFormatter(value, row, index) {
 
 
                         return [
@@ -827,390 +725,405 @@
         });
         // sometimes footer render error.
     }
+
     function queryParams(params) {
-        var a=$(".selpr1").val();
-        var b=$(".selci1").val();
-        var c=$(".selco1").val();
-        var a2=$(".selpr2").val();
-        var b2=$(".selci2").val();
-        var c2=$(".selco2").val();
-        var a3=$(".selpr3").val();
-        var b3=$(".selci3").val();
-        var c3=$(".selco3").val();
+        var a = $(".selpr1").val();
+        var b = $(".selci1").val();
+        var c = $(".selco1").val();
+        var a2 = $(".selpr2").val();
+        var b2 = $(".selci2").val();
+        var c2 = $(".selco2").val();
+        var a3 = $(".selpr3").val();
+        var b3 = $(".selci3").val();
+        var c3 = $(".selco3").val();
 
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
-        var myselect2=document.getElementById("guigese");
-        var index2=myselect2.selectedIndex ;
-        idpro=myselect2.options[index2].value;
-        var myselect3=document.getElementById("erjise");
-        var index3=myselect3.selectedIndex ;
-        idstore2=myselect3.options[index3].value;
-        var myselect4=document.getElementById("zulinse");
-        var index4=myselect4.selectedIndex ;
-        zulin=myselect4.options[index4].value;
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
+        var myselect2 = document.getElementById("guigese");
+        var index2 = myselect2.selectedIndex;
+        idpro = myselect2.options[index2].value;
+        var myselect3 = document.getElementById("erjise");
+        var index3 = myselect3.selectedIndex;
+        idstore2 = myselect3.options[index3].value;
+        var myselect4 = document.getElementById("zulinse");
+        var index4 = myselect4.selectedIndex;
+        zulin = myselect4.options[index4].value;
 
-        var myselect21=document.getElementById("sectionName-s2");
-        var index21=myselect21.selectedIndex ;
-        idstore12=myselect21.options[index21].value;
-        var myselect22=document.getElementById("guigese2");
-        var index22=myselect22.selectedIndex ;
-        idpro2=myselect22.options[index22].value;
-        var myselect23=document.getElementById("erjise2");
-        var index23=myselect23.selectedIndex ;
-        idstore22=myselect23.options[index23].value;
-        var myselect24=document.getElementById("zulinse2");
-        var index24=myselect24.selectedIndex ;
-        zulin2=myselect24.options[index24].value;
+        var myselect21 = document.getElementById("sectionName-s2");
+        var index21 = myselect21.selectedIndex;
+        idstore12 = myselect21.options[index21].value;
+        var myselect22 = document.getElementById("guigese2");
+        var index22 = myselect22.selectedIndex;
+        idpro2 = myselect22.options[index22].value;
+        var myselect23 = document.getElementById("erjise2");
+        var index23 = myselect23.selectedIndex;
+        idstore22 = myselect23.options[index23].value;
+        var myselect24 = document.getElementById("zulinse2");
+        var index24 = myselect24.selectedIndex;
+        zulin2 = myselect24.options[index24].value;
 
-        var myselect31=document.getElementById("sectionName-s3");
-        var index31=myselect31.selectedIndex ;
-        idstore13=myselect31.options[index31].value;
-        var myselect32=document.getElementById("guigese3");
-        var index32=myselect32.selectedIndex ;
-        idpro3=myselect32.options[index32].value;
-        var myselect33=document.getElementById("erjise3");
-        var index33=myselect33.selectedIndex ;
-        idstore23=myselect33.options[index33].value;
-        var myselect34=document.getElementById("zulinse3");
-        var index34=myselect34.selectedIndex ;
-        zulin3=myselect34.options[index34].value;
+        var myselect31 = document.getElementById("sectionName-s3");
+        var index31 = myselect31.selectedIndex;
+        idstore13 = myselect31.options[index31].value;
+        var myselect32 = document.getElementById("guigese3");
+        var index32 = myselect32.selectedIndex;
+        idpro3 = myselect32.options[index32].value;
+        var myselect33 = document.getElementById("erjise3");
+        var index33 = myselect33.selectedIndex;
+        idstore23 = myselect33.options[index33].value;
+        var myselect34 = document.getElementById("zulinse3");
+        var index34 = myselect34.selectedIndex;
+        zulin3 = myselect34.options[index34].value;
         var param = {
             limit: this.pageSize, // 页面大小
             page: this.pageNumber
         };
-        if(a==""){
-            param=param
-        }else {
+        if (a == "") {
+            param = param
+        } else {
 
-            var key="province";
+            var key = "province";
             var value = a
             param[key] = value;
         }
-        if(b==""){
-            param=param
-        }else {
-            var key="city";
+        if (b == "") {
+            param = param
+        } else {
+            var key = "city";
             var value = b;
             param[key] = value;
         }
-        if(c==""){
-            param=param
-        }else {
-            var key="county";
+        if (c == "") {
+            param = param
+        } else {
+            var key = "county";
             var value = c
             param[key] = value;
         }
-        if(idstore1=="0"){
-            param=param
-        }else if(idstore1=="wu") {
-            var key="noDealerFlag";
+        if (idstore1 == "0") {
+            param = param
+        } else if (idstore1 == "wu") {
+            var key = "noDealerFlag";
             var value = "true"
             param[key] = value;
-        }else {
-            var key="dealerId";
+        } else {
+            var key = "dealerId";
             var value = idstore1
             param[key] = value;
         }
-        if(idstore2=="0"){
-            param=param
-        }else if(idstore2=="wu") {
-            var key="noStationFlag";
+        if (idstore2 == "0") {
+            param = param
+        } else if (idstore2 == "wu") {
+            var key = "noStationFlag";
             var value = "true"
             param[key] = value;
-        }else {
-            var key="storeId";
+        } else {
+            var key = "storeId";
             var value = idstore2
             param[key] = value;
         }
-        if(idpro=="0"){
-            param=param
-        }else {
-            var key="productId";
+        if (idpro == "0") {
+            param = param
+        } else {
+            var key = "productId";
             var value = idpro
             param[key] = value;
         }
-        if(zulin=="0"){
-            param=param
-        }else {
-            var key="filterType";
+        if (zulin == "0") {
+            param = param
+        } else {
+            var key = "filterType";
             var value = zulin
             param[key] = value;
         }
-        if(a2==""){
-            param=param
-        }else {
+        if (a2 == "") {
+            param = param
+        } else {
 
-            var key="province";
+            var key = "province";
             var value = a2
             param[key] = value;
         }
-        if(b2==""){
-            param=param
-        }else {
-            var key="city";
+        if (b2 == "") {
+            param = param
+        } else {
+            var key = "city";
             var value = b2;
             param[key] = value;
         }
-        if(c2==""){
-            param=param
-        }else {
-            var key="county";
+        if (c2 == "") {
+            param = param
+        } else {
+            var key = "county";
             var value = c2
             param[key] = value;
         }
-        if(idstore12=="0"){
-            param=param
-        }else if(idstore12=="wu") {
-            var key="noDealerFlag";
+        if (idstore12 == "0") {
+            param = param
+        } else if (idstore12 == "wu") {
+            var key = "noDealerFlag";
             var value = "true"
             param[key] = value;
-        }else {
-            var key="dealerId";
+        } else {
+            var key = "dealerId";
             var value = idstore12
             param[key] = value;
         }
-        if(idstore22=="0"){
-            param=param
-        }else if(idstore22=="wu") {
-            var key="noStationFlag";
+        if (idstore22 == "0") {
+            param = param
+        } else if (idstore22 == "wu") {
+            var key = "noStationFlag";
             var value = "true"
             param[key] = value;
-        }else {
-            var key="storeId";
+        } else {
+            var key = "storeId";
             var value = idstore22
             param[key] = value;
         }
-        if(idpro2=="0"){
-            param=param
-        }else {
-            var key="productId";
+        if (idpro2 == "0") {
+            param = param
+        } else {
+            var key = "productId";
             var value = idpro2
             param[key] = value;
         }
-        if(zulin2=="0"){
-            param=param
-        }else {
-            var key="filterType";
+        if (zulin2 == "0") {
+            param = param
+        } else {
+            var key = "filterType";
             var value = zulin2
             param[key] = value;
         }
-        if(a3==""){
-            param=param
-        }else {
+        if (a3 == "") {
+            param = param
+        } else {
 
-            var key="province";
+            var key = "province";
             var value = a3
             param[key] = value;
         }
-        if(b3==""){
-            param=param
-        }else {
-            var key="city";
+        if (b3 == "") {
+            param = param
+        } else {
+            var key = "city";
             var value = b3;
             param[key] = value;
         }
-        if(c3==""){
-            param=param
-        }else {
-            var key="county";
+        if (c3 == "") {
+            param = param
+        } else {
+            var key = "county";
             var value = c3
             param[key] = value;
         }
-        if(idstore13=="0"){
-            param=param
-        }else if(idstore13=="wu") {
-            var key="noDealerFlag";
+        if (idstore13 == "0") {
+            param = param
+        } else if (idstore13 == "wu") {
+            var key = "noDealerFlag";
             var value = "true"
             param[key] = value;
-        }else {
-            var key="dealerId";
+        } else {
+            var key = "dealerId";
             var value = idstore13
             param[key] = value;
         }
-        if(idstore23=="0"){
-            param=param
-        }else if(idstore23=="wu") {
-            var key="noStationFlag";
+        if (idstore23 == "0") {
+            param = param
+        } else if (idstore23 == "wu") {
+            var key = "noStationFlag";
             var value = "true"
             param[key] = value;
-        }else {
-            var key="storeId";
+        } else {
+            var key = "storeId";
             var value = idstore23
             param[key] = value;
         }
-        if(idpro3=="0"){
-            param=param
-        }else {
-            var key="productId";
+        if (idpro3 == "0") {
+            param = param
+        } else {
+            var key = "productId";
             var value = idpro3
             param[key] = value;
         }
-        if(zulin3=="0"){
-            param=param
-        }else {
-            var key="filterType";
+        if (zulin3 == "0") {
+            param = param
+        } else {
+            var key = "filterType";
             var value = zulin3
             param[key] = value;
         }
         return param;
     }
-    function createTimeFormatter(value,row,index) {
-        var inner=row.createTime
+    function createTimeFormatter(value, row, index) {
+        var inner = row.createTime
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function shengFormatter(value,row,index) {
-        var inner=row.ebikeStoreEntity.province
+    function shengFormatter(value, row, index) {
+        var inner = row.ebikeStoreEntity.province
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function shiFormatter(value,row,index) {
-        var inner=row.ebikeStoreEntity.city
+    function shiFormatter(value, row, index) {
+        var inner = row.ebikeStoreEntity.city
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function quFormatter(value,row,index) {
-        var inner=row.ebikeStoreEntity.county
+    function quFormatter(value, row, index) {
+        var inner = row.ebikeStoreEntity.county
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function jingxFormatter(value,row,index) {
-        var inner=row.ebikeStoreEntity.name
+    function jingxFormatter(value, row, index) {
+        var inner = row.ebikeStoreEntity.name
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function linkmanFormatter(value,row,index) {
+    function linkmanFormatter(value, row, index) {
         var inner;
-        if(row.ebikeStoreEntity.linkman==null){
-            inner=""
-        }else {
-            inner=row.ebikeStoreEntity.linkman
+        if (row.ebikeStoreEntity.linkman == null) {
+            inner = ""
+        } else {
+            inner = row.ebikeStoreEntity.linkman
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function linkcFormatter(value,row,index) {
+    function linkcFormatter(value, row, index) {
         var inner;
-        if(row.ebikeStoreEntity.contact==null){
-            inner=""
-        }else {
-            inner=row.ebikeStoreEntity.contact
+        if (row.ebikeStoreEntity.contact == null) {
+            inner = ""
+        } else {
+            inner = row.ebikeStoreEntity.contact
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function xiangxFormatter(value,row,index) {
-        var inner=row.ebikeStoreEntity.address
+    function xiangxFormatter(value, row, index) {
+        var inner = row.ebikeStoreEntity.address
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function dcguigeFormatter(value,row,index) {
-        var inner=row.specificationEntity.name
+    function dcguigeFormatter(value, row, index) {
+        var inner = row.specificationEntity.name
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function aveFormatter(value,row,index) {
+    function aveFormatter(value, row, index) {
         var inner;
-        if(row.aveVoltageDesc==null||row.aveVoltageDesc=="null"){
-            inner=""
-        }
-        else{inner=row.aveVoltageDesc}
-        return [
-            '<span>'+inner+'</span>'
-        ].join("")
-    }//电压属性
-    function ddstatusFormatter(value,row,index) {
-        var inner;
-        if(row.status==0){
-            inner="待支付"
-        }
-        else if(row.status==1){
-            inner="已支付、待处理"
-        }
-        else if(row.status==2){
-            inner="已发货"
-        }
-        else if(row.status==3){
-            inner="取消"
-        }
-        else if(row.status==4){
-            inner="完成"
+        if (row.aveVoltageDesc == null || row.aveVoltageDesc == "null") {
+            inner = ""
         }
         else {
-            inner=""
+            inner = row.aveVoltageDesc
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
+        ].join("")
+    }//电压属性
+    function ddstatusFormatter(value, row, index) {
+        var inner;
+        if (row.status == 0) {
+            inner = "待支付"
+        }
+        else if (row.status == 1) {
+            inner = "已支付、待处理"
+        }
+        else if (row.status == 2) {
+            inner = "已发货"
+        }
+        else if (row.status == 3) {
+            inner = "取消"
+        }
+        else if (row.status == 4) {
+            inner = "完成"
+        }
+        else {
+            inner = ""
+        }
+        return [
+            '<span>' + inner + '</span>'
         ].join("")
     }
-    function orderFormatter(value,row,index) {
+    function orderFormatter(value, row, index) {
         var inner;
-        if(row.orderStatusDesc==null||row.orderStatusDesc=="null"){
-            inner=""
+        if (row.orderStatusDesc == null || row.orderStatusDesc == "null") {
+            inner = ""
         }
-        else{inner=row.orderStatusDesc}
+        else {
+            inner = row.orderStatusDesc
+        }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join("")
     }//租赁属性
-    function jingxiaoFormatter(value,row,index) {
-        if(row.dealerEntity!=null){
-            if(row.dealerEntity.nickname==null){inner=""}
+    function jingxiaoFormatter(value, row, index) {
+        if (row.dealerEntity != null) {
+            if (row.dealerEntity.nickname == null) {
+                inner = ""
+            }
 
-            else{
-                var inner=row.dealerEntity?row.dealerEntity.nickname:""}
+            else {
+                var inner = row.dealerEntity ? row.dealerEntity.nickname : ""
+            }
         }
-        else{inner=""}
-        var color='nowwrp';
+        else {
+            inner = ""
+        }
+        var color = 'nowwrp';
         return [
 
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
 
 
         ].join("")
     }//分站
-    function dailiFormatter(value,row,index) {
-        if(row.agentEntity!=null){
-            if(row.agentEntity.nickname==null){inner=""}
+    function dailiFormatter(value, row, index) {
+        if (row.agentEntity != null) {
+            if (row.agentEntity.nickname == null) {
+                inner = ""
+            }
 
-            else{
-                var inner=row.agentEntity?row.agentEntity.nickname:""}
+            else {
+                var inner = row.agentEntity ? row.agentEntity.nickname : ""
+            }
         }
-        else{inner=""}
-        var color='nowwrp'
+        else {
+            inner = ""
+        }
+        var color = 'nowwrp'
         return [
 
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
 
 
         ].join("")
     }//代理商
-    function standFormatter(value,row,index) {
+    function standFormatter(value, row, index) {
         var inner;
-        if(row.productEntity!=null && row.productEntity!="null"){
-            if(row.productEntity.name!=null && row.productEntity.name!="null") {
+        if (row.productEntity != null && row.productEntity != "null") {
+            if (row.productEntity.name != null && row.productEntity.name != "null") {
                 inner = row.productEntity.name;
             }
-            else{
-                inner="-";
+            else {
+                inner = "-";
             }
         }
-        else{
-            inner="-";
+        else {
+            inner = "-";
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//规格
     function responseHandler(res) {
@@ -1228,7 +1141,8 @@
         }
         console.log(res);
     }
-    function ajax(url,method,success,err) {
+
+    function ajax(url, method, success, err) {
         $.ajax({
             url: url,
             method: method,
@@ -1242,7 +1156,6 @@
             error: err
         });
     }  //ajax 封装
-
 
     var DELETE_ARR=[];
     var operateEvents = {
@@ -1271,8 +1184,6 @@
         }
     };
 
-
-
     $.ajax({
         url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=900&page=1",
         method: "get",
@@ -1286,19 +1197,20 @@
         success: function (data) {
             app = new Vue({
                 el: '#app',
-                data: {message: data.list
+                data: {
+                    message: data.list
                 },
-                methods:{
-                    online:function (index,id,ev) {
-                        for(var i=0;i<document.getElementsByClassName("hoverE").length;i++){
-                            document.getElementsByClassName("hoverE")[i].style.background="white";
-                            document.getElementsByClassName("hoverE")[i].style.color="#337ab7"
+                methods: {
+                    online: function (index, id, ev) {
+                        for (var i = 0; i < document.getElementsByClassName("hoverE").length; i++) {
+                            document.getElementsByClassName("hoverE")[i].style.background = "white";
+                            document.getElementsByClassName("hoverE")[i].style.color = "#337ab7"
                         }
                         console.log(id);
-                        id1=id;
-                        ev.target.style.background="#d1c9c9";
-                        ev.target.style.color="white";
-                        console.log(id1+":"+ueId)
+                        id1 = id;
+                        ev.target.style.background = "#d1c9c9";
+                        ev.target.style.color = "white";
+                        console.log(id1 + ":" + ueId)
                     }
                 }
             })
@@ -1308,9 +1220,9 @@
             console.log(jqXHR);
         }
     });	 //list
-    $("#wrap-btn-on").on("click",function () {
+    $("#wrap-btn-on").on("click", function () {
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId="+id1+"&ueId="+ueId,
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId,
             method: "put",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1318,31 +1230,32 @@
                 /* Authorization header */
                 xhr.setRequestHeader("firm", sessionStorage.flag);
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },success:function (data) {
+            }, success: function (data) {
                 console.log("成功");
-                $table.bootstrapTable("refresh",{silent: true});
+                $table.bootstrapTable("refresh", {silent: true});
                 $("#wrap").hide()
             },
-            error:function (err) {
+            error: function (err) {
                 console.log(err)
-            }})
+            }
+        })
     });
-    $("#wrap-btn-off").on("click",function () {
+    $("#wrap-btn-off").on("click", function () {
         $("#wrap").hide()
     });
-    $(".searchWD2").on("click",function () {      //wd
-        var a=$(".selpr").val()?"&province="+$(".selpr").val():"";
-        var b=$(".selci").val()?"&city="+$(".selci").val():"";
-        var c=$(".selco").val()?"&county="+$(".selco").val():"";
-        var myselect=document.getElementById("sectionName-s5");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+    $(".searchWD2").on("click", function () {      //wd
+        var a = $(".selpr").val() ? "&province=" + $(".selpr").val() : "";
+        var b = $(".selci").val() ? "&city=" + $(".selci").val() : "";
+        var c = $(".selco").val() ? "&county=" + $(".selco").val() : "";
+        var myselect = document.getElementById("sectionName-s5");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        var url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=100&page=1"+a+b+c;
-        if(idstore1=="0"){
-            url=url;
-        }else {
-            url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?showFlag=0&sort=code,asc&limit=100&page=1"+a+b+c+"&parentId="+idstore1
+        var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=100&page=1" + a + b + c;
+        if (idstore1 == "0") {
+            url = url;
+        } else {
+            url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?showFlag=0&sort=code,asc&limit=100&page=1" + a + b + c + "&parentId=" + idstore1
         }
         console.log(url);
         $.ajax({
@@ -1357,23 +1270,23 @@
             success: function (data) {
                 console.log(data);
                 $(".removeD").remove();
-                var d=document.getElementById("app1");
-                for(var  i=0;i<data.list.length;i++){
-                    var li=document.createElement("li");
-                    var a=document.createElement("a");
-                    a.className="hoverE";
-                    li.className="removeD";
-                    li.index=data.list[i].id;
+                var d = document.getElementById("app1");
+                for (var i = 0; i < data.list.length; i++) {
+                    var li = document.createElement("li");
+                    var a = document.createElement("a");
+                    a.className = "hoverE";
+                    li.className = "removeD";
+                    li.index = data.list[i].id;
                     li.appendChild(a);
                     d.appendChild(li);
-                    li.onclick=function (ev) {
-                        for(var i=0;i<document.getElementsByClassName("hoverE").length;i++){
-                            document.getElementsByClassName("hoverE")[i].style.background="white"
+                    li.onclick = function (ev) {
+                        for (var i = 0; i < document.getElementsByClassName("hoverE").length; i++) {
+                            document.getElementsByClassName("hoverE")[i].style.background = "white"
                         }
-                        ev.target.style.background="#d1c9c9"
-                        id1=this.index
+                        ev.target.style.background = "#d1c9c9"
+                        id1 = this.index
                     }
-                    if(idstore1=="0"){
+                    if (idstore1 == "0") {
                         a.innerHTML = data.list[i].name + "(" + data.list[i].address + ")"
                     }
                     else {
@@ -1389,12 +1302,12 @@
         });
 
     });
-    $(".searchWDi").on("click",function () {
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        idstore=myselect.options[index].value;
+    $(".searchWDi").on("click", function () {
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore = myselect.options[index].value;
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&storeId="+idstore,
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&storeId=" + idstore,
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1404,8 +1317,8 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&storeId="+idstore});
-                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&storeId="+idstore)
+                $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&storeId=" + idstore});
+                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&storeId=" + idstore)
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败")
@@ -1413,12 +1326,12 @@
             }
         });
     });
-    $(".searchGG").on("click",function () {
-        var myselect=document.getElementById("guigese");
-        var index=myselect.selectedIndex ;
-        idpro=myselect.options[index].value;
+    $(".searchGG").on("click", function () {
+        var myselect = document.getElementById("guigese");
+        var index = myselect.selectedIndex;
+        idpro = myselect.options[index].value;
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&productId="+idpro,
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&productId=" + idpro,
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1428,8 +1341,8 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&productId="+idpro});
-                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&productId="+idpro)
+                $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&productId=" + idpro});
+                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1&productId=" + idpro)
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
@@ -1437,67 +1350,74 @@
             }
         });
     });
+
     function deteleOdd(arr) {
-        var odd=[];
+        var odd = [];
+
         function QC(arr) {
             var s = [];
 //遍历数组
-            for(var i = 0;i<arr.length;i++){
-                if(s.indexOf(arr[i]) == -1){  //判断在s数组中是否存在，不存在则push到s数组中
+            for (var i = 0; i < arr.length; i++) {
+                if (s.indexOf(arr[i]) == -1) {  //判断在s数组中是否存在，不存在则push到s数组中
                     s.push(arr[i]);
                 }
             }
             return s
         }
-        var  s=QC(arr);
+
+        var s = QC(arr);
 
         for (var i = 0; i < s.length; i++) {
-            var add=[];
+            var add = [];
             for (var k = 0; k < arr.length; k++) {
-                if(s[i]==arr[k]){
+                if (s[i] == arr[k]) {
                     add.push(arr[k])
                 }
 
             }
-            if(add.length%2!==0){
+            if (add.length % 2 !== 0) {
                 odd.push(s[i])
             }
         }
 
         return odd
     }
+
     function getHeight() {
-        return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true)-42 ;
+        return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 42;
     }
+
     $(window).resize(function () {
         $table.bootstrapTable('resetView', {
-            height:getHeight()
+            height: getHeight()
         });
     });
 
 
     initTable();
 
-    function  createdWrap(id,row) {
-        var comurl=0;
+    function createdWrap(id, row) {
+        var comurl = 0;
+
         function ahhhh(ev) {
-            for(var i=0;i<document.getElementsByClassName("navli").length;i++){
-                document.getElementsByClassName("navli")[i].style.background="white"
+            for (var i = 0; i < document.getElementsByClassName("navli").length; i++) {
+                document.getElementsByClassName("navli")[i].style.background = "white"
             }
-            ev.target.parentNode.style.background="#ccc";
-            var ccusn= ev.target.getAttribute("ccusn");
-            var xid= ev.target.getAttribute("xid");
-            var  url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-rental-flag?ccuSn="+ccusn+"&rentalFlag=1&dealerId="+xid
+            ev.target.parentNode.style.background = "#ccc";
+            var ccusn = ev.target.getAttribute("ccusn");
+            var xid = ev.target.getAttribute("xid");
+            var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-rental-flag?ccuSn=" + ccusn + "&rentalFlag=1&dealerId=" + xid
             console.log(url);
-            comurl=url
+            comurl = url
 
         }
-        document.getElementById(id).innerHTML="";
-        var arr=[];
-        for (var i=0;i<AjaxnickNameA.length;i++){
+
+        document.getElementById(id).innerHTML = "";
+        var arr = [];
+        for (var i = 0; i < AjaxnickNameA.length; i++) {
             arr.push(`<li role="presentation" class="navli" style=""  ><a   xid="${AjaxnickNameA[i]["id"]}"  ccusn="${row.ueSn}">${AjaxnickNameA[i]["nickname"]}</a></li>`)
         }
-        var  com=`<div  style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: block;z-index:909;left:0px;">
+        var com = `<div  style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: block;z-index:909;left:0px;">
                 <div style="width: 700px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
                 <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">分配列表</p>
                 </div>
@@ -1511,22 +1431,22 @@
             </label>
             </div>
             <div style="float: right;margin-top: 0px;margin-right: 45px">
-                <button type="button" class="btn btn-default  "  id="wrap-on" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:10px;">确定</button>
-                <button type="button" class="btn btn-default " id="wrap-off" style="width: 100px;display: inline-block;float: right">取消</button>
+                <button type="button" class="mybtn button-primary  "  id="wrap-on" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:10px;">确定</button>
+                <button type="button" class="mybtn button-primary " id="wrap-off" style="width: 100px;display: inline-block;float: right">取消</button>
                 </div>
                 </div>
                 </div> `
-        document.getElementById(id).innerHTML=com;
-        $(".navli").on("click",ahhhh);
-        $("#wrap-on").on("click",function () {
-            ajax(comurl,"put",function (data) {
+        document.getElementById(id).innerHTML = com;
+        $(".navli").on("click", ahhhh);
+        $("#wrap-on").on("click", function () {
+            ajax(comurl, "put", function (data) {
                 console.log("成功");
-                $table.bootstrapTable("refresh",{silent: true});
-                document.getElementById(id).innerHTML=""
+                $table.bootstrapTable("refresh", {silent: true});
+                document.getElementById(id).innerHTML = ""
             })
         });
-        $("#wrap-off").on("click",function () {
-            document.getElementById(id).innerHTML=""
+        $("#wrap-off").on("click", function () {
+            document.getElementById(id).innerHTML = ""
         })
     }  //模板
     $(function(){
@@ -1534,106 +1454,122 @@
         getMissiveType2();
         wangdianshaix3();
     });
-    function getMissiveType(){
+
+    function getMissiveType() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1&showFlag=0&sort=code,asc&limit=100&page=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#sectionName-s").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                        $("#sectionName-s2").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                        $("#sectionName-s3").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#sectionName-s').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#sectionName-s2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#sectionName-s3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
-                }
-            }
-        );
-    }
-    function getMissiveType2(){
-        $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/specifications?sort=id,asc&categoryIds=1",
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                processData:false,
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#guigese').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#guigese").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                        $("#guigese2").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                        $("#guigese3").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                    }
-                }
-            }
-        );
-    }
-    function wangdianshaix3(){
-        $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                processData:false,
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#sectionName-s5").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                    }
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType()
                 }
             }
         );
     }
 
-    $("#222").on("click",function () {
-        var carsn=$(".carNumber2").html();
-        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-rental-flag?ccuSn="+carsn+"&rentalFlag=0");
+    function getMissiveType2() {
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-rental-flag?ccuSn="+carsn+"&rentalFlag=0",
+                url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/specifications?sort=id,asc&categoryIds=1",
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#guigese').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#guigese").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#guigese2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#guigese3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType2()
+                }
+            }
+        );
+    }
+
+    function wangdianshaix3() {
+        $.ajax({
+                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#sectionName-s').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#sectionName-s5").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType3()
+                }
+            }
+        );
+    }
+
+    $("#222").on("click", function () {
+        var carsn = $(".carNumber2").html();
+        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-rental-flag?ccuSn=" + carsn + "&rentalFlag=0");
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-rental-flag?ccuSn=" + carsn + "&rentalFlag=0",
             method: "put",
             contentType: "application/json; charset=utf-8",
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("firm", sessionStorage.flag);
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },success:function (data) {
+            }, success: function (data) {
                 alert("取消成功");
                 console.log("成功");
-                $table.bootstrapTable("refresh",{'url':"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+carsn,silent: true});
+                $table.bootstrapTable("refresh", {
+                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + carsn,
+                    silent: true
+                });
                 $("#wrap-delet").hide()
             },
-            error:function (err) {
-                if(err.status==403) alert("您没有权限执行此操作");
+            error: function (err) {
+                if (err.status == 403) alert("您没有权限执行此操作");
                 console.log(err)
-            }})
+            }
+        })
     });
-    $("#111").on("click",function () {
+    $("#111").on("click", function () {
         $("#wrap-delet").hide()
     });
-    $(".searchWD").on("click",function () {      //wd
-        var a=$(".selpr").val()?"&province="+$(".selpr").val():"";
-        var b=$(".selci").val()?"&city="+$(".selci").val():"";
-        var c=$(".selco").val()?"&county="+$(".selco").val():"";
-        console.log("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3"+a+b+c);
+    $(".searchWD").on("click", function () {      //wd
+        var a = $(".selpr").val() ? "&province=" + $(".selpr").val() : "";
+        var b = $(".selci").val() ? "&city=" + $(".selci").val() : "";
+        var c = $(".selco").val() ? "&county=" + $(".selco").val() : "";
+        console.log("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3" + a + b + c);
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3"+a+b+c+"&limit=900&page=1",
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=0,1,2,3" + a + b + c + "&limit=900&page=1",
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1644,23 +1580,23 @@
             success: function (data) {
                 console.log(data);
                 $(".removeD").remove();
-                var d=document.getElementById("app1");
-                for(var  i=0;i<data.list.length;i++){
-                    var li=document.createElement("li");
-                    var a=document.createElement("a");
-                    a.className="hoverE";
-                    li.className="removeD";
-                    li.index=data.list[i].id;
+                var d = document.getElementById("app1");
+                for (var i = 0; i < data.list.length; i++) {
+                    var li = document.createElement("li");
+                    var a = document.createElement("a");
+                    a.className = "hoverE";
+                    li.className = "removeD";
+                    li.index = data.list[i].id;
                     li.appendChild(a);
                     d.appendChild(li);
-                    li.onclick=function (ev) {
-                        for(var i=0;i<document.getElementsByClassName("hoverE").length;i++){
-                            document.getElementsByClassName("hoverE")[i].style.background="white"
+                    li.onclick = function (ev) {
+                        for (var i = 0; i < document.getElementsByClassName("hoverE").length; i++) {
+                            document.getElementsByClassName("hoverE")[i].style.background = "white"
                         }
-                        ev.target.style.background="#d1c9c9";
-                        id1=this.index
+                        ev.target.style.background = "#d1c9c9";
+                        id1 = this.index
                     };
-                    a.innerHTML=data.list[i].name+"("+data.list[i].address+")"
+                    a.innerHTML = data.list[i].name + "(" + data.list[i].address + ")"
                 }
 
             },
@@ -1671,10 +1607,10 @@
         });
 
     });
-    $(".searchCcu").on("click",function () {
-        console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult").val());
+    $(".searchCcu").on("click", function () {
+        console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult").val());
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult").val(),
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult").val(),
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1684,7 +1620,11 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult").val(),pageNumber:1,pageSize:20});
+                $("#table").bootstrapTable('refresh', {
+                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult").val(),
+                    pageNumber: 1,
+                    pageSize: 20
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
@@ -1693,11 +1633,10 @@
         });
 
 
-
     });
-    $(".searchCcu2").on("click",function () {
+    $(".searchCcu2").on("click", function () {
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult2").val(),
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult2").val(),
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1707,7 +1646,11 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult2").val(),pageNumber:1,pageSize:20});
+                $("#table").bootstrapTable('refresh', {
+                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult2").val(),
+                    pageNumber: 1,
+                    pageSize: 20
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
@@ -1716,11 +1659,10 @@
         });
 
 
-
     });
-    $(".searchCcu3").on("click",function () {
+    $(".searchCcu3").on("click", function () {
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult3").val(),
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult3").val(),
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1730,7 +1672,11 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn="+$(".searchResult3").val(),pageNumber:1,pageSize:20});
+                $("#table").bootstrapTable('refresh', {
+                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult3").val(),
+                    pageNumber: 1,
+                    pageSize: 20
+                });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
@@ -1739,30 +1685,29 @@
         });
 
 
-
     });
-    $(".searchDQ").on("click",function () {
+    $(".searchDQ").on("click", function () {
         var url;
-        var a=$(".selpr1").val();
+        var a = $(".selpr1").val();
         console.log(a);
-        var b=$(".selci1").val();
-        var c=$(".selco1").val();
+        var b = $(".selci1").val();
+        var c = $(".selco1").val();
 
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        var myselect2=document.getElementById("guigese");
-        var index2=myselect2.selectedIndex ;
-        idpro=myselect2.options[index2].value;
+        var myselect2 = document.getElementById("guigese");
+        var index2 = myselect2.selectedIndex;
+        idpro = myselect2.options[index2].value;
         console.log(idpro);
-        var myselect3=document.getElementById("erjise");
-        var index3=myselect3.selectedIndex ;
-        idstore2=myselect3.options[index3].value;
+        var myselect3 = document.getElementById("erjise");
+        var index3 = myselect3.selectedIndex;
+        idstore2 = myselect3.options[index3].value;
         console.log(idstore2);
-        var myselect4=document.getElementById("zulinse");
-        var index4=myselect4.selectedIndex ;
-        zulin=myselect4.options[index4].value;
+        var myselect4 = document.getElementById("zulinse");
+        var index4 = myselect4.selectedIndex;
+        zulin = myselect4.options[index4].value;
         console.log(zulin);
         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1"
 //        if(a==""){
@@ -1871,68 +1816,68 @@
         });
 
     });
-    $(".searchDQ2").on("click",function () {
+    $(".searchDQ2").on("click", function () {
         var url;
-        var a=$(".selpr2").val();
+        var a = $(".selpr2").val();
         console.log(a);
-        var b=$(".selci2").val();
-        var c=$(".selco2").val();
+        var b = $(".selci2").val();
+        var c = $(".selco2").val();
 
-        var myselect=document.getElementById("sectionName-s2");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s2");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        var myselect2=document.getElementById("guigese2");
-        var index2=myselect2.selectedIndex ;
-        idpro=myselect2.options[index2].value;
+        var myselect2 = document.getElementById("guigese2");
+        var index2 = myselect2.selectedIndex;
+        idpro = myselect2.options[index2].value;
         console.log(idpro);
-        var myselect3=document.getElementById("erjise2");
-        var index3=myselect3.selectedIndex ;
-        idstore2=myselect3.options[index3].value;
+        var myselect3 = document.getElementById("erjise2");
+        var index3 = myselect3.selectedIndex;
+        idstore2 = myselect3.options[index3].value;
         console.log(idstore2);
-        var myselect4=document.getElementById("zulinse2");
-        var index4=myselect4.selectedIndex ;
-        zulin=myselect4.options[index4].value;
+        var myselect4 = document.getElementById("zulinse2");
+        var index4 = myselect4.selectedIndex;
+        zulin = myselect4.options[index4].value;
         console.log(zulin);
         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
-        if(a==""){
-            url=url
-        }else {
-            url=url+"&province="+a
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
         }
-        if(b==""){
-            url=url
-        }else {
-            url=url+"&city="+b
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
         }
-        if(c==""){
-            url=url
-        }else {
-            url=url+"&county="+c
+        if (c == "") {
+            url = url
+        } else {
+            url = url + "&county=" + c
         }
-        if (idstore1=="0"){
-            url=url
-        }else if(idstore1=="wu"){
-            url=url+"&noDealerFlag=true"
-        }else {
-            url=url+"&dealerId="+idstore1
+        if (idstore1 == "0") {
+            url = url
+        } else if (idstore1 == "wu") {
+            url = url + "&noDealerFlag=true"
+        } else {
+            url = url + "&dealerId=" + idstore1
         }
-        if (idstore2=="0"){
-            url=url
-        }else if(idstore2=="wu"){
-            url=url+"&noStationFlag=true"
-        }else {
-            url=url+"&storeId="+idstore2
+        if (idstore2 == "0") {
+            url = url
+        } else if (idstore2 == "wu") {
+            url = url + "&noStationFlag=true"
+        } else {
+            url = url + "&storeId=" + idstore2
         }
-        if (idpro=="0"){
-            url=url
-        }else {
-            url=url+"&productId="+idpro
+        if (idpro == "0") {
+            url = url
+        } else {
+            url = url + "&productId=" + idpro
         }
-        if(zulin=="0"){
-            url=url
-        }else {
-            url=url+"&filterType="+zulin
+        if (zulin == "0") {
+            url = url
+        } else {
+            url = url + "&filterType=" + zulin
         }
         console.log(url)
 
@@ -1958,68 +1903,68 @@
         });
 
     });
-    $(".searchDQ3").on("click",function () {
+    $(".searchDQ3").on("click", function () {
         var url;
-        var a=$(".selpr3").val();
+        var a = $(".selpr3").val();
         console.log(a);
-        var b=$(".selci3").val();
-        var c=$(".selco3").val();
+        var b = $(".selci3").val();
+        var c = $(".selco3").val();
 
-        var myselect=document.getElementById("sectionName-s3");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s3");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        var myselect2=document.getElementById("guigese3");
-        var index2=myselect2.selectedIndex ;
-        idpro=myselect2.options[index2].value;
+        var myselect2 = document.getElementById("guigese3");
+        var index2 = myselect2.selectedIndex;
+        idpro = myselect2.options[index2].value;
         console.log(idpro);
-        var myselect3=document.getElementById("erjise3");
-        var index3=myselect3.selectedIndex ;
-        idstore2=myselect3.options[index3].value;
+        var myselect3 = document.getElementById("erjise3");
+        var index3 = myselect3.selectedIndex;
+        idstore2 = myselect3.options[index3].value;
         console.log(idstore2);
-        var myselect4=document.getElementById("zulinse3");
-        var index4=myselect4.selectedIndex ;
-        zulin=myselect4.options[index4].value;
+        var myselect4 = document.getElementById("zulinse3");
+        var index4 = myselect4.selectedIndex;
+        zulin = myselect4.options[index4].value;
         console.log(zulin);
         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
-        if(a==""){
-            url=url
-        }else {
-            url=url+"&province="+a
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
         }
-        if(b==""){
-            url=url
-        }else {
-            url=url+"&city="+b
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
         }
-        if(c==""){
-            url=url
-        }else {
-            url=url+"&county="+c
+        if (c == "") {
+            url = url
+        } else {
+            url = url + "&county=" + c
         }
-        if (idstore1=="0"){
-            url=url
-        }else if(idstore1=="wu"){
-            url=url+"&noDealerFlag=true"
-        }else {
-            url=url+"&dealerId="+idstore1
+        if (idstore1 == "0") {
+            url = url
+        } else if (idstore1 == "wu") {
+            url = url + "&noDealerFlag=true"
+        } else {
+            url = url + "&dealerId=" + idstore1
         }
-        if (idstore2=="0"){
-            url=url
-        }else if(idstore2=="wu"){
-            url=url+"&noStationFlag=true"
-        }else {
-            url=url+"&storeId="+idstore2
+        if (idstore2 == "0") {
+            url = url
+        } else if (idstore2 == "wu") {
+            url = url + "&noStationFlag=true"
+        } else {
+            url = url + "&storeId=" + idstore2
         }
-        if (idpro=="0"){
-            url=url
-        }else {
-            url=url+"&productId="+idpro
+        if (idpro == "0") {
+            url = url
+        } else {
+            url = url + "&productId=" + idpro
         }
-        if(zulin=="0"){
-            url=url
-        }else {
-            url=url+"&filterType="+zulin
+        if (zulin == "0") {
+            url = url
+        } else {
+            url = url + "&filterType=" + zulin
         }
         console.log(url)
 

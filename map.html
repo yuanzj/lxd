@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="css/bootstrap.min1.css">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
 
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
     <!-- bootstrap-datetimepicker插件CSS-->
@@ -33,12 +33,7 @@
     <title>地图展示</title>
 </head>
 <style>
-    .content {
-        position: fixed;
-        width: 100%;
-        top: 81px;
-        bottom: 0;
-    }
+
 
 </style>
 <body>
@@ -194,7 +189,10 @@
                         $("#sectionName-s").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
                         $("#sectionName-s2").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
                     }
-                }
+                },
+            error: function (jqXHR, textStatus, errorThrown) {
+                getMissiveType()
+            }
             }
         );
     }
@@ -216,7 +214,10 @@
                         $("#guigesearch").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
 
                     }
-                }
+                },
+            error: function (jqXHR, textStatus, errorThrown) {
+                getMissiveType2()
+            }
             }
         );
     }

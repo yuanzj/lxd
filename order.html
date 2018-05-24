@@ -13,12 +13,10 @@
     <script src="js/axios.js"></script>
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <!-- echart-->
-    <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.min.js"></script>
+
     <link rel="stylesheet" href="css/bootstrap.min1.css">
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
 
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
     <!-- bootstrap-datetimepicker插件CSS-->
@@ -37,322 +35,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
     <![endif]-->
-    <style>
-        body{  font-family: "Microsoft YaHei","微软雅黑 Light","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif; font-size:13px;}
-        .like{
-            width: 20%;
-            height: 30%;
-        }
-        .smallImg{
-            width: 30px;
-            height: 30px;
-        }
-        .red{
-            color: #8e8e8e
-        }
-        .green{
-            color: #ff0000
-        }
-        .yellow{
-            color:#FF9200
-        }
-        .orange{
-            color:#FF7100}
-        .nowwrp1{
-            overflow: hidden;
-
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            width:90px;
-
-        }
-        .nowwrp{
-            white-space: nowrap;
-
-        }
-        .wrap-btn{
-            background: red;
-
-        }
-        .nav>li>a{
-            font-size:16px;
-            font-weight:400;}
-        .nav>li>a:hover{
-
-            background:none;
-        }
-        .nav>li>a:focus{
-            color:#FFF;
-            background:none;
-        }
-        .navbar-inverse .navbar-nav>li>a {
-            color: #9d9d9d;
-            font-size: 18px;
-        }
-        .nav{
-            -ms-overflow-y:scroll;}
-
-        .nav-pills{
-            -ms-overflow-y:scroll;}
-        .nav-stacked{
-            -ms-overflow-y:scroll;}
-        .nav nav-pills nav-stacked{
-            -ms-overflow-y:scroll;}
-
-        .my-container {
-            float: left;
-            display: inline-block;
-            margin-right:30px;
-            margin-bottom: 4px;
-            margin-top: -3px;
-        }
-
-        .myLabel-content ,.myText-content,.myBtn-content{
-            float: left;
-            display: inline-block;
-
-        }
-        .myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
-            height: 34px;
-
-        }
-        .myBtn-content .btn {
-            margin-bottom: 10px;
-        }
-        .btn-default {
-
-
-        }
-        .btnchart{
-
-            color:black;
-
-        }
-        .btnchart1{
-            background-color: rgba(46, 46, 46, 0.74);
-            border: 1px solid rgba(46, 46, 46, 0.14);
-            color: white;
-
-        }
-        .btnchart1:hover {
-            background-color: rgba(46, 46, 46, 0.69);
-            color: white;
-        }
-
-
-        /*active 要在后面 否则会被hover覆盖*/
-
-
-        .btnchart1:focus {
-            background-color: rgba(46, 46, 46, 0.74);
-            color: white;
-        }
-
-
-        .btnchart:active {
-            background-color: rgba(46, 46, 46, 0.8);
-            color: white;
-        }
-        .topinline{height: 60px;
-        }
-        .anchorBL{display:none;}
-        .nav-tabs>li>a{
-            font-size: 14px;
-        }
-    </style>
-
 </head>
 <body>
-<!-- rent -->
-<div id="wrap-stay" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;left:0px;">
-    <div style="width: 830px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">租用信息</p>
-    </div>
-    <div style="width: 830px;height: 460px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆号&nbsp;<span class="carNumber">B00000001</span></p>
-        <p style="padding:10px;">用车人微信号昵称:&nbsp;&nbsp;<span style="font-weight: 700" class="wxName">XXX</span></p>
-        <p style="padding:10px;">用车人身份证号:&nbsp;&nbsp;<span style="font-weight: 700" class="idNum" ></span></p>
-        <div>
-            <p style="padding: 10px; display: inline-block">押金(元): </p><div type="text" class=" money  " style="display: inline-block;width: 160px;margin-left: 15px;color:#777;"></div>
-            <p style="padding: 10px; display: inline-block">余额（元）: </p><div type="text" class="  balance " style="display: inline-block;width: 160px;margin-left: 15px; color:#777;"></div>
-            <p style="padding: 10px; display: inline-block">费用（元）: </p><div type="text" class=" cost  " style="display: inline-block;width: 160px;margin-left: 15px;color:#777;"></div>
-        </div>
-        <div>
-            <p style="padding: 11px; display: inline-block">用车人姓名: </p><input type="text" class="form-control carmanName disabled" style="display: inline-block;width: 300px">
-            <p style="padding: 9px; display: inline-block">用车人手机号：</p><input type="text" class="form-control carmanPhone" style="display: inline-block;width: 300px">
-        </div>
-
-        <div>
-            <p style="padding: 10px; display: inline-block">租用天数: </p><input type="text" class="form-control  remainday " style="display: inline-block;width: 300px;margin-left: 14px;">
-        </div>
-        <div >
-            <p style="padding: 10px; display: inline-block">开始时间: </p><input type="text" class="form-control startTime"  style="display: inline-block;width: 300px;margin-left: 14px;" id='datetimepicker1' >
-            <p style="padding: 8px; display: inline-block">结束时间: </p><input type="text" class="form-control endTime" style="display: inline-block;width: 300px;margin-left: 38px;" id='datetimepicker2' >
-
-        </div>
-        <div>
-
-            <p style="padding: 10px; display: inline-block">更换车辆: </p><input type="text" class="form-control  change " value="请输入要更换的车辆序列号" onblur="if(this.value==''){this.value='请输入要更换的车辆序列号'}" onfocus="if(this.value=='请输入要更换的车辆序列号'){this.value=''}" style="display: inline-block;width: 300px;margin-left: 14px;">
-            <button type="button" class="btn btn-default "  id="btn-change" style="width: 100px;display: inline-block; margin-left:5px;">确认</button>
-        </div>
-        <div style="float: right;margin-top: 1px;margin-right: 28px">
-
-            <!--<button type="button" class="btn btn-default  sendAll" style="width: 100px;background: #169BD5;color:#F3F3F3">确定</button>-->
-
-
-
-            <button type="button" class="btn btn-default  sendAll" id="sendAll" style="width: 100px;background: #636161;color:#F3F3F3">确定</button>
-            <!--  提示框-->
-
-
-            <button type="button" class="btn btn-default calloff" style="width: 100px">取消</button>
-        </div>
-    </div>
-</div>
-
-<!--666-->
-
-<div id="wrap" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
-    <div style="width: 680px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">网点列表</p>
-    </div>
-    <div style="width: 680px;height: 340px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span></p>
-        <div id="app" >
-            <label  style="display: block;margin-top: 0px" >
-                <ul class="nav nav-pills nav-stacked" style="overflow-y: scroll;-ms-overflow-y:scroll; height:220px;">
-                    <li  v-for="(item,index) in message"  style="font-size:15px; font-weight:500;"><a  @click="online(index,item.id,$event)"  class="hoverE">{{item.name}}({{item.address}})</a></li>
-                </ul>
-            </label>
-        </div>
-
-        <div style="float: right;margin-top: 10px;margin-right: 20px">
-            <button type="button" class="btn btn-default  "  id="wrap-btn-on" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block; margin-right:5px;">确定</button>
-            <!--  提示框-->
-            <button type="button" class="btn btn-default " id="wrap-btn-off" style="width: 100px;display: inline-block;float: right">取消</button>
-        </div>
-    </div>
-</div>
-<!-- fault  -->
-
-<div id="wrap2" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">
-    <div style="width: 600px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">故障详情</p>
-    </div>
-    <div style="width: 600px;height: 250px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span></p>
-        <p style="padding: 10px">故障描述:&nbsp;<span class="miaoshu">{{carid}}</span></p>
-        <p style="padding: 10px">维修建议:&nbsp;<span class="jianyi">{{carid}}</span></p>
-        <div style="float: right;margin-top: 30px;margin-right: 20px">
-            <button type="button" class="btn btn-default  "  id="666" style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block">确定</button>
-        </div>
-    </div>
-</div>
-<!-- cardetails  -->
-<div id="wrap1" style="position: fixed; top: 0px; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0px;">
-    <div style="width: 600px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">远程操控</p>
-    </div>
-    <div style="width: 600px;height: 220px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span></p>
-        <div style="float: left;margin-top: 20px; padding-left:125px;width: 100%;">
-            <button type="button" class="btn btn-default " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:20px;">启用</button>
-            <button type="button" class="btn btn-default " id="btn-6" style="width: 100px;display: inline-block;float: left;margin-right:20px;">停止</button>
-            <button type="button" class="btn btn-default " id="btn-5" style="width: 100px;display: inline-block;float: left;margin-right:20px;">重启</button>
-        </div>
-        <!--<div style="float: left;margin-top: 30px;  padding-left:34%;">-->
-        <!--<button type="button" class="btn btn-default "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:5px;">冻结电池</button>-->
-        <!--<button type="button" class="btn btn-default " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:5px;">取消冻结</button>-->
-        <!--</div>-->
-        <div style="float: right;margin-top: 60px;margin-right: 40px">
-            <button type="button" class="btn btn-default " id="555" style="width: 100px;float: right;background: #636161;color:#F3F3F3;display: inline-block">取消</button>
-        </div>
-    </div>
-</div>
-<!-- cardetails  -->
-<!--<div id="guiji" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">-->
-<!--<div style="width: 900px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">-->
-
-<!--<p style="font-size: 20px;font-weight: 700;margin-bottom: 0px;margin-left: 15px;color: white;padding-top: 2px">当日轨迹<span  style="float: right;margin-right: 15px;font-size: 32px;cursor: pointer;color: white;margin-top: -10px" id="gjclose">×</span></p>-->
-
-<!--</div>-->
-<!--<div id="allmap" style="width: 900px;height: 700px;background: #FFF;opacity: 1;margin:0 auto;">-->
-
-<!--</div>-->
-<!--</div>-->
-<div id="guiji" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">
-    <div style="width: 900px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-
-        <p style="font-size: 20px;font-weight: 700;margin-bottom: 0;margin-left: 15px;color: white;">当日轨迹<span  style="float: right;margin-right: 15px;font-size: 32px;cursor: pointer;color: white;margin-top: -13px;padding-top: 3px;" id="gjclose">×</span></p>
-
-    </div>
-    <div style="width: 900px;height: 700px;background: #FFF;margin: 0 auto;opacity: 1">
-        <div id="allmap" style="width: 900px;height: 700px;background: #FFF;opacity: 1;margin:0 auto;"></div>
-
-    </div>
-</div>
-<div id="weizhi" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">
-    <div style="width: 900px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-
-        <p style="font-size: 20px;font-weight: 700;margin-bottom: 0;margin-left: 15px;color: white;">当前定位<span  style="float: right;margin-right: 15px;font-size: 32px;cursor: pointer;color: white;margin-top: -13px;padding-top: 3px;" id="wzclose">×</span></p>
-
-    </div>
-    <div style="width: 900px;height: 700px;background: #FFF;margin: 0 auto;opacity: 1">
-        <div id="allmap2" style="width: 900px;height: 700px;background: #FFF;opacity: 1;margin:0 auto;"></div>
-
-    </div>
-</div>
-<div id="chart1" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">
-    <div style="width: 900px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-
-        <p style="font-size: 20px;font-weight: 700;margin-bottom: 0px;margin-left: 15px;color: white;padding-top: 2px">序列号&nbsp;<span class="carNumber">{{carid}}</span><span  style="float: right;margin-right: 15px;font-size: 32px;cursor: pointer;color: white;margin-top: -10px" id="dyclose">×</span></p>
-
-    </div>
-    <div style="width: 900px;height: 700px;background: #FFF;margin: 0 auto;opacity: 1">
-
-        <!--<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 0px;margin-left: 15px;margin-top: 15px;">-->
-        <!--<button type="button" class="btn btn-default btnchart1" id="chartDianya" style="outline: none;">电压</button>-->
-        <!--<button type="button" class="btn btn-default btnchart" id="chartLingcheng" style="outline: none;">里程</button>-->
-        <!--</div>-->
-        <div id="timeDianya" style="padding-top: 30px">
-            <input type="text" class="form-control chartstartTime" placeholder="起始时间"  style="display: inline-block;width: 200px;margin-left: 15px" id='datetimepicker3' > — <input type="text"
-                                                                                                                                                                                    class="form-control chartendTime" placeholder="结束时间" style="display: inline-block;width: 200px;" id='datetimepicker4' >
-            <button class="btn btn-default" id="chartSearch" style="margin-left: 5px;margin-top: -6px;outline: none;">查询</button>
-
-        </div>
-        <div id="main" style="width: 900px;height:560px;margin-top: 20px;"></div>
-
-
-    </div>
-</div>
-<div id="chart2" style="position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none;z-index:909;left:0;">
-    <div style="width: 900px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-
-        <p style="font-size: 20px;font-weight: 700;margin-bottom: 0px;margin-left: 15px;color: white;padding-top: 2px">序列号&nbsp;<span class="carNumber">{{carid}}</span><span  style="float: right;margin-right: 15px;font-size: 32px;cursor: pointer;color: white;margin-top: -10px" id="lcclose">×</span></p>
-
-    </div>
-    <div style="width: 900px;height: 700px;background: #FFF;margin: 0 auto;opacity: 1">
-
-        <!--<div class="btn-group" role="group" aria-label="..." style="margin-bottom: 0px;margin-left: 15px;margin-top: 15px;">-->
-        <!--<button type="button" class="btn btn-default btnchart1" id="chartDianya" style="outline: none;">电压</button>-->
-        <!--<button type="button" class="btn btn-default btnchart" id="chartLingcheng" style="outline: none;">里程</button>-->
-        <!--</div>-->
-
-
-        <div id="timeLicheng" style="padding-top: 30px">
-            <input type="text" class="form-control chartstartTime" placeholder="起始时间"  style="display: inline-block;width: 200px;margin-left: 15px" id='datetimepicker5' > — <input type="text"
-                                                                                                                                                                                    class="form-control chartendTime" placeholder="结束时间" style="display: inline-block;width: 200px;" id='datetimepicker6' >
-            <button class="btn btn-default" id="chartSearch2" style="margin-left: 5px;margin-top: -6px;outline: none;">查询</button>
-
-        </div>
-        <div id="main2" style="width: 900px;height:560px;margin-top: 20px"></div>
-
-    </div>
-</div>
 <!-- Fixed navbar -->
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -368,9 +57,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li  class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"  style="margin-left: 10%;     white-space: nowrap;"  id="navbarID" >{{navname}}</a>
+                <li class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"
+                                                  style="margin-left: 10%;     white-space: nowrap;" id="navbarID">{{navname}}</a>
                     <ul class="dropdown-menu" style="margin-left: 10%; white-space: nowrap;">
-                        <li ><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a></li>
+                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a>
+                        </li>
                     </ul>
                 </li>
                 <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
@@ -384,58 +75,59 @@
 </nav>
 
 <div class="content">
-    <div class="container" style="width:97%; margin-top:-24px;">
+    <div class="container">
         <div class="fixed-table-toolbar">
         </div>
         <div id="toolbar">
-            <div class="my-container">
+            <div class="my-container-cheliang">
 
-                <div data-toggle="distpicker" id="table1"  class="form-inline topinline" style="margin-top: 5px;margin-bottom: -25px;">
-                    <input type="text" class="form-control searchResult"  style="display: inline-block;width: 200px;"
+                <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
+                    <input type="text" class="form-control search-input searchResult"
                            placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}" >
-                    <button type="button" class="btn btn-default searchCcu" style=";border-bottom-right-radius: 5px;border-top-right-radius: 5px;">
+                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                    <button type="button" class="mybtn button-primary searchCcusn searchCcu">
                         <span class="glyphicon glyphicon-search"></span></button>
 
-                    <select  data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 20px;"></select>
-                    <select  data-city="---- 选择市 ----" class="form-control selci" ></select>
-                    <select  data-district="---- 选择区 ----" class="form-control selco" ></select>
+                    <select data-province="---- 选择省 ----" class="form-control selpr"
+                            style="margin-left: 20px;"></select>
+                    <select data-city="---- 选择市 ----" class="form-control selci"></select>
+                    <select data-district="---- 选择区 ----" class="form-control selco"></select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" onChange="move1()"
-                            style="display: inline-block;width: 110px;margin-left: 2px;">
-                        <option selected = "selected" value="0">分站</option>
+                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse-small"
+                            onChange="move1()">
+                        <option selected="selected" value="0">分站</option>
                     </select>
 
-                    <select type="text" class="form-control erjise" id="erjise" style="display: inline-block;width: 110px;margin-left: 2px;">
-                        <option selected = "selected" value="0">驿站</option>
+                    <select type="text" class="form-control erjise-small" id="erjise">
+                        <option selected="selected" value="0">驿站</option>
 
                     </select>
 
-                    <select type="text" class="form-control guigese" id="guigese" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">---选择规格---</option>
+                    <select type="text" class="form-control guigese" id="guigese">
+                        <option selected="selected" value="0">---选择规格---</option>
 
                     </select>
-                    <select type="text" class="form-control leixingse" id="leixingse" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="9">-选择租赁类型-</option>
+                    <select type="text" class="form-control tool-select" id="leixingse">
+                        <option selected="selected" value="9">-选择租赁类型-</option>
                         <option value="0">新租</option>
                         <option value="1">续租</option>
                         <option value="2">退租</option>
 
                     </select>
-                    <select type="text" class="form-control zhifuse" id="zhifuse" style="display: inline-block;width: 140px;margin-left: 2px;">
-                        <option selected = "selected" value="0">-选择支付方式-</option>
+                    <select type="text" class="form-control tool-select" id="zhifuse">
+                        <option selected="selected" value="0">-选择支付方式-</option>
                         <option>支付宝</option>
                         <option>微信支付</option>
                         <option>优惠券</option>
 
                     </select>
-                    <button type="button" class="btn btn-default searchDQ" >查询</button>
+                    <button type="button" class="mybtn button-primary searchDQ">查询</button>
                 </div>
 
 
             </div>
         </div>
-        <div  id="map"></div>
+        <div id="map"></div>
         <table id="table"
                data-search="false"
                data-show-refresh="true"
@@ -469,40 +161,43 @@
 <script>
 
 
-    window.onload = function(){
-        document.getElementById('name').disabled=true;
+    window.onload = function () {
+        document.getElementById('name').disabled = true;
     };
-    var nameindex=0;
-    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color="white";
+    var nameindex = 0;
+    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color = "white";
     var $table = $('#table');
     var dataResult;
-    var rr=1;
+    var rr = 1;
     var orFault;
-    var  orOnLine;
-    var timer=0;
-    var cc=0;
-    var  timer2=0;
+    var orOnLine;
+    var timer = 0;
+    var cc = 0;
+    var timer2 = 0;
 
     var url;
-    url ="http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
-    var  title=document.getElementById("title");
-    var navid=document.getElementById("navbarID");
+    url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
+    var title = document.getElementById("title");
+    var navid = document.getElementById("navbarID");
 
     function initTable() {
 
         $table.bootstrapTable("destroy");
         $table.bootstrapTable({
             height: getHeight(),
-            url:url,
+            url: url,
             method: 'GET',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             cache: false,
             striped: true,                              //是否显示行间隔色
+            onLoadError: function (data) {
+                $table.bootstrapTable("refresh", {silent: true});
+            },
             ajaxOptions: {
                 headers: {
-                    "firm":JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
-                    "Authorization":sessionStorage.token
+                    "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                    "Authorization": sessionStorage.token
                 }
             },
             queryParams: queryParams,
@@ -578,7 +273,7 @@
                     title: '用户姓名',
                     align: 'center',
                     valign: 'middle',
-                    formatter:realFormatter
+                    formatter: realFormatter
 
                 },
                 {
@@ -586,7 +281,7 @@
                     title: '租赁类型',
                     align: 'center',
                     valign: 'middle',
-                    formatter:chargetypeFormatter
+                    formatter: chargetypeFormatter
                 },
                 {
                     field: 'payment',
@@ -599,14 +294,14 @@
                     title: '押金',
                     align: 'center',
                     valign: 'middle',
-                    formatter:yajinFormatter
+                    formatter: yajinFormatter
                 },
                 {
                     field: 'z',
                     title: '租金',
                     align: 'center',
                     valign: 'middle',
-                    formatter:zujinFormatter
+                    formatter: zujinFormatter
                 }
 
             ]
@@ -617,56 +312,62 @@
     function realFormatter(value, row, index) {
         var inner;
 
-            if(row.realName==null){inner=""}
-            else {
-                inner=row.realName
+        if (row.realName == null) {
+            inner = ""
         }
-        var color='nowwrp';
+        else {
+            inner = row.realName
+        }
+        var color = 'nowwrp';
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//用户姓名
     function chargetypeFormatter(value, row, index) {
         var inner;
-        if(row.chargeType==0){
-            inner="新租"
+        if (row.chargeType == 0) {
+            inner = "新租"
         }
-        else if(row.chargeType==1) {
-            inner="续租"
-        }else if(row.chargeType==2){
-            inner="退租"
-        }else {
-            inner="-"
+        else if (row.chargeType == 1) {
+            inner = "续租"
+        } else if (row.chargeType == 2) {
+            inner = "退租"
+        } else {
+            inner = "-"
         }
         return [
-            '<span>'+inner+'</span>'
+            '<span>' + inner + '</span>'
         ].join('');
     }//租赁类型
     function linkFormatter(value, row, index) {
-        if(row.owner==null||row.owner=="null"){inner=""}
-        else{
-            var inner=row.owner.phoneNumber}
-        var color='nowwrp'
+        if (row.owner == null || row.owner == "null") {
+            inner = ""
+        }
+        else {
+            var inner = row.owner.phoneNumber
+        }
+        var color = 'nowwrp'
         return [
-            '<span class='+color+'>'+inner+'</span>'
+            '<span class=' + color + '>' + inner + '</span>'
         ].join('');
     }//联系方式
     function operateFormatter(value, row, index) {
-        var car =row.ebikeStatus==0?"img/u217.png":row.ebikeStatus==100?"img/u209.png":"img/u207.png";
+        var car = row.ebikeStatus == 0 ? "img/u217.png" : row.ebikeStatus == 100 ? "img/u209.png" : "img/u207.png";
         return [
             '<a class="like" href="#">',
-            '<img  class="smallImg" src='+car+' />',
+            '<img  class="smallImg" src=' + car + ' />',
             '</a>'
         ].join('');
     }
+
     function yajinFormatter(value, row, index) {
-        var inner=row.deposit;
-        if(row.chargeType==2){
-            var color="red";
+        var inner = row.deposit;
+        if (row.chargeType == 2) {
+            var color = "red";
             return [
                 '<span class=' + color + '>' + inner + '</span>'
             ].join('');
-        }else {
+        } else {
             return [
                 '<span>' + inner + '</span>'
             ].join('');
@@ -674,112 +375,113 @@
 
     }//押金
     function zujinFormatter(value, row, index) {
-        var inner=row.rentAmount;
-        if(row.chargeType==2){
-            var color="green";
+        var inner = row.rentAmount;
+        if (row.chargeType == 2) {
+            var color = "green";
             return [
                 '<span class=' + color + '>' + inner + '</span>'
             ].join('');
-        }else {
+        } else {
             return [
                 '<span>' + inner + '</span>'
             ].join('');
         }
     }//租金
     function queryParams(params) {
-        var a=$(".selpr").val();
+        var a = $(".selpr").val();
         console.log(a);
-        var b=$(".selci").val();
-        var c=$(".selco").val();
+        var b = $(".selci").val();
+        var c = $(".selco").val();
 
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
 
-        var myselect5=document.getElementById("erjise");
-        var index5=myselect5.selectedIndex ;
-        idstore2=myselect5.options[index5].value;
+        var myselect5 = document.getElementById("erjise");
+        var index5 = myselect5.selectedIndex;
+        idstore2 = myselect5.options[index5].value;
 
-        var myselect2=document.getElementById("guigese");
-        var index2=myselect2.selectedIndex ;
-        idpro=myselect2.options[index2].value;
+        var myselect2 = document.getElementById("guigese");
+        var index2 = myselect2.selectedIndex;
+        idpro = myselect2.options[index2].value;
 
-        var myselect3=document.getElementById("zhifuse");
-        var index3=myselect3.selectedIndex ;
-        payment=myselect3.options[index3].innerHTML;
-        paymentvalue=myselect3.options[index3].value;
+        var myselect3 = document.getElementById("zhifuse");
+        var index3 = myselect3.selectedIndex;
+        payment = myselect3.options[index3].innerHTML;
+        paymentvalue = myselect3.options[index3].value;
 
-        var myselect4=document.getElementById("leixingse");
-        var index4=myselect4.selectedIndex ;
-        leixing=myselect4.options[index4].innerHTML;
-        leixingvalue=myselect4.options[index4].value;
+        var myselect4 = document.getElementById("leixingse");
+        var index4 = myselect4.selectedIndex;
+        leixing = myselect4.options[index4].innerHTML;
+        leixingvalue = myselect4.options[index4].value;
         var param = {
             limit: this.pageSize, // 页面大小
             page: this.pageNumber,
-            onLine:orOnLine,
-            fault:orFault
+            onLine: orOnLine,
+            fault: orFault
 
         };
-        if(a==""){
-            param=param
-        }else {
+        if (a == "") {
+            param = param
+        } else {
 
-            var key="province";
+            var key = "province";
             var value = a
             param[key] = value;
         }
-        if(b==""){
-            param=param
-        }else {
-            var key="city";
+        if (b == "") {
+            param = param
+        } else {
+            var key = "city";
             var value = b;
             param[key] = value;
         }
-        if(c==""){
-            param=param
-        }else {
-            var key="county";
+        if (c == "") {
+            param = param
+        } else {
+            var key = "county";
             var value = c
             param[key] = value;
         }
-        if(idstore1=="0"){
-            param=param
-        }else {
-            var key="dealerId";
+        if (idstore1 == "0") {
+            param = param
+        } else {
+            var key = "dealerId";
             var value = idstore1
             param[key] = value;
         }
-        if(idstore2=="0"){
-            param=param
-        }else {
-            var key="storeId";
+        if (idstore2 == "0") {
+            param = param
+        } else {
+            var key = "storeId";
             var value = idstore2;
             param[key] = value;
         }
-        if(idpro=="0"){
-            param=param
-        }else {
-            var key="productId";
+        if (idpro == "0") {
+            param = param
+        } else {
+            var key = "productId";
             var value = idpro
             param[key] = value;
         }
-        if(paymentvalue!="0") {
-            var key="payment";
+        if (paymentvalue != "0") {
+            var key = "payment";
             var value = payment
             param[key] = value;
-        }else if(paymentvalue=="0"){
-            param=param
+        } else if (paymentvalue == "0") {
+            param = param
         }
-        if(leixingvalue!="9") {
-            var key="chargeType";
+        if (leixingvalue != "9") {
+            var key = "chargeType";
             var value = leixingvalue
             param[key] = value;
-        }else if(leixingvalue=="9"){
-            param=param
+        } else if (leixingvalue == "9") {
+            param = param
         }
         console.info(param);
         return param;
     }
+
     function responseHandler(res) {
         dataResult = res;
         if (res) {
@@ -797,7 +499,8 @@
     }
 
     var data1;
-    function ajax(url,method,success,err) {
+
+    function ajax(url, method, success, err) {
         $.ajax({
             url: url,
             method: method,
@@ -812,225 +515,23 @@
             error: err
         });
     }  //ajax 封装
-    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1","get",function (data) {
-        data1=data
+    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1", "get", function (data) {
+        data1 = data
     }, function (jqXHR, textStatus, errorThrown) {
         console.log("失败");
-        console.log(jqXHR);});
+        console.log(jqXHR);
+    });
     var ueId;
     var id1;
 
-    var poins=function (data) {
-
-        if (!data) return;
-        var points=[];
-        var num=parseInt(data.length/10);
-        function  sliceArr(arr,size) {
-            var result=[];
-            for(var i=0;i<Math.ceil(arr.length / size);i++){
-                var start=i*size;
-                var end=(i+1)*size;
-                result.push(arr.slice(start,end))
-            }
-
-            return result
-        }
-        for(var  i=0;i<data.length;i++){
-            points.push(new BMap.Point(data[i]['lon'],data[i]['lat']))
-        }
-        var arr=sliceArr(points,5);
-        return arr
-    };
-
-    function addMarker(point){
-
-        var marker = new BMap.Marker(point);
-        map.addOverlay(marker);
-    }
-    var operateEvents = {
-        'click .like': function (e,value,row,index) {
-            console.log("e:"+e+"value:"+value+"row:"+row+"index:"+index)
-            var ALL= row
-            var A = ALL
-            console.log("当前车 :"+ALL.orderId)
-            var a = ALL.orderEntity ? ALL.orderEntity.orderUserBean.nikeName : ""
-            var b = ALL.ccuSn ? ALL.ccuSn : ""
-            var c=ALL.orderEntity ? ALL.orderEntity.orderUserBean.realName : ""
-            var d=ALL.orderEntity ? ALL.orderEntity.orderUserBean.phoneNumber : ""
-            var e=ALL.orderEntity? ALL.orderEntity.startTime: ""
-            var f=ALL.orderEntity? ALL.orderEntity.endTime: ""
-            var g=ALL.orderEntity? ALL.orderEntity.accountEntity.securityMoney: ""
-            var h=ALL.orderEntity? ALL.orderEntity.accountEntity.availableBalance: ""
-            var i=ALL.orderEntity? ALL.orderEntity.accountEntity.cost: ""
-            var j = ALL.orderEntity ? ALL.orderEntity.orderUserBean.identityNumber : ""
-            $("#btn-change").unbind('click').on("click",function () {
-                console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"/replace/"+$("#wrap-stay .change").val())
-                ajax("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"/replace/"+$("#wrap-stay .change").val(),"put",function (dara) {
-                    $table.bootstrapTable("refresh",{silent: true})
-                    $("#wrap-stay").hide()
-                    console.log("成功")
-                },function (err) {
-                    console.log(err)
-                })
-            })
-
-            $("#wrap-stay .change").val("请输入要更换的车辆序列号")
-            if(ALL.ebikeStatus!==0) {
-                if (ALL.ebikeStatus == 100) {
-                    $("#wrap-stay .sendAll").html("结束租车")
-                    $("#wrap-stay .carmanName").attr("readonly", "true")
-                    $("#wrap-stay .carmanPhone").attr("readonly", "true")
-                    $("#wrap-stay .startTime").attr("readonly", "true")
-                    $("#wrap-stay .endTime").attr("readonly", "true")
-                    $("#wrap-stay .remainday").attr("readonly","true")
-                    $("#wrap-stay .money").attr("readonly","true")
-                    $("#wrap-stay .balance").attr("readonly","true")
-                    $("#wrap-stay .cost").attr("readonly","true")
-                } else {
-                    $("#wrap-stay .sendAll").html("开始租车")
-                    $("#wrap-stay .alert-p").html("应用这些设置?")
-                    $("#wrap-stay .carmanName").removeAttr("readonly")
-                    $("#wrap-stay .carmanPhone").removeAttr("readonly")
-                    $("#wrap-stay .startTime").removeAttr("readonly")
-                    $("#wrap-stay .endTime").removeAttr("readonly")
-                    $("#wrap-stay .remainday").removeAttr("readonly")
-                    $("#wrap-stay .money").removeAttr("readonly")
-                    $("#wrap-stay .balance").removeAttr("dreadonly")
-                    $("#wrap-stay .cost").removeAttr("readonly")
-                    $("#wrap-stay .remainday").click(function () {
-                        clearInterval(timer2)
-                        timer2=setInterval(function () {
-                            if($(".startTime").val()!==null){
-                                var arr=$(".startTime").val().split(" ")[0].split("-")//年月日数组
-                                var  a  =[1,3,5,7,8,10,12]
-                                var day=parseInt($(".remainday").val())+parseInt(arr[2]);
-                                /*  console.log(arr)*/
-                                var maxday;
-                                for(var i=0;i<a.length;i++){
-                                    if(a[i]==parseInt(arr[1])){
-                                        maxday=31
-                                        break
-                                    }
-                                    else {
-                                        maxday=30
-                                    }
-                                }
-                                if(arr[0]==2017){
-                                    var month=parseInt(day/maxday)+parseInt(arr[1])
-                                    if(day>maxday){
-                                        day=parseInt(day-maxday)
-                                    }
-                                    var  years=parseInt(month/12)+parseInt(arr[0])
-                                    $(".endTime").val(years+"-"+month+"-"+day+" "+$(".startTime").val().split(" ")[1])
-                                    /*    console.log("years:"+years+"month:"+month+"day:"+day)*/
-                                }
-                            }
-                        },10)
-                    })
-
-                }
-                console.log(i)
-                $("#wrap-stay .wxName").html(a)
-                $("#wrap-stay .carNumber").html(b)
-                $("#wrap-stay .carmanName").val(c)
-                $("#wrap-stay .carmanPhone").val(d)
-                $("#wrap-stay .startTime").val(e)
-                $("#wrap-stay .endTime").val(f)
-                $("#wrap-stay .money").html(g)
-                $("#wrap-stay .balance").html(h)
-                $("#wrap-stay .cost").html(i)
-                $("#wrap-stay .idNum").html(j)
-                $("#wrap-stay").css("z-index", "99")
-                $("#wrap-stay").show()
-                $("#wrap-stay  .calloff").click(function () {
-                    $("#wrap-stay").hide()
-                })
-                $("#sendAll").unbind('click').click(function () {
-                    clearTimeout(cc)
-                    cc=setTimeout(function () {
-                        rr--
-                        if (rr == 0) {
-                            var orderId = A.orderId;
-                            var startTime = $(".startTime").val() == "请输入信息 " ? alert("请输入开始时间 ") : $(".startTime").val();
-                            var endTime = $(".endTime").val() == "请输入信息 " ? alert("请输入结束时间 ") : $(".endTime").val();
-                            var phoneNumber = $(".carmanPhone").val()
-                            var realName = $(".carmanName").val()
-                            var parameter = "startTime=" + startTime + "&endTime=" + endTime + "&phoneNumber=" + phoneNumber
-                                + "&realName=" + realName;
-                            console.log(encodeURI("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/" + orderId + "/start?" + parameter))
-                            if (A.ebikeStatus == 101) {
-                                $.ajax({
-                                    url: encodeURI("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/" + orderId + "/start?" + parameter),
-                                    method: "put",
-                                    contentType: "application/json; charset=utf-8",
-                                    cache: false,
-                                    beforeSend: function (xhr) {
-                                        /* Authorization header */
-                                        xhr.setRequestHeader("firm", sessionStorage.flag);
-                                        xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                    },
-                                    success: function (data) {
-                                        window.location.reload()
-                                        console.log("成功");
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        console.log("失败")
-                                        console.log(jqXHR);
-                                    }
-                                });
-                            }  //红车发送数据
-                            if (A.ebikeStatus == 100) {
-                                console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/" + orderId + "/end")
-                                if (confirm('您确定要结束租车吗?')) {
-                                    $.ajax({
-                                        url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/" + orderId + "/end",
-                                        method: "PUT",
-                                        contentType: "application/json; charset=utf-8",
-                                        cache: false,
-                                        beforeSend: function (xhr) {
-                                            /* Authorization header */
-                                            xhr.setRequestHeader("firm", sessionStorage.flag);
-                                            xhr.setRequestHeader("Authorization", sessionStorage.token);
-
-                                        },
-                                        success: function (data) {
-                                            window.location.reload();
-                                            console.log("成功");
-                                        },
-                                        error: function (jqXHR, textStatus, errorThrown) {
-                                            console.log(jqXHR);
-                                        }
-                                    });
-                                } else {
-                                    $("#wrap-stay").hide()
-                                    rr = 1
-                                    console.log("1")
-
-                                }
-                            }//蓝车结束数据
-                        }
-                    },10)
-
-                })  //发送数据
-
-                $("#wrap-stay .endTime").focus(function(){
-                    clearInterval(timer2)
-                });
-                $(" #wrap-stay .endTime").blur(function(){
-                    clearInterval(timer2)
-                    console.log(  $('#datetimepicker2').datetimepicker())
-                });
-
-            }
-        }
-    };
     function getHeight() {
-        if(document.body.clientWidth>1280) {
-            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true)-2;
-        }else{
-            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true)-30;
+        if (document.body.clientWidth > 1280) {
+            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 2;
+        } else {
+            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 30;
         }
     }
+
     initTable();
 
     $(window).resize(function () {
@@ -1040,11 +541,11 @@
     });
 
 
-    $("#wrap-btn-on").on("click",function () {
-        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId="+id1+"&ueId="+ueId);
+    $("#wrap-btn-on").on("click", function () {
+        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId);
         console.log("已发送");
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId="+id1+"&ueId="+ueId,
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId,
             method: "put",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1052,21 +553,22 @@
                 /* Authorization header */
                 xhr.setRequestHeader("firm", sessionStorage.flag);
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },success:function (data) {
+            }, success: function (data) {
                 console.log("成功");
-                $table.bootstrapTable("refresh",{silent: true});
+                $table.bootstrapTable("refresh", {silent: true});
                 $("#wrap").hide()
             },
-            error:function (err) {
+            error: function (err) {
                 console.log(err)
-            }})
+            }
+        })
     });
-    $("#wrap-btn-off").on("click",function () {
+    $("#wrap-btn-off").on("click", function () {
         $("#wrap").hide()
     });
-    $(".searchCcu").on("click",function () {
+    $(".searchCcu").on("click", function () {
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40&ccuSn="+$(".searchResult").val(),
+            url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40&ccuSn=" + $(".searchResult").val(),
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -1076,7 +578,7 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh',{'url':"http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40&ccuSn="+$(".searchResult").val()});
+                $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40&ccuSn=" + $(".searchResult").val()});
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败")
@@ -1086,73 +588,73 @@
 
 
     });
-    $(".searchDQ").on("click",function () {
+    $(".searchDQ").on("click", function () {
         var url;
 
-        var a=$(".selpr").val();
+        var a = $(".selpr").val();
         console.log(a);
-        var b=$(".selci").val();
-        var c=$(".selco").val();
+        var b = $(".selci").val();
+        var c = $(".selco").val();
 
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
 
-        var myselect5=document.getElementById("erjise");
-        var index5=myselect5.selectedIndex ;
-        idstore2=myselect5.options[index5].value;
+        var myselect5 = document.getElementById("erjise");
+        var index5 = myselect5.selectedIndex;
+        idstore2 = myselect5.options[index5].value;
 
-        var myselect2=document.getElementById("guigese");
-        var index2=myselect2.selectedIndex ;
-        idpro=myselect2.options[index2].value;
-        var myselect3=document.getElementById("zhifuse");
-        var index3=myselect3.selectedIndex ;
-        payment=myselect3.options[index3].innerHTML;
-        paymentvalue=myselect3.options[index3].value;
-        var myselect4=document.getElementById("leixingse");
-        var index4=myselect4.selectedIndex ;
-        leixing=myselect4.options[index4].innerHTML;
-        leixingvalue=myselect4.options[index4].value;
-        url="http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40"
-        if(a==""){
-            url=url
-        }else {
-            url=url+"&province="+a
+        var myselect2 = document.getElementById("guigese");
+        var index2 = myselect2.selectedIndex;
+        idpro = myselect2.options[index2].value;
+        var myselect3 = document.getElementById("zhifuse");
+        var index3 = myselect3.selectedIndex;
+        payment = myselect3.options[index3].innerHTML;
+        paymentvalue = myselect3.options[index3].value;
+        var myselect4 = document.getElementById("leixingse");
+        var index4 = myselect4.selectedIndex;
+        leixing = myselect4.options[index4].innerHTML;
+        leixingvalue = myselect4.options[index4].value;
+        url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40"
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
         }
-        if(b==""){
-            url=url
-        }else {
-            url=url+"&city="+b
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
         }
-        if(c==""){
-            url=url
-        }else {
-            url=url+"&county="+c
+        if (c == "") {
+            url = url
+        } else {
+            url = url + "&county=" + c
         }
-        if(idstore1=="0"){
-            url=url
-        }else {
-            url=url+"&dealerId="+idstore1
+        if (idstore1 == "0") {
+            url = url
+        } else {
+            url = url + "&dealerId=" + idstore1
         }
-        if(idstore2=="0"){
-            url=url
-        }else {
-            url=url+"&storeId="+idstore2
+        if (idstore2 == "0") {
+            url = url
+        } else {
+            url = url + "&storeId=" + idstore2
         }
-        if(idpro=="0"){
-            url=url
-        }else {
-            url=url+"&productId="+idpro
+        if (idpro == "0") {
+            url = url
+        } else {
+            url = url + "&productId=" + idpro
         }
-        if(paymentvalue!="0") {
-            url=url+"&payment="+payment
-        }else if(paymentvalue=="0"){
-            url=url;
+        if (paymentvalue != "0") {
+            url = url + "&payment=" + payment
+        } else if (paymentvalue == "0") {
+            url = url;
         }
-        if(leixingvalue!="9") {
-            url=url+"&chargeType="+leixingvalue
-        }else if(leixingvalue=="9"){
-            url=url;
+        if (leixingvalue != "9") {
+            url = url + "&chargeType=" + leixingvalue
+        } else if (leixingvalue == "9") {
+            url = url;
         }
 
 
@@ -1168,7 +670,7 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                $("#table").bootstrapTable('refresh', {url:url});
+                $("#table").bootstrapTable('refresh', {url: url});
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
@@ -1179,159 +681,86 @@
     });
 
 
-
-
 </script>
 <script type="text/javascript">
 
-    $(function(){
+    $(function () {
         getMissiveType();
-
         getMissiveType2();
     });
-    function getMissiveType(){
+
+    function getMissiveType() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&sort=code,asc&limit=100&page=1&showflag=0",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#sectionName-s").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#sectionName-s').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType()
                 }
             }
         );
     }
 
-    function getMissiveType2(){
+    function getMissiveType2() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/specifications?sort=id,asc&categoryIds=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#guigese').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#guigese").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#guigese').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#guigese").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
 
                     }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType2()
                 }
             }
         );
     }
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-        $('#datetimepicker2').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-        $('#datetimepicker3').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate()
-        });
-        $('#datetimepicker4').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate2()
-        });
-        $('#datetimepicker5').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate3()
-        });
-        $('#datetimepicker6').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate2()
-        });
 
-    });
-    function getNowFormatDate() {
-        var date = new Date();
-        var date2 = new Date(date.getTime() - 7 * 24 * 3600 * 1000);
-        var seperator1 = "-";
-        var seperator2 = ":";
-        var month = date2.getMonth() + 1;
-        var strDate = date2.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = date2.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + 00 + seperator2 + 00
-            + seperator2 + 00;
-        return currentdate;
-    }
-    function getNowFormatDate2() {
-        var date = new Date();
-        var seperator1 = "-";
-        var seperator2 = ":";
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
-        return currentdate;
-    }
-    function getNowFormatDate3() {
-        var date = new Date();
-        var date2 = new Date(date.getTime() - 30 * 24 * 3600 * 1000);
-        var seperator1 = "-";
-        var seperator2 = ":";
-        var month = date2.getMonth() + 1;
-        var strDate = date2.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = date2.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + 00 + seperator2 + 00
-            + seperator2 + 00;
-        return currentdate;
-    }
     function move1() {
-        var myselect2=document.getElementById("erjise");
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        parentId=myselect.options[index].value;
+        var myselect2 = document.getElementById("erjise");
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        parentId = myselect.options[index].value;
         var add;
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&parentId="+parentId+"&showFlag=0&sort=code,asc&limit=100&page=1",
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&parentId=" + parentId + "&showFlag=0&sort=code,asc&limit=100&page=1",
             method: "get",
             contentType: "application/json; charset=utf-8",
-            processData:false,
+            processData: false,
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
-            success:function(data){
-                var len=data.list.length;
-                myselect2.length=1;
-                for(i=0;i<len;i++){
-                    $("#erjise").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+            success: function (data) {
+                var len = data.list.length;
+                myselect2.length = 1;
+                for (i = 0; i < len; i++) {
+                    $("#erjise").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                 }
             }
         })
