@@ -4,9 +4,6 @@
 
     <title>登录</title>
     <link href="css/style_log.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/style(1).css">
-    <link rel="stylesheet" type="text/css" href="css/userpanel.css">
-    <link rel="stylesheet" type="text/css" href="css/jquery.ui.all.css">
 
 
 
@@ -18,17 +15,6 @@
     <div class="login_boder">
 
         <div class="login_padding" id="login_model">
-
-            <!--<h2>用户名</h2>-->
-            <!--<label>-->
-            <!--<input type="text" id="username" class="txt_input txt_input2">-->
-            <!--</label>-->
-            <!--<h2>密码</h2>-->
-            <!--<label>-->
-            <!--<input type="password" name="textfield2" id="userpwd" class="txt_input" style="-->
-            <!--margin-bottom: 30px;-->
-            <!--">-->
-            <!--</label>-->
             <div style="text-align: center;">
                 <h3 style="color: #737373;font-size: 30px;font-weight: 500;margin-top: 10px;margin-bottom: 25px;">登   录</h3>
 
@@ -90,15 +76,10 @@
         $('#button').click(function(){
             var username = $('#username').val();
             var userpwd = $('#userpwd').val();
-
-            // $.post('http://cjl3.rokyinfo.net:8010/auth/token ', {'username': username,'userpwd':userpwd}, function(data){// });
-
             $.ajax({
 
                 url:'http://cjl3.rokyinfo.net:7200/auth/token',
                 type:'POST',
-
-
                 data: JSON.stringify({
                     phoneNumber: username,
                     password:userpwd
@@ -115,14 +96,6 @@
                     sessionStorage.namedes=json.roles[0].name;
                     window.location.href="./index.html";
                     top.window.location="./index.html";
-
-
-
-
-
-
-
-
 
                 },
                 error:function(err){
