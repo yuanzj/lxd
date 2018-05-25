@@ -20,7 +20,10 @@
 
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
     <!-- bootstrap-datetimepicker插件CSS-->
-
+    <link rel="stylesheet" href="css/fileinput.min.css"/>
+    <script src="js/fileinput.min.js"></script>
+    <script src="js/zh.js"></script>
+    <!-- fileinput插件-->
     <!-- Latest compiled and minified JavaScript -->
     <script src="js/bootstrap-table.min.js"></script>
 
@@ -86,14 +89,14 @@
 </div>
 <!--删除-->
 <div id="wrap-delet" style="position: fixed; top: 0px; width: 100%; height: 100%; display: none;z-index:909;left:0px;">
-    <div style="width: 450px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+    <div style="width: 500px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
         <p class="wrap-title">删除车辆</p>
     </div>
-    <div style="width: 450px;height: 150px;background: #FFF;margin: 0 auto;opacity: 1;box-shadow:0 4px 10px rgba(0,0,0,0.46);">
+    <div style="width: 500px;height: 150px;background: #FFF;margin: 0 auto;opacity: 1;box-shadow:0 4px 10px rgba(0,0,0,0.46);">
         <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否确认取消车辆&nbsp;<span
                 class="carNumber2">{{carid}}</span>&nbsp;的分配</p>
 
-        <div style="float: right;margin-top: 50px;margin-right: 25px">
+        <div style="float: right;margin-top: 30px;margin-right: 20px">
             <button type="button" class="btn btn-default" id="222"
                     style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">是
             </button>
@@ -104,7 +107,28 @@
     </div>
 </div>
 <!-- Fixed navbar -->
+<!--批量分配-->
+<form id="uploadForm"  action="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-store-batch" method="post" onsubmit="return false" enctype="multipart/form-data">
+<div id="devide-wrap" class="wrap-div">
+    <div style="width: 550px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+        <p class="wrap-title">批量分配</p>
+    </div>
+    <div style="width: 550px;background: #FFF;margin: 0 auto;opacity: 1;box-shadow:0 4px 10px rgba(0,0,0,0.46);padding-bottom: 80px">
+        <div class="center-div" style="width: 90%;margin-left: 5%;padding-top: 20px">
+            <input id="f_upload" name="file" type="file" />
+        </div>
 
+        <div style="float: right;margin-top: 30px;margin-right: 25px">
+            <button type="button" class="btn btn-default" id="devide-y"
+                    style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">上传
+            </button>
+            <button type="button" class="btn btn-default" id="devide-n"
+                    style="width: 90px;display: inline-block">取消
+            </button>
+        </div>
+    </div>
+</div>
+</form>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="">
         <div class="navbar-header;">
@@ -143,6 +167,7 @@
                 <li class="item" id="tabletab1"><a href="#">正常属性电池</a></li>
                 <li class="item" id="tabletab2"><a href="#">异常属性电池</a></li>
                 <li class="item" id="tabletab3"><a href="#">退库属性电池</a></li>
+                <button class="mybtn btn-primary btn-tab" id="devideopen">批量分配</button>
             </ul>
         </div>
         <div id="toolbar">
@@ -309,6 +334,7 @@
     var timer=0;
     var cc=0;
     var  timer2=0;
+
     $("#tabletab1").on("click",function () {
         document.getElementById("table1").style.display="block";
         document.getElementById("table2").style.display="none";
@@ -1350,6 +1376,14 @@
             }
         });
     });
+    $("#devideopen").on("click", function () {
+        $("#devide-wrap").show();
+        $("#devide-n").on("click", function (){
+            $("#devide-wrap").hide()
+        })
+
+    });
+
 
     function deteleOdd(arr) {
         var odd = [];
@@ -1990,6 +2024,33 @@
         });
 
     });
+    $("#devide-y").click(function () {
+        var formData = new FormData($("#uploadForm")[0]);
+        console.log(formData)
+        $.ajax({
+            url: 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-store-batch',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.flag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                console.log("成功");
+                alert("上传成功");
+                $table.bootstrapTable("refresh", {silent: true});
+                $("#devide-wrap").hide()
+            },
+            error: function (res) {
+                console.log(msg)
+            }
+        });
+
+    });
 </script>
 <script type="text/javascript">
 
@@ -2155,6 +2216,20 @@
                 }
             }
         })
+    }
+    initFileInput("f_upload");
+    function initFileInput(ctrlName) {
+        var control = $('#' + ctrlName);
+        control.fileinput({
+            language: 'zh', //设置语言
+            allowedFileExtensions : ['xlsx', 'xls'],//接收的文件后缀
+            showUpload: false, //是否显示上传按钮
+            showCaption: true,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneTitle: "拖拽文件到这里...</br>仅支持上传Excel文件",
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+
+    });
     }
 
 </script>

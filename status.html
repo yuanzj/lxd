@@ -175,10 +175,10 @@
                 class="carNumber">{{carid}}</span></p>
 
         <div style="float: right;margin-top: 50px;margin-right: 25px">
-            <button type="button" class="mybtn button-primary " id="rem-y"
+            <button type="button" class="btn btn-default" id="rem-y"
                     style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">是
             </button>
-            <button type="button" class="mybtn button-primary " id="rem-n"
+            <button type="button" class="btn btn-default" id="rem-n"
                     style="width: 90px;background: #636161;color:#F3F3F3;display: inline-block">否
             </button>
         </div>
@@ -453,7 +453,7 @@
                     <select data-district="---- 选择区 ----" class="form-control selco6"></select>
 
                     <select type="text" name="sectionName-s" id="sectionName-s6" class="form-control wangdianse"
-                            onChange="move5()">
+                            onChange="move6()">
                         <option selected="selected" value="0">---分站---</option>
                     </select>
 
@@ -3627,6 +3627,35 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
         })
     }
 
+    function move6() {
+        var myselect2 = document.getElementById("erjise6");
+        var myselect = document.getElementById("sectionName-s6");
+        var index = myselect.selectedIndex;
+        parentId = myselect.options[index].value;
+        var add;
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&parentId=" + parentId + "&showFlag=0&sort=code,asc&limit=100&page=1",
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            processData: false,
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (data) {
+                var len = data.list.length;
+                myselect2.length = 1;
+                for (i = 0; i < len; i++) {
+                    $("#erjise6").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                move6()
+            }
+        })
+    }
+
     function getMissiveType() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1",
@@ -3645,6 +3674,7 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
                         $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                         $("#sectionName-s2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                         $("#sectionName-s3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#sectionName-s6").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -3699,6 +3729,7 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
                         $("#guigese3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                         $("#guigese4").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                         $("#guigese5").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#guigese6").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
