@@ -50,10 +50,10 @@
 <!-- Fixed navbar -->
 <!-- 产品配置  -->
 <div id="dianchishu" class="wrap-div">
-    <div style="width: 600px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+    <div style="width: 680px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
         <p class="wrap-title">电池详情</p>
     </div>
-    <div style="width: 600px;background: #FFF;margin: 0 auto;opacity: 1">
+    <div style="width: 680px;background: #FFF;margin: 0 auto;opacity: 1">
         <div style="padding-top: 20px;padding-bottom: 80px">
             <table style="width: 95%;margin-left: 2.5%;text-align: center;" border="1" cellspacing="0">
                 <thead>
@@ -62,6 +62,8 @@
                     <th style="text-align: center;">租赁价格</th>
                     <th style="text-align: center;">分站收益</th>
                     <th style="text-align: center;">驿站收益</th>
+                    <th style="text-align: center;">本地押金</th>
+                    <th style="text-align: center;">异地押金</th>
                     <th style="text-align: center;">操作</th>
                 </tr>
                 </thead>
@@ -77,6 +79,34 @@
     </div>
 </div>
 <!-- 产品配置  -->
+<!-- 邀请码配置  -->
+<div id="invite-wrap" class="wrap-div">
+    <div style="width: 460px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
+        <p class="wrap-title">邀请码配置</p>
+    </div>
+    <div style="width: 460px;background: #FFF;margin: 0 auto;opacity: 1">
+        <div style="padding-top: 20px;padding-bottom: 80px">
+            <table style="width: 95%;margin-left: 2.5%;text-align: center;" border="1" cellspacing="0">
+                <thead>
+                <tr style="margin-top: 20px;height: 30px;">
+                    <th style="text-align: center;">产品规格</th>
+                    <th style="text-align: center;">邀请人奖励金额</th>
+                    <th style="text-align: center;">租赁人抵现金额</th>
+                    <th style="text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody id="tbMaininvite">
+                </tbody>
+            </table>
+            <div style="float: right;margin-top: 30px;margin-right: 20px">
+                <button type="button" class="btn btn-default  " id="inviteClose"
+                        style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block">关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 邀请码配置  -->
 <!--新增-->
 <form id="formId">
     <div id="eatTheWorld" class="wrap-div">
@@ -1225,8 +1255,6 @@
                     style="display: inline-block;width: 200px"></select>
             <select data-city="---- 选择市 ----" class="form-control ckshi"
                     style="display: inline-block;width: 200px"></select>
-            <select data-district="---- 选择区 ----" class="form-control ckqu"
-                    style="display: inline-block;width: 200px"></select>
         </div>
 
         <div style="float: right;margin-top: 55px;margin-right: 55px">
@@ -1282,8 +1310,6 @@
             <select data-province="---- 选择省 ----" class="form-control jxsheng"
                     style="display: inline-block;width: 200px;;margin-left: 14px"></select>
             <select data-city="---- 选择市 ----" class="form-control jxshi"
-                    style="display: inline-block;width: 200px"></select>
-            <select data-district="---- 选择区 ----" class="form-control jxqu"
                     style="display: inline-block;width: 200px"></select>
         </div>
         <div>
@@ -1511,7 +1537,6 @@
             <span>所在地区：</span>
             <select class="form-control ecksheng" style="display: inline-block;width: 200px"></select>
             <select class="form-control eckshi" style="display: inline-block;width: 200px"></select>
-            <select class="form-control eckqu" style="display: inline-block;width: 200px"></select>
         </div>
 
         <div style="float: right;margin-top: 55px;margin-right: 55px">
@@ -1552,13 +1577,6 @@
             <input type="text" class="form-control ejxcontact"
                    style="display: inline-block;width: 250px;margin-left: 4px;">
         </div>
-        <!--<div>-->
-        <!--<p style="padding-top: 20px;padding-left: 15px; display: inline-block">经度：</p>-->
-        <!--<input type="text" id="ejxlon" class="form-control ejxlon" style="display: inline-block;width: 250px;margin-left: 39px;">-->
-        <!--<p style="padding-top: 20px;padding-left: 30px; display: inline-block">纬度：</p>-->
-        <!--<input type="text" id="ejxlat" class="form-control ejxlat" style="display: inline-block;width: 250px;margin-left: 30px;">-->
-        <!--<button class="btn btn-default glyphicon glyphicon-refresh" style="    margin-top: -1px;border-color: #a49e9e;background: #ccc;margin-left: 5px;" onclick="showMap()"></button>-->
-        <!--</div>-->
         <div>
             <p style="padding-top: 20px;padding-left: 15px; display: inline-block">分站类型：</p>
             <select type="text" disabled="disabled" id="ss1" class="form-control carmanPhone ejxtype"
@@ -1574,7 +1592,6 @@
             <span>所在地区：</span>
             <select class="form-control ejxsheng" style="display: inline-block;width: 200px;margin-left: 13px"></select>
             <select class="form-control ejxshi" style="display: inline-block;width: 200px"></select>
-            <select class="form-control ejxqu" style="display: inline-block;width: 200px"></select>
         </div>
 
         <div style="float: right;margin-top: 55px;margin-right: 55px">
@@ -1867,7 +1884,9 @@
                             $table.bootstrapTable("hideColumn", "lon");
                             $table.bootstrapTable("hideColumn", "lat");
                             $table.bootstrapTable("hideColumn", "l");
+                            $table.bootstrapTable("hideColumn", "m");
                             $table.bootstrapTable("hideColumn", "dealer");
+                            $table.bootstrapTable("hideColumn", "county");
                         });
 
                     } else if ($(this).text() == "分站管理") {
@@ -1881,6 +1900,7 @@
                             $table.bootstrapTable("hideColumn", "lon");
                             $table.bootstrapTable("hideColumn", "lat");
                             $table.bootstrapTable("hideColumn", "dealer");
+                            $table.bootstrapTable("hideColumn", "county");
                         });
                     } else if ($(this).text() == "驿站管理") {
                         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&sort=code,asc";
@@ -1890,6 +1910,7 @@
                             $table.bootstrapTable("hideColumn", "c");
                             $table.bootstrapTable("hideColumn", "l");
                             $table.bootstrapTable("hideColumn", "s");
+                            $table.bootstrapTable("hideColumn", "m");
                         });
                     }
                     console.log(url)
@@ -2066,6 +2087,14 @@
                     formatter: peizhiFormatter
                 },
                 {
+                    field: 'm',
+                    title: '邀请码配置',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: inviteFormatter
+                },
+                {
                     field: 'z',
                     title: '编辑',
                     align: 'center',
@@ -2119,7 +2148,7 @@
 
         return [
             '<div>',
-            '<a class="peizhi" href="#">',
+            '<a class="peizhi2" href="#">',
             '<i class="glyphicon glyphicon-list" title="编辑网点信息">',
             '</i>',
             '</a>',
@@ -2129,101 +2158,20 @@
 
 
     }//产品配置
-    function typeoneFormatter(value, row, index) {
-        var inner;
-        if (row.type == 2 || row.type == 3 || row.type == 6) {
-            inner = "合作租赁网点"
-        }
-        else if (row.type == 20) {
-            inner = "电池仓库"
-        }
-        else if (row.type == 40) {
-            inner = "直营租赁网点"
-        }
-        else if (row.type == 5) {
-            inner = "合作维修网点"
-        }
-        else if (row.type == 60) {
-            inner = "研发测试"
-        }
-        else {
-            inner = "-"
-        }
+    function inviteFormatter(value, row, index) {
+
         return [
-            '<span>' + inner + '</span>'
+            '<div>',
+            '<a class="peizhi" href="#">',
+            '<i class="glyphicon glyphicon-list" title="邀请码配置">',
+            '</i>',
+            '</a>',
+
+            '</div>'
         ].join("")
 
-    }//类型1
-    function typeFormatter(value, row, index) {
-        var inner;
-        if (row.type == 2) {
-            inner = "美团"
-        }
-        else if (row.type == 3) {
-            inner = "饿了么"
-        }
-        else if (row.type == 6) {
-            inner = "其他"
-        }
-        else if (row.type == 20) {
-            inner = "电池仓库"
-        }
-        else if (row.type == 40) {
-            inner = "直营租赁网点"
-        }
-        else if (row.type == 60) {
-            inner = "研发测试"
-        }
-        else {
-            inner = "合作维修网点"
-        }
-        return [
-            '<span>' + inner + '</span>'
-        ].join("")
 
-    }//类型2
-    function jingxiaoFormatter(value, row, index) {
-        if (row.dealerEntity != null) {
-            if (row.dealerEntity.nickname == null) {
-                inner = ""
-            }
-
-            else {
-                var inner = row.dealerEntity ? row.dealerEntity.nickname : ""
-            }
-        }
-        else {
-            inner = ""
-        }
-        var color = 'nowwrp';
-        return [
-
-            '<span class=' + color + '>' + inner + '</span>'
-
-
-        ].join("")
-    }//分站
-    function dailiFormatter(value, row, index) {
-        if (row.agentEntity != null) {
-            if (row.agentEntity.nickname == null) {
-                inner = ""
-            }
-
-            else {
-                var inner = row.agentEntity ? row.agentEntity.nickname : ""
-            }
-        }
-        else {
-            inner = ""
-        }
-        var color = 'nowwrp'
-        return [
-
-            '<span class=' + color + '>' + inner + '</span>'
-
-
-        ].join("")
-    }//代理商
+    }//邀请码配置
     function provinceFormatter(value, row, index) {
         var color = 'nowwrp'
         if (row.province == "null" || row.province == "undefined") {
@@ -2342,7 +2290,6 @@
 
                         $("#editstorehouse  .ecksheng").val(row.province);
                         $("#editstorehouse  .eckshi").val(row.city);
-                        $("#editstorehouse  .eckqu").val(row.county);
                         $("#editstorehouse  .eckcontact").val(row.contact);
                         $("#editstorehouse  .eckcode").val(row.code);
                         $("#editstorehouse  .ecklinkman").val(row.linkman);
@@ -2379,7 +2326,6 @@
                         $("#editdealer  .ejxname").val(row.name);
                         $("#editdealer  .ejxsheng").val(row.province);
                         $("#editdealer  .ejxshi").val(row.city);
-                        $("#editdealer  .ejxqu").val(row.county);
                         $("#editdealer  .ejxcontact").val(row.contact);
                         $("#editdealer  .ejxcode").val(row.code);
                         $("#editdealer  .ejxlinkman").val(row.linkman);
@@ -2434,7 +2380,7 @@
             });
 
         },
-        'click .peizhi': function (e, value, row, index) {
+        'click .peizhi2': function (e, value, row, index) {
             $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs?dealerId=" + row.id,
                 method: "get",
@@ -2453,10 +2399,12 @@
                             var tr = document.createElement('tr')
                             tr.innerHTML = '<td>' + list[i].specificationName + '</td><td>' + '<input style="width: 70%" type="text" ' +
                                 'value=' + list[i].price + ' id=' + list[i].id + ' /></td><td>' + '<input style="width: 70%" type="text" ' +
-                                'id=' + '2' + list[i].id + ' value=' + list[i].dealerRate + ' /></td><td>' + '<input style="width: 70%" type="text" id=' + '3' + list[i].id + ' ' +
-                                'value=' + list[i].storeRate + ' /></td><td style="width: 50px"><button class="btn-small btn-primary" ' +
-                                'onclick="Event(this)">修改</button></td>';
-
+                                'id=' + '2' + list[i].id + ' value=' + list[i].dealerRate + ' /></td><td>' + '<input style="width: 70%" ' +
+                                'type="text" id=' + '3' + list[i].id + ' ' +
+                                'value=' + list[i].storeRate + ' /></td><td>'+'<input style="width: 70%" type="text" ' +'id='+'4'+ list[i].id + ' ' +
+                                'value=' + list[i].localDeposit+' /></td><td>'+'<input style="width: 70%" type="text" id=' + '5' + list[i].id + ' ' +
+                                'value=' + list[i].nonlocalDeposit + ' /></td>'+'<td style="width: 50px"><button class="btn-small btn-primary" ' +
+                                'onclick="Event(this)">修改</button></td>'
                             document.getElementById('tbMain').appendChild(tr)
 
 
@@ -2470,13 +2418,50 @@
                     console.log(jqXHR);
                 }
             });
-//            $(".carNumber").html(row.ccuSn)
-//            $(".miaoshu").html(row.faultDetail)
-//            $(".jianyi").html(row.faultAnalyze)
             $("#dianchishu").show();
             $("#666").on("click", function () {
                 $("#tbMain  tr").empty("");
                 $("#dianchishu").hide()
+            })
+        },
+        'click .peizhi': function (e, value, row, index) {
+            $.ajax({
+                url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs?dealerId=" + row.id,
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                beforeSend: function (xhr) {
+                    /* Authorization header */
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data) {
+                    render(data.list);
+
+                    function render(list) {
+                        for (var i = 0; i < list.length; i++) {
+                            var tr = document.createElement('tr')
+                            tr.innerHTML = '<td>' + list[i].specificationName + '</td><td>' + '<input style="width: 70%" type="text" ' +
+                                'value=' + list[i].inviterFee + ' id=' + list[i].id + ' /></td><td>' + '<input style="width: 70%" type="text" ' +
+                                'id=' + '2' + list[i].id + ' value=' + list[i].userFee + ' /></td>'+'<td style="width: 50px"><button class="btn-small btn-primary" ' +
+                                'onclick="Eventyq(this)">修改</button></td>'
+                            document.getElementById('tbMaininvite').appendChild(tr)
+
+
+                        }
+                    }
+
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("失败");
+                    console.log(jqXHR);
+                }
+            });
+            $("#invite-wrap").show();
+            $("#inviteClose").on("click", function () {
+                $("#tbMaininvite  tr").empty("");
+                $("#invite-wrap").hide()
             })
         },
         'click .delete': function (e, value, row, index) {
@@ -2497,15 +2482,52 @@
         var a = $("#" + id).val();
         var b = $("#2" + id).val();
         var c = $("#3" + id).val();
+        var d = $("#4" + id).val();
+        var e = $("#5" + id).val();
 
         var peizhijson = {
             id: id,
-
             price: a,
-
             dealerRate: b,
+            storeRate: c,
+            localDeposit: d,
+            nonlocalDeposit: e
 
-            storeRate: c
+        };
+        $.ajax({
+            url: " http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/" + id,
+            contentType: "application/json; charset=utf-8",
+            method: "put",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+            data: JSON.stringify(peizhijson),
+            success: function (res) {
+                console.log("成功")
+                $table.bootstrapTable("refresh", {silent: true})
+            },
+            error: function (err) {
+            }
+        });
+    };
+    Eventyq = function (node) {
+        var parents = node.parentNode.parentNode;
+        var child = parents.children;
+        var input_obj = child[1];
+        console.log(input_obj)
+        var activ_id = input_obj.innerHTML;
+        console.log(activ_id)
+        var id = activ_id.substring(activ_id.indexOf('id="') + 4, activ_id.lastIndexOf('"'));
+        console.log(id)
+        var a = $("#" + id).val();
+        var b = $("#2" + id).val();
+
+
+        var peizhijson = {
+            id: id,
+            inviterFee: a,
+            userFee: b
 
         };
         $.ajax({
@@ -2723,7 +2745,6 @@
         var d = $("#adddealer  .jxcontact").val();
         var e = $("#adddealer  .jxsheng").val();
         var f = $("#adddealer  .jxshi").val();
-        var g = $("#adddealer  .jxqu").val();
         var h = $("#adddealer  .jxpassword").val();
         if (b == "直营") {
             b = 40
@@ -2739,7 +2760,6 @@
         form.append("name", a);
         form.append("province", e);
         form.append("city", f);
-        form.append("county", g);
         form.append("contact", d);
         form.append("linkman", c);
         form.append("defaultPsw", h);
@@ -2777,7 +2797,6 @@
         var d = $("#addstorehouse  .ckcontact").val();
         var e = $("#addstorehouse  .cksheng").val();
         var f = $("#addstorehouse  .ckshi").val();
-        var g = $("#addstorehouse  .ckqu").val();
 
 
         var form = new FormData();
@@ -2786,7 +2805,6 @@
         form.append("name", a);
         form.append("province", e);
         form.append("city", f);
-        form.append("county", g);
         form.append("contact", d);
         form.append("linkman", c);
         form.append("defaultPsw", b);
@@ -2822,7 +2840,6 @@
         var d = $("#editstorehouse  .eckcontact").val();
         var e = $("#editstorehouse  .ecksheng").val();
         var f = $("#editstorehouse  .eckshi").val();
-        var g = $("#editstorehouse  .eckqu").val();
         var i = sessionStorage.id;
 
 
@@ -2830,7 +2847,6 @@
         form.append("name", a);
         form.append("province", e);
         form.append("city", f);
-        form.append("county", g);
         form.append("contact", d);
         form.append("linkman", c);
         form.append("id", i);
@@ -2850,9 +2866,9 @@
                 eruval = $(".eru").val();
                 console.log("成功" + res);
                 alert("信息修改成功");
-                $table.bootstrapTable("refresh", {silent: true});
-                $("#eatTheWorld2").hide()
+                $("#editstorehouse").hide()
                 $("input").val("");
+                $table.bootstrapTable("refresh", {silent: true});
             },
             error: function (err) {
                 if (err.status == 403) alert("您没有权限执行此操作");
@@ -2869,7 +2885,6 @@
         var d = $("#editdealer  .ejxcontact").val();
         var e = $("#editdealer  .ejxsheng").val();
         var f = $("#editdealer  .ejxshi").val();
-        var g = $("#editdealer  .ejxqu").val();
 
         var i = sessionStorage.id;
         if (b == "直营") {
@@ -2885,7 +2900,6 @@
         form.append("name", a);
         form.append("province", e);
         form.append("city", f);
-        form.append("county", g);
         form.append("contact", d);
         form.append("linkman", c);
         form.append("type", b);
@@ -2906,9 +2920,9 @@
                 eruval = $(".eru").val();
                 console.log("成功" + res);
                 alert("信息修改成功");
-                $table.bootstrapTable("refresh", {silent: true});
-                $("#eatTheWorld2").hide()
+                $("#editdealer").hide();
                 $("input").val("");
+                $table.bootstrapTable("refresh", {silent: true});
             },
             error: function (err) {
                 if (err.status == 403) alert("您没有权限执行此操作");
@@ -2969,9 +2983,9 @@
                 eruval = $(".eru").val();
                 console.log("成功" + res);
                 alert("信息修改成功");
-                $table.bootstrapTable("refresh", {silent: true});
-                $("#eatTheWorld2").hide()
+                $("#editstore").hide()
                 $("input").val("");
+                $table.bootstrapTable("refresh", {silent: true});
             },
             error: function (err) {
                 if (err.status == 403) alert("您没有权限执行此操作");
@@ -3280,7 +3294,9 @@
         $table.bootstrapTable("hideColumn", "lon");
         $table.bootstrapTable("hideColumn", "lat");
         $table.bootstrapTable("hideColumn", "l");
+        $table.bootstrapTable("hideColumn", "m");
         $table.bootstrapTable("hideColumn", "s");
+        $table.bootstrapTable("hideColumn", "county");
         getMissiveType();
         getMissiveType1();
         getMissiveType2();
