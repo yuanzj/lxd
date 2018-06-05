@@ -332,7 +332,10 @@ var BMapLib = window.BMapLib = BMapLib || {};
         if (index === -1) {
             return false;
         }
+
+        tmplabel = marker.getLabel();
         this._map.removeOverlay(marker);
+        marker.setLabel(tmplabel);
         this._markers.splice(index, 1);
         return true;
     };
@@ -691,7 +694,9 @@ var BMapLib = window.BMapLib = BMapLib || {};
      */
     Cluster.prototype.remove = function(){
         for (var i = 0, m; m = this._markers[i]; i++) {
-                this._markers[i].getMap() && this._map.removeOverlay(this._markers[i]);
+            var tmplabel = this._markers[i].getLabel();
+            this._markers[i].getMap() && this._map.removeOverlay(this._markers[i]);
+            this._markers[i].setLabel(tmplabel);
         }//清除散的标记点
         this._map.removeOverlay(this._clusterMarker);
         this._markers.length = 0;
