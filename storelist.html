@@ -122,7 +122,7 @@
                 <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
                     <select data-province="---- 选择省 ----" class="form-control selpr"></select>
                     <select data-city="---- 选择市 ----" class="form-control selci"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco"></select>
+                    <select data-district="---- 选择区 ----" style="display: none" class="form-control selco"></select>
 
                     <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse">
                         <option selected="selected" value="0">---分站---</option>
@@ -134,7 +134,7 @@
 
                     <select data-province="---- 选择省 ----" class="form-control selpr2"></select>
                     <select data-city="---- 选择市 ----" class="form-control selci2"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco2"></select>
+                    <select data-district="---- 选择区 ----" style="display: none" class="form-control selco2"></select>
 
                     <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse">
                         <option selected="selected" value="0">---分站---</option>
@@ -272,6 +272,8 @@
                             $table.bootstrapTable("hideColumn", "batteryUnusedCount");
                             $table.bootstrapTable("hideColumn", "rentPercent");
                             $table.bootstrapTable("hideColumn", "dealer");
+                            $table.bootstrapTable("hideColumn", "county");
+
                         });
                     } else if ($(this).text() == "分站") {
                         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
@@ -285,6 +287,7 @@
                             $table.bootstrapTable("hideColumn", "m");
                             $table.bootstrapTable("hideColumn", "name");
                             $table.bootstrapTable("hideColumn", "dealer");
+                            $table.bootstrapTable("hideColumn", "county");
                         });
                     } else if ($(this).text() == "驿站") {
                         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&model=list";
@@ -1241,43 +1244,30 @@
         var a = $(".selpr").val();
         console.log(a);
         var b = $(".selci").val();
-        var c = $(".selco").val();
 
         var myselect = document.getElementById("sectionName-s");
         var index = myselect.selectedIndex;
         idstore1 = myselect.options[index].value;
         console.log(idstore1);
         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list";
-        if (a == "") {
-            if (idstore1 == "0") {
-                url = url
-            } else {
-                url = url + "&id=" + idstore1
-            }
-
+        if (idstore1 == "0") {
+            url = url
         } else {
-            if (b == "") {
-                if (idstore1 == "0") {
-                    url = url + "&province=" + a
-                } else {
-                    url = url + "&province=" + a + "&id=" + idstore1
-                }
-            } else {
-                if (c == "") {
-                    if (idstore1 == "0") {
-                        url = url = url + "&province=" + a + "&city=" + b
-                    } else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&id=" + idstore1
-                    }
-                } else {
-                    if (idstore1 == "0") {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c
-                    } else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c + "&id=" + idstore1
-                    }
-                }
-            }
+            url = url + "&id=" + idstore1
         }
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
+        }
+
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
+        }
+
+
         console.log(url)
 
         $.ajax({
@@ -1307,42 +1297,27 @@
         var a = $(".selpr2").val();
         console.log(a);
         var b = $(".selci2").val();
-        var c = $(".selco2").val();
 
         var myselect = document.getElementById("sectionName-s2");
         var index = myselect.selectedIndex;
         idstore1 = myselect.options[index].value;
         console.log(idstore1);
         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&model=list";
-        if (a == "") {
-            if (idstore1 == "0") {
-                url = url
-            } else {
-                url = url + "&id=" + idstore1
-            }
-
+        if (idstore1 == "0") {
+            url = url
         } else {
-            if (b == "") {
-                if (idstore1 == "0") {
-                    url = url + "&province=" + a
-                } else {
-                    url = url + "&province=" + a + "&id=" + idstore1
-                }
-            } else {
-                if (c == "") {
-                    if (idstore1 == "0") {
-                        url = url = url + "&province=" + a + "&city=" + b
-                    } else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&id=" + idstore1
-                    }
-                } else {
-                    if (idstore1 == "0") {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c
-                    } else {
-                        url = url = url + "&province=" + a + "&city=" + b + "&county=" + c + "&id=" + idstore1
-                    }
-                }
-            }
+            url = url + "&id=" + idstore1
+        }
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
+        }
+
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
         }
         console.log(url)
 
