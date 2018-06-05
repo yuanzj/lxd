@@ -111,7 +111,6 @@
                         <option selected="selected" value="9">-选择租赁类型-</option>
                         <option value="0">新租</option>
                         <option value="1">续租</option>
-                        <option value="2">退租</option>
 
                     </select>
                     <select type="text" class="form-control tool-select" id="zhifuse">
@@ -331,7 +330,7 @@
         else if (row.chargeType == 1) {
             inner = "续租"
         } else if (row.chargeType == 2) {
-            inner = "退租"
+            inner = "升级押金到全国范围"
         } else {
             inner = "-"
         }
