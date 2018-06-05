@@ -291,6 +291,7 @@
             </div>
         </div>
         <table id="table"
+               data-ajax="ajaxRequest"
                data-search="false"
                data-show-refresh="true"
                data-show-toggle="false"
@@ -433,10 +434,11 @@
                         url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc"
                         $(function () {
                             initTable();
-                            $table.bootstrapTable("hideColumn", "createTime");
+                            $table.bootstrapTable("hideColumn", "dealer");
                             $table.bootstrapTable("hideColumn", "stand");
                             $table.bootstrapTable("hideColumn", "aveVoltageDesc");
                             $table.bootstrapTable("hideColumn", "orderStatusDesc");
+                            $table.bootstrapTable("hideColumn", "createTime");
                             $table.bootstrapTable("hideColumn", "a");
                             $table.bootstrapTable("hideColumn", "b");
                             $table.bootstrapTable("hideColumn", "c");
@@ -458,6 +460,36 @@
 
     var  title=document.getElementById("title");
     var navid=document.getElementById("navbarID");
+
+    var source = null;
+    // your custom ajax request here
+    function ajaxRequest(params) {
+        console.log('ajaxRequest:' + params.data);
+        if (source != null) {
+            source.cancel('Operation canceled by the user.');
+            source = null
+        }
+
+        var CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
+        axios.get(url,{
+            cancelToken: source.token,
+            headers:{
+                "Content-Type": "application/json;charset=UTF-8",
+                "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                "Authorization": sessionStorage.token
+            },
+            params:params.data
+        })
+            .then(function(response){
+                params.success(response.data)
+
+            })
+            .catch(function(error){
+                console.log(error)
+            });
+    }
 
     function initTable() {
         $table.bootstrapTable("destroy");
@@ -673,38 +705,59 @@
                     }
 
                 },
+                // {
+                //     field: 'c',
+                //     title: '区/县',
+                //     align: 'center',
+                //     valign: 'middle',
+                //     formatter: function countyFormatter(value, row, index) {
+                //         if (row.ebikeStoreEntity != null) {
+                //             if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
+                //                 inner = ""
+                //             }
+                //
+                //             else {
+                //                 var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
+                //             }
+                //         }
+                //         else {
+                //             inner = ""
+                //         }
+                //         var color = 'nowwrp'
+                //         return [
+                //
+                //             '<span class=' + color + '>' + inner + '</span>'
+                //
+                //
+                //         ].join("")
+                //     }
+                //
+                // },
+
                 {
-                    field: 'c',
-                    title: '区/县',
-                    align: 'center',
+                    field: 'dealer',
+                    title: '分站',
+                    align: 'left',
                     valign: 'middle',
-                    formatter: function countyFormatter(value, row, index) {
-                        if (row.ebikeStoreEntity != null) {
-                            if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
-                                inner = ""
-                            }
-
-                            else {
-                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
-                            }
-                        }
-                        else {
-                            inner = ""
-                        }
+                    events: operateEvents, //11
+                    formatter: function storeFormatter(value, row, index) {
                         var color = 'nowwrp'
+                        var name = row.dealerEbikeStoreEntity ? row.dealerEbikeStoreEntity.name : ""
                         return [
-
-                            '<span class=' + color + '>' + inner + '</span>'
-
-
+                            '<a class="like1" href="#">',
+                            '<i class="glyphicon glyphicon-edit" title="选择所属站点">',
+                            '</i>',
+                            '</a>',
+                            "&nbsp;&nbsp;&nbsp;",
+                            '<span class=' + color + '>' + name + '</span>'
                         ].join("")
-                    }
 
+                    }
                 },
 
                 {
                     field: 'branch',
-                    title: '网点',
+                    title: '驿站',
                     align: 'left',
                     valign: 'middle',
                     events: operateEvents, //11
@@ -713,7 +766,7 @@
                         var name = row.ebikeStoreEntity ? row.ebikeStoreEntity.name : ""
                         return [
                             '<a class="like1" href="#">',
-                            '<i class="glyphicon glyphicon-edit" title="选择所属网点">',
+                            '<i class="glyphicon glyphicon-edit" title="选择所属站点">',
                             '</i>',
                             '</a>',
                             "&nbsp;&nbsp;&nbsp;",

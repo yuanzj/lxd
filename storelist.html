@@ -168,6 +168,7 @@
         </div>
         <div id="map"></div>
         <table id="table"
+               data-ajax="ajaxRequest"
                data-search="false"
                data-show-refresh="true"
                data-show-toggle="false"
@@ -337,6 +338,36 @@
 
     var title = document.getElementById("title");
     var navid = document.getElementById("navbarID");
+
+    var source = null;
+    // your custom ajax request here
+    function ajaxRequest(params) {
+        console.log('ajaxRequest:' + params.data);
+        if (source != null) {
+            source.cancel('Operation canceled by the user.');
+            source = null
+        }
+
+        var CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
+        axios.get(url,{
+            cancelToken: source.token,
+            headers:{
+                "Content-Type": "application/json;charset=UTF-8",
+                "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                "Authorization": sessionStorage.token
+            },
+            params:params.data
+        })
+            .then(function(response){
+                params.success(response.data)
+
+            })
+            .catch(function(error){
+                console.log(error)
+            });
+    }
 
     function initTable() {
         $table.bootstrapTable("destroy");
