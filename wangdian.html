@@ -1926,7 +1926,6 @@
     var source = null;
     // your custom ajax request here
     function ajaxRequest(params) {
-        console.log('ajaxRequest:' + params.data);
         if (source != null) {
             source.cancel('Operation canceled by the user.');
             source = null
@@ -1935,7 +1934,7 @@
         var CancelToken = axios.CancelToken;
         source = CancelToken.source();
 
-        axios.get(url,{
+        axios.get(params.url,{
             cancelToken: source.token,
             headers:{
                 "Content-Type": "application/json;charset=UTF-8",
