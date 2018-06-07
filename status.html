@@ -40,7 +40,6 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <![endif]-->
-
 </head>
 <body>
 <!-- rent -->
@@ -495,6 +494,7 @@
         </div>
         <div id="map"></div>
         <table id="table"
+               data-ajax="ajaxRequest"
                data-search="false"
                data-show-refresh="true"
                data-show-toggle="false"
@@ -659,6 +659,35 @@
     var  title=document.getElementById("title");
     var navid=document.getElementById("navbarID");
 
+   var source = null;
+   // your custom ajax request here
+   function ajaxRequest(params) {
+       if (source != null) {
+           source.cancel('Operation canceled by the user.');
+           source = null
+       }
+
+       var CancelToken = axios.CancelToken;
+       source = CancelToken.source();
+
+       axios.get(params.url,{
+           cancelToken: source.token,
+           headers:{
+               "Content-Type": "application/json;charset=UTF-8",
+               "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+               "Authorization": sessionStorage.token
+           },
+           params:params.data
+       })
+           .then(function(response){
+               params.success(response.data)
+
+           })
+           .catch(function(error){
+               console.log(error)
+           });
+   }
+
    function initTable() {
        $table.bootstrapTable("destroy");
        $table.bootstrapTable({
@@ -768,38 +797,47 @@
                        ].join("")
                    }
 
-               },
+               }
+               // ,
+               // {
+               //     field: 'c',
+               //     title: '区/县',
+               //     align: 'center',
+               //     valign: 'middle',
+               //     formatter: function countyFormatter(value, row, index) {
+               //         if (row.ebikeStoreEntity != null) {
+               //             if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
+               //                 inner = ""
+               //             }
+               //
+               //             else {
+               //                 var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
+               //             }
+               //         }
+               //         else {
+               //             inner = ""
+               //         }
+               //         var color = 'nowwrp'
+               //         return [
+               //
+               //             '<span class=' + color + '>' + inner + '</span>'
+               //
+               //
+               //         ].join("")
+               //     }
+               //
+               // }
+               ,
                {
-                   field: 'c',
-                   title: '区/县',
+                   field: 'dealerStoreName',
+                   title: '分站',
                    align: 'center',
                    valign: 'middle',
-                   formatter: function countyFormatter(value, row, index) {
-                       if (row.ebikeStoreEntity != null) {
-                           if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
-                               inner = ""
-                           }
-
-                           else {
-                               var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
-                           }
-                       }
-                       else {
-                           inner = ""
-                       }
-                       var color = 'nowwrp'
-                       return [
-
-                           '<span class=' + color + '>' + inner + '</span>'
-
-
-                       ].join("")
-                   }
-
+                   formatter: dealerFormatter
                },
                {
                    field: 'storeName',
-                   title: '网点',
+                   title: '驿站',
                    align: 'center',
                    valign: 'middle',
                    formatter: lineFormatter
@@ -991,6 +1029,22 @@
            '<span>' + inner + '</span>'
        ].join('');
    }//规格
+   function dealerFormatter(value, row, index) {
+       var color = 'nowwrp';
+       if (row.dealerStoreName == null) {
+           inner = "";
+           return [
+               '<span class=' + color + '>' + inner + '</span>'
+           ].join("")
+       }
+       else {
+
+           inner = row.dealerStoreName;
+           return [
+               '<span class=' + color + '>' + inner + '</span>'
+           ].join("")
+       }
+   }//分站
    function lineFormatter(value, row, index) {
        var color = 'nowwrp';
        if (row.storeName == null) {
@@ -1354,7 +1408,7 @@
                "total": 20
            };
        }
-       console.log(res);
+       console.log('responseHandler：' + res);
    }
 
    function jinyongFormatter(value, row, index) {
