@@ -40,7 +40,6 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <![endif]-->
-
 </head>
 <body>
 <!-- rent -->
@@ -251,6 +250,20 @@
         </div>
         <div id="main2" style="width: 900px;height:560px;margin-top: 20px"></div>
 
+    </div>
+</div>
+
+<!--用户里程统计-->
+<div id="chart3" class="wrap-div">
+    <div class="wrap-bar">
+
+        <p class="wrap-title"><span class="userRealName"></span><span
+                style="float: right;margin-right: 15px;font-size: 32px;cursor: pointer;color: white;margin-top: -10px"
+                id="userMileage">×</span></p>
+
+    </div>
+    <div class="chart-div">
+        <div id="main3" style="width: 900px;height:580px"></div>
     </div>
 </div>
 
@@ -481,6 +494,7 @@
         </div>
         <div id="map"></div>
         <table id="table"
+               data-ajax="ajaxRequest"
                data-search="false"
                data-show-refresh="true"
                data-show-toggle="false"
@@ -645,6 +659,35 @@
     var  title=document.getElementById("title");
     var navid=document.getElementById("navbarID");
 
+   var source = null;
+   // your custom ajax request here
+   function ajaxRequest(params) {
+       if (source != null) {
+           source.cancel('Operation canceled by the user.');
+           source = null
+       }
+
+       var CancelToken = axios.CancelToken;
+       source = CancelToken.source();
+
+       axios.get(params.url,{
+           cancelToken: source.token,
+           headers:{
+               "Content-Type": "application/json;charset=UTF-8",
+               "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+               "Authorization": sessionStorage.token
+           },
+           params:params.data
+       })
+           .then(function(response){
+               params.success(response.data)
+
+           })
+           .catch(function(error){
+               console.log(error)
+           });
+   }
+
    function initTable() {
        $table.bootstrapTable("destroy");
        $table.bootstrapTable({
@@ -754,38 +797,47 @@
                        ].join("")
                    }
 
-               },
+               }
+               // ,
+               // {
+               //     field: 'c',
+               //     title: '区/县',
+               //     align: 'center',
+               //     valign: 'middle',
+               //     formatter: function countyFormatter(value, row, index) {
+               //         if (row.ebikeStoreEntity != null) {
+               //             if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
+               //                 inner = ""
+               //             }
+               //
+               //             else {
+               //                 var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
+               //             }
+               //         }
+               //         else {
+               //             inner = ""
+               //         }
+               //         var color = 'nowwrp'
+               //         return [
+               //
+               //             '<span class=' + color + '>' + inner + '</span>'
+               //
+               //
+               //         ].join("")
+               //     }
+               //
+               // }
+               ,
                {
-                   field: 'c',
-                   title: '区/县',
+                   field: 'dealerStoreName',
+                   title: '分站',
                    align: 'center',
                    valign: 'middle',
-                   formatter: function countyFormatter(value, row, index) {
-                       if (row.ebikeStoreEntity != null) {
-                           if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
-                               inner = ""
-                           }
-
-                           else {
-                               var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
-                           }
-                       }
-                       else {
-                           inner = ""
-                       }
-                       var color = 'nowwrp'
-                       return [
-
-                           '<span class=' + color + '>' + inner + '</span>'
-
-
-                       ].join("")
-                   }
-
+                   formatter: dealerFormatter
                },
                {
                    field: 'storeName',
-                   title: '网点',
+                   title: '驿站',
                    align: 'center',
                    valign: 'middle',
                    formatter: lineFormatter
@@ -796,6 +848,7 @@
                    title: '用户姓名',
                    align: 'center',
                    valign: 'middle',
+                   events: operateEvents,
                    formatter: realFormatter
 
                },
@@ -976,6 +1029,22 @@
            '<span>' + inner + '</span>'
        ].join('');
    }//规格
+   function dealerFormatter(value, row, index) {
+       var color = 'nowwrp';
+       if (row.dealerStoreName == null) {
+           inner = "";
+           return [
+               '<span class=' + color + '>' + inner + '</span>'
+           ].join("")
+       }
+       else {
+
+           inner = row.dealerStoreName;
+           return [
+               '<span class=' + color + '>' + inner + '</span>'
+           ].join("")
+       }
+   }//分站
    function lineFormatter(value, row, index) {
        var color = 'nowwrp';
        if (row.storeName == null) {
@@ -1007,7 +1076,9 @@
        }
        var color = 'nowwrp';
        return [
-           '<span class=' + color + '>' + inner + '</span>'
+           '<a class="like9" href="#" title="点击查看里程变化">',
+           '<span class=' + color + '>' + inner + '</span>',
+           '</a>'
        ].join('');
    }//用户姓名
    function linkFormatter(value, row, index) {
@@ -1337,7 +1408,7 @@
                "total": 20
            };
        }
-       console.log(res);
+       console.log('responseHandler：' + res);
    }
 
    function jinyongFormatter(value, row, index) {
@@ -2528,6 +2599,146 @@ console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/orders/"+ALL.orderId+"
             $("#chart2").hide()
         })
     },
+        'click .like9':function (e,value,row,index) {
+            console.log('===============>' + row.owner.id)
+       $(".userRealName").html(row.owner.realname);
+       $("#chart3").show();
+
+       // 基于准备好的dom，初始化echarts实例
+       var myChart2 = echarts.init(document.getElementById('main3'));
+
+       // 指定图表的配置项和数据
+
+       myChart2.setOption({
+
+           color: ['#3398DB'],
+           tooltip : {
+               trigger: 'axis',
+               axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                   type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+               }
+           },
+           grid: {
+               left: '3%',
+               right: '4%',
+               bottom: '3%',
+               containLabel: true
+           },
+           legend: {
+               data:['里程']
+           },
+           xAxis : [
+               {
+                   type : 'category',
+                   data : [],
+                   axisTick: {
+                       alignWithLabel: true
+                   }
+               }
+           ],
+           yAxis : [
+               {
+                   type : 'value'
+               }
+           ],
+           series : [
+               {
+                   name:'里程',
+                   type:'bar',
+                   barWidth: '60%',
+                   data:[]
+               }
+           ]
+       });
+
+
+       var names=[];    //类别数组（实际用来盛放X轴坐标值）
+       var nums=[];    //销量数组（实际用来盛放Y坐标值）
+       myChart2.showLoading();
+
+       var ownerId = row.owner.id;
+       $.ajax({
+           url: "http://cjl3.rokyinfo.net:7200/api-analyze/v3.1/ebikusermiless?sort=mile_date,asc&userId="+ownerId,
+           method: "get",
+           contentType: "application/json; charset=utf-8",
+           cache: false,
+           beforeSend: function (xhr) {
+               /* Authorization header */
+               xhr.setRequestHeader("firm", sessionStorage.flag);
+               xhr.setRequestHeader("Authorization", sessionStorage.token);
+           },
+           success: function (result) {
+
+               names=[];    //类别数组（实际用来盛放X轴坐标值）
+               nums=[];    //销量数组（实际用来盛放Y坐标值）
+               var data = result.list;
+               if (data) {
+                   for (var i = 0; i < data.length; i++) {
+                       names.push(data[i].mileDate.split(' ')[0]);    //挨个取出类别并填入类别数组
+                   }
+                   for (var i = 0; i < data.length; i++) {
+                       nums.push(data[i].miles);    //挨个取出销量并填入销量数组
+                   }
+                   function getMaximin(arr,maximin)
+                   {
+                       if(maximin=="max")
+                       {
+                           return Math.max.apply(Math,arr);
+                       }
+                       else if(maximin=="min")
+                       {
+                           return Math.min.apply(Math, arr);
+                       }
+                   };
+                   var ymax=getMaximin(nums,"max");
+                   var ymin=getMaximin(nums,"min");
+                   myChart2.hideLoading();    //隐藏加载动画
+                   myChart2.setOption({        //加载数据图表
+                       xAxis: {
+                           data: names
+                       },
+                       yAxis: {
+                           min: ymin,
+                           max: ymax+10
+                       },
+                       series: [{
+                           // 根据名字对应到相应的系列
+                           name: '里程',
+                           data: nums
+
+                       }]
+                   });
+
+               }
+
+
+           },
+           error: function (jqXHR, textStatus, errorThrown) {
+               console.log("失败");
+               console.log(jqXHR);
+           }
+       });
+
+       $.get('data.json').done(function (data) {
+
+           // 填入数据
+           myChart2.setOption({
+               xAxis: {
+                   data: data.categories
+               },
+
+               series: [{
+                   // 根据名字对应到相应的系列
+                   name: '里程',
+                   data: data.data
+               }]
+           });
+       });
+
+       $("#userMileage").on("click",function () {
+           $("#chart3").hide()
+       })
+   },
         'click .like6':function (e,value,row,index) {
                 var sn=row.ccuSn;
             var date = new Date();
