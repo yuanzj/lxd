@@ -744,7 +744,7 @@
         map.enableScrollWheelZoom();
         map.clearOverlays();
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc",
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&page=1&limit=1000",
             method: "get",
             contentType: "application/json; charset=utf-8",
             async: false,
@@ -2257,7 +2257,7 @@
         var myselect=document.getElementById("sectionName-s2");
         var index=myselect.selectedIndex ;
         idstore1=myselect.options[index].value;
-        url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc"
+        url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&page=1&limit=1000"
         if(a==""){
             url=url
         }else {
