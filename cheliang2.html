@@ -163,8 +163,8 @@
     <div class="container">
         <div class="fixed-table-toolbar">
             <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab4"><a href="#">订单列表</a></li>
-                <li class="item" id="tabletab1"><a href="#">正常属性电池</a></li>
+                <!--<li class="item active" id="tabletab4"><a href="#">订单列表</a></li>-->
+                <li class="item active" id="tabletab1"><a href="#">正常属性电池</a></li>
                 <li class="item" id="tabletab2"><a href="#">异常属性电池</a></li>
                 <li class="item" id="tabletab3"><a href="#">退库属性电池</a></li>
                 <button class="mybtn btn-primary btn-tab" id="devideopen">批量分配</button>
@@ -282,10 +282,10 @@
 
                 </div>
                 <script type="text/javascript">
-                    document.getElementById("table1").style.display = "none";
+                    document.getElementById("table1").style.display = "block";
                     document.getElementById("table2").style.display = "none";
                     document.getElementById("table3").style.display = "none";
-                    document.getElementById("table4").style.display = "block";
+                    document.getElementById("table4").style.display = "none";
 
                 </script>
             </div>
@@ -368,8 +368,82 @@
 
 
     });
+
     var url;
-    url ="http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc";
+    url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1";
+
+    function onTabSelectedChanged(text) {
+        if (text == "正常属性电池") {
+            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1";
+            $(function () {
+                initTable();
+                $table.bootstrapTable("hideColumn", "createTime1");
+                $table.bootstrapTable("hideColumn", "createTime2");
+                $table.bootstrapTable("hideColumn", "createTime3");
+                $table.bootstrapTable("hideColumn", "createTime4");
+                $table.bootstrapTable("hideColumn", "createTime5");
+                $table.bootstrapTable("hideColumn", "createTime6");
+                $table.bootstrapTable("hideColumn", "createTime7");
+                $table.bootstrapTable("hideColumn", "createTime8");
+                $table.bootstrapTable("hideColumn", "createTime9");
+                $table.bootstrapTable("hideColumn", "count");
+                $table.bootstrapTable("hideColumn", "totalPrice");
+                $table.bootstrapTable("hideColumn", "createTime12");
+            });
+        } else if (text == "异常属性电池") {
+            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
+            $(function () {
+                initTable();
+                $table.bootstrapTable("hideColumn", "createTime1");
+                $table.bootstrapTable("hideColumn", "createTime2");
+                $table.bootstrapTable("hideColumn", "createTime3");
+                $table.bootstrapTable("hideColumn", "createTime4");
+                $table.bootstrapTable("hideColumn", "createTime5");
+                $table.bootstrapTable("hideColumn", "createTime6");
+                $table.bootstrapTable("hideColumn", "createTime7");
+                $table.bootstrapTable("hideColumn", "createTime8");
+                $table.bootstrapTable("hideColumn", "createTime9");
+                $table.bootstrapTable("hideColumn", "count");
+                $table.bootstrapTable("hideColumn", "totalPrice");
+                $table.bootstrapTable("hideColumn", "createTime12");
+            });
+        } else if (text == "退库属性电池") {
+            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
+            $(function () {
+                initTable();
+                $table.bootstrapTable("hideColumn", "createTime1");
+                $table.bootstrapTable("hideColumn", "createTime2");
+                $table.bootstrapTable("hideColumn", "createTime3");
+                $table.bootstrapTable("hideColumn", "createTime4");
+                $table.bootstrapTable("hideColumn", "createTime5");
+                $table.bootstrapTable("hideColumn", "createTime6");
+                $table.bootstrapTable("hideColumn", "createTime7");
+                $table.bootstrapTable("hideColumn", "createTime8");
+                $table.bootstrapTable("hideColumn", "createTime9");
+                $table.bootstrapTable("hideColumn", "count");
+                $table.bootstrapTable("hideColumn", "totalPrice");
+                $table.bootstrapTable("hideColumn", "createTime12");
+            });
+        } else if (text == "订单列表") {
+            url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc"
+            $(function () {
+                initTable();
+                $table.bootstrapTable("hideColumn", "dealer");
+                $table.bootstrapTable("hideColumn", "stand");
+                $table.bootstrapTable("hideColumn", "aveVoltageDesc");
+                $table.bootstrapTable("hideColumn", "orderStatusDesc");
+                $table.bootstrapTable("hideColumn", "createTime");
+                $table.bootstrapTable("hideColumn", "a");
+                $table.bootstrapTable("hideColumn", "b");
+                $table.bootstrapTable("hideColumn", "c");
+                $table.bootstrapTable("hideColumn", "d");
+                $table.bootstrapTable("hideColumn", "branch");
+            });
+
+        }
+        console.log(url)
+    }
+
     $(function () {
 
         $("#mytabs li").click(function () {
@@ -379,75 +453,7 @@
             $(".item").each(function (index, element) {
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "正常属性电池") {
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1";
-                        $(function () {
-                            initTable();
-                            $table.bootstrapTable("hideColumn", "createTime1");
-                            $table.bootstrapTable("hideColumn", "createTime2");
-                            $table.bootstrapTable("hideColumn", "createTime3");
-                            $table.bootstrapTable("hideColumn", "createTime4");
-                            $table.bootstrapTable("hideColumn", "createTime5");
-                            $table.bootstrapTable("hideColumn", "createTime6");
-                            $table.bootstrapTable("hideColumn", "createTime7");
-                            $table.bootstrapTable("hideColumn", "createTime8");
-                            $table.bootstrapTable("hideColumn", "createTime9");
-                            $table.bootstrapTable("hideColumn", "count");
-                            $table.bootstrapTable("hideColumn", "totalPrice");
-                            $table.bootstrapTable("hideColumn", "createTime12");
-                        });
-                    } else if ($(this).text() == "异常属性电池") {
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidProduct=true"
-                        $(function () {
-                            initTable();
-                            $table.bootstrapTable("hideColumn", "createTime1");
-                            $table.bootstrapTable("hideColumn", "createTime2");
-                            $table.bootstrapTable("hideColumn", "createTime3");
-                            $table.bootstrapTable("hideColumn", "createTime4");
-                            $table.bootstrapTable("hideColumn", "createTime5");
-                            $table.bootstrapTable("hideColumn", "createTime6");
-                            $table.bootstrapTable("hideColumn", "createTime7");
-                            $table.bootstrapTable("hideColumn", "createTime8");
-                            $table.bootstrapTable("hideColumn", "createTime9");
-                            $table.bootstrapTable("hideColumn", "count");
-                            $table.bootstrapTable("hideColumn", "totalPrice");
-                            $table.bootstrapTable("hideColumn", "createTime12");
-                        });
-                    } else if ($(this).text() == "退库属性电池") {
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&invalidDevice=true"
-                        $(function () {
-                            initTable();
-                            $table.bootstrapTable("hideColumn", "createTime1");
-                            $table.bootstrapTable("hideColumn", "createTime2");
-                            $table.bootstrapTable("hideColumn", "createTime3");
-                            $table.bootstrapTable("hideColumn", "createTime4");
-                            $table.bootstrapTable("hideColumn", "createTime5");
-                            $table.bootstrapTable("hideColumn", "createTime6");
-                            $table.bootstrapTable("hideColumn", "createTime7");
-                            $table.bootstrapTable("hideColumn", "createTime8");
-                            $table.bootstrapTable("hideColumn", "createTime9");
-                            $table.bootstrapTable("hideColumn", "count");
-                            $table.bootstrapTable("hideColumn", "totalPrice");
-                            $table.bootstrapTable("hideColumn", "createTime12");
-                        });
-                    } else if ($(this).text() == "订单列表") {
-                        url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/subscribeorders?sort=create_time,desc"
-                        $(function () {
-                            initTable();
-                            $table.bootstrapTable("hideColumn", "dealer");
-                            $table.bootstrapTable("hideColumn", "stand");
-                            $table.bootstrapTable("hideColumn", "aveVoltageDesc");
-                            $table.bootstrapTable("hideColumn", "orderStatusDesc");
-                            $table.bootstrapTable("hideColumn", "createTime");
-                            $table.bootstrapTable("hideColumn", "a");
-                            $table.bootstrapTable("hideColumn", "b");
-                            $table.bootstrapTable("hideColumn", "c");
-                            $table.bootstrapTable("hideColumn", "d");
-                            $table.bootstrapTable("hideColumn", "branch");
-                        });
-
-                    }
-                    console.log(url)
+                    onTabSelectedChanged($(this).text());
 
                 }
             });
@@ -1480,7 +1486,7 @@
     });
 
 
-    initTable();
+    onTabSelectedChanged("正常属性电池");
 
     function createdWrap(id, row) {
         var comurl = 0;
@@ -2107,15 +2113,6 @@
 <script type="text/javascript">
 
     $(function () {
-        $table.bootstrapTable("hideColumn","createTime");
-        $table.bootstrapTable("hideColumn","stand");
-        $table.bootstrapTable("hideColumn","aveVoltageDesc");
-        $table.bootstrapTable("hideColumn","orderStatusDesc");
-        $table.bootstrapTable("hideColumn","a");
-        $table.bootstrapTable("hideColumn","b");
-        $table.bootstrapTable("hideColumn","c");
-        $table.bootstrapTable("hideColumn","d");
-        $table.bootstrapTable("hideColumn","branch");
 
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss'
