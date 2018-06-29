@@ -12,40 +12,31 @@ $(function () {
         $('.nav-list').removeClass('active');
         location.hash = href;
         $('iframe').attr('src', href);
-        initNavigation(href);
+
+        for(var i=0;i<document.getElementsByClassName("whitelist").length;i++){
+            document.getElementsByClassName("whitelist")[i].style.color = '#9d9d9d'
+        }
+        e.target.style.color = 'white'
+        sessionStorage.selectedTabName = e.target.innerHTML
     });
 
-    var href = location.hash.substring(1) || 'welcome.html';
+    var href = location.hash.substring(1) || 'map.html';
     $('iframe').attr('src', href);
-    initNavigation(href);
+
+    if (sessionStorage.selectedTabName == null) {
+        sessionStorage.selectedTabName = '地图展示'
+    }
+
+    for(var i=0; i < document.getElementsByClassName("whitelist").length; i++) {
+        var a = document.getElementsByClassName("whitelist")[i]
+        if (a.innerHTML === sessionStorage.selectedTabName) {
+            a.style.color = 'white'
+        } else {
+            a.style.color = '#9d9d9d'
+        }
+    }
 
     $(window).on('blur',function() {
         $('.dropdown-toggle').parent().removeClass('open');
     });
 });
-
-function initNavigation(href) {
-    var $el = $('a[href="' + href + '"]'),
-        $prev, $next;
-
-    $('.ribbon a').attr('href',
-        'https://github.com/wenzhixin/bootstrap-table-examples/blob/master/' + href);
-
-    if (!$el.length) {
-        return;
-    }
-    $prev = $el.parent().prev('li');
-    $next = $el.parent().next('li');
-    $('.navigation a').hide();
-
-    if ($prev.text()) {
-        $('.navigation .previous').show()
-            .attr('href', $prev.find('a').attr('href'))
-            .find('span').text($prev.text());
-    }
-    if ($next.text()) {
-        $('.navigation .next').show()
-            .attr('href', $next.find('a').attr('href'))
-            .find('span').text($next.text());
-    }
-}

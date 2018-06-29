@@ -1,52 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title id="title">后台管理系统</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-table/dist/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap-editable.css">
-    <link rel="stylesheet" href="assets/index.css">
-    <!--    <script src="assets/index.js"></script>
-    <script src="assets/ga.js"></script>-->
-    <script src="js/vue1.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-zh-CN.min.js"></script>
     <script src="js/axios.js"></script>
     <script src="js/selectLocation.js"></script>
     <script src="js/public.js"></script>
-    <script src="assets/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min1.css">
     <script type="text/javascript"
             src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/public.css"/>
 
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
-    <!-- bootstrap-datetimepicker插件CSS-->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="js/bootstrap-table.min.js"></script>
-
-    <!-- Latest compiled and minified Locales -->
-    <script src="js/bootstrap-table-zh-CN.min.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-
-    <![endif]-->
 </head>
 <body>
-
-
 <!-- Fixed navbar -->
 <!-- 产品配置  -->
 <div id="dianchishu" class="wrap-div">
@@ -1271,6 +1244,45 @@
 </div>
 <!--新增仓库-->
 
+<!--新增售后站点、丢失站点、试用站点、测试站点-->
+<div class="modal fade" id="alert-view-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 50px">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增站点</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px">网点名称：</p>
+                    <input type="text" class="form-control  add-name" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                    <p style="padding: 1rem 1rem 1rem 0;display: inline-block;width: 100px;text-align: right">初始密码：</p>
+                    <input type="text" class="form-control add-password" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                </div>
+
+                <div>
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px">联系人：</p>
+                    <input type="text" class="form-control add-linkman" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px;text-align: right">联系方式：</p>
+                    <input type="text" class="form-control add-contact" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                </div>
+
+                <div data-toggle="distpicker">
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px">所在地区：</p>
+                    <select data-province="---- 选择省 ----" class="form-control add-province" style="display: inline-block;width: 250px;margin-left: 0.5rem"></select>
+                    <select data-city="---- 选择市 ----" class="form-control add-city" style="display: inline-block;width: 250px;margin-left: 0.5rem"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btn-cancel-add">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-affirm-add">确认</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--新增售后-->
+
 <!--新增分站-->
 <div id="adddealer" class="wrap-div">
     <div style="width: 750px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
@@ -1286,7 +1298,7 @@
                 <option selected>-- 请选择 --</option>
                 <option>直营</option>
                 <option>代理</option>
-                <option>其他</option>
+                <option>集团</option>
             </select>
 
         </div>
@@ -1298,13 +1310,6 @@
             <input type="text" class="form-control jxcontact"
                    style="display: inline-block;width: 250px;margin-left: 4px;">
         </div>
-        <!--<div>-->
-        <!--<p style="padding-top: 20px;padding-left: 15px; display: inline-block">经度：</p>-->
-        <!--<input type="text" id="jxlon" class="form-control jxlon" style="display: inline-block;width: 250px;margin-left: 40px;">-->
-        <!--<p style="padding-top: 20px;padding-left: 30px; display: inline-block">纬度：</p>-->
-        <!--<input type="text" id="jxlat" class="form-control jxlat" style="display: inline-block;width: 250px;margin-left: 30px;">-->
-        <!--<button class="btn btn-default glyphicon glyphicon-refresh" style="    margin-top: -1px;border-color: #a49e9e;background: #ccc;margin-left: 5px;" onclick="showMap()"></button>-->
-        <!--</div>-->
         <div id="distpicker1" style="padding-top: 10px;margin-left: 15px">
             <span>所在地区：</span>
             <select data-province="---- 选择省 ----" class="form-control jxsheng"
@@ -1347,7 +1352,7 @@
                 <option selected>-- 请选择 --</option>
                 <option value="40">直营</option>
                 <option value="70">代理</option>
-                <option value="80">其他</option>
+                <option value="80">集团</option>
             </select>
 
         </div>
@@ -1438,7 +1443,7 @@
             <option value="2">合作租赁网点-美团</option>
             <option value="3">合作租赁网点-饿了么</option>
             <option value="5">合作维修网点</option>
-            <option value="6">合作租赁网点-其他</option>
+            <option value="6">合作租赁网点-集团</option>
             <option value="20">电池仓库</option>
             <option value="40">直营租赁网点</option>
         </select>
@@ -1554,6 +1559,43 @@
 </div>
 <!--编辑仓库-->
 
+<!--编辑售后-->
+<div class="modal fade" id="alert-view-edit" tabindex="-1" role="dialog" aria-labelledby="myEditModalLabel" style="margin-top: 50px">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myEditModalLabel">编辑站点</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px">站点编号：</p>
+                    <input type="text" class="form-control edit-code" disabled="disabled" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                    <p style="padding: 1rem 1rem 1rem 0;display: inline-block;width: 100px;text-align: right">站点名称：</p>
+                    <input type="text" class="form-control edit-name" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+
+                </div>
+                <div>
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px">联系人：</p>
+                    <input type="text" class="form-control edit-linkman" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                    <p style="padding-top: 20px;padding-left: 30px; display: inline-block">联系方式：</p>
+                    <input type="text" class="form-control edit-contact" style="display: inline-block;width: 250px;margin-left: 0.5rem;">
+                </div>
+                <div id="distpicker-edit">
+                    <p style="padding: 1rem 1rem 1rem 0; display: inline-block;width: 100px">所在地区：</p>
+                    <select class="form-control edit-province" style="display: inline-block;width: 250px;margin-left: 0.5rem"></select>
+                    <select class="form-control edit-city" style="display: inline-block;width: 250px;margin-left: 0.5rem"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btn-edit-cancel-after-sale">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-edit-affirm-after-sale">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑售后-->
+
 <!--编辑分站-->
 <div id="editdealer" class="wrap-div">
     <div style="width: 750px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
@@ -1584,7 +1626,7 @@
 
                 <option>直营</option>
                 <option>代理</option>
-                <option>其他</option>
+                <option>集团</option>
 
             </select>
         </div>
@@ -1631,7 +1673,7 @@
 
                 <option>直营</option>
                 <option>代理</option>
-                <option>其他</option>
+                <option>集团</option>
 
             </select>
             <p style="padding-top: 20px;padding-left: 68px; display: inline-block">所属分站：</p>
@@ -1683,128 +1725,112 @@
     </div>
 </div>
 <!--编辑驿站-->
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="">
-        <div class="navbar-header;">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"
-                                                  style="margin-left: 10%;     white-space: nowrap;" id="navbarID">{{navname}}</a>
-                    <ul class="dropdown-menu" style="margin-left: 10%;    white-space: nowrap;">
-                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
-                <li><a href="index.html">车况列表</a></li>
-                <li><a href="#">车辆管理</a></li>
-                <li id="tabOption"><a href="wangdian.html">网点管理</a></li>
-                <li><a href="#">用户管理</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+<div  class="ui-content">
+    <div class="fixed-table-toolbar">
+        <ul class="nav nav-tabs mytabs" id="mytabs">
+            <li class="item active" id="tab-station"><a href="#">分站站点</a></li>
+            <li class="item" id="tab-sub-station"><a href="#">驿站站点</a></li>
+            <li class="item" id="tab-after-sale"><a href="#">售后站点</a></li>
+            <li class="item" id="tab-storage"><a href="#">仓库站点</a></li>
+            <li class="item" id="tab-lose"><a href="#">丢失站点</a></li>
+            <li class="item" id="tab-try-out"><a href="#">试用站点</a></li>
+            <li class="item" id="tab-test"><a href="#">测试站点</a></li>
+        </ul>
     </div>
-</nav>
+    <div id="toolbar">
 
-<div class="content">
-    <div class="container">
-        <div class="fixed-table-toolbar">
-            <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab1"><a href="#">仓库管理</a></li>
-                <li class="item" id="tabletab2"><a href="#">分站管理</a></li>
-                <li class="item" id="tabletab3"><a href="#">驿站管理</a></li>
-            </ul>
-        </div>
-        <div id="toolbar">
+        <div class="my-container-cheliang">
+            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-tab-storage">
+                <button class="btn btn-primary add-station" id="btn-addstation"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+                <button class="btn btn-danger add-station" id="btn-delete" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
-            <div class="my-container-cheliang">
-                <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="table1">
-                    <button class="mybtn button-primary add-station" id="btn-addstation">新增仓库</button>
-                    <button class="btn btn-default add-station" id="btn-delete">删除仓库</button>
+                <select data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 1rem;width: 150px"></select>
+                <select data-city="---- 选择市 ----" class="form-control selci" style="margin-left: 0.5rem;width: 150px"></select>
+                <select data-district="---- 选择区 ----" class="form-control selco" style="display: none;margin-left: 0.5rem;width: 150px"></select>
 
-                    <select data-province="---- 选择省 ----" class="form-control selpr"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci"></select>
-                    <select data-district="---- 选择区 ----" style="display: none" class="form-control selco"></select>
+                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" style="margin-left: 1rem;width: 150px">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                </select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse">
-                        <option selected="selected" value="0">---分站---</option>
-                    </select>
-
-                    <button type="button" class="mybtn button-primary searchDQ">查询</button>
-                </div>
-                <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="table2">
-                    <button class="mybtn button-primary add-station" id="btn-addstation2">新增分站</button>
-                    <button class="btn btn-default add-station" id="btn-delete2">删除分站</button>
-
-                    <select data-province="---- 选择省 ----" class="form-control selpr2"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci2"></select>
-                    <select data-district="---- 选择区 ----" style="display: none" class="form-control selco2"></select>
-
-                    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse">
-                        <option selected="selected" value="0">---分站---</option>
-                    </select>
-                    <button type="button" class="mybtn button-primary searchDQ2">查询</button>
-                </div>
-                <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="table3">
-                    <button class="mybtn button-primary add-station" id="btn-addstation3">新增驿站</button>
-                    <button class="btn btn-default add-station" id="btn-delete3">删除驿站</button>
-
-                    <select data-province="---- 选择省 ----" class="form-control selpr3"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci3"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco3"></select>
-
-                    <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse">
-                        <option selected="selected" value="0">---分站---</option>
-                    </select>
-                    <button type="button" class="mybtn button-primary searchDQ3">查询</button>
-                </div>
-
-                <script type="text/javascript">
-                    document.getElementById("table1").style.display = "block";
-                    document.getElementById("table2").style.display = "none";
-                    document.getElementById("table3").style.display = "none";
-
-                </script>
+                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
             </div>
+
+            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-tab-station">
+                <button class="btn btn-primary add-station" id="btn-addstation2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+                <button class="btn btn-danger add-station" id="btn-delete2" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+                <select data-province="---- 选择省 ----" class="form-control selpr2" style="margin-left: 1rem;width: 150px"></select>
+                <select data-city="---- 选择市 ----" class="form-control selci2" style="margin-left: 0.5rem;width: 150px"></select>
+                <select data-district="---- 选择区 ----" class="form-control selco2" style="display: none;margin-left: 0.5rem;width: 150px"></select>
+
+                <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse" style="margin-left: 1rem;width: 150px">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                </select>
+                <button type="button" class="btn btn-primary searchDQ2" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </div>
+
+            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-tab-sub-station">
+                <button class="btn btn-primary add-station" id="btn-addstation3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+                <button class="btn btn-danger add-station" id="btn-delete3" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+                <select data-province="---- 选择省 ----" class="form-control selpr3" style="margin-left: 1rem;width: 150px"></select>
+                <select data-city="---- 选择市 ----" class="form-control selci3" style="margin-left: 0.5rem;width: 150px"></select>
+                <select data-district="---- 选择区 ----" class="form-control selco3" style="display: none;margin-left: 0.5rem;width: 150px"></select>
+
+                <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse" style="margin-left: 1rem;width: 150px">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                </select>
+                <button type="button" class="btn btn-primary searchDQ3" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </div>
+
+            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-filter">
+
+                <button class="btn btn-primary add-station" id="btn-add-station"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+                <button class="btn btn-danger add-station" id="btn-delete-station" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+                <select data-province="---- 选择省 ----" class="form-control select-province" style="margin-left: 1rem;width: 150px"></select>
+                <select data-city="---- 选择市 ----" class="form-control select-city" style="margin-left: 0.5rem;width: 150px"></select>
+                <select data-district="---- 选择区 ----" class="form-control select-district" style="display: none;margin-left: 0.5rem;width: 150px"></select>
+
+                <select type="text" id="section-name-categories" class="form-control" style="margin-left: 1rem;width: 150px">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                </select>
+
+                <button type="button" class="btn btn-primary btn-filter-search" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </div>
+
+            <script type="text/javascript">
+
+                document.getElementById("toolbar-tab-station").style.display = "block";
+                document.getElementById("toolbar-tab-sub-station").style.display = "none";
+                document.getElementById("toolbar-filter").style.display = "none";
+                document.getElementById("toolbar-tab-storage").style.display = "none";
+
+            </script>
         </div>
-        <table id="table"
-               data-ajax="ajaxRequest"
-               data-search="false"
-               data-show-refresh="true"
-               data-show-toggle="false"
-               data-show-columns="false"
-               data-toolbar="#toolbar"
-               data-click-to-select="true"
-               data-show-export="false"
-               data-minimum-count-columns="2"
-               data-pagination="true"
-               data-id-field="ccuSn"
-               data-page-list="[10, 20, 50, 100, ALL]"
-               data-show-footer="false"
-               data-side-pagination="server"
-               data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ebike.create_time,desc&adminFlag=cjl"
-               data-cache="true"
-               data-response-handler="responseHandler">
-
-        </table>
-
     </div>
+    <table id="table"
+           data-ajax="ajaxRequest"
+           data-search="false"
+           data-show-refresh="true"
+           data-show-toggle="false"
+           data-show-columns="false"
+           data-toolbar="#toolbar"
+           data-click-to-select="true"
+           data-show-export="false"
+           data-minimum-count-columns="2"
+           data-pagination="true"
+           data-id-field="ccuSn"
+           data-page-list="[10, 20, 50, 100, ALL]"
+           data-show-footer="false"
+           data-side-pagination="server"
+           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ebike.create_time,desc&adminFlag=cjl"
+           data-cache="true"
+           data-response-handler="responseHandler">
+
+    </table>
 
 </div>
-
-
 </body>
 <!--/jquery.文件-->
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -1813,67 +1839,82 @@
 <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 <!-- 最新的 Bootstrap 核心 DateTime文件 -->
 <script>
+    let currentSelectedCategory = 1
     var eruval;
-    var nameindex = 0;
-    var uid;
-    var name = new Vue({
-        el: '#name',
-        data() {
-            return {
-                message: JSON.parse(sessionStorage.name),
-                navname: "车精灵智能后台管理系统"
-
-            }
-        },
-        mounted() {
-            this.navname = this.message[0].name
-        },
-        methods: {
-            changeName: function (index) {
-                this.navname = this.message[index].name
-                nameindex = index
-                console.log(this.navname)
-                initTable()
-            }
-        }
-    });
-    document.getElementById("tabOption");
-    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color = "white";
     var $table = $('#table');
     var dataResult;
-    var rr = 1;
-    var timer = 0;
-    var cc = 0;
-    var timer2 = 0;
 
-    $("#tabletab1").on("click", function () {
-        document.getElementById("table1").style.display = "block";
-        document.getElementById("table2").style.display = "none";
-        document.getElementById("table3").style.display = "none";
+    $("#tab-storage").on("click", function () {
+        currentSelectedCategory = 0
+        document.getElementById("toolbar-tab-storage").style.display = "block";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "none";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
     });
-    $("#tabletab2").on("click", function () {
-        document.getElementById("table1").style.display = "none";
-        document.getElementById("table2").style.display = "block";
-        document.getElementById("table3").style.display = "none";
+    $("#tab-station").on("click", function () {
+        currentSelectedCategory = 1
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "block";
+        document.getElementById("toolbar-filter").style.display = "none";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
+    });
+    $("#tab-sub-station").on("click", function () {
+        currentSelectedCategory = 2
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "none";
+        document.getElementById("toolbar-tab-sub-station").style.display = "block";
+    });
+    $("#tab-after-sale").on("click", function () {
+        currentSelectedCategory = 3
 
+        getCurrentSelectedTabTypes()
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "block";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
     });
-    $("#tabletab3").on("click", function () {
-        document.getElementById("table1").style.display = "none";
-        document.getElementById("table2").style.display = "none";
-        document.getElementById("table3").style.display = "block";
+    $("#tab-lose").on("click", function () {
+        currentSelectedCategory = 4
+
+        getCurrentSelectedTabTypes()
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "block";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
     });
+    $("#tab-try-out").on("click", function () {
+        currentSelectedCategory = 5
+
+        getCurrentSelectedTabTypes()
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "block";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
+    });
+    $("#tab-test").on("click", function () {
+        currentSelectedCategory = 6
+
+        getCurrentSelectedTabTypes()
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "block";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
+    });
+
     var url;
     url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&sort=code,asc";
     $(function () {
 
         $("#mytabs li").click(function () {
-            $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
+            $(this).siblings('li').removeClass('active');  // 删除集团兄弟元素的样式
 
             $(this).addClass('active');                            // 添加当前元素的样式
             $(".item").each(function (index, element) {
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "仓库管理") {
+                    var text = $(this).text()
+                    if (text === '仓库站点') {
                         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&sort=code,asc";
                         $(function () {
                             initTable();
@@ -1890,7 +1931,7 @@
                             $table.bootstrapTable("hideColumn", "county");
                         });
 
-                    } else if ($(this).text() == "分站管理") {
+                    } else if (text === '分站站点') {
                         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&sort=code,asc";
                         $(function () {
                             initTable();
@@ -1903,7 +1944,7 @@
                             $table.bootstrapTable("hideColumn", "dealer");
                             $table.bootstrapTable("hideColumn", "county");
                         });
-                    } else if ($(this).text() == "驿站管理") {
+                    } else if (text === '驿站站点') {
                         url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&sort=code,asc";
                         $(function () {
                             initTable();
@@ -1913,6 +1954,39 @@
                             $table.bootstrapTable("hideColumn", "s");
                             $table.bootstrapTable("hideColumn", "m");
                         });
+                    } else if (text === '售后站点' || text === '丢失站点' || text === '试用站点' || text === '测试站点') {
+
+                        switch (text) {
+                            case '售后站点':
+                                currentSelectedCategory = 3
+                                break
+                            case '丢失站点':
+                                currentSelectedCategory = 4
+                                break
+                            case '试用站点':
+                                currentSelectedCategory = 5
+                                break
+                            case '测试站点':
+                                currentSelectedCategory = 6
+                                break
+                        }
+
+                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentSelectedCategory + '&sort=code,asc'
+                        $(function () {
+                            initTable();
+                            $table.bootstrapTable("hideColumn", "s");
+                            $table.bootstrapTable("hideColumn", "c");
+                            $table.bootstrapTable("hideColumn", "d");
+                            $table.bootstrapTable("hideColumn", "e");
+                            $table.bootstrapTable("hideColumn", "address");
+                            $table.bootstrapTable("hideColumn", "lon");
+                            $table.bootstrapTable("hideColumn", "lat");
+                            $table.bootstrapTable("hideColumn", "l");
+                            $table.bootstrapTable("hideColumn", "m");
+                            $table.bootstrapTable("hideColumn", "dealer");
+                            $table.bootstrapTable("hideColumn", "county");
+                        });
+
                     }
                     console.log(url)
 
@@ -1924,6 +1998,7 @@
     });
 
     var source = null;
+
     // your custom ajax request here
     function ajaxRequest(params) {
         if (source != null) {
@@ -1934,20 +2009,20 @@
         var CancelToken = axios.CancelToken;
         source = CancelToken.source();
 
-        axios.get(params.url,{
+        axios.get(params.url, {
             cancelToken: source.token,
-            headers:{
+            headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
                 "Authorization": sessionStorage.token
             },
-            params:params.data
+            params: params.data
         })
-            .then(function(response){
+            .then(function (response) {
                 params.success(response.data)
 
             })
-            .catch(function(error){
+            .catch(function (error) {
                 console.log(error)
             });
     }
@@ -2026,14 +2101,14 @@
                     formatter: cityFormatter
 
                 },
-                {
-                    field: 'county',
-                    title: '区/县',
-                    align: 'center',
-                    valign: 'middle',
-                    formatter: countyFormatter
-
-                },
+                // {
+                //     field: 'county',
+                //     title: '区/县',
+                //     align: 'center',
+                //     valign: 'middle',
+                //     formatter: countyFormatter
+                //
+                // },
                 {
                     field: 'a',
                     title: '仓库名称',
@@ -2151,7 +2226,7 @@
         } else if (row.type == 70) {
             inner = "代理"
         } else {
-            inner = "其他"
+            inner = "集团"
         }
         return [
             '<span>' + inner + '</span>'
@@ -2303,8 +2378,8 @@
             $(".item").each(function (index, element) {
                 if ($(this).hasClass("active")) {
                     sessionStorage.id = row.id;
-
-                    if ($(this).text() == "仓库管理") {
+                    let text = $(this).text()
+                    if (text == '仓库站点') {
 
                         $("#editstorehouse  .eckname").val(row.name)
                         $("#distpicker4").distpicker('destroy');
@@ -2328,7 +2403,7 @@
                             $("input").val("");
                         })
 
-                    } else if ($(this).text() == "分站管理") {
+                    } else if (text == '分站站点') {
                         var m = row.type;
                         console.log(m)
                         var ss = document.getElementById('ss1');
@@ -2363,7 +2438,7 @@
                             $("#editdealer").hide()
                             $("input").val("");
                         })
-                    } else if ($(this).text() == "驿站管理") {
+                    } else if (text == '驿站站点') {
                         var n = row.type;
                         console.log(n)
                         var ss1 = document.getElementById('ss2');
@@ -2402,6 +2477,30 @@
                             $("#editstore").hide()
                             $("input").val("");
                         })
+                    } else if (text == '售后站点' || text == '丢失站点' || text == '试用站点' || text == '测试站点') {
+
+                        $("#alert-view-edit  .edit-name").val(row.name)
+                        $("#distpicker-edit").distpicker('destroy');
+                        $("#distpicker-edit").distpicker({
+                            province: row.province,
+                            city: row.city,
+                            district: row.county,
+                            autoSelect: true,
+                            placeholder: false
+
+                        });
+
+                        $("#alert-view-edit  .edit-province").val(row.province);
+                        $("#alert-view-edit  .edit-city").val(row.city);
+                        $("#alert-view-edit  .edit-contact").val(row.contact);
+                        $("#alert-view-edit  .edit-code").val(row.code);
+                        $("#alert-view-edit  .edit-linkman").val(row.linkman);
+                        $("#alert-view-edit").modal('show');
+                        $("#btn-edit-cancel-after-sale").on("click", function () {
+                            $("#alert-view-edit").modal('hide');
+                            $("input").val("");
+                        })
+
                     }
                     console.log(url)
 
@@ -2430,9 +2529,9 @@
                                 'value=' + list[i].price + ' id=' + list[i].id + ' /></td><td>' + '<input style="width: 70%" type="text" ' +
                                 'id=' + '2' + list[i].id + ' value=' + list[i].dealerRate + ' /></td><td>' + '<input style="width: 70%" ' +
                                 'type="text" id=' + '3' + list[i].id + ' ' +
-                                'value=' + list[i].storeRate + ' /></td><td>'+'<input style="width: 70%" type="text" ' +'id='+'4'+ list[i].id + ' ' +
-                                'value=' + list[i].localDeposit+' /></td><td>'+'<input style="width: 70%" type="text" id=' + '5' + list[i].id + ' ' +
-                                'value=' + list[i].nonlocalDeposit + ' /></td>'+'<td style="width: 50px"><button class="btn-small btn-primary" ' +
+                                'value=' + list[i].storeRate + ' /></td><td>' + '<input style="width: 70%" type="text" ' + 'id=' + '4' + list[i].id + ' ' +
+                                'value=' + list[i].localDeposit + ' /></td><td>' + '<input style="width: 70%" type="text" id=' + '5' + list[i].id + ' ' +
+                                'value=' + list[i].nonlocalDeposit + ' /></td>' + '<td style="width: 50px"><button class="btn-small btn-primary" ' +
                                 'onclick="Event(this)">修改</button></td>'
                             document.getElementById('tbMain').appendChild(tr)
 
@@ -2472,7 +2571,7 @@
                             var tr = document.createElement('tr')
                             tr.innerHTML = '<td>' + list[i].specificationName + '</td><td>' + '<input style="width: 70%" type="text" ' +
                                 'value=' + list[i].inviterFee + ' id=' + list[i].id + ' /></td><td>' + '<input style="width: 70%" type="text" ' +
-                                'id=' + '2' + list[i].id + ' value=' + list[i].userFee + ' /></td>'+'<td style="width: 50px"><button class="btn-small btn-primary" ' +
+                                'id=' + '2' + list[i].id + ' value=' + list[i].userFee + ' /></td>' + '<td style="width: 50px"><button class="btn-small btn-primary" ' +
                                 'onclick="Eventyq(this)">修改</button></td>'
                             document.getElementById('tbMaininvite').appendChild(tr)
 
@@ -2609,7 +2708,7 @@
     }
 
     function getHeight() {
-        return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 50;
+        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true)  - 50 - 16 - 16;
     }
 
     initTable();
@@ -2701,6 +2800,13 @@
             $("input").val("");
         })
     });
+    $("#btn-add-station").on("click", function () {
+        $('#alert-view-add').modal('show')
+        $("#btn-cancel-add").on("click", function () {
+            $('#alert-view-add').modal('hide')
+            $("input").val("");
+        })
+    });
     $("#add5").on("click", function () {
 
         var a = $("#addstore  .mdname").val();
@@ -2719,7 +2825,7 @@
             b = 40
         } else if (b == "代理") {
             b = 70
-        } else if (b == "其他") {
+        } else if (b == "集团") {
             b = 80
         }
 
@@ -2779,7 +2885,7 @@
             b = 40
         } else if (b == "代理") {
             b = 70
-        } else if (b == "其他") {
+        } else if (b == "集团") {
             b = 80
         }
 
@@ -2862,6 +2968,50 @@
             }
         });
     });//新增仓库
+    $("#btn-affirm-add").on("click", function () {
+
+        var a = $("#alert-view-add  .add-name").val();
+        var b = $("#alert-view-add  .add-password").val();
+        var c = $("#alert-view-add  .add-linkman").val();
+        var d = $("#alert-view-add  .add-contact").val();
+        var e = $("#alert-view-add  .add-province").val();
+        var f = $("#alert-view-add  .add-city").val();
+
+
+        var form = new FormData();
+        form.append("category", currentSelectedCategory);
+        form.append("type", "40");
+        form.append("name", a);
+        form.append("province", e);
+        form.append("city", f);
+        form.append("contact", d);
+        form.append("linkman", c);
+        form.append("defaultPsw", b);
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores/",
+            method: "post",
+            data: form,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+
+            success: function (res) {
+                console.log("成功");
+                alert("新增网点成功");
+                $table.bootstrapTable("refresh", {silent: true});
+                $('#alert-view-add').modal('hide')
+                $("input").val("");
+            },
+            error: function (err) {
+                if (err.status == 403) alert("您没有权限执行此操作");
+                if (err.status == 500) alert("内部服务器错误");
+                console.log(err)
+            }
+        });
+    });//新增售后
 
     $("#edit3").on("click", function (value, row, index) {
         var a = $("#editstorehouse  .eckname").val();
@@ -2920,7 +3070,7 @@
             b = 40
         } else if (b == "代理") {
             b = 70
-        } else if (b == "其他") {
+        } else if (b == "集团") {
             b = 80
         }
 
@@ -2977,7 +3127,7 @@
             b = 40
         } else if (b == "代理") {
             b = 70
-        } else if (b == "其他") {
+        } else if (b == "集团") {
             b = 80
         }
 
@@ -3024,6 +3174,50 @@
         });
 
     });//编辑驿站
+    $("#btn-edit-affirm-after-sale").on("click", function (value, row, index) {
+        let name = $("#alert-view-edit  .edit-name").val();
+        let linkman = $("#alert-view-edit  .edit-linkman").val();
+        let contact = $("#alert-view-edit  .edit-contact").val();
+        let province = $("#alert-view-edit  .edit-province").val();
+        let city = $("#alert-view-edit  .edit-city").val();
+        let i = sessionStorage.id;
+
+
+        var form = new FormData();
+        form.append("name", name);
+        form.append("province", province);
+        form.append("city", city);
+        form.append("contact", contact);
+        form.append("linkman", linkman);
+        form.append("id", i);
+
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores/update",
+            method: "post",
+            data: form,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+
+            success: function (res) {
+                eruval = $(".eru").val();
+                console.log("成功" + res);
+                alert("信息修改成功");
+                $("#alert-view-edit").modal('hide')
+                $("input").val("");
+                $table.bootstrapTable("refresh", {silent: true});
+            },
+            error: function (err) {
+                if (err.status == 403) alert("您没有权限执行此操作");
+                if (err.status == 500) alert("内部服务器错误");
+                console.log(err)
+            }
+        });
+
+    });//编辑售后
 
     $(".searchDQ").on("click", function () {
         var url;
@@ -3223,15 +3417,53 @@
         });
 
     });//驿站
-    $(".searchLX").on("click", function () {
+    $(".btn-filter-search").on("click", function () {
 
-        var a = $(".lx1").val();
-        var b = $(".lx2").val();
-        console.log(a, b);
+        let url;
+        let province = $(".select-province").val();
+        let city = $(".select-city").val();
+        let district = '';
 
+        let myselect = document.getElementById("section-name-categories");
+        let index = myselect.selectedIndex;
+        let storeId = myselect.options[index].value;
+        console.log( '省：' + province + '市：' + city + '站点：' + storeId);
+
+        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentSelectedCategory + '&sort=code,asc&limit=100&page=1';
+        if (province == "") {
+            if (storeId == "0") {
+                url = url
+            } else {
+                url = url + "&id=" + storeId
+            }
+
+        } else {
+            if (city == "") {
+                if (storeId == "0") {
+                    url = url + "&province=" + province
+                } else {
+                    url = url + "&province=" + province + "&id=" + storeId
+                }
+            } else {
+                if (district == "") {
+                    if (storeId == "0") {
+                        url = url = url + "&province=" + province + "&city=" + city
+                    } else {
+                        url = url = url + "&province=" + province + "&city=" + city + "&id=" + storeId
+                    }
+                } else {
+                    if (storeId == "0") {
+                        url = url = url + "&province=" + province + "&city=" + city + "&county=" + district
+                    } else {
+                        url = url = url + "&province=" + province + "&city=" + city + "&county=" + district + "&id=" + storeId
+                    }
+                }
+            }
+        }
+        console.log(url)
 
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=2,3,5,6,20,40,60&sort=code,asc",
+            url: url,
             method: "get",
             contentType: "application/json; charset=utf-8",
             cache: false,
@@ -3241,30 +3473,9 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data) {
-                if (a == "SC" && b == "其他") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=6&sort=code,asc"});
-                }
-                else if (a == "SC" && b == "美团") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=2&sort=code,asc"});
-                }
-                else if (a == "SC" && b == "饿了么") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=3&sort=code,asc"});
-                }
-                else if (a == "BJ" && b == "合作维修网点") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=5&sort=code,asc"});
-                }
-                else if (a == "SB" && b == "电池仓库") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=20&sort=code,asc"});
-                }
-                else if (a == "ZY" && b == "直营租赁网点") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=40&sort=code,asc"});
-                }
-                else if (a == "CS" && b == "研发测试") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=60&sort=code,asc"});
-                }
-                else if (a == "s1") {
-                    $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=2,3,5,6,20,40,60&sort=code,asc"});
-                }
+                console.log("liebiao1");
+                $("#table").bootstrapTable('refresh', {'url': url});
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("失败");
@@ -3272,7 +3483,7 @@
             }
         });
 
-    });
+    });//售后
 
 </script>
 <script type="text/javascript">
@@ -3336,6 +3547,35 @@
             format: 'YYYY-MM-DD HH:mm:ss'
         });
     });
+
+    function getCurrentSelectedTabTypes() {
+        $.ajax({
+                url: 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=' + currentSelectedCategory + '&showFlag=0&sort=code,asc&limit=100&page=1',
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data) {
+                    let sectionNameCategories = $('#section-name-categories')
+                    var len = data.list.length;
+                    let first = sectionNameCategories.children("option:first")
+                    sectionNameCategories.children("option").remove()
+                    sectionNameCategories.append(first)
+                    for (i = 0; i < len; i++) {
+                        sectionNameCategories.append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+
+            }
+        );
+    }
 
     function getMissiveType() {
         $.ajax({
@@ -3425,7 +3665,7 @@
         <!-- 获取一级和二级的属性-->
         var add;
         if (s1.value == "SC") {
-            add = new Array("美团", "饿了么", "其他");
+            add = new Array("美团", "饿了么", "集团");
             <!--比对value值，实现对应二级text值的动态生成-->
         } else if (s1.value == "BJ") {
             add = new Array("合作维修网点");
@@ -3462,7 +3702,7 @@
         var s2 = document.getElementById("s4");
         var add;
         if (s1.value == "SC") {
-            add = new Array("美团", "饿了么", "其他");
+            add = new Array("美团", "饿了么", "集团");
             <!--比对value值，实现对应二级text值的动态生成-->
         } else if (s1.value == "BJ") {
             add = new Array("合作维修网点");

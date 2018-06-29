@@ -1,5 +1,7 @@
 body {
     overflow: hidden;
+    font-family: "Microsoft YaHei", "微软雅黑 Light", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: 13px;
 }
 
 .nav-list {
@@ -69,52 +71,15 @@ a.toggle .glyphicon-chevron-right,
     text-align: center;
 }
 
-.navigation .previous,
-.navigation .next {
-    display: none;
-    margin-left: 15px;
-    margin-right: 15px;
-    line-height: 30px;
-}
-
-.ribbon {
-    background-color: #a00;
-    overflow: hidden;
-    white-space: nowrap;
-    /* top left corner */
-    position: fixed;
-    right: -60px;
-    top: 90px;
-    /* 45 deg ccw rotation */
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    transform: rotate(45deg);
-    /* shadow */
-    -webkit-box-shadow: 0 0 10px #888;
-    -moz-box-shadow: 0 0 10px #888;
-    box-shadow: 0 0 10px #888;
-    z-index: 999;
-}
-
-.ribbon a {
-    border: 1px solid #faa;
-    color: #fff;
-    display: block;
-    font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin: 1px 0;
-    padding: 10px 50px;
-    text-align: center;
-    text-decoration: none;
-    /* shadow */
-    text-shadow: 0 0 5px #444;
+.navbar-inverse .navbar-nav>li>a {
+    color: #9d9d9d;
+    font-size: 18px;
 }
 
 .content {
     position: fixed;
     width: 100%;
-    top: 81px;
+    top: 0;
     bottom: 0;
 }
 
