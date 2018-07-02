@@ -51,6 +51,9 @@
 
 <script>
     sessionStorage.Vname = 0
+    if (sessionStorage.token == undefined || sessionStorage.token == null)  {
+        window.location.href="./login.html";
+    }
 </script>
 </body>
 </html>

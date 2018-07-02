@@ -2,3 +2,7 @@
 .ui-content {
     padding: 66px 16px 0 16px;
 }
+
+.ui-select {
+    min-width: 150px;
+}
