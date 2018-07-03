@@ -20,6 +20,25 @@
 </head>
 <body>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+                是否确认退出当前用户？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-logout-affirm">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -29,7 +48,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!--<a class="navbar-brand" href="#">雷小电后台管理系统</a>-->
+            <!--style="padding-top: 10px;color: #9d9d9d;font-size: 18px"-->
+            <a class="navbar-brand" style="text-align: center"><img  alt="Brand" style="width: 20px;height: 20px;margin-top: -2px" src="img/logo-lxd.png"> 雷小电后台管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -40,6 +60,16 @@
                 <li><a class="whitelist" href="store-manager.html">网点管理</a></li>
                 <li><a class="whitelist" href="order.html">支付列表</a></li>
                 <li><a class="whitelist" href="user-list.html">用户列表</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img style="width: 18px;height: 18px;" src="img/ic-user.png"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#myModal">注销</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -52,8 +82,17 @@
 <script>
     sessionStorage.Vname = 0
     if (sessionStorage.token == undefined || sessionStorage.token == null)  {
-        window.location.href="./login.html";
+        window.location.replace("./login.html")
     }
+    $("#btn-logout-affirm").click(function () {
+        sessionStorage.token = null
+        sessionStorage.firmFlag = null
+        sessionStorage.name = null
+        sessionStorage.flag = null
+        sessionStorage.namedes = null
+        sessionStorage.selectedTabName = '地图展示'
+        window.location.replace("./login.html")
+    })
 </script>
 </body>
 </html>
