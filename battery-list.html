@@ -21,6 +21,28 @@
 
 </head>
 <body>
+
+<!-- Modal -->
+<div class="modal fade" id="alert-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 50px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="btn-dialog-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">编辑售后</h4>
+            </div>
+            <div class="modal-body">
+                <label id="title-sn"></label>
+                <input class="form-control" id="content-reason" placeholder="请填写售后原因">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-dialog-affirm" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-default" id="btn-dialog-cancel" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="btn-dialog-delete" data-dismiss="modal">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- rent -->
 <div id="wrap-stay" class="wrap-div">
     <div class="wrap-bar">
@@ -1109,7 +1131,7 @@
         return [
             '<div class="nowwrp">',
             '<a class="like8" href="#" title="移除">',
-            '<i class="glyphicon glyphicon-remove">',
+            '<i class="glyphicon glyphicon-edit">',
             '</i>',
             '</a>',
             '</div>'
@@ -2432,20 +2454,59 @@
 
                     }
                     else if ($(this).text() == "售后电池") {
-                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn=" + row.ccuSn + "&afterSaleFlag=0", "put", function (data) {
-                            $("#table").bootstrapTable('refresh');
-                        }, function (err) {
-                            alert("移除失败");
-                            console.log(err)
-                        });
-                    }
 
+
+                        $("#title-sn").text(row.ccuSn)
+                        $("#content-reason").val(row.afterSaleReason)
+                        $("#alert-dialog").modal('show')
+
+                    }
 
                 }
             });
 
         }
     };
+
+    $("#btn-dialog-delete").on("click", function () {
+        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn=" +  $("#title-sn").text() + "&afterSaleFlag=0", "put", function (data) {
+            $("#table").bootstrapTable('refresh');
+        }, function (err) {
+            alert("移除失败");
+            console.log(err)
+        });
+    });
+
+    $("#btn-dialog-affirm").on("click", function () {
+
+        if ($("#content-reason").val() == '') {
+            alert("请填写售后原因");
+            return
+        }
+
+        ajax('http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn=' +  $("#title-sn").text() + '&afterSaleFlag=1&afterSaleReason=' +  $("#content-reason").val(), "put", function (data) {
+            $("#table").bootstrapTable('refresh');
+        }, function (err) {
+            alert("更新失败");
+            console.log(err)
+        });
+    });
+
+    function ajax(url, method, success, err) {
+        $.ajax({
+            url: url,
+            method: method,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function (xhr) {
+                /* Authorization header */
+                xhr.setRequestHeader("firm", sessionStorage.flag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: success,
+            error: err
+        });
+    }  //ajax 封装
 
     function getHeight() {
         return $(window).height() - $('.fixed-table-toolbar').outerHeight(true)  - 50 - 16 - 16;
