@@ -37,7 +37,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="btn-dialog-affirm" data-dismiss="modal">确认</button>
                 <button type="button" class="btn btn-default" id="btn-dialog-cancel" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger" id="btn-dialog-delete" data-dismiss="modal">删除</button>
+                <!---->
             </div>
         </div>
     </div>
@@ -163,27 +163,30 @@
 <!-- fault  -->
 
 <!-- cardetails  -->
-<div id="wrap1" class="wrap-div">
-    <div style="width: 600px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
-        <p style="font-size: 18px; color:#FFF; font-weight:600;line-height: 28px;margin-left: 15px">远程操控</p>
-    </div>
-    <div style="width: 600px;height: 220px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 20px;font-weight: 700;padding: 10px">车辆序列号&nbsp;<span class="carNumber">{{carid}}</span>
-        </p>
-        <div style="float: left;margin-top: 20px; padding-left:70px;width: 100%;">
-            <button type="button" class="mybtn button-primary my-btngroup" id="btn-7">启用</button>
-            <button type="button" class="mybtn button-primary my-btngroup" id="btn-6">停止</button>
-            <button type="button" class="mybtn button-primary my-btngroup" id="btn-5">重启</button>
-            <button type="button" class="mybtn button-primary my-btngroup" id="btn-tz">退租</button>
-        </div>
-        <!--<div style="float: left;margin-top: 30px;  padding-left:34%;">-->
-        <!--<button type="button" class="mybtn button-primary "  id="btn-6" style="width: 100px;display: inline-block;float: left; margin-right:5px;">冻结电池</button>-->
-        <!--<button type="button" class="mybtn button-primary " id="btn-7" style="width: 100px;display: inline-block;float: left;margin-right:5px;">取消冻结</button>-->
-        <!--</div>-->
-        <div style="float: right;margin-top: 60px;margin-right: 40px">
-            <button type="button" class="mybtn button-primary " id="555"
-                    style="width: 100px;float: right;background: #636161;color:#F3F3F3;display: inline-block">取消
-            </button>
+<div class="modal fade" id="alert-dialog-operation" tabindex="-1" role="dialog" aria-labelledby="myOperationModalLabel" style="margin-top: 50px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myOperationModalLabel">电池操作</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p style="font-size: 20px;font-weight: 700">序列号:&nbsp;&nbsp;<span class="carNumber"></span></p>
+                    <div style="display: flex">
+                        <button type="button" class="btn btn-default" style="flex: 1" id="btn-7">启用</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-6">停止</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-5">重启</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-tz">退租</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-dialog-disable" data-dismiss="modal">禁用</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-dialog-delete-disable" data-dismiss="modal">解除禁用</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <!---->
+            </div>
         </div>
     </div>
 </div>
@@ -295,16 +298,16 @@
 <div class="ui-content">
     <div class="fixed-table-toolbar">
         <ul class="nav nav-tabs mytabs" id="mytabs">
-            <!--异常电池、逾期租赁电池、已租赁电池、待租赁电池、售后电池、仓库电池、丢失电池、试用电池、测试电池-->
+            <!--异常电池、逾期租赁电池、已租赁电池、待租赁电池、禁用电池、仓库电池、丢失电池、试用电池、售后电池-->
             <li class="item active" id="tabletab5"><a href="#">异常电池</a></li>
             <li class="item" id="tabletab2"><a href="#">逾期租赁电池</a></li>
             <li class="item" id="tabletab1"><a href="#">已租赁电池</a></li>
             <li class="item" id="tabletab3"><a href="#">待租赁电池</a></li>
-            <li class="item" id="tabletab6"><a href="#">售后电池</a></li>
+            <li class="item" id="tabletab6"><a href="#">禁用电池</a></li>
             <li class="item" id="tabletab4"><a href="#">仓库电池</a></li>
+            <li class="item" id="tab-test"><a href="#">售后电池</a></li>
             <li class="item" id="tab-lost"><a href="#">丢失电池</a></li>
             <li class="item" id="tab-try-out"><a href="#">试用电池</a></li>
-            <li class="item" id="tab-test"><a href="#">测试电池</a></li>
         </ul>
     </div>
     <div id="toolbar">
@@ -403,7 +406,7 @@
                         $("#erjise").css("display",'inline')
                         getStation()
 
-                    } else if (text == '仓库电池' || text == '丢失电池' || text == '试用电池' || text == '测试电池') {
+                    } else if (text == '仓库电池' || text == '丢失电池' || text == '试用电池' || text == '售后电池') {
 
                         switch (text) {
                             case '仓库电池':
@@ -443,7 +446,7 @@
 
                         $("#erjise").css("display",'inline')
                         getStation()
-                    } else if (text == "售后电池") {
+                    } else if (text == "禁用电池") {
                         resetFilterBarSelected()
                         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&afterSaleFlag=1&sort=ue.end_time,desc";
                         $(function () {
@@ -856,12 +859,7 @@
         var inner;
         $(".item").each(function (index, element) {
             if ($(this).hasClass("active")) {
-                if ($(this).text() == "异常电池") {
-                    inner = row.ccuSn;
-                }
-                else {
-                    inner = '<a id="like2" class="like2" href="#" title="车辆远程操控">' + row.ccuSn + '</a>';
-                }
+                inner = '<a id="like2" class="like2" href="#" title="车辆远程操控">' + row.ccuSn + '</a>';
                 return inner;
             }
             return inner
@@ -1336,94 +1334,102 @@
                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag");
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "异常电池") {
+                    $(".carNumber").html(row.ccuSn);
+                    $("#alert-dialog-operation").modal('show');
+                    $("#btn-1").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get", function (data) {
+                            alert("上电成功")
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
+                        }, function (err) {
+                            alert("上电失败")
+                            console.log(err)
+                        })
+                        return false
+                    });
+                    $("#btn-2").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-off", "get", function (data) {
+                            alert("断电成功");
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
+                        }, function (err) {
+                            alert("断电失败");
+                            console.log(err)
+                        })
+                    });
+                    $("#btn-3").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/search", "get", function (data) {
+                            alert("寻车成功");
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
+                        }, function (err) {
+                            alert("寻车失败");
+                            console.log(err)
+                        })
+                    });
+                    $("#btn-4").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/open-box", "get", function (data) {
+                            alert("开座桶成功");
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
+                        }, function (err) {
+                            alert("开座桶失败");
+                            console.log(err)
+                        })
+                    });
+                    $("#btn-5").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/restart", "get", function (data) {
+                            alert("重启成功");
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
+                        }, function (err) {
+                            alert("重启失败");
+                            console.log(err)
+                        })
+                    });
+                    $("#btn-6").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=1", "put", function (data) {
+                            alert("冻结电池成功")
+                            $table.bootstrapTable("refresh", {silent: true})
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=1", "get")
+                        }, function (err) {
+                            alert("冻结电池失败")
+                            console.log(err)
+                        })
+                    })
+                    $("#btn-7").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=0", "put", function (data) {
+                            alert("取消冻结成功")
+                            $table.bootstrapTable("refresh", {silent: true})
+                            console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=0", "get")
+                        }, function (err) {
+                            alert("取消冻结失败")
+                            console.log(err)
+                        })
+                    })
+                    $("#btn-tz").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/force-finish-order?ccuSn=" + row.ccuSn, "put", function (data) {
+                            alert("退租成功")
+                            $table.bootstrapTable("refresh", {silent: true})
+                            console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/force-finish-order?ccuSn=" + row.ccuSn)
+                        }, function (err) {
+                            alert("退租失败")
+                            console.log(err)
+                        })
+                    })
 
+                    $("#btn-dialog-disable").unbind('click').on("click", function () {
+                        ajax('http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn=' +  row.ccuSn + '&afterSaleFlag=1&afterSaleReason=' + '', "put", function (data) {
+                            alert("禁用成功");
+                        }, function (err) {
+                            alert("禁用失败");
+                            console.log(err)
+                        });
+                    });
 
-                    }
-                    else {
-                        $(".carNumber").html(row.ccuSn);
-                        $("#wrap1").show();
-                        $("#btn-1").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get", function (data) {
-                                alert("上电成功")
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
-                            }, function (err) {
-                                alert("上电失败")
-                                console.log(err)
-                            })
-                            return false
+                    $("#btn-dialog-delete-disable").unbind('click').on("click", function () {
+                        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn=" +  row.ccuSn + "&afterSaleFlag=0", "put", function (data) {
+                            alert("解除禁用成功");
+                        }, function (err) {
+                            alert("解除禁用失败");
+                            console.log(err)
                         });
-                        $("#btn-2").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-off", "get", function (data) {
-                                alert("断电成功");
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
-                            }, function (err) {
-                                alert("断电失败");
-                                console.log(err)
-                            })
-                        });
-                        $("#btn-3").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/search", "get", function (data) {
-                                alert("寻车成功");
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
-                            }, function (err) {
-                                alert("寻车失败");
-                                console.log(err)
-                            })
-                        });
-                        $("#btn-4").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/open-box", "get", function (data) {
-                                alert("开座桶成功");
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
-                            }, function (err) {
-                                alert("开座桶失败");
-                                console.log(err)
-                            })
-                        });
-                        $("#btn-5").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/restart", "get", function (data) {
-                                alert("重启成功");
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/power-on", "get")
-                            }, function (err) {
-                                alert("重启失败");
-                                console.log(err)
-                            })
-                        });
-                        $("#btn-6").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=1", "put", function (data) {
-                                alert("冻结电池成功")
-                                $table.bootstrapTable("refresh", {silent: true})
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=1", "get")
-                            }, function (err) {
-                                alert("冻结电池失败")
-                                console.log(err)
-                            })
-                        })
-                        $("#btn-7").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=0", "put", function (data) {
-                                alert("取消冻结成功")
-                                $table.bootstrapTable("refresh", {silent: true})
-                                console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=0", "get")
-                            }, function (err) {
-                                alert("取消冻结失败")
-                                console.log(err)
-                            })
-                        })
-                        $("#btn-tz").unbind('click').on("click", function () {
-                            ajax("http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/force-finish-order?ccuSn=" + row.ccuSn, "put", function (data) {
-                                alert("退租成功")
-                                $table.bootstrapTable("refresh", {silent: true})
-                                console.log("http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/force-finish-order?ccuSn=" + row.ccuSn)
-                            }, function (err) {
-                                alert("退租失败")
-                                console.log(err)
-                            })
-                        })
-                        $("#555").on("click", function () {
-                            $("#wrap1").hide()
-                        })
-                    }
-
+                    });
 
                 }
             });
@@ -2453,7 +2459,7 @@
 
 
                     }
-                    else if ($(this).text() == "售后电池") {
+                    else if ($(this).text() == "禁用电池") {
 
 
                         $("#title-sn").text(row.ccuSn)
@@ -2467,15 +2473,6 @@
 
         }
     };
-
-    $("#btn-dialog-delete").on("click", function () {
-        ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-after-sale-flag?ccuSn=" +  $("#title-sn").text() + "&afterSaleFlag=0", "put", function (data) {
-            $("#table").bootstrapTable('refresh');
-        }, function (err) {
-            alert("移除失败");
-            console.log(err)
-        });
-    });
 
     $("#btn-dialog-affirm").on("click", function () {
 
@@ -2548,6 +2545,7 @@
     });
 
     $(".searchDQ").on("click", function () {
+
         var province = $(".selpr").val();
         var city = $(".selci").val();
         var county = $(".selco").val();
@@ -2564,6 +2562,13 @@
         var index2 = myselect2.selectedIndex;
         var idpro = myselect2.options[index2].value;
 
+        url = url.substring(0, url.indexOf('ue.end_time,desc')) + 'ue.end_time,desc'
+
+        console.log('url:' + url)
+        console.log('idstore1:' + idstore1 + ' idstore2:' + idstore2)
+
+
+        console.log('1:' + url)
         if (province != '') {
             url = url + "&province=" + province
         }
@@ -2573,18 +2578,18 @@
         if (county != '') {
             url = url + "&county=" + county
         }
-        if (idstore1 != '0') {
-            if (idstore2 != '0') {
-                url = url + "&dealerId=" + idstore1
-            } else {
+        if (idstore1 != 0) {
+            if (idstore2 != 0) {
                 url = url + "&storeId=" + idstore2
+            } else {
+                url = url + "&dealerId=" + idstore1
             }
         }
-        if (idpro != '0') {
+        if (idpro != 0) {
             url = url + "&productId=" + idpro
         }
 
-        console.log(url)
+        console.log('2:' + url)
         $("#table").bootstrapTable('refresh', {'url': url});
 
     });

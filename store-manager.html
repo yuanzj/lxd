@@ -1734,7 +1734,7 @@
             <li class="item" id="tab-storage"><a href="#">仓库站点</a></li>
             <li class="item" id="tab-lose"><a href="#">丢失站点</a></li>
             <li class="item" id="tab-try-out"><a href="#">试用站点</a></li>
-            <li class="item" id="tab-test"><a href="#">测试站点</a></li>
+            <!--<li class="item" id="tab-test"><a href="#">测试站点</a></li>-->
         </ul>
     </div>
     <div id="toolbar" style="display: none;">
@@ -1903,7 +1903,7 @@
         document.getElementById("toolbar-tab-sub-station").style.display = "none";
     });
 
-    var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&sort=code,asc";
+    var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc";
     $(function () {
 
         $("#mytabs li").click(function () {
@@ -1915,7 +1915,7 @@
 
                     var text = $(this).text()
                     if (text === '仓库站点') {
-                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&sort=code,asc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "s");
@@ -1932,7 +1932,7 @@
                         });
 
                     } else if (text === '分站站点') {
-                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&sort=code,asc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "a");
@@ -1945,7 +1945,7 @@
                             $table.bootstrapTable("hideColumn", "county");
                         });
                     } else if (text === '驿站站点') {
-                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&sort=code,asc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "a");
@@ -1971,7 +1971,7 @@
                                 break
                         }
 
-                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentSelectedCategory + '&sort=code,asc'
+                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentSelectedCategory + '&showFlag=0&sort=code,asc'
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "s");
@@ -2366,7 +2366,7 @@
             error: err
         });
     }  //ajax 封装
-    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1", "get", function (data) {
+    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1&showFlag=0", "get", function (data) {
         data1 = data
     }, function (jqXHR, textStatus, errorThrown) {
         console.log("失败")
@@ -3230,7 +3230,7 @@
         var index = myselect.selectedIndex;
         idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&sort=code,asc&limit=100&page=1";
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=0&showFlag=0&sort=code,asc&limit=100&page=1";
         if (a == "") {
             if (idstore1 == "0") {
                 url = url
@@ -3296,7 +3296,7 @@
         var index = myselect.selectedIndex;
         idstore1 = myselect.options[index].value;
         console.log(idstore1);
-        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&sort=code,asc&limit=100&page=1";
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1";
         if (a == "") {
             if (idstore1 == "0") {
                 url = url
@@ -3363,7 +3363,7 @@
         idstore1 = myselect.options[index].value;
         console.log(idstore1);
 
-        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&sort=code,asc&limit=100&page=1";
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&sort=code,asc&limit=100&page=1";
         if (a == "") {
             if (idstore1 == "0") {
                 url = url
@@ -3429,7 +3429,7 @@
         let storeId = myselect.options[index].value;
         console.log( '省：' + province + '市：' + city + '站点：' + storeId);
 
-        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentSelectedCategory + '&sort=code,asc&limit=100&page=1';
+        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentSelectedCategory + '&showFlag=0&sort=code,asc&limit=100&page=1';
         if (province == "") {
             if (storeId == "0") {
                 url = url
