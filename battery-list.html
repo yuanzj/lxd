@@ -299,11 +299,11 @@
     <div class="fixed-table-toolbar">
         <ul class="nav nav-tabs mytabs" id="mytabs">
             <!--异常电池、逾期租赁电池、已租赁电池、待租赁电池、禁用电池、仓库电池、丢失电池、试用电池、售后电池-->
-            <li class="item active" id="tabletab5"><a href="#">异常电池</a></li>
+            <li class="item active" id="tabletab6"><a href="#">禁用电池</a></li>
+            <li class="item" id="tabletab5"><a href="#">异常电池</a></li>
             <li class="item" id="tabletab2"><a href="#">逾期租赁电池</a></li>
             <li class="item" id="tabletab1"><a href="#">已租赁电池</a></li>
             <li class="item" id="tabletab3"><a href="#">待租赁电池</a></li>
-            <li class="item" id="tabletab6"><a href="#">禁用电池</a></li>
             <li class="item" id="tabletab4"><a href="#">仓库电池</a></li>
             <li class="item" id="tab-test"><a href="#">售后电池</a></li>
             <li class="item" id="tab-lost"><a href="#">丢失电池</a></li>
@@ -317,8 +317,16 @@
                 <input type="text" class="form-control ui-select search-input searchResult" placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}" onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
                 <button type="button" class="btn btn-primary searchCcu" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-search"></span></button>
 
+                <label style="margin-left: 16px"></label>
 
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr" style="margin-left: 32px;"></select>
+                <select type="text" class="form-control ui-select" id="select-type" style="margin-left: 16px;">
+                    <option selected="selected" value="0">---- 请选择网点类型 ----</option>
+                    <option value="40">直营租赁</option>
+                    <option value="70">加盟租赁</option>
+                    <option value="80">集团租赁</option>
+                </select>
+
+                <select data-province="---- 选择省 ----" class="form-control ui-select selpr" style="margin-left: 16px;"></select>
                 <select data-city="---- 选择市 ----" class="form-control ui-select selci" style="margin-left: 8px;"></select>
                 <select data-district="---- 选择区 ----" class="form-control ui-select selco" style="display: none"></select>
 
@@ -366,7 +374,7 @@
     var orOnLine;
     var cc = 0;
     var timer2 = 0;
-    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&exceptionFlag=1&sort=ue.end_time,desc";
+    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
     var currentCategory = null
     var currentFilterType = null
     $(function () {
@@ -396,13 +404,14 @@
                         }
 
                         resetFilterBarSelected()
-                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&filterType=' + currentFilterType + '&sort=ue.end_time,desc'
+                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?categories=1,2&filterType=' + currentFilterType + '&sort=ue.end_time,desc'
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                             $table.bootstrapTable("hideColumn", "re");
                         });
 
+                        $("#select-type").css("display",'inline')
                         $("#erjise").css("display",'inline')
                         getStation()
 
@@ -430,30 +439,32 @@
                         }
 
                         resetFilterBarSelected()
-                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&category=' + currentCategory  + '&sort=ue.store_code,asc'
+                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?category=' + currentCategory  + '&sort=ue.store_code,asc'
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                             $table.bootstrapTable("hideColumn", "re");
                         });
-
+                        $("#select-type").css("display",'none')
                         $("#erjise").css("display",'none')
                         getStoreWithCategory()
                     } else if (text == "异常电池") {
                         resetFilterBarSelected()
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&exceptionFlag=1&sort=ue.end_time,desc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
                         initTable();
 
+                        $("#select-type").css("display",'inline')
                         $("#erjise").css("display",'inline')
                         getStation()
                     } else if (text == "禁用电池") {
                         resetFilterBarSelected()
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&afterSaleFlag=1&sort=ue.end_time,desc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                         });
 
+                        $("#select-type").css("display",'inline')
                         $("#erjise").css("display",'inline')
                         getStation()
                     }
@@ -780,9 +791,9 @@
         var city = $(".selci").val();
         var district = ''
 
-        var myselect = document.getElementById("sectionName-s");
-        var index = myselect.selectedIndex;
-        var storeId = myselect.options[index].value;
+        var selectType = document.getElementById("select-type");
+        var typeIndex = selectType.selectedIndex;
+        var type = selectType.options[typeIndex].value;
 
         var myselect3 = document.getElementById("erjise");
         var index3 = myselect3.selectedIndex;
@@ -833,6 +844,13 @@
         } else {
             var key = "productId";
             var value = specification
+            param[key] = value;
+        }
+        if (type == "0") {
+            param = param
+        } else {
+            var key = "storeType";
+            var value = type
             param[key] = value;
         }
 
@@ -1137,6 +1155,7 @@
     }//移除故障
 
     function resetFilterBarSelected() {
+        $("#select-type").get(0).selectedIndex = 0;
         $(".selpr").get(0).selectedIndex = 0;
         $(".selci").get(0).selectedIndex = 0;
         $(".selco").get(0).selectedIndex = 0;
@@ -2546,6 +2565,14 @@
 
     $(".searchDQ").on("click", function () {
 
+        var selectType = document.getElementById("select-type");
+        var typeIndex = selectType.selectedIndex;
+        var type = selectType.options[typeIndex].value;
+
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        var idstore1 = myselect.options[index].value;
+
         var province = $(".selpr").val();
         var city = $(".selci").val();
         var county = $(".selco").val();
@@ -2589,12 +2616,17 @@
             url = url + "&productId=" + idpro
         }
 
+        if (type != 0) {
+            url = url + "&storeType=" + type
+        }
+
         console.log('2:' + url)
         $("#table").bootstrapTable('refresh', {'url': url});
 
     });
 
     initTable();
+    $table.bootstrapTable("hideColumn", "w");
 
 </script>
 <script type="text/javascript">
