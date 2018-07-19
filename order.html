@@ -1,183 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title id="title">后台管理系统</title>
+
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="css/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap-editable.css">
-    <link rel="stylesheet" href="assets/index.css">
-    <script src="assets/index.js"></script>
-    <script src="js/vendor/vue.js"></script>
-    <script src="js/vendor/axios.js"></script>
-    <script src="assets/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/common.css">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/public.css"/>
-
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
-    <!-- bootstrap-datetimepicker插件CSS-->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="js/vendor/bootstrap-table.min.js"></script>
-
-    <!-- Latest compiled and minified Locales -->
-    <script src="js/vendor/bootstrap-table-zh-CN.min.js"></script>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-
-    <![endif]-->
 </head>
 <body>
-<!-- Fixed navbar -->
 
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="">
-        <div class="navbar-header;">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"
-                                                  style="margin-left: 10%;     white-space: nowrap;" id="navbarID">{{navname}}</a>
-                    <ul class="dropdown-menu" style="margin-left: 10%; white-space: nowrap;">
-                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
-                <li id="tabOption"><a href="index.html">车况列表</a></li>
-                <li><a href="#">车辆管理</a></li>
-                <li><a href="store-manager.html">网点管理</a></li>
-                <li><a href="#">用户管理</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+<div class="ui-content">
+    <div class="fixed-table-toolbar">
+        <ul class="nav nav-tabs mytabs" id="mytabs">
+            <li class="item active" id="tabletab1"><a href="#">新租</a></li>
+            <li class="item" id="tabletab2"><a href="#">续租</a></li>
+        </ul>
     </div>
-</nav>
+    <div id="toolbar">
+        <div class="my-container-cheliang">
 
-<div class="content">
-    <div class="container">
-        <div class="fixed-table-toolbar">
-        </div>
-        <div id="toolbar">
-            <div class="my-container-cheliang">
+            <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
+                <input type="text" class="form-control search-input searchResult"
+                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                <button type="button" class="btn btn-primary searchCcusn searchCcu" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
 
-                <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
-                    <input type="text" class="form-control search-input searchResult"
-                           placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                    <button type="button" class="mybtn button-primary searchCcusn searchCcu">
-                        <span class="glyphicon glyphicon-search"></span></button>
+                <select data-province="---- 选择省 ----" class="form-control ui-select selpr"
+                        style="margin-left: 20px;" onChange="getMissiveType()"></select>
+                <select data-city="---- 选择市 ----" class="form-control ui-select selci" onChange="getMissiveType()"></select>
+                <select data-district="---- 选择区 ----" class="form-control selco" style="display: none"></select>
 
-                    <select data-province="---- 选择省 ----" class="form-control selpr"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco"></select>
+                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse-small" onChange="move1()">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                </select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse-small"
-                            onChange="move1()">
-                        <option selected="selected" value="0">分站</option>
-                    </select>
+                <select type="text" class="form-control ui-select erjise-small" id="erjise">
+                    <option selected="selected" value="0">---- 驿站 ----</option>
 
-                    <select type="text" class="form-control erjise-small" id="erjise">
-                        <option selected="selected" value="0">驿站</option>
+                </select>
 
-                    </select>
+                <select type="text" class="form-control ui-select guigese" id="guigese">
+                    <option selected="selected" value="0">---- 规格 ----</option>
 
-                    <select type="text" class="form-control guigese" id="guigese">
-                        <option selected="selected" value="0">---选择规格---</option>
+                </select>
+                <!--<select type="text" class="form-control ui-select tool-select" id="leixingse">-->
+                    <!--<option selected="selected" value="9">&#45;&#45;&#45;&#45; 选择租赁类型 &#45;&#45;&#45;&#45;</option>-->
+                    <!--<option value="0">新租</option>-->
+                    <!--<option value="1">续租</option>-->
+                <!--</select>-->
+                <select type="text" class="form-control ui-select tool-select" id="zhifuse">
+                    <option selected="selected" value="0">---- 支付方式 ----</option>
+                    <option>支付宝</option>
+                    <option>微信支付</option>
+                    <option>优惠券</option>
 
-                    </select>
-                    <select type="text" class="form-control tool-select" id="leixingse">
-                        <option selected="selected" value="9">-选择租赁类型-</option>
-                        <option value="0">新租</option>
-                        <option value="1">续租</option>
-
-                    </select>
-                    <select type="text" class="form-control tool-select" id="zhifuse">
-                        <option selected="selected" value="0">-选择支付方式-</option>
-                        <option>支付宝</option>
-                        <option>微信支付</option>
-                        <option>优惠券</option>
-
-                    </select>
-                    <button type="button" class="mybtn button-primary searchDQ">查询</button>
-                </div>
-
-
+                </select>
+                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 1rem">查询</button>
             </div>
-        </div>
-        <div id="map"></div>
-        <table id="table"
-               data-search="false"
-               data-show-refresh="true"
-               data-show-toggle="false"
-               data-show-columns="true"
-               data-show-export="false"
-               data-toolbar="#toolbar"
-               data-minimum-count-columns="2"
-               data-pagination="true"
-               data-id-field="ccuSn"
-               data-page-list="[10, 20, 50, 100, ALL]"
-               data-show-footer="false"
-               data-side-pagination="server"
-               data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ebike.create_time,desc&adminFlag=cjl"
-               data-cache="true"
-               data-response-handler="responseHandler">
-        </table>
 
+        </div>
     </div>
+    <div id="map"></div>
+    <table id="table"
+           data-search="false"
+           data-show-refresh="true"
+           data-show-toggle="false"
+           data-show-columns="true"
+           data-show-export="false"
+           data-toolbar="#toolbar"
+           data-minimum-count-columns="2"
+           data-pagination="true"
+           data-id-field="ccuSn"
+           data-page-list="[10, 20, 50, 100, ALL]"
+           data-show-footer="false"
+           data-side-pagination="server"
+           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ebike.create_time,desc&adminFlag=cjl"
+           data-cache="true"
+           data-response-handler="responseHandler">
+    </table>
+
 </div>
 
 </body>
-<!--/jquery.文件-->
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script type="text/javascript" src="js/vendor/moment.js"></script>
-<!-- 最新的 Bootstrap 核心 Moment文件 -->
-<script type="text/javascript" src="js/vendor/bootstrap-datetimepicker.min.js"></script>
-<!-- 最新的 Bootstrap 核心 DateTime文件 -->
 
+<script src="assets/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/vendor/bootstrap-table.min.js"></script>
+<script src="js/vendor/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/vendor/vue.js"></script>
+<script src="js/vendor/axios.js"></script>
+<script src="js/vendor/moment.js"></script>
+<script src="js/vendor/bootstrap-datetimepicker.min.js"></script>
+<script src="js/vendor/distpicker.data.js"></script>
+<script src="js/vendor/distpicker.js"></script>
+<script src="js/main.js"></script>
 
 <script>
 
+    var leixingvalue = 0
 
-    window.onload = function () {
-        document.getElementById('name').disabled = true;
-    };
-    var nameindex = 0;
-    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color = "white";
+    $(function () {
+
+        $("#mytabs li").click(function () {
+            $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
+
+            $(this).addClass('active');                            // 添加当前元素的样式
+            $(".item").each(function (index, element) {
+                if ($(this).hasClass("active")) {
+
+                    if ($(this).text() == "新租") {
+                        leixingvalue = 0
+                        $(".searchDQ").click()
+                    } else if ($(this).text() == "续租") {
+                        leixingvalue = 1
+                        $(".searchDQ").click()
+                    }
+
+                }
+            });
+
+
+        });
+
+    });
+
     var $table = $('#table');
     var dataResult;
-    var rr = 1;
     var orFault;
     var orOnLine;
-    var timer = 0;
-    var cc = 0;
-    var timer2 = 0;
 
     var url;
     url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
-    var title = document.getElementById("title");
-    var navid = document.getElementById("navbarID");
 
     function initTable() {
 
@@ -344,27 +298,6 @@
             '<span>' + inner + '</span>'
         ].join('');
     }//租赁类型
-    function linkFormatter(value, row, index) {
-        if (row.owner == null || row.owner == "null") {
-            inner = ""
-        }
-        else {
-            var inner = row.owner.phoneNumber
-        }
-        var color = 'nowwrp'
-        return [
-            '<span class=' + color + '>' + inner + '</span>'
-        ].join('');
-    }//联系方式
-    function operateFormatter(value, row, index) {
-        var car = row.ebikeStatus == 0 ? "img/u217.png" : row.ebikeStatus == 100 ? "img/u209.png" : "img/u207.png";
-        return [
-            '<a class="like" href="#">',
-            '<img  class="smallImg" src=' + car + ' />',
-            '</a>'
-        ].join('');
-    }
-
     function yajinFormatter(value, row, index) {
         var inner = row.deposit;
         if (row.chargeType == 2) {
@@ -415,10 +348,10 @@
         payment = myselect3.options[index3].innerHTML;
         paymentvalue = myselect3.options[index3].value;
 
-        var myselect4 = document.getElementById("leixingse");
-        var index4 = myselect4.selectedIndex;
-        leixing = myselect4.options[index4].innerHTML;
-        leixingvalue = myselect4.options[index4].value;
+        // var myselect4 = document.getElementById("leixingse");
+        // var index4 = myselect4.selectedIndex;
+        // leixing = myselect4.options[index4].innerHTML;
+        // leixingvalue = myselect4.options[index4].value;
         var param = {
             limit: this.pageSize, // 页面大小
             page: this.pageNumber,
@@ -503,48 +436,18 @@
         console.log(res);
     }
 
-    var data1;
-
-    function ajax(url, method, success, err) {
-        $.ajax({
-            url: url,
-            method: method,
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: success,
-            error: err
-        });
-    }  //ajax 封装
-    ajax("http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?types=1", "get", function (data) {
-        data1 = data
-    }, function (jqXHR, textStatus, errorThrown) {
-        console.log("失败");
-        console.log(jqXHR);
-    });
     var ueId;
     var id1;
 
     function getHeight() {
-        if (document.body.clientWidth > 1280) {
-            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 2;
-        } else {
-            return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 30;
-        }
+        return $(window).height() - 50 - 16 - $('.fixed-table-toolbar').outerHeight(true);
     }
-
-    initTable();
 
     $(window).resize(function () {
         $table.bootstrapTable('resetView', {
             height: getHeight()
         });
     });
-
 
     $("#wrap-btn-on").on("click", function () {
         console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId);
@@ -616,10 +519,11 @@
         var index3 = myselect3.selectedIndex;
         payment = myselect3.options[index3].innerHTML;
         paymentvalue = myselect3.options[index3].value;
-        var myselect4 = document.getElementById("leixingse");
-        var index4 = myselect4.selectedIndex;
-        leixing = myselect4.options[index4].innerHTML;
-        leixingvalue = myselect4.options[index4].value;
+
+        // var myselect4 = document.getElementById("leixingse");
+        // var index4 = myselect4.selectedIndex;
+        // leixing = myselect4.options[index4].innerHTML;
+        // leixingvalue = myselect4.options[index4].value;
         url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40"
         if (a == "") {
             url = url
@@ -685,18 +589,26 @@
 
     });
 
-
-</script>
-<script type="text/javascript">
-
     $(function () {
         getMissiveType();
         getMissiveType2();
     });
 
     function getMissiveType() {
+
+        var province  = $(".selpr").val();
+        var city  = $(".selci").val();
+
+        var currentUrl = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&sort=code,asc&limit=100&page=1&showFlag=0'
+        if (province != '' && province != null) {
+            currentUrl = currentUrl + "&province=" + province
+        }
+        if (city != '' && city != null) {
+            currentUrl = currentUrl + "&city=" + city
+        }
+
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&sort=code,asc&limit=100&page=1&showflag=0",
+                url: currentUrl,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData: false,
@@ -707,7 +619,7 @@
                 },
                 success: function (data) {
                     var len = data.list.length;
-                    $('#sectionName-s').attr("length", '0');
+                    document.getElementById("sectionName-s").length = 1;
                     for (i = 0; i < len; i++) {
                         $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
@@ -771,8 +683,6 @@
         })
     }
 
+    initTable();
 </script>
-<script src="js/vendor/distpicker.data.js"></script>
-<script src="js/vendor/distpicker.js"></script>
-<script src="js/main.js"></script>
 </html>

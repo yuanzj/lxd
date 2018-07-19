@@ -1,46 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title id="title">后台管理系统</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="css/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap-editable.css">
-    <link rel="stylesheet" href="assets/index.css">
-    <script src="assets/index.js"></script>
-    <script src="js/vendor/vue.js"></script>
-    <script src="js/vendor/axios.js"></script>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" href="css/fileinput.min.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/public.css"/>
-
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
-    <!-- bootstrap-datetimepicker插件CSS-->
-    <link rel="stylesheet" href="css/fileinput.min.css"/>
+    <script src="js/vendor/bootstrap-table.min.js"></script>
+    <script src="js/vendor/bootstrap-table-zh-CN.min.js"></script>
+    <script src="js/vendor/vue.js"></script>
+    <script src="js/vendor/axios.js"></script>
     <script src="js/vendor/fileinput.min.js"></script>
     <script src="js/vendor/zh.js"></script>
-    <!-- fileinput插件-->
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="js/vendor/bootstrap-table.min.js"></script>
+    <script src="js/vendor/moment.js"></script>
+    <script src="js/vendor/bootstrap-datetimepicker.min.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
 
-    <!-- Latest compiled and minified Locales -->
-    <script src="js/vendor/bootstrap-table-zh-CN.min.js"></script>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <![endif]-->
 </head>
 <body>
 <div id="wrap-show"></div>
@@ -128,212 +108,161 @@
     </div>
 </div>
 </form>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="">
-        <div class="navbar-header;">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown" id="name"><a class="dropdown-toggle" data-target="#" data-toggle="dropdown"
-                                                  style="margin-left: 10%;     white-space: nowrap;" id="navbarID">{{navname}}</a>
-                    <ul class="dropdown-menu" style="margin-left: 10%; white-space: nowrap;">
-                        <li><a href="#" @click="changeName(index)" v-for="(item,index) in message">{{item.name}}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li style="margin-left: 20px;"><a href="#">地图展示</a></li>
-                <li id="tabOption"><a href="index.html">车况列表</a></li>
-                <li><a href="#">车辆管理</a></li>
-                <li><a href="store-manager.html">网点管理</a></li>
-                <li><a href="#">用户管理</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+
+<div class="ui-content">
+    <div class="fixed-table-toolbar">
+        <ul class="nav nav-tabs mytabs" id="mytabs">
+            <!--<li class="item active" id="tabletab4"><a href="#">订单列表</a></li>-->
+            <li class="item active" id="tabletab1"><a href="#">正常属性电池</a></li>
+            <li class="item" id="tabletab2"><a href="#">异常属性电池</a></li>
+            <li class="item" id="tabletab3"><a href="#">退库属性电池</a></li>
+            <button class="btn btn-primary btn-tab" id="devideopen" style="position: fixed;right: 0;margin-top: 2px">批量分配</button>
+        </ul>
     </div>
-</nav>
+    <div id="toolbar">
+        <div class="my-container-cheliang">
 
-<div class="content">
-    <div class="container">
-        <div class="fixed-table-toolbar">
-            <ul class="nav nav-tabs mytabs" id="mytabs">
-                <!--<li class="item active" id="tabletab4"><a href="#">订单列表</a></li>-->
-                <li class="item active" id="tabletab1"><a href="#">正常属性电池</a></li>
-                <li class="item" id="tabletab2"><a href="#">异常属性电池</a></li>
-                <li class="item" id="tabletab3"><a href="#">退库属性电池</a></li>
-                <button class="mybtn btn-primary btn-tab" id="devideopen">批量分配</button>
-            </ul>
-        </div>
-        <div id="toolbar">
-            <div class="my-container-cheliang">
+            <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
+                <input type="text" class="form-control search-input searchResult"
+                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                <button type="button" class="btn btn-primary searchCcusn searchCcu" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
 
-                <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
-                    <input type="text" class="form-control search-input searchResult"
-                           placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                    <button type="button" class="mybtn button-primary searchCcusn searchCcu">
-                        <span class="glyphicon glyphicon-search"></span></button>
+                <select data-province="---- 选择省 ----" class="form-control ui-select selpr1"
+                        style="margin-left: 20px;"></select>
+                <select data-city="---- 选择市 ----" class="form-control ui-select selci1"></select>
+                <select data-district="---- 选择区 ----" class="form-control ui-select selco1" style="display: none"></select>
 
-                    <select data-province="---- 选择省 ----" class="form-control selpr1"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci1"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco1"></select>
+                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse"
+                        onChange="move1()">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                    <option value="wu">无</option>
+                </select>
 
-                    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse"
-                            onChange="move1()">
-                        <option selected="selected" value="0">---分站---</option>
-                        <option value="wu">无</option>
-                    </select>
+                <select type="text" class="form-control ui-select erjise" id="erjise">
+                    <option selected="selected" value="0">---- 驿站 ----</option>
+                    <option value="wu">无</option>
 
-                    <select type="text" class="form-control erjise" id="erjise">
-                        <option selected="selected" value="0">---驿站---</option>
-                        <option value="wu">无</option>
+                </select>
 
-                    </select>
+                <select type="text" class="form-control ui-select guigese" id="guigese">
+                    <option selected="selected" value="0">---- 规格 ----</option>
 
-                    <select type="text" class="form-control guigese" id="guigese">
-                        <option selected="selected" value="0">---选择规格---</option>
-
-                    </select>
-                    <select type="text" class="form-control zulinse" id="zulinse">
-                        <option selected="selected" value="0">-选择租赁状态-</option>
-                        <option value="1">已租</option>
-                        <option value="3">未租</option>
-                    </select>
-                    <button type="button" class="mybtn button-primary searchDQ">查询</button>
-                </div>
-                <div data-toggle="distpicker" id="table2" class="form-inline topinline cheliang">
-                    <input type="text" class="form-control search-input searchResult2"
-                           placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                    <button type="button" class="mybtn button-primary searchCcusn searchCcu2">
-                        <span class="glyphicon glyphicon-search"></span></button>
-
-                    <select data-province="---- 选择省 ----" class="form-control selpr2"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci2"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco2"></select>
-
-                    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
-                            onChange="move2()">
-                        <option selected="selected" value="0">---分站---</option>
-                        <option value="wu">无</option>
-                    </select>
-
-                    <select type="text" class="form-control erjise" id="erjise2">
-                        <option selected="selected" value="0">---驿站---</option>
-                        <option value="wu">无</option>
-
-                    </select>
-
-                    <select type="text" class="form-control guigese" id="guigese2">
-                        <option selected="selected" value="0">---选择规格---</option>
-
-                    </select>
-                    <select type="text" class="form-control zulinse" id="zulinse2">
-                        <option selected="selected" value="0">-选择租赁状态-</option>
-                        <option value="1">已租</option>
-                        <option value="3">未租</option>
-                    </select>
-                    <button type="button" class="mybtn button-primary searchDQ2">查询</button>
-                </div>
-                <div data-toggle="distpicker" id="table3" class="form-inline topinline cheliang">
-                    <input type="text" class="form-control search-input searchResult3"
-                           placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                           onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                    <button type="button" class="mybtn button-primary searchCcusn searchCcu3">
-                        <span class="glyphicon glyphicon-search"></span></button>
-
-                    <select data-province="---- 选择省 ----" class="form-control selpr3"
-                            style="margin-left: 20px;"></select>
-                    <select data-city="---- 选择市 ----" class="form-control selci3"></select>
-                    <select data-district="---- 选择区 ----" class="form-control selco3"></select>
-
-                    <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse"
-                            onChange="move3()">
-                        <option selected="selected" value="0">---分站---</option>
-                        <option value="wu">无</option>
-                    </select>
-
-                    <select type="text" class="form-control erjise" id="erjise3">
-                        <option selected="selected" value="0">---驿站---</option>
-                        <option value="wu">无</option>
-
-                    </select>
-
-                    <select type="text" class="form-control guigese" id="guigese3">
-                        <option selected="selected" value="0">---选择规格---</option>
-
-                    </select>
-                    <select type="text" class="form-control zulinse" id="zulinse3">
-                        <option selected="selected" value="0">-选择租赁状态-</option>
-                        <option value="1">已租</option>
-                        <option value="3">未租</option>
-                    </select>
-                    <button type="button" class="mybtn button-primary searchDQ3">查询</button>
-                </div>
-                <div data-toggle="distpicker" id="table4" class="form-inline topinline cheliang">
-
-                </div>
-                <script type="text/javascript">
-                    document.getElementById("table1").style.display = "block";
-                    document.getElementById("table2").style.display = "none";
-                    document.getElementById("table3").style.display = "none";
-                    document.getElementById("table4").style.display = "none";
-
-                </script>
+                </select>
+                <select type="text" class="form-control ui-select zulinse" id="zulinse">
+                    <option selected="selected" value="0">---- 租赁状态 ----</option>
+                    <option value="1">已租</option>
+                    <option value="3">未租</option>
+                </select>
+                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 1rem">查询</button>
             </div>
-        </div>
-        <table id="table"
-               data-ajax="ajaxRequest"
-               data-search="false"
-               data-show-refresh="true"
-               data-show-toggle="false"
-               data-show-columns="true"
-               data-show-export="false"
-               data-toolbar="#toolbar"
-               data-minimum-count-columns="2"
-               data-pagination="true"
-               data-id-field="ccuSn"
-               data-page-list="[10, 20, 50, 100, ALL]"
-               data-show-footer="false"
-               data-side-pagination="server"
-               data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1"
-               data-cache="true"
-               data-response-handler="responseHandler">
-        </table>
+            <div data-toggle="distpicker" id="table2" class="form-inline topinline cheliang">
+                <input type="text" class="form-control search-input searchResult2"
+                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                <button type="button" class="btn btn-primary searchCcusn searchCcu2" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
 
+                <select data-province="---- 选择省 ----" class="form-control ui-select selpr2"
+                        style="margin-left: 20px;"></select>
+                <select data-city="---- 选择市 ----" class="form-control ui-select selci2"></select>
+                <select data-district="---- 选择区 ----" class="form-control ui-select selco2" style="display:none;"></select>
+
+                <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select wangdianse"
+                        onChange="move2()">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                    <option value="wu">无</option>
+                </select>
+
+                <select type="text" class="form-control ui-select erjise" id="erjise2">
+                    <option selected="selected" value="0">---- 驿站 ----</option>
+                    <option value="wu">无</option>
+
+                </select>
+
+                <select type="text" class="form-control ui-select guigese" id="guigese2">
+                    <option selected="selected" value="0">---- 规格 ----</option>
+
+                </select>
+                <select type="text" class="form-control ui-select zulinse" id="zulinse2">
+                    <option selected="selected" value="0">---- 租赁状态 ----</option>
+                    <option value="1">已租</option>
+                    <option value="3">未租</option>
+                </select>
+                <button type="button" class="btn btn-primary searchDQ2" style="margin-left: 1rem">查询</button>
+            </div>
+            <div data-toggle="distpicker" id="table3" class="form-inline topinline cheliang">
+                <input type="text" class="form-control search-input searchResult3"
+                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+                <button type="button" class="btn btn-primary searchCcusn searchCcu3" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
+
+                <select data-province="---- 选择省 ----" class="form-control ui-select selpr3"
+                        style="margin-left: 20px;"></select>
+                <select data-city="---- 选择市 ----" class="form-control ui-select selci3"></select>
+                <select data-district="---- 选择区 ----" class="form-control ui-select selco3" style="display: none"></select>
+
+                <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control ui-select wangdianse"
+                        onChange="move3()">
+                    <option selected="selected" value="0">---- 分站 ----</option>
+                    <option value="wu">无</option>
+                </select>
+
+                <select type="text" class="form-control ui-select erjise" id="erjise3">
+                    <option selected="selected" value="0">---- 驿站 ----</option>
+                    <option value="wu">无</option>
+
+                </select>
+
+                <select type="text" class="form-control ui-select guigese" id="guigese3">
+                    <option selected="selected" value="0">---- 规格 ----</option>
+
+                </select>
+                <select type="text" class="form-control ui-select zulinse" id="zulinse3">
+                    <option selected="selected" value="0">---- 租赁状态 ----</option>
+                    <option value="1">已租</option>
+                    <option value="3">未租</option>
+                </select>
+                <button type="button" class="btn btn-primary searchDQ3" style="margin-left: 1rem">查询</button>
+            </div>
+            <div data-toggle="distpicker" id="table4" class="form-inline topinline cheliang">
+
+            </div>
+            <script type="text/javascript">
+                document.getElementById("table1").style.display = "block";
+                document.getElementById("table2").style.display = "none";
+                document.getElementById("table3").style.display = "none";
+                document.getElementById("table4").style.display = "none";
+
+            </script>
+        </div>
     </div>
+    <table id="table"
+           data-ajax="ajaxRequest"
+           data-search="false"
+           data-show-refresh="true"
+           data-show-toggle="false"
+           data-show-columns="true"
+           data-show-export="false"
+           data-toolbar="#toolbar"
+           data-minimum-count-columns="2"
+           data-pagination="true"
+           data-id-field="ccuSn"
+           data-page-list="[10, 20, 50, 100, ALL]"
+           data-show-footer="false"
+           data-side-pagination="server"
+           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=4&productFilter=1&lifeStatusFilter=1"
+           data-cache="true"
+           data-response-handler="responseHandler">
+    </table>
+
 </div>
 
 </body>
-<!--/jquery.文件-->
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script type="text/javascript" src="js/vendor/moment.js"></script>
-<!-- 最新的 Bootstrap 核心 Moment文件 -->
-<script type="text/javascript" src="js/vendor/bootstrap-datetimepicker.min.js"></script>
-<!-- 最新的 Bootstrap 核心 DateTime文件 -->
-
 
 <script>
-    window.onload = function(){
-        document.getElementById('name').disabled=true;
-    };
-    var nameindex=0;
-    document.getElementById("tabOption").getElementsByTagName("a")[0].style.color="white";
+
     var $table = $('#table');
     var dataResult;
-    var rr=1;
-    var orFault;
-    var  orOnLine;
-    var timer=0;
-    var cc=0;
-    var  timer2=0;
 
     $("#tabletab1").on("click",function () {
         document.getElementById("table1").style.display="block";
@@ -1475,7 +1404,7 @@
     }
 
     function getHeight() {
-        return $(window).height() - $('h1').outerHeight(true) - $('nav').outerHeight(true) - 42;
+        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true) - 50 - 16 - 16;
     }
 
     $(window).resize(function () {
@@ -2151,8 +2080,8 @@
             strDate = "0" + strDate;
         }
         var currentdate = date2.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + 00 + seperator2 + 00
-            + seperator2 + 00;
+            + " " + '00' + seperator2 + '00'
+            + seperator2 + '00';
         return currentdate;
     }
     function getNowFormatDate2() {
@@ -2186,8 +2115,8 @@
             strDate = "0" + strDate;
         }
         var currentdate = date2.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + 00 + seperator2 + 00
-            + seperator2 + 00;
+            + " " + '00' + seperator2 + '00'
+            + seperator2 + '00';
         return currentdate;
     }
     function move1() {

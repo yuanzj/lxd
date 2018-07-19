@@ -1,166 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="css/bootstrap-table.min.css">
     <link rel="stylesheet" href="css/bootstrap-editable.css">
-    <link rel="stylesheet" href="assets/index.css">
-    <script src="assets/index.js"></script>
-    <script src="js/vendor/vue.js"></script>
-    <script src="js/vendor/axios.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <!-- echart-->
+    <script src="js/vendor/vue.js"></script>
+    <script src="js/vendor/axios.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
+    <script src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.0.2/echarts.min.js"></script>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="css/public.css"/>
+    <script src="js/MarkerClusterer.js"></script>
 
-    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
-    <!-- bootstrap-datetimepicker插件CSS-->
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
-    <script type="text/javascript" src="js/MarkerClusterer.js"></script>
     <style type="text/css">
-        body, html{width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-		
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
     </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=upXkuuhfOOuQkOlW7yxP0cVHRKIseXmc"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js "></script>
-    <title>地图展示</title>
+
 </head>
 <style>
 
 
 </style>
 <body>
-<div class="content">
-    <div class="container" style="width:97%; margin-top:-24px;">
-        <div class="fixed-table-toolbar">
-            <ul class="nav nav-tabs mytabs" id="mytabs">
-                <li class="item active" id="tabletab1"><a href="#" >电池地图</a></li>
-                <li class="item" id="tabletab2"><a href="#" >网点地图</a></li>
-            </ul>
-        </div>
-        <div id="allmap" style="position:absolute;z-index:0; top: 26px;bottom: 15px;width: 95%; left:2.5%;
-      box-shadow:0 0 10px rgba(0,0,0,0.2);border-radius: 3px;pointer-events:auto;"></div>
+<div class="ui-content">
+    <div class="fixed-table-toolbar">
+        <ul class="nav nav-tabs mytabs" id="mytabs">
+            <li class="item active" id="tabletab1"><a href="#">电池地图</a></li>
+            <li class="item" id="tabletab2"><a href="#">网点地图</a></li>
+        </ul>
     </div>
+
+    <div id="allmap"
+         style="position:absolute;z-index:0;top: 125px;right: 1rem;bottom: 1rem;left: 1rem; box-shadow:0 0 10px rgba(0,0,0,0.2);border-radius: 3px;pointer-events:auto;"></div>
 </div>
 
-<div data-toggle="distpicker" class="form-inline topinline" id="table1" style="position:fixed;top:125px;left:40px;">
-    <select  data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 20px;box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
-    <select  data-city="---- 选择市 ----" class="form-control selci" style="box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
-    <select  data-district="---- 选择区 ----" class="form-control selco" style="box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
+<div data-toggle="distpicker" class="form-inline topinline" id="table1" style="position:fixed;top:141px;left:16px;">
 
-    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" onChange="move2()"
+    <select type="text" class="form-control ui-select" id="select-type"
+            style="margin-left: 16px;box-shadow:0 0 10px rgba(0,0,0,0.32);" onChange="getMissiveType()">
+        <option selected="selected" value="0">---- 请选择网点类型 ----</option>
+        <option value="40">直营租赁</option>
+        <option value="70">加盟租赁</option>
+        <option value="80">集团租赁</option>
+    </select>
+
+    <select data-province="---- 选择省 ----" class="form-control ui-select selpr"
+            style="box-shadow:0 0 10px rgba(0,0,0,0.32);" onChange="getMissiveType()"></select>
+    <select data-city="---- 选择市 ----" class="form-control ui-select selci" style="box-shadow:0 0 10px rgba(0,0,0,0.32);"
+            onChange="getMissiveType()"></select>
+    <select data-district="---- 选择区 ----" class="form-control ui-select selco"
+            style="display:none;box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
+
+    <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse"
+            onChange="move2()"
             style="display: inline-block;width: 120px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---分站---</option>
+        <option selected="selected" value="0">--- 分站 ---</option>
     </select>
 
-    <select type="text" class="form-control guigese" id="guigese" style="display: inline-block;width: 120px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---驿站---</option>
+    <select type="text" class="form-control ui-select guigese" id="guigese"
+            style="display: inline-block;width: 120px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
+        <option selected="selected" value="0">--- 驿站 ---</option>
 
     </select>
-    <select type="text" class="form-control zulinse" id="zulinse" style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">-选择租赁状态-</option>
+    <select type="text" class="form-control ui-select zulinse" id="zulinse"
+            style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
+        <option selected="selected" value="0">--- 租赁状态 ---</option>
         <option value="1">已租</option>
         <option value="3">未租</option>
     </select>
-    <select type="text" class="form-control guigese" id="guigesearch" style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---选择规格---</option>
-
-    </select>
-    <button type="button" data-title="搜索" class="btn btn-default glyphicon glyphicon-search searchDQ" style="box-shadow:0 0 10px rgba(0,0,0,0.32);color: #fff;border: 1px solid #2e77e5;background-color: #2e77e5;"></button>
-
-</div>
-<div data-toggle="distpicker" class="form-inline topinline" id="table2" style="position:fixed;top:125px;left:40px;">
-    <select  data-province="---- 选择省 ----" class="form-control selpr2" style="margin-left: 20px;box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
-    <select  data-city="---- 选择市 ----" class="form-control selci2" style="box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
-    <select  data-district="---- 选择区 ----" class="form-control selco2" style="box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
-
-    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse"
+    <select type="text" class="form-control ui-select guigese" id="guigesearch"
             style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
-        <option selected = "selected" value="0">---分站---</option>
+        <option selected="selected" value="0">--- 规格 ---</option>
+
+    </select>
+    <button type="button" data-title="搜索" class="btn btn-primary glyphicon glyphicon-search searchDQ"
+            style="margin: -4px 0 0 16px; box-shadow:0 0 10px rgba(0,0,0,0.32);"></button>
+
+</div>
+<div data-toggle="distpicker" class="form-inline topinline" id="table2" style="position:fixed;top:141px;left:16px;">
+    <select data-province="---- 选择省 ----" class="form-control ui-select selpr2"
+            style="margin-left: 20px;box-shadow:0 0 10px rgba(0,0,0,0.32);" onChange="getMissiveType()"></select>
+    <select data-city="---- 选择市 ----" class="form-control ui-select selci2"
+            style="box-shadow:0 0 10px rgba(0,0,0,0.32);" onChange="getMissiveType()"></select>
+    <select data-district="---- 选择区 ----" class="form-control ui-select selco2"
+            style="display: none; box-shadow:0 0 10px rgba(0,0,0,0.32);"></select>
+
+    <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select wangdianse"
+            style="display: inline-block;width: 140px;box-shadow:0 0 10px rgba(0,0,0,0.32);">
+        <option selected="selected" value="0">--- 分站 ---</option>
     </select>
 
-    <button type="button" data-title="搜索" class="btn btn-default glyphicon glyphicon-search searchDQ2" style="box-shadow:0 0 10px rgba(0,0,0,0.32);color: #fff;border: 1px solid #2e77e5;background-color: #2e77e5;"></button>
+    <button type="button" data-title="搜索" class="btn btn-primary glyphicon glyphicon-search searchDQ2"
+            style="margin: -4px 0 0 16px; box-shadow:0 0 10px rgba(0,0,0,0.32);"></button>
 
 </div>
-<div style="position:fixed;top:125px;right:2.8%;" id="btn1">
-<button type="button" class="btn btn-default glyphicon glyphicon-refresh" onclick="refreshmarker()"
-        style="box-shadow:0 0 10px rgba(0,0,0,0.32);color: #fff;border: 1px solid #2e77e5;background-color: #2e77e5;"></button>
+<div style="position:fixed;top:141px;right:2rem;" id="btn1">
+    <button type="button" class="btn btn-default glyphicon glyphicon-refresh" onclick="refreshmarker()"></button>
 </div>
-<div style="position:fixed;top:125px;right:2.8%;" id="btn2">
-    <button type="button" class="btn btn-default glyphicon glyphicon-refresh" onclick="addstoremarker()"
-            style="box-shadow:0 0 10px rgba(0,0,0,0.32);color: #fff;border: 1px solid #2e77e5;background-color: #2e77e5;"></button>
+<div style="position:fixed;top:141px;right:2rem;" id="btn2">
+    <button type="button" class="btn btn-default glyphicon glyphicon-refresh" onclick="addstoremarker()"></button>
 </div>
 </body>
 
 <script type="text/javascript">
     var markers = [];
-    document.getElementById("table1").style.display="block";
-    document.getElementById("table2").style.display="none";
-    document.getElementById("btn1").style.display="block";
-    document.getElementById("btn2").style.display="none";
-    $("#tabletab1").on("click",function () {
-        document.getElementById("table1").style.display="block";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("btn1").style.display="block";
-        document.getElementById("btn2").style.display="none";
+    document.getElementById("table1").style.display = "block";
+    document.getElementById("table2").style.display = "none";
+    document.getElementById("btn1").style.display = "block";
+    document.getElementById("btn2").style.display = "none";
+    $("#tabletab1").on("click", function () {
+        document.getElementById("table1").style.display = "block";
+        document.getElementById("table2").style.display = "none";
+        document.getElementById("btn1").style.display = "block";
+        document.getElementById("btn2").style.display = "none";
     });
-    $("#tabletab2").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="block";
-        document.getElementById("btn1").style.display="none";
-        document.getElementById("btn2").style.display="block";
+    $("#tabletab2").on("click", function () {
+        document.getElementById("table1").style.display = "none";
+        document.getElementById("table2").style.display = "block";
+        document.getElementById("btn1").style.display = "none";
+        document.getElementById("btn2").style.display = "block";
     });
-    $(function(){
+
+    $(function () {
         getMissiveType();
         getMissiveType2()
     });
+
     function move2() {
-        var myselect2=document.getElementById("guigese");
-        var myselect=document.getElementById("sectionName-s");
-        var index=myselect.selectedIndex ;
-        parentId=myselect.options[index].value;
+        var myselect2 = document.getElementById("guigese");
+        var myselect = document.getElementById("sectionName-s");
+        var index = myselect.selectedIndex;
+        parentId = myselect.options[index].value;
         var add;
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&parentId="+parentId+"&showFlag=0&sort=code,asc&limit=100&page=1",
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&parentId=" + parentId + "&showFlag=0&sort=code,asc&limit=100&page=1",
             method: "get",
             contentType: "application/json; charset=utf-8",
-            processData:false,
+            processData: false,
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
-            success:function(data){
-                var len=data.list.length;
-                myselect2.length=1;
-                for(i=0;i<len;i++){
-                    $("#guigese").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+            success: function (data) {
+                var len = data.list.length;
+                myselect2.length = 1;
+                for (i = 0; i < len; i++) {
+                    $("#guigese").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                 }
             }
         })
     }
-    $(function(){
 
-        $("#mytabs li").click(function() {
+    $(function () {
+
+        $("#mytabs li").click(function () {
             $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
 
             $(this).addClass('active');                            // 添加当前元素的样式
-            $(".item").each(function(index, element) {
-                if($(this).hasClass("active")){
+            $(".item").each(function (index, element) {
+                if ($(this).hasClass("active")) {
 
-                    if($(this).text()=="电池地图"){
+                    if ($(this).text() == "电池地图") {
                         refreshmarker();
 
-                    }else if($(this).text()=="网点地图"){
+                    } else if ($(this).text() == "网点地图") {
 
                         map.clearOverlays();
                         addstoremarker()
@@ -170,282 +187,322 @@
             });
 
 
-
         });
 
     });
-    function getMissiveType(){
+
+
+    function getMissiveType() {
+        var type
+        var province
+        var city
+        $(".item").each(function (index, element) {
+            if ($(this).hasClass("active")) {
+
+                if ($(this).text() == '电池地图') {
+                    var selectType = document.getElementById("select-type");
+                    var typeIndex = selectType.selectedIndex;
+                    type = selectType.options[typeIndex].value;
+                    province  = $(".selpr").val();
+                    city  = $(".selci").val();
+                } else if ($(this).text() == '网点地图') {
+                    type = 0;
+                    province  = $(".selpr2").val();
+                    city  = $(".selci2").val();
+                }
+
+            }
+        });
+
+        var currentUrl = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1'
+
+        if (province != '' && province != null) {
+            currentUrl = currentUrl + "&province=" + province
+        }
+        if (city != '' && city != null) {
+            currentUrl = currentUrl + "&city=" + city
+        }
+
+        if (type != 0) {
+            currentUrl = currentUrl + "&type=" + type
+        }
+
+        console.log('getStation:url:' + currentUrl)
+
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1",
+                url: currentUrl,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#sectionName-s').attr("length",'0');
-                    $('#sectionName-s2').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#sectionName-s").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
-                        $("#sectionName-s2").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    document.getElementById("sectionName-s").length = 1;
+                    document.getElementById("sectionName-s2").length = 1;
+
+                    for (i = 0; i < len; i++) {
+                        $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        $("#sectionName-s2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
                 },
-            error: function (jqXHR, textStatus, errorThrown) {
-                getMissiveType()
-            }
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
             }
         );
     }
-    function getMissiveType2(){
+
+    function getMissiveType2() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/specifications?sort=id,asc&categoryIds=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
-                processData:false,
+                processData: false,
                 cache: false,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("firm", sessionStorage.firmFlag);
                     xhr.setRequestHeader("Authorization", sessionStorage.token);
                 },
-                success:function(data){
-                    var len=data.list.length;
-                    $('#guigesearch').attr("length",'0');
-                    for(i=0;i<len;i++){
-                        $("#guigesearch").append($('<option value='+data.list[i].id+'>'+data.list[i].name+'</option>'));
+                success: function (data) {
+                    var len = data.list.length;
+                    $('#guigesearch').attr("length", '0');
+                    for (i = 0; i < len; i++) {
+                        $("#guigesearch").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
 
                     }
                 },
-            error: function (jqXHR, textStatus, errorThrown) {
-                getMissiveType2()
-            }
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getMissiveType2()
+                }
             }
         );
     }
 
-    window.onload=function(){
+    window.onload = function () {
         map = new BMap.Map("allmap", {});    // 创建Map实例
         map.centerAndZoom(new BMap.Point(110.404, 32.915), 5);
         map.enableScrollWheelZoom();
 
         $.ajax({
-        url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=1&page=1&limit=1000&model=map",
-        method: "get",
-        contentType: "application/json; charset=utf-8",
-        async: false,
-        cache: false,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-            xhr.setRequestHeader("Authorization", sessionStorage.token);
-        },
-        success: function (data1) {
-            var listdata=data1.list;
-            function translateOne(point, stnm,mapsn) {
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=1&page=1&limit=1000&model=map",
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (data1) {
+                var listdata = data1.list;
 
-                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                function translateOne(point, stnm, mapsn) {
 
-                        var geoc = new BMap.Geocoder();
+                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
 
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#31c065",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
+                    var geoc = new BMap.Geocoder();
 
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-            }//已租移动
-            function translateThree(point, stnm,mapsn) {
-
-                var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-
-                var geoc = new BMap.Geocoder();
-
-                var marker = new BMap.Marker(point,{icon:myIcond});
-                var labelStyle = {
-                    color: "#fff",
-                    fontFamily:"微软雅黑",
-                    border:"none",
-                    background:"transparent",
-                    fontWeight:"bold"
-                };
-                switch((stnm + '').length) {
-                    case 1:
-                        labelStyle.fontSize = "14px";
-                        offsetSize = new BMap.Size(7, 3);
-                        break;
-                    case 2:
-                        labelStyle.fontSize = "12px";
-                        offsetSize = new BMap.Size(3, 3);
-                        break;
-                    case 3:
-                        labelStyle.fontSize = "10px";
-                        offsetSize = new BMap.Size(0, 3);
-                        break;
-                    default:
-                        break;
-                }
-                var label = new BMap.Label(stnm, {offset: offsetSize
-                });
-
-                label.setStyle(labelStyle);
-                marker.setLabel(label);
-                markers.push(marker);
-                marker.addEventListener("click", function () {
-                    $.ajax({
-                        url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                        method: "get",
-                        contentType: "application/json; charset=utf-8",
-                        async: false,
-                        cache: false,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                            xhr.setRequestHeader("Authorization", sessionStorage.token);
-                        },
-                        success: function (data) {
-                            infowindo(data)
-
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-
-                            console.log("失败");
-                            console.log(jqXHR);
-                        }
+                    var marker = new BMap.Marker(point, {icon: myIcond});
+                    var labelStyle = {
+                        color: "#31c065",
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
+                    };
+                    switch ((stnm + '').length) {
+                        case 1:
+                            labelStyle.fontSize = "14px";
+                            offsetSize = new BMap.Size(7, 3);
+                            break;
+                        case 2:
+                            labelStyle.fontSize = "12px";
+                            offsetSize = new BMap.Size(3, 3);
+                            break;
+                        case 3:
+                            labelStyle.fontSize = "10px";
+                            offsetSize = new BMap.Size(0, 3);
+                            break;
+                        default:
+                            break;
+                    }
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
-                    var addre;
-                    geoc.getLocation(point, function(rs){
-                        var addComp = rs.addressComponents;
-                        addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                        $('#dizhi').html(addre)
 
+                    label.setStyle(labelStyle);
+                    marker.setLabel(label);
+                    markers.push(marker);
+                    marker.addEventListener("click", function () {
+                        $.ajax({
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            method: "get",
+                            contentType: "application/json; charset=utf-8",
+                            async: false,
+                            cache: false,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+                                xhr.setRequestHeader("Authorization", sessionStorage.token);
+                            },
+                            success: function (data) {
+                                infowindo(data)
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+
+                                console.log("失败");
+                                console.log(jqXHR);
+                            }
+                        });
+                        var addre;
+                        geoc.getLocation(point, function (rs) {
+                            var addComp = rs.addressComponents;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            $('#dizhi').html(addre)
+
+                        });
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
+                        map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
-                    var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                        "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                        "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                        "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                        "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                        "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                        "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                        "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                        "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                        "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                        "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                        "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                        "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                        "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                        "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                    var pixelX = map.pointToPixel(this.point).x-2;
-                    var pixelY = map.pointToPixel(this.point).y+4;
-                    map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                });
 
 
-            }//已租移动
+                }//已租移动
+                function translateThree(point, stnm, mapsn) {
 
-            for (var i = 0; i < listdata.length; i++) {
-                var mapsn = listdata[i]['ccuSn'];
+                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
 
-                if (listdata[i]['lon']&&listdata[i].status==3) {
-                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                    var stnm = listdata[i]['bmsSoc'];
-                    var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                    var ccusn=listdata[i].ccuSn
-                    translateOne(point, stnm,mapsn);
-                }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                    var stnm = listdata[i]['bmsSoc'];
-                    var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                    var ccusn=listdata[i].ccuSn
-                    translateThree(point, stnm,mapsn);
+                    var geoc = new BMap.Geocoder();
+
+                    var marker = new BMap.Marker(point, {icon: myIcond});
+                    var labelStyle = {
+                        color: "#fff",
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
+                    };
+                    switch ((stnm + '').length) {
+                        case 1:
+                            labelStyle.fontSize = "14px";
+                            offsetSize = new BMap.Size(7, 3);
+                            break;
+                        case 2:
+                            labelStyle.fontSize = "12px";
+                            offsetSize = new BMap.Size(3, 3);
+                            break;
+                        case 3:
+                            labelStyle.fontSize = "10px";
+                            offsetSize = new BMap.Size(0, 3);
+                            break;
+                        default:
+                            break;
+                    }
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
+                    });
+
+                    label.setStyle(labelStyle);
+                    marker.setLabel(label);
+                    markers.push(marker);
+                    marker.addEventListener("click", function () {
+                        $.ajax({
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            method: "get",
+                            contentType: "application/json; charset=utf-8",
+                            async: false,
+                            cache: false,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+                                xhr.setRequestHeader("Authorization", sessionStorage.token);
+                            },
+                            success: function (data) {
+                                infowindo(data)
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+
+                                console.log("失败");
+                                console.log(jqXHR);
+                            }
+                        });
+                        var addre;
+                        geoc.getLocation(point, function (rs) {
+                            var addComp = rs.addressComponents;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            $('#dizhi').html(addre)
+
+                        });
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
+                        map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
+                    });
+
+
+                }//已租移动
+
+                for (var i = 0; i < listdata.length; i++) {
+                    var mapsn = listdata[i]['ccuSn'];
+
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                        var stnm = listdata[i]['bmsSoc'];
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var ccusn = listdata[i].ccuSn
+                        translateOne(point, stnm, mapsn);
+                    } else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                        var stnm = listdata[i]['bmsSoc'];
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var ccusn = listdata[i].ccuSn
+                        translateThree(point, stnm, mapsn);
+                    }
                 }
+
+                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers});
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log("失败");
+                console.log(jqXHR);
             }
-
-            var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
-
-
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-
-            console.log("失败");
-            console.log(jqXHR);
-        }
-    });
+        });
 
         $.ajax({
             url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=3&page=1&limit=1000&model=map",
@@ -458,22 +515,23 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data1) {
-                var listdata=data1.list;
-                function translateOne(point, stnm,mapsn) {
+                var listdata = data1.list;
 
-                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                function translateOne(point, stnm, mapsn) {
+
+                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
 
                     var geoc = new BMap.Geocoder();
 
-                    var marker = new BMap.Marker(point,{icon:myIcond});
+                    var marker = new BMap.Marker(point, {icon: myIcond});
                     var labelStyle = {
                         color: "#31c065",
-                        fontFamily:"微软雅黑",
-                        border:"none",
-                        background:"transparent",
-                        fontWeight:"bold"
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
                     };
-                    switch((stnm + '').length) {
+                    switch ((stnm + '').length) {
                         case 1:
                             labelStyle.fontSize = "14px";
                             offsetSize = new BMap.Size(7, 3);
@@ -489,14 +547,15 @@
                         default:
                             break;
                     }
-                    var label = new BMap.Label(stnm, {offset: offsetSize
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
 
                     label.setStyle(labelStyle);
                     marker.setLabel(label);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -516,51 +575,50 @@
                             }
                         });
                         var addre;
-                        geoc.getLocation(point, function(rs){
+                        geoc.getLocation(point, function (rs) {
                             var addComp = rs.addressComponents;
-                            addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                             $('#dizhi').html(addre)
 
                         });
-                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                            "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                            "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                            "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                            "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                            "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                        var pixelX = map.pointToPixel(this.point).x-2;
-                        var pixelY = map.pointToPixel(this.point).y+4;
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
                         map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
                     markers.push(marker);
 
 
-
                 }//未租移动
-                function translateThree(point, stnm,mapsn) {
+                function translateThree(point, stnm, mapsn) {
 
-                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
 
                     var geoc = new BMap.Geocoder();
 
-                    var marker = new BMap.Marker(point,{icon:myIcond});
+                    var marker = new BMap.Marker(point, {icon: myIcond});
                     var labelStyle = {
                         color: "#fff",
-                        fontFamily:"微软雅黑",
-                        border:"none",
-                        background:"transparent",
-                        fontWeight:"bold"
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
                     };
-                    switch((stnm + '').length) {
+                    switch ((stnm + '').length) {
                         case 1:
                             labelStyle.fontSize = "14px";
                             offsetSize = new BMap.Size(7, 3);
@@ -576,7 +634,8 @@
                         default:
                             break;
                     }
-                    var label = new BMap.Label(stnm, {offset: offsetSize
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
 
                     label.setStyle(labelStyle);
@@ -584,7 +643,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -604,29 +663,29 @@
                             }
                         });
                         var addre;
-                        geoc.getLocation(point, function(rs){
+                        geoc.getLocation(point, function (rs) {
                             var addComp = rs.addressComponents;
-                            addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                             $('#dizhi').html(addre)
 
                         });
-                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                            "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                            "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                            "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                            "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                            "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                        var pixelX = map.pointToPixel(this.point).x-2;
-                        var pixelY = map.pointToPixel(this.point).y+4;
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
                         map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
 
@@ -636,24 +695,22 @@
                 for (var i = 0; i < listdata.length; i++) {
                     var mapsn = listdata[i]['ccuSn'];
 
-                    if (listdata[i]['lon']&&listdata[i].status==3) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         var stnm = listdata[i]['bmsSoc'];
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                        var ccusn=listdata[i].ccuSn
-                        translateOne(point, stnm,mapsn);
-                    }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                        var ccusn = listdata[i].ccuSn
+                        translateOne(point, stnm, mapsn);
+                    } else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         var stnm = listdata[i]['bmsSoc'];
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                        var ccusn=listdata[i].ccuSn
-                        translateThree(point, stnm,mapsn);
+                        var ccusn = listdata[i].ccuSn
+                        translateThree(point, stnm, mapsn);
                     }
                 }
 
-                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
-
+                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers});
 
 
             },
@@ -665,18 +722,19 @@
         });
 
 
-};
+    };
+
     function infowindo(obj) {
-        var pointdata=obj.list;
-        sessionStorage.wangdian=pointdata[0].storeName;
-        sessionStorage.guige=pointdata[0].productEntity.name;
-        if(pointdata[0].usedDays==null||pointdata[0].usedDays=="null"){
-            sessionStorage.zuqi=""
-        }else {
-            sessionStorage.zuqi=pointdata[0].usedDays+"天"
+        var pointdata = obj.list;
+        sessionStorage.wangdian = pointdata[0].storeName;
+        sessionStorage.guige = pointdata[0].productEntity.name;
+        if (pointdata[0].usedDays == null || pointdata[0].usedDays == "null") {
+            sessionStorage.zuqi = ""
+        } else {
+            sessionStorage.zuqi = pointdata[0].usedDays + "天"
         }
-        sessionStorage.youxiaoqi=pointdata[0].surplusTime;
-        if (pointdata[0].owner!= null) {
+        sessionStorage.youxiaoqi = pointdata[0].surplusTime;
+        if (pointdata[0].owner != null) {
             if (pointdata[0].owner.realname == null) {
                 sessionStorage.xingming = "";
             } else {
@@ -685,7 +743,7 @@
         } else {
             sessionStorage.xingming = ""
         }
-        if (pointdata[0].owner!= null) {
+        if (pointdata[0].owner != null) {
             if (pointdata[0].owner.phoneNumber == null) {
                 sessionStorage.lianxi = "";
             } else {
@@ -694,50 +752,53 @@
         } else {
             sessionStorage.lianxi = ""
         }
-        if(pointdata[0].status==17){
-            sessionStorage.jinyong="禁用"
-        }else{
-            sessionStorage.jinyong="启用"
+        if (pointdata[0].status == 17) {
+            sessionStorage.jinyong = "禁用"
+        } else {
+            sessionStorage.jinyong = "启用"
         }
-        if(pointdata[0].status==3){
-            sessionStorage.zhuangtai="移动"
-        }else{
-            sessionStorage.zhuangtai="静止"
+        if (pointdata[0].status == 3) {
+            sessionStorage.zhuangtai = "移动"
+        } else {
+            sessionStorage.zhuangtai = "静止"
         }
-        sessionStorage.dianya=pointdata[0].voltageString;
-        sessionStorage.dianliang=pointdata[0].bmsSoc;
-        sessionStorage.licheng=pointdata[0].odo;
-        sessionStorage.jinri=pointdata[0].dayOdo;
-        sessionStorage.gengxin=pointdata[0].reportTime;
+        sessionStorage.dianya = pointdata[0].voltageString;
+        sessionStorage.dianliang = pointdata[0].bmsSoc;
+        sessionStorage.licheng = pointdata[0].odo;
+        sessionStorage.jinri = pointdata[0].dayOdo;
+        sessionStorage.gengxin = pointdata[0].reportTime;
     }
 
 
-    var poins=function (data) {
+    var poins = function (data) {
 
         if (!data) return;
-        var points=[];
-        var num=parseInt(data.length/10);
-        function  sliceArr(arr,size) {
-            var result=[];
-            for(var i=0;i<Math.ceil(arr.length / size);i++){
-                var start=i*size;
-                var end=(i+1)*size;
-                result.push(arr.slice(start,end))
+        var points = [];
+        var num = parseInt(data.length / 10);
+
+        function sliceArr(arr, size) {
+            var result = [];
+            for (var i = 0; i < Math.ceil(arr.length / size); i++) {
+                var start = i * size;
+                var end = (i + 1) * size;
+                result.push(arr.slice(start, end))
             }
 
             return result
         }
-       for(var  i=0;i<data.length;i++){
-     points.push(new BMap.Point(data[i]['lon'],data[i]['lat']))
-     }
-        var arr=sliceArr(points,5);
+
+        for (var i = 0; i < data.length; i++) {
+            points.push(new BMap.Point(data[i]['lon'], data[i]['lat']))
+        }
+        var arr = sliceArr(points, 5);
         return arr
     };
 
-    function addMarker(point){
+    function addMarker(point) {
         var marker = new BMap.Marker(point);
         map.addOverlay(marker);
     }
+
     function addstoremarker() {
         map = new BMap.Map("allmap", {});    // 创建Map实例
         map.centerAndZoom(new BMap.Point(110.404, 32.915), 5);
@@ -754,17 +815,17 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data1) {
-                var listdata=data1.list;
+                var listdata = data1.list;
 
                 function translateOne(pointArr) {
-                        var myIcond = new BMap.Icon("./img/ebike_store_new.png", new BMap.Size(30,60));
-                        var marker = new BMap.Marker(pointArr[0],{icon:myIcond});
-                        map.addOverlay(marker);
+                    var myIcond = new BMap.Icon("./img/ebike_store_new.png", new BMap.Size(30, 60));
+                    var marker = new BMap.Marker(pointArr[0], {icon: myIcond});
+                    map.addOverlay(marker);
                 }
 
                 for (var i = 0; i < listdata.length; i++) {
 
-                    if(listdata[i]['lon']&&['lat']) {
+                    if (listdata[i]['lon'] && ['lat']) {
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
                         var convertor = new BMap.Convertor();
                         var pointArr = [];
@@ -783,6 +844,7 @@
             }
         });
     }
+
     function refreshmarker() {
         map.clearOverlays();
         map = new BMap.Map("allmap", {});    // 创建Map实例
@@ -800,22 +862,23 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data1) {
-                var listdata=data1.list;
-                function translateOne(point, stnm,mapsn) {
+                var listdata = data1.list;
 
-                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                function translateOne(point, stnm, mapsn) {
+
+                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
 
                     var geoc = new BMap.Geocoder();
 
-                    var marker = new BMap.Marker(point,{icon:myIcond});
+                    var marker = new BMap.Marker(point, {icon: myIcond});
                     var labelStyle = {
                         color: "#31c065",
-                        fontFamily:"微软雅黑",
-                        border:"none",
-                        background:"transparent",
-                        fontWeight:"bold"
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
                     };
-                    switch((stnm + '').length) {
+                    switch ((stnm + '').length) {
                         case 1:
                             labelStyle.fontSize = "14px";
                             offsetSize = new BMap.Size(7, 3);
@@ -831,7 +894,8 @@
                         default:
                             break;
                     }
-                    var label = new BMap.Label(stnm, {offset: offsetSize
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
 
                     label.setStyle(labelStyle);
@@ -839,7 +903,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -859,49 +923,49 @@
                             }
                         });
                         var addre;
-                        geoc.getLocation(point, function(rs){
+                        geoc.getLocation(point, function (rs) {
                             var addComp = rs.addressComponents;
-                            addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                             $('#dizhi').html(addre)
 
                         });
-                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                            "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                            "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                            "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                            "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                            "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                        var pixelX = map.pointToPixel(this.point).x-2;
-                        var pixelY = map.pointToPixel(this.point).y+4;
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
                         map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
 
 
                 }//已租移动
-                function translateThree(point, stnm,mapsn) {
+                function translateThree(point, stnm, mapsn) {
 
-                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
 
                     var geoc = new BMap.Geocoder();
 
-                    var marker = new BMap.Marker(point,{icon:myIcond});
+                    var marker = new BMap.Marker(point, {icon: myIcond});
                     var labelStyle = {
                         color: "#fff",
-                        fontFamily:"微软雅黑",
-                        border:"none",
-                        background:"transparent",
-                        fontWeight:"bold"
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
                     };
-                    switch((stnm + '').length) {
+                    switch ((stnm + '').length) {
                         case 1:
                             labelStyle.fontSize = "14px";
                             offsetSize = new BMap.Size(7, 3);
@@ -917,7 +981,8 @@
                         default:
                             break;
                     }
-                    var label = new BMap.Label(stnm, {offset: offsetSize
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
 
                     label.setStyle(labelStyle);
@@ -925,7 +990,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -945,29 +1010,29 @@
                             }
                         });
                         var addre;
-                        geoc.getLocation(point, function(rs){
+                        geoc.getLocation(point, function (rs) {
                             var addComp = rs.addressComponents;
-                            addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                             $('#dizhi').html(addre)
 
                         });
-                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                            "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                            "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                            "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                            "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                            "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                        var pixelX = map.pointToPixel(this.point).x-2;
-                        var pixelY = map.pointToPixel(this.point).y+4;
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
                         map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
 
@@ -977,24 +1042,22 @@
                 for (var i = 0; i < listdata.length; i++) {
                     var mapsn = listdata[i]['ccuSn'];
 
-                    if (listdata[i]['lon']&&listdata[i].status==3) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         var stnm = listdata[i]['bmsSoc'];
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                        var ccusn=listdata[i].ccuSn
-                        translateOne(point, stnm,mapsn);
-                    }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                        var ccusn = listdata[i].ccuSn
+                        translateOne(point, stnm, mapsn);
+                    } else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         var stnm = listdata[i]['bmsSoc'];
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                        var ccusn=listdata[i].ccuSn
-                        translateThree(point, stnm,mapsn);
+                        var ccusn = listdata[i].ccuSn
+                        translateThree(point, stnm, mapsn);
                     }
                 }
 
-                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
-
+                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers});
 
 
             },
@@ -1016,22 +1079,23 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data1) {
-                var listdata=data1.list;
-                function translateOne(point, stnm,mapsn) {
+                var listdata = data1.list;
 
-                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                function translateOne(point, stnm, mapsn) {
+
+                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
 
                     var geoc = new BMap.Geocoder();
 
-                    var marker = new BMap.Marker(point,{icon:myIcond});
+                    var marker = new BMap.Marker(point, {icon: myIcond});
                     var labelStyle = {
                         color: "#31c065",
-                        fontFamily:"微软雅黑",
-                        border:"none",
-                        background:"transparent",
-                        fontWeight:"bold"
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
                     };
-                    switch((stnm + '').length) {
+                    switch ((stnm + '').length) {
                         case 1:
                             labelStyle.fontSize = "14px";
                             offsetSize = new BMap.Size(7, 3);
@@ -1047,7 +1111,8 @@
                         default:
                             break;
                     }
-                    var label = new BMap.Label(stnm, {offset: offsetSize
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
 
                     label.setStyle(labelStyle);
@@ -1055,7 +1120,7 @@
 //                        map.addOverlay(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1075,51 +1140,50 @@
                             }
                         });
                         var addre;
-                        geoc.getLocation(point, function(rs){
+                        geoc.getLocation(point, function (rs) {
                             var addComp = rs.addressComponents;
-                            addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                             $('#dizhi').html(addre)
 
                         });
-                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                            "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                            "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                            "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                            "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                            "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                        var pixelX = map.pointToPixel(this.point).x-2;
-                        var pixelY = map.pointToPixel(this.point).y+4;
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
                         map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
                     markers.push(marker);
 
 
-
                 }//未租移动
-                function translateThree(point, stnm,mapsn) {
+                function translateThree(point, stnm, mapsn) {
 
-                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                    var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
 
                     var geoc = new BMap.Geocoder();
 
-                    var marker = new BMap.Marker(point,{icon:myIcond});
+                    var marker = new BMap.Marker(point, {icon: myIcond});
                     var labelStyle = {
                         color: "#fff",
-                        fontFamily:"微软雅黑",
-                        border:"none",
-                        background:"transparent",
-                        fontWeight:"bold"
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
                     };
-                    switch((stnm + '').length) {
+                    switch ((stnm + '').length) {
                         case 1:
                             labelStyle.fontSize = "14px";
                             offsetSize = new BMap.Size(7, 3);
@@ -1135,7 +1199,8 @@
                         default:
                             break;
                     }
-                    var label = new BMap.Label(stnm, {offset: offsetSize
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
                     });
 
                     label.setStyle(labelStyle);
@@ -1143,7 +1208,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1163,29 +1228,29 @@
                             }
                         });
                         var addre;
-                        geoc.getLocation(point, function(rs){
+                        geoc.getLocation(point, function (rs) {
                             var addComp = rs.addressComponents;
-                            addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
                             $('#dizhi').html(addre)
 
                         });
-                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                            "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                            "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                            "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                            "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                            "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                        var pixelX = map.pointToPixel(this.point).x-2;
-                        var pixelY = map.pointToPixel(this.point).y+4;
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
                         map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                     });
 
@@ -1195,24 +1260,22 @@
                 for (var i = 0; i < listdata.length; i++) {
                     var mapsn = listdata[i]['ccuSn'];
 
-                    if (listdata[i]['lon']&&listdata[i].status==3) {
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         var stnm = listdata[i]['bmsSoc'];
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                        var ccusn=listdata[i].ccuSn
-                        translateOne(point, stnm,mapsn);
-                    }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                        var ccusn = listdata[i].ccuSn
+                        translateOne(point, stnm, mapsn);
+                    } else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
                         var stnm = listdata[i]['bmsSoc'];
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                        var ccusn=listdata[i].ccuSn
-                        translateThree(point, stnm,mapsn);
+                        var ccusn = listdata[i].ccuSn
+                        translateThree(point, stnm, mapsn);
                     }
                 }
 
-                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
-
+                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers});
 
 
             },
@@ -1225,7 +1288,8 @@
 
 
     }
-    $(".searchDQ").on("click",function () {
+
+    $(".searchDQ").on("click", function () {
         map.clearOverlays();
         map = new BMap.Map("allmap", {});    // 创建Map实例
         map.centerAndZoom(new BMap.Point(110.404, 32.915), 5);
@@ -1234,8 +1298,11 @@
         var myselect4 = document.getElementById("zulinse");
         var index4 = myselect4.selectedIndex;
         zulin = myselect4.options[index4].value;
-        console.log(zulin);
-        if (zulin == "0") {
+        console.log('zulin :' + zulin);
+
+        var selectType = document.getElementById("select-type");
+        var typeIndex = selectType.selectedIndex;
+        var type = selectType.options[typeIndex].value;
 
 
         var url;
@@ -1252,11 +1319,11 @@
         var myselect2 = document.getElementById("guigese");
         var index2 = myselect2.selectedIndex;
         idstore2 = myselect2.options[index2].value;
-        var myselect3=document.getElementById("guigesearch");
-        var index3=myselect3.selectedIndex ;
-        idpro=myselect3.options[index3].value;
+        var myselect3 = document.getElementById("guigesearch");
+        var index3 = myselect3.selectedIndex;
+        idpro = myselect3.options[index3].value;
 
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&page=1&limit=1000&model=map";
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&type=4&page=1&limit=1000&model=map";
         if (a == "") {
             url = url
         } else {
@@ -1281,1002 +1348,484 @@
                 url = url + "&storeId=" + idstore2
             }
         }
-        if (idpro=="0"){
-            url=url
-        }else{
-            url=url+"&productId="+idpro
+        if (idpro == "0") {
+            url = url
+        } else {
+            url = url + "&productId=" + idpro
         }
+
+        if (type == "0") {
+            url = url
+        } else {
+            url = url + "&storeType=" + type
+        }
+
         console.log(url);
-            $.ajax({
-                url: url+"&storeTypes=0,40&filterType=1",
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success: function (data1) {
-                    var listdata=data1.list;
-                    function translateOne(point, stnm,mapsn) {
+        $.ajax({
+            url: url + (zulin > 0 ? ('&categories=1,2&filterType=' + zulin): ''),
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (data1) {
+                var listdata = data1.list;
 
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                function translateOne(point, stnm, mapsn) {
 
-                        var geoc = new BMap.Geocoder();
+                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
 
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#31c065",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
+                    var geoc = new BMap.Geocoder();
 
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-                    }//已租移动
-                    function translateThree(point, stnm,mapsn) {
-
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-
-                        var geoc = new BMap.Geocoder();
-
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#fff",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
-
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-                    }//已租移动
-
-                    for (var i = 0; i < listdata.length; i++) {
-                        var mapsn = listdata[i]['ccuSn'];
-
-                        if (listdata[i]['lon']&&listdata[i].status==3) {
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateOne(point, stnm,mapsn);
-                        }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateThree(point, stnm,mapsn);
-                        }
+                    var marker = new BMap.Marker(point, {icon: myIcond});
+                    var labelStyle = {
+                        color: "#31c065",
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
+                    };
+                    switch ((stnm + '').length) {
+                        case 1:
+                            labelStyle.fontSize = "14px";
+                            offsetSize = new BMap.Size(7, 3);
+                            break;
+                        case 2:
+                            labelStyle.fontSize = "12px";
+                            offsetSize = new BMap.Size(3, 3);
+                            break;
+                        case 3:
+                            labelStyle.fontSize = "10px";
+                            offsetSize = new BMap.Size(0, 3);
+                            break;
+                        default:
+                            break;
                     }
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
+                    });
 
-                    var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
+                    label.setStyle(labelStyle);
+                    marker.setLabel(label);
+                    markers.push(marker);
+                    marker.addEventListener("click", function () {
+                        $.ajax({
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            method: "get",
+                            contentType: "application/json; charset=utf-8",
+                            async: false,
+                            cache: false,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+                                xhr.setRequestHeader("Authorization", sessionStorage.token);
+                            },
+                            success: function (data) {
+                                infowindo(data)
 
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
 
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-
-                    console.log("失败");
-                    console.log(jqXHR);
-                }
-            });
-            $.ajax({
-                url: url+"&storeTypes=0,40&filterType=3",
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success: function (data1) {
-                    var listdata=data1.list;
-                    function translateOne(point, stnm,mapsn) {
-
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-
-                        var geoc = new BMap.Geocoder();
-
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#31c065",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
+                                console.log("失败");
+                                console.log(jqXHR);
+                            }
                         });
+                        var addre;
+                        geoc.getLocation(point, function (rs) {
+                            var addComp = rs.addressComponents;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            $('#dizhi').html(addre)
 
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                         });
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
+                        map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
+                    });
 
 
-                    }//已租移动
-                    function translateThree(point, stnm,mapsn) {
+                }//已租移动
+                function translateThree(point, stnm, mapsn) {
 
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
+                    var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
 
-                        var geoc = new BMap.Geocoder();
+                    var geoc = new BMap.Geocoder();
 
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#fff",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
-
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-                    }//已租移动
-
-                    for (var i = 0; i < listdata.length; i++) {
-                        var mapsn = listdata[i]['ccuSn'];
-
-                        if (listdata[i]['lon']&&listdata[i].status==3) {
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateOne(point, stnm,mapsn);
-                        }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateThree(point, stnm,mapsn);
-                        }
+                    var marker = new BMap.Marker(point, {icon: myIcond});
+                    var labelStyle = {
+                        color: "#fff",
+                        fontFamily: "微软雅黑",
+                        border: "none",
+                        background: "transparent",
+                        fontWeight: "bold"
+                    };
+                    switch ((stnm + '').length) {
+                        case 1:
+                            labelStyle.fontSize = "14px";
+                            offsetSize = new BMap.Size(7, 3);
+                            break;
+                        case 2:
+                            labelStyle.fontSize = "12px";
+                            offsetSize = new BMap.Size(3, 3);
+                            break;
+                        case 3:
+                            labelStyle.fontSize = "10px";
+                            offsetSize = new BMap.Size(0, 3);
+                            break;
+                        default:
+                            break;
                     }
+                    var label = new BMap.Label(stnm, {
+                        offset: offsetSize
+                    });
 
-                    var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
+                    label.setStyle(labelStyle);
+                    marker.setLabel(label);
+                    markers.push(marker);
+                    marker.addEventListener("click", function () {
+                        $.ajax({
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            method: "get",
+                            contentType: "application/json; charset=utf-8",
+                            async: false,
+                            cache: false,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+                                xhr.setRequestHeader("Authorization", sessionStorage.token);
+                            },
+                            success: function (data) {
+                                infowindo(data)
 
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
 
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-
-                    console.log("失败");
-                    console.log(jqXHR);
-                }
-            });
-    }else if(zulin=="1"){
-            map.clearOverlays();
-            var url;
-            var a = $(".selpr").val();
-            var b = $(".selci").val();
-            var c = $(".selco").val();
-
-            var myselect = document.getElementById("sectionName-s");
-            var index = myselect.selectedIndex;
-            idstore1 = myselect.options[index].value;
-            var myselect2 = document.getElementById("guigese");
-            var index2 = myselect2.selectedIndex;
-            idstore2 = myselect2.options[index2].value;
-            var myselect2 = document.getElementById("guigesearch");
-            var index2 = myselect2.selectedIndex;
-            idpro = myselect2.options[index2].value;
-            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&page=1&limit=1000&model=map";
-            if (a == "") {
-                url = url
-            } else {
-                url = url + "&province=" + a
-            }
-            if (b == "") {
-                url = url
-            } else {
-                url = url + "&city=" + b
-            }
-            if (c == "") {
-                url = url
-            } else {
-                url = url + "&county=" + c
-            }
-            if (idstore1 == "0") {
-                url = url
-            } else {
-                if (idstore2 == "0") {
-                    url = url + "&dealerId=" + idstore1
-                } else {
-                    url = url + "&storeId=" + idstore2
-                }
-            }
-            if (idpro=="0"){
-                url=url
-            }else{
-                url=url+"&productId="+idpro
-            }
-            console.log(url);
-            $.ajax({
-                url: url+"&storeTypes=0,40&filterType=1",
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success: function (data1) {
-                    var listdata=data1.list;
-                    function translateOne(point, stnm,mapsn) {
-
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-
-                        var geoc = new BMap.Geocoder();
-
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#31c065",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
+                                console.log("失败");
+                                console.log(jqXHR);
+                            }
                         });
+                        var addre;
+                        geoc.getLocation(point, function (rs) {
+                            var addComp = rs.addressComponents;
+                            addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                            $('#dizhi').html(addre)
 
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
                         });
+                        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+                            "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+                            "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+                            "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+                            "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+                            "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+                            "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+                            "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+                            "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+                            "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+                            "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+                            "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+                            "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+                            "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+                            "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+                        var pixelX = map.pointToPixel(this.point).x - 2;
+                        var pixelY = map.pointToPixel(this.point).y + 4;
+                        map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
+                    });
 
 
-                    }//已租移动
-                    function translateThree(point, stnm,mapsn) {
+                }//已租移动
 
-                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
+                for (var i = 0; i < listdata.length; i++) {
+                    var mapsn = listdata[i]['ccuSn'];
 
-                        var geoc = new BMap.Geocoder();
-
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#fff",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
-
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-                    }//已租移动
-
-                    for (var i = 0; i < listdata.length; i++) {
-                        var mapsn = listdata[i]['ccuSn'];
-
-                        if (listdata[i]['lon']&&listdata[i].status==3) {
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateOne(point, stnm,mapsn);
-                        }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateThree(point, stnm,mapsn);
-                        }
+                    if (listdata[i]['lon'] && listdata[i].status == 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                        var stnm = listdata[i]['bmsSoc'];
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var ccusn = listdata[i].ccuSn
+                        translateOne(point, stnm, mapsn);
+                    } else if (listdata[i]['lon'] && listdata[i].status != 3) {
+                        var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+                        var stnm = listdata[i]['bmsSoc'];
+                        var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+                        var ccusn = listdata[i].ccuSn
+                        translateThree(point, stnm, mapsn);
                     }
-
-                    var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
-
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-
-                    console.log("失败");
-                    console.log(jqXHR);
                 }
-            });
 
-        }else if(zulin=="3"){
-            map.clearOverlays();
-            var url;
-            var a = $(".selpr").val();
-            var b = $(".selci").val();
-            var c = $(".selco").val();
+                var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers});
 
-            var myselect = document.getElementById("sectionName-s");
-            var index = myselect.selectedIndex;
-            idstore1 = myselect.options[index].value;
-            var myselect2 = document.getElementById("guigese");
-            var index2 = myselect2.selectedIndex;
-            idstore2 = myselect2.options[index2].value;
-            var myselect2 = document.getElementById("guigesearch");
-            var index2 = myselect2.selectedIndex;
-            idpro = myselect2.options[index2].value;
-            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?adminFlag=ss&type=4&page=1&limit=1000&model=map";
-            if (a == "") {
-                url = url
-            } else {
-                url = url + "&province=" + a
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log("失败");
+                console.log(jqXHR);
             }
-            if (b == "") {
-                url = url
-            } else {
-                url = url + "&city=" + b
-            }
-            if (c == "") {
-                url = url
-            } else {
-                url = url + "&county=" + c
-            }
-            if (idstore1 == "0") {
-                url = url
-            } else {
-                if (idstore2 == "0") {
-                    url = url + "&dealerId=" + idstore1
-                } else {
-                    url = url + "&storeId=" + idstore2
-                }
-            }
-            if (idpro=="0"){
-                url=url
-            }else{
-                url=url+"&productId="+idpro
-            }
-            console.log(url);
-            $.ajax({
-                url: url+"&storeTypes=0,40&filterType=3",
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                cache: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success: function (data1) {
-                    var listdata=data1.list;
-                    function translateOne(point, stnm,mapsn) {
+        });
+        // $.ajax({
+        //     url: url + "&filterType=3",
+        //     method: "get",
+        //     contentType: "application/json; charset=utf-8",
+        //     async: false,
+        //     cache: false,
+        //     beforeSend: function (xhr) {
+        //         xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+        //         xhr.setRequestHeader("Authorization", sessionStorage.token);
+        //     },
+        //     success: function (data1) {
+        //         var listdata = data1.list;
+        //
+        //         function translateOne(point, stnm, mapsn) {
+        //
+        //             var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+        //
+        //             var geoc = new BMap.Geocoder();
+        //
+        //             var marker = new BMap.Marker(point, {icon: myIcond});
+        //             var labelStyle = {
+        //                 color: "#31c065",
+        //                 fontFamily: "微软雅黑",
+        //                 border: "none",
+        //                 background: "transparent",
+        //                 fontWeight: "bold"
+        //             };
+        //             switch ((stnm + '').length) {
+        //                 case 1:
+        //                     labelStyle.fontSize = "14px";
+        //                     offsetSize = new BMap.Size(7, 3);
+        //                     break;
+        //                 case 2:
+        //                     labelStyle.fontSize = "12px";
+        //                     offsetSize = new BMap.Size(3, 3);
+        //                     break;
+        //                 case 3:
+        //                     labelStyle.fontSize = "10px";
+        //                     offsetSize = new BMap.Size(0, 3);
+        //                     break;
+        //                 default:
+        //                     break;
+        //             }
+        //             var label = new BMap.Label(stnm, {
+        //                 offset: offsetSize
+        //             });
+        //
+        //             label.setStyle(labelStyle);
+        //             marker.setLabel(label);
+        //             markers.push(marker);
+        //             marker.addEventListener("click", function () {
+        //                 $.ajax({
+        //                     url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+        //                     method: "get",
+        //                     contentType: "application/json; charset=utf-8",
+        //                     async: false,
+        //                     cache: false,
+        //                     beforeSend: function (xhr) {
+        //                         xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+        //                         xhr.setRequestHeader("Authorization", sessionStorage.token);
+        //                     },
+        //                     success: function (data) {
+        //                         infowindo(data)
+        //
+        //                     },
+        //                     error: function (jqXHR, textStatus, errorThrown) {
+        //
+        //                         console.log("失败");
+        //                         console.log(jqXHR);
+        //                     }
+        //                 });
+        //                 var addre;
+        //                 geoc.getLocation(point, function (rs) {
+        //                     var addComp = rs.addressComponents;
+        //                     addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+        //                     $('#dizhi').html(addre)
+        //
+        //                 });
+        //                 var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+        //                     "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+        //                     "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+        //                     "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+        //                     "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+        //                     "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+        //                     "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+        //                     "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+        //                     "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+        //                     "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+        //                     "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+        //                     "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+        //                     "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+        //                     "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+        //                     "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+        //                 var pixelX = map.pointToPixel(this.point).x - 2;
+        //                 var pixelY = map.pointToPixel(this.point).y + 4;
+        //                 map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
+        //             });
+        //
+        //
+        //         }//已租移动
+        //         function translateThree(point, stnm, mapsn) {
+        //
+        //             var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30, 60));
+        //
+        //             var geoc = new BMap.Geocoder();
+        //
+        //             var marker = new BMap.Marker(point, {icon: myIcond});
+        //             var labelStyle = {
+        //                 color: "#fff",
+        //                 fontFamily: "微软雅黑",
+        //                 border: "none",
+        //                 background: "transparent",
+        //                 fontWeight: "bold"
+        //             };
+        //             switch ((stnm + '').length) {
+        //                 case 1:
+        //                     labelStyle.fontSize = "14px";
+        //                     offsetSize = new BMap.Size(7, 3);
+        //                     break;
+        //                 case 2:
+        //                     labelStyle.fontSize = "12px";
+        //                     offsetSize = new BMap.Size(3, 3);
+        //                     break;
+        //                 case 3:
+        //                     labelStyle.fontSize = "10px";
+        //                     offsetSize = new BMap.Size(0, 3);
+        //                     break;
+        //                 default:
+        //                     break;
+        //             }
+        //             var label = new BMap.Label(stnm, {
+        //                 offset: offsetSize
+        //             });
+        //
+        //             label.setStyle(labelStyle);
+        //             marker.setLabel(label);
+        //             markers.push(marker);
+        //             marker.addEventListener("click", function () {
+        //                 $.ajax({
+        //                     url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+        //                     method: "get",
+        //                     contentType: "application/json; charset=utf-8",
+        //                     async: false,
+        //                     cache: false,
+        //                     beforeSend: function (xhr) {
+        //                         xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
+        //                         xhr.setRequestHeader("Authorization", sessionStorage.token);
+        //                     },
+        //                     success: function (data) {
+        //                         infowindo(data)
+        //
+        //                     },
+        //                     error: function (jqXHR, textStatus, errorThrown) {
+        //
+        //                         console.log("失败");
+        //                         console.log(jqXHR);
+        //                     }
+        //                 });
+        //                 var addre;
+        //                 geoc.getLocation(point, function (rs) {
+        //                     var addComp = rs.addressComponents;
+        //                     addre = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+        //                     $('#dizhi').html(addre)
+        //
+        //                 });
+        //                 var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + "<br/>" + "序列号：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + mapsn + "</span>" + "<br/>" +
+        //                     "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.guige + "</span>" + "<br/>" +
+        //                     "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.wangdian + "</span>" + "<br/>" +
+        //                     "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zuqi + "</span>" + "<br/>" +
+        //                     "有效期：&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.youxiaoqi + "</span>" + "<br/>" +
+        //                     "用户姓名：" + "<span style='padding-bottom: 20px'>" + sessionStorage.xingming + "</span>" + "<br/>" +
+        //                     "联系方式：" + "<span style='padding-bottom: 20px'>" + sessionStorage.lianxi + "</span>" + "<br/>" +
+        //                     "电池输出：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinyong + "</span>" + "<br/>" +
+        //                     "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.zhuangtai + "</span>" + "<br/>" +
+        //                     "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianya + "V" + "</span>" + "<br/>" +
+        //                     "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.dianliang + "%" + "</span>" + "<br/>" +
+        //                     "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span style='padding-bottom: 20px'>" + sessionStorage.licheng + "km" + "</span>" + "<br/>" +
+        //                     "今日里程：" + "<span style='padding-bottom: 20px'>" + sessionStorage.jinri + "km" + "</span>" + "<br/>" +
+        //                     "更新时间：" + "<span style='padding-bottom: 20px'>" + sessionStorage.gengxin + "</span>" + "<br/>" +
+        //                     "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<span id='dizhi' style='padding-bottom: 20px'></span>" + "<br/>" + "</p>");
+        //                 var pixelX = map.pointToPixel(this.point).x - 2;
+        //                 var pixelY = map.pointToPixel(this.point).y + 4;
+        //                 map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
+        //             });
+        //
+        //
+        //         }//已租移动
+        //
+        //         for (var i = 0; i < listdata.length; i++) {
+        //             var mapsn = listdata[i]['ccuSn'];
+        //
+        //             if (listdata[i]['lon'] && listdata[i].status == 3) {
+        //                 var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+        //                 var stnm = listdata[i]['bmsSoc'];
+        //                 var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+        //                 var ccusn = listdata[i].ccuSn
+        //                 translateOne(point, stnm, mapsn);
+        //             } else if (listdata[i]['lon'] && listdata[i].status != 3) {
+        //                 var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30, 60));
+        //                 var stnm = listdata[i]['bmsSoc'];
+        //                 var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
+        //                 var ccusn = listdata[i].ccuSn
+        //                 translateThree(point, stnm, mapsn);
+        //             }
+        //         }
+        //
+        //         var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers});
+        //
+        //
+        //     },
+        //     error: function (jqXHR, textStatus, errorThrown) {
+        //
+        //         console.log("失败");
+        //         console.log(jqXHR);
+        //     }
+        // });
 
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-
-                        var geoc = new BMap.Geocoder();
-
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#31c065",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
-
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-                    }//未租移动
-                    function translateThree(point, stnm,mapsn) {
-
-                        var myIcond = new BMap.Icon("./img/gray.png", new BMap.Size(30,60));
-
-                        var geoc = new BMap.Geocoder();
-
-                        var marker = new BMap.Marker(point,{icon:myIcond});
-                        var labelStyle = {
-                            color: "#fff",
-                            fontFamily:"微软雅黑",
-                            border:"none",
-                            background:"transparent",
-                            fontWeight:"bold"
-                        };
-                        switch((stnm + '').length) {
-                            case 1:
-                                labelStyle.fontSize = "14px";
-                                offsetSize = new BMap.Size(7, 3);
-                                break;
-                            case 2:
-                                labelStyle.fontSize = "12px";
-                                offsetSize = new BMap.Size(3, 3);
-                                break;
-                            case 3:
-                                labelStyle.fontSize = "10px";
-                                offsetSize = new BMap.Size(0, 3);
-                                break;
-                            default:
-                                break;
-                        }
-                        var label = new BMap.Label(stnm, {offset: offsetSize
-                        });
-
-                        label.setStyle(labelStyle);
-                        marker.setLabel(label);
-                        markers.push(marker);
-                        marker.addEventListener("click", function () {
-                            $.ajax({
-                                url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn="+mapsn,
-                                method: "get",
-                                contentType: "application/json; charset=utf-8",
-                                async: false,
-                                cache: false,
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader("firm", JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag);
-                                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                                },
-                                success: function (data) {
-                                    infowindo(data)
-
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-
-                                    console.log("失败");
-                                    console.log(jqXHR);
-                                }
-                            });
-                            var addre;
-                            geoc.getLocation(point, function(rs){
-                                var addComp = rs.addressComponents;
-                                addre=addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
-                                $('#dizhi').html(addre)
-
-                            });
-                            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>"+"<br/>"+"序列号：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+mapsn+"</span>"+"<br/>"+
-                                "规格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.guige+"</span>"+"<br/>"+
-                                "网点：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.wangdian+"</span>"+"<br/>"+
-                                "租期：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zuqi+"</span>"+"<br/>"+
-                                "有效期：&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.youxiaoqi+"</span>"+"<br/>"+
-                                "用户姓名："+"<span style='padding-bottom: 20px'>"+sessionStorage.xingming+"</span>"+"<br/>"+
-                                "联系方式："+"<span style='padding-bottom: 20px'>"+sessionStorage.lianxi+"</span>"+"<br/>"+
-                                "禁用状态："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinyong+"</span>"+"<br/>"+
-                                "状态：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.zhuangtai+"</span>"+"<br/>"+
-                                "电压：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianya+"V"+"</span>"+"<br/>"+
-                                "电量：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.dianliang+"%"+"</span>"+"<br/>"+
-                                "里程：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span style='padding-bottom: 20px'>"+sessionStorage.licheng+"km"+"</span>"+"<br/>"+
-                                "今日里程："+"<span style='padding-bottom: 20px'>"+sessionStorage.jinri+"km"+"</span>"+"<br/>"+
-                                "更新时间："+"<span style='padding-bottom: 20px'>"+sessionStorage.gengxin+"</span>"+"<br/>"+
-                                "地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<span id='dizhi' style='padding-bottom: 20px'></span>"+"<br/>"+"</p>");
-                            var pixelX = map.pointToPixel(this.point).x-2;
-                            var pixelY = map.pointToPixel(this.point).y+4;
-                            map.openInfoWindow(infoWindow, map.pixelToPoint(new BMap.Pixel(pixelX, pixelY)));
-                        });
-
-
-                    }//未租静止
-
-                    for (var i = 0; i < listdata.length; i++) {
-                        var mapsn = listdata[i]['ccuSn'];
-
-                        if (listdata[i]['lon']&&listdata[i].status==3) {
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateOne(point, stnm,mapsn);
-                        }else if(listdata[i]['lon']&&listdata[i].status!=3){
-                            var myIcond = new BMap.Icon("./img/red.png", new BMap.Size(30,60));
-                            var stnm = listdata[i]['bmsSoc'];
-                            var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
-                            var ccusn=listdata[i].ccuSn
-                            translateThree(point, stnm,mapsn);
-                        }
-                    }
-
-                    var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
-
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-
-                    console.log("失败");
-                    console.log(jqXHR);
-                }
-            });
-        }
-
-
-  });
-    $(".searchDQ2").on("click",function () {
+    });
+    $(".searchDQ2").on("click", function () {
         map.clearOverlays();
         var url;
-        var a=$(".selpr2").val();
+        var a = $(".selpr2").val();
 
-        var b=$(".selci2").val();
-        var c=$(".selco2").val();
+        var b = $(".selci2").val();
+        var c = $(".selco2").val();
 
-        var myselect=document.getElementById("sectionName-s2");
-        var index=myselect.selectedIndex ;
-        idstore1=myselect.options[index].value;
-        url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&page=1&limit=1000"
-        if(a==""){
-            url=url
-        }else {
-            url=url+"&province="+a
+        var myselect = document.getElementById("sectionName-s2");
+        var index = myselect.selectedIndex;
+        idstore1 = myselect.options[index].value;
+        url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=2&showFlag=0&page=1&limit=1000"
+        if (a == "") {
+            url = url
+        } else {
+            url = url + "&province=" + a
         }
-        if(b==""){
-            url=url
-        }else {
-            url=url+"&city="+b
+        if (b == "") {
+            url = url
+        } else {
+            url = url + "&city=" + b
         }
-        if(c==""){
-            url=url
-        }else {
-            url=url+"&county="+c
+        if (c == "") {
+            url = url
+        } else {
+            url = url + "&county=" + c
         }
-        if(idstore1=="0"){
-            url=url
-        }else {
-                url=url+"&parentId="+idstore1
+        if (idstore1 == "0") {
+            url = url
+        } else {
+            url = url + "&parentId=" + idstore1
         }
         console.log(url);
         $.ajax({
@@ -2290,19 +1839,19 @@
                 xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
             success: function (data1) {
-                var listdata=data1.list;
+                var listdata = data1.list;
 
                 function translateOne(pointArr) {
-                        var myIcond = new BMap.Icon("./img/ebike_store_new.png", new BMap.Size(30,60));
-                        var marker = new BMap.Marker(pointArr[0],{icon:myIcond});
-                        map.addOverlay(marker);
+                    var myIcond = new BMap.Icon("./img/ebike_store_new.png", new BMap.Size(30, 60));
+                    var marker = new BMap.Marker(pointArr[0], {icon: myIcond});
+                    map.addOverlay(marker);
 
 
                 }
 
                 for (var i = 0; i < listdata.length; i++) {
 
-                    if(listdata[i]['lon']&&['lat']) {
+                    if (listdata[i]['lon'] && ['lat']) {
                         var point = new BMap.Point(listdata[i]['lon'], listdata[i]['lat']);
                         var convertor = new BMap.Convertor();
                         var pointArr = [];
@@ -2325,8 +1874,6 @@
 
 
     });
-
-
 
 </script>
 <script src="js/vendor/distpicker.data.js"></script>

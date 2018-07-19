@@ -174,8 +174,8 @@
                 <div>
                     <p style="font-size: 20px;font-weight: 700">序列号:&nbsp;&nbsp;<span class="carNumber"></span></p>
                     <div style="display: flex">
-                        <button type="button" class="btn btn-default" style="flex: 1" id="btn-7">启用</button>
-                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-6">停止</button>
+                        <button type="button" class="btn btn-default" style="flex: 1" id="btn-7">开启输出</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-6">关闭输出</button>
                         <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-5">重启</button>
                         <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-tz">退租</button>
                         <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-dialog-disable" data-dismiss="modal">禁用</button>
@@ -319,21 +319,21 @@
 
                 <label style="margin-left: 16px"></label>
 
-                <select type="text" class="form-control ui-select" id="select-type" style="margin-left: 16px;">
+                <select type="text" class="form-control ui-select" id="select-type" style="margin-left: 16px;" onChange="getStation()">
                     <option selected="selected" value="0">---- 请选择网点类型 ----</option>
                     <option value="40">直营租赁</option>
                     <option value="70">加盟租赁</option>
                     <option value="80">集团租赁</option>
                 </select>
 
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr" style="margin-left: 16px;"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select selci" style="margin-left: 8px;"></select>
+                <select data-province="---- 选择省 ----" class="form-control ui-select selpr" style="margin-left: 16px;" onChange="getStation()"></select>
+                <select data-city="---- 选择市 ----" class="form-control ui-select selci" style="margin-left: 8px;" onChange="getStation()"></select>
                 <select data-district="---- 选择区 ----" class="form-control ui-select selco" style="display: none"></select>
 
                 <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse" onChange="onStationChange()" style="margin-left: 16px;"> <option selected="selected" value="0">---- 选择分站 ----</option></select>
                 <select type="text" class="form-control ui-select erjise" id="erjise" style="margin-left: 8px;"><option selected="selected" value="0">---- 选择驿站 ----</option></select>
 
-                <select type="text" class="form-control ui-select guigese" id="guigese" style="margin-left: 16px;"><option selected="selected" value="0">---- 选择规格 ----</option></select>
+                <select type="text" class="form-control ui-select guigese" id="guigese" style="margin-left: 16px;"><option selected="selected" value="0">---- 规格 ----</option></select>
 
                 <button type="button" class="btn btn-primary searchDQ" style="margin-left: 0.5rem;">查询</button>
             </div>
@@ -702,7 +702,7 @@
                 },
                 {
                     field: 'jinyong',
-                    title: '禁用状态',
+                    title: '电池输出',
                     align: 'center',
                     valign: 'middle',
                     formatter: jinyongFormatter
@@ -2660,9 +2660,32 @@
     }
 
     function getStation() {
+
+        var selectType = document.getElementById("select-type");
+        var typeIndex = selectType.selectedIndex;
+        var type = selectType.options[typeIndex].value;
+
+        var province = $(".selpr").val();
+        var city = $(".selci").val();
+
+        var currentUrl = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1'
+
+        if (province != '' && province != null) {
+            currentUrl = currentUrl + "&province=" + province
+        }
+        if (city != '' && city != null) {
+            currentUrl = currentUrl + "&city=" + city
+        }
+
+        if (type != 0) {
+            currentUrl = currentUrl + "&type=" + type
+        }
+
+        console.log('getStation:url:' + currentUrl)
+
         var myselect = document.getElementById("sectionName-s");
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&limit=100&page=1",
+                url: currentUrl,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData: false,

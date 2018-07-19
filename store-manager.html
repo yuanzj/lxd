@@ -22,27 +22,69 @@
 <body>
 <!-- Fixed navbar -->
 <!-- 产品配置  -->
-<div id="dianchishu" class="wrap-div">
+
+
+<div class="modal fade" id="dianchishu" tabindex="-1" role="dialog" style="margin-top: 50px">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">产品配置</h4>
+            </div>
+            <div class="modal-body" style="height: 500px">
+                <div>
+                    <button class="btn btn-primary" id="btn-add-product"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+                    <button class="btn btn-danger" id="btn-del-product" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+                </div>
+                <table class="table" style="margin-top: 1rem">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>产品规格</th>
+                        <th>租赁价格</th>
+                        <th>分站收益</th>
+                        <th>驿站收益</th>
+                        <th>本地押金</th>
+                        <th>异地押金</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbMain">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="edit-product" tabindex="-1" role="dialog" style="margin-top: 50px">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">产品配置</h4>
+            </div>
+            <div class="modal-body" style="height: 500px">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div  class="wrap-div">
     <div style="width: 680px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
         <p class="wrap-title">电池详情</p>
     </div>
     <div style="width: 680px;background: #FFF;margin: 0 auto;opacity: 1">
         <div style="padding-top: 20px;padding-bottom: 80px">
-            <table style="width: 95%;margin-left: 2.5%;text-align: center;" border="1" cellspacing="0">
-                <thead>
-                <tr style="margin-top: 20px;height: 30px;">
-                    <th style="text-align: center;">产品规格</th>
-                    <th style="text-align: center;">租赁价格</th>
-                    <th style="text-align: center;">分站收益</th>
-                    <th style="text-align: center;">驿站收益</th>
-                    <th style="text-align: center;">本地押金</th>
-                    <th style="text-align: center;">异地押金</th>
-                    <th style="text-align: center;">操作</th>
-                </tr>
-                </thead>
-                <tbody id="tbMain">
-                </tbody>
-            </table>
+
             <div style="float: right;margin-top: 30px;margin-right: 20px">
                 <button type="button" class="btn btn-default  " id="666"
                         style="width: 100px;background: #636161;color:#F3F3F3;display: inline-block">关闭
@@ -2522,20 +2564,21 @@
                 success: function (data) {
                     render(data.list);
 
+
                     function render(list) {
+                        $('#tbMain').empty()
                         for (var i = 0; i < list.length; i++) {
                             var tr = document.createElement('tr')
-                            tr.innerHTML = '<td>' + list[i].specificationName + '</td><td>' + '<input style="width: 70%" type="text" ' +
-                                'value=' + list[i].price + ' id=' + list[i].id + ' /></td><td>' + '<input style="width: 70%" type="text" ' +
-                                'id=' + '2' + list[i].id + ' value=' + list[i].dealerRate + ' /></td><td>' + '<input style="width: 70%" ' +
-                                'type="text" id=' + '3' + list[i].id + ' ' +
-                                'value=' + list[i].storeRate + ' /></td><td>' + '<input style="width: 70%" type="text" ' + 'id=' + '4' + list[i].id + ' ' +
-                                'value=' + list[i].localDeposit + ' /></td><td>' + '<input style="width: 70%" type="text" id=' + '5' + list[i].id + ' ' +
-                                'value=' + list[i].nonlocalDeposit + ' /></td>' + '<td style="width: 50px"><button class="btn-small btn-primary" ' +
-                                'onclick="Event(this)">修改</button></td>'
+                            tr.innerHTML =
+                                '<td>' + '<input type="checkbox">' + '</td>' +
+                                '<td>' + list[i].specificationName + '</td>' +
+                                '<td>' + list[i].price + '</td>' +
+                                '<td>' + list[i].dealerRate + '</td>' +
+                                '<td>' + list[i].storeRate + '</td>' +
+                                '<td>' + list[i].localDeposit + '</td>' +
+                                '<td>' + list[i].nonlocalDeposit + '</td>' +
+                                '<td><button class="btn btn-small btn-primary" ' + 'onclick="Event(this)">修改</button></td>'
                             document.getElementById('tbMain').appendChild(tr)
-
-
                         }
                     }
 
@@ -2546,11 +2589,11 @@
                     console.log(jqXHR);
                 }
             });
-            $("#dianchishu").show();
-            $("#666").on("click", function () {
-                $("#tbMain  tr").empty("");
-                $("#dianchishu").hide()
-            })
+            $("#dianchishu").modal('show');
+            // $("#666").on("click", function () {
+            //     $("#tbMain  tr").empty("");
+            //     $("#dianchishu").hide()
+            // })
         },
         'click .peizhi': function (e, value, row, index) {
             $.ajax({
@@ -3758,6 +3801,10 @@
         $("#emdlat").val(arr[1]);
         $("#pickmap").hide();
     }
+    
+    $("#btn-add-product").on("click", function () {
+        $("#edit-product").modal('show')
+    })
 </script>
 
 <script src="js/vendor/distpicker.data.js"></script>
