@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
+    <link rel="stylesheet" href="css/bootstrap-editable.css">
+    <link rel="stylesheet" href="css/bootstrap-table.min.css">
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/vendor/moment.js"></script>
+    <script src="js/vendor/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/vendor/bootstrap-table.min.js"></script>
+    <script src="js/vendor/bootstrap-table-zh-CN.min.js"></script>
+    <script src="js/vendor/vue.js"></script>
+    <script src="js/vendor/axios.js"></script>
+
+</head>
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 50px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增用户</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="input-user-number">用户名</label>
+                    <input class="form-control" id="input-user-number" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="input-psw">登录密码</label>
+                    <input class="form-control" id="input-psw" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="input-nike-name">昵称</label>
+                    <input class="form-control" id="input-nike-name" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="input-real-name">真实姓名</label>
+                    <input class="form-control" id="input-real-name" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label for="input-phone-number">手机号码</label>
+                    <input class="form-control" id="input-phone-number" placeholder="">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-add-affirm">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myDelModal" tabindex="-1" role="dialog" style="margin-top: 50px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>是否确认删除当前用户？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-delete">确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myConfigModal" tabindex="-1" role="dialog" aria-labelledby="myConfigModalLabel" style="margin-top: 50px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myConfigModalLabel">权限配置</h4>
+            </div>
+            <div class="modal-body" style="overflow:auto;height: 500px">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>分站名称</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbMain">
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-config-affirm">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui-content">
+    <div id="toolbar"  style="padding: 0 0 1rem 0">
+
+        <button class="btn btn-primary add-station" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+        <button class="btn btn-danger add-station" data-toggle="modal" data-target="#myDelModal" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+    </div>
+    <table id="table"
+           data-search="false"
+           data-show-refresh="true"
+           data-show-toggle="false"
+           data-show-columns="false"
+           data-toolbar="#toolbar"
+           data-click-to-select="true"
+           data-show-export="false"
+           data-minimum-count-columns="2"
+           data-pagination="true"
+           data-id-field="ccuSn"
+           data-page-list="[10, 20, 50, 100, ALL]"
+           data-show-footer="false"
+           data-side-pagination="server"
+           data-url="http://cjl3.rokyinfo.net:7200/api-user/v3.1/users"
+           data-cache="true"
+           data-response-handler="responseHandler">
+    </table>
+
+</div>
+
+
+</body>
+
+<script>
+    var $table = $('#table');
+    var dataResult;
+    var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users?creator=1";
+
+    function initTable() {
+        $table.bootstrapTable("destroy");
+        $table.bootstrapTable({
+            height: getHeight(),
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            striped: true,                              //是否显示行间隔色
+            onLoadError: function (data) {
+                $table.bootstrapTable("refresh", {silent: true});
+            },
+            ajaxOptions: {
+                headers: {
+                    "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                    "Authorization": sessionStorage.token
+                }
+            },
+            queryParams: queryParams,
+            minimumCountColumns: 2,
+            pageNumber: 1,                       //初始化加载第一页，默认第一页
+            pageSize: 100,                       //每页的记录行数（*）
+            pageList: [10, 20, 100],        //可供选择的每页的行数（*）
+            columns: [
+                {
+                    field: '',
+                    title: '',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: function (value, row, index) {
+                        return '<input type="checkbox"' + ' id=checkbox:' + row.id  +'>'
+                    }
+                },
+                {
+                    field: '',
+                    title: '',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        /*console.log((dataResult.pageSize * (dataResult.currPage - 1)) + index + 1)*/
+                        return (dataResult.pageSize * (dataResult.currPage - 1)) + index + 1;
+                    }
+                },
+                {
+                    field: 'username',
+                    title: '用户名',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'nickname',
+                    title: '昵称',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: nikFormatter
+
+                },
+                {
+                    field: 'realname',
+                    title: '姓名',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: realFormatter
+                },
+                {
+                    field: 'phoneNumber',
+                    title: '手机号码',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'idCardImgs',
+                    title: '分站权限',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: configFormatter
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: ctimeFormatter
+                },
+                {
+                    field: 'modifyTime',
+                    title: '修改时间',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: mtimeFormatter
+                }
+
+            ]
+        });
+        // sometimes footer render error.
+    }
+
+    function ctimeFormatter(value, row, index) {
+        if (row.createTime == null || row.createTime == "null") {
+            var inner = ""
+        }
+        else {
+            var inner = row.createTime
+        }
+
+        var color = 'nowwrp'
+        return [
+            '<span class=' + color + '>' + inner + '</span>'
+        ].join('');
+    }//创建时间
+    function mtimeFormatter(value, row, index) {
+        if (row.modifyTime == null || row.modifyTime == "null") {
+            var inner = ""
+        }
+        else {
+            var inner = row.modifyTime
+        }
+        var color = 'nowwrp'
+
+        return [
+            '<span class=' + color + '>' + inner + '</span>'
+        ].join('');
+    }//修改时间
+    function nikFormatter(value, row, index) {
+
+        return [
+            '<div class="nowwrp">',
+                row.nickname,
+            '</div>'
+        ].join("");
+    }//昵称
+
+    function configFormatter(value, row, index) {
+
+        return [
+            '<div>',
+                '<a class="config" href="#">',
+                    '<i class="glyphicon glyphicon-cog" title="分站权限配置">',
+                    '</i>',
+                '</a>',
+            '</div>'
+        ].join("")
+
+
+    }//产品配置
+    function realFormatter(value, row, index) {
+        if (row.realname == null || row.realname == "null") {
+            var inner = ""
+        }
+        else {
+            var inner = row.realname
+        }
+        var color = 'nowwrp'
+        return [
+            '<span class=' + color + '>' + inner + '</span>'
+        ].join('');
+    }//真实姓名
+    function genderFormatter(value, row, index) {
+        if (row.gender == 0) {
+            var inner = "男"
+        }
+        if (row.gender == 1) {
+            var inner = "女"
+        }
+        if (row.gender == null || row.gender == "null") {
+            var inner = ""
+        }
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }//性别
+    function queryParams(params) {
+        var param = {
+            limit: this.pageSize, // 页面大小
+            page: this.pageNumber,
+        }
+        return param;
+    }
+
+    function responseHandler(res) {
+        dataResult = res;
+        if (res) {
+            return {
+                "rows": res.list,
+                "total": res.totalCount
+            };
+        } else {
+            return {
+                "rows": 10,
+                "total": 20
+            };
+        }
+    }
+
+    var configUser = null
+
+    var operateEvents = {
+        'click .config': function (e, value, row, index) {
+
+            console.log('operateEvents')
+
+            configUser = row
+
+            $("#myConfigModal").modal('show')
+
+            getAllStation()
+        }
+    };
+
+    function getHeight() {
+        return $(window).height() - 50 - 16 - 16;
+    }
+
+    $(window).resize(function () {
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
+
+    $("#btn-delete").on('click', function () {
+
+        $('input:checkbox:checked').each(function (index, item) {
+            var id = item.id.substring('checkbox:'.length)
+            if (id.length > 0) {
+                $.ajax({
+                    url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/users/",
+                    contentType: "application/json; charset=utf-8",
+                    method: "delete",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                        xhr.setRequestHeader("Authorization", sessionStorage.token)
+                    },
+                    data: JSON.stringify([id]),
+                    success: function (res) {
+                        console.log("成功")
+                        alert("用户删除成功")
+                        $table.bootstrapTable("refresh", {silent: true})
+                    },
+                    error: function (err) {
+                        if (err.status == 403) alert("您没有权限执行此操作")
+                        var json = JSON.parse(err.responseText);
+                        alert(json.error.msg);
+                    }
+                });
+            }
+        });
+
+    });
+
+    $("#btn-config-affirm").on("click", function () {
+
+        $("#myConfigModal").modal('hide')
+
+        var selected = []
+        $('input:checkbox:checked').each(function (index, item) {
+            console.log(item.id)
+            if (item.id.indexOf("checkbox-config:") != -1) {
+                selected.push(item.id.substring('checkbox-config:'.length))
+            }
+        })
+
+        console.log(selected)
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/userstorerelations/update",
+            type: 'put',
+            data: JSON.stringify({ "userId" : configUser.id, "storeIds" : selected}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+            success: function (res) {
+                console.log("成功");
+                alert("更新权限成功");
+                $table.bootstrapTable("refresh", {silent: true});
+            },
+            error: function (err) {
+                console.log(err)
+                if (err.status == 403) alert("您没有权限执行此操作");
+                alert("更新权限失败");
+            }
+        });
+    })
+
+    $("#btn-add-affirm").unbind('click').on("click", function () {
+
+        var name = $("#input-nike-name").val()
+        var logname = $("#input-user-number").val();
+        var pass = $("#input-psw").val();
+        var real = $("#input-real-name").val();
+        var phonenum = $("#input-phone-number").val();
+
+        if (logname == null || logname.length == 0) {
+            alert("请输入用户名")
+            return
+        }
+
+        if (pass == null || pass.length == 0) {
+            alert("请输入密码")
+            return
+        }
+
+        if (name == null || name.length == 0) {
+            alert("请输入昵称")
+            return
+        }
+
+        if (real == null || real.length == 0) {
+            alert("请输入真实姓名")
+            return
+        }
+
+        if (phonenum == null || phonenum.length == 0) {
+            alert("请输入手机号码")
+            return
+        }
+
+        var parameter = 'nickname=' + name + '&username=' + logname + '&password=' + pass + '&realname=' + real + '&phoneNumber=' + phonenum
+        $.ajax({
+            url: 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/users/create-admin-user?' + parameter,
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "text",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token)
+            },
+            success: function (res) {
+                console.log("成功");
+                alert("新增用户成功");
+                $("myModal").modal('hide')
+                $table.bootstrapTable("refresh", {silent: true});
+            },
+            error: function (err) {
+                console.log(err)
+                $("myModal").modal('hide')
+                if (err.status == 403) alert("您没有权限执行此操作");
+                alert("新增失败");
+            }
+        });
+    });
+
+    function getAllStation() {
+
+        var permissionGroup =  new Map()
+
+        $.ajax({
+            url: 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/userstorerelations?page=1&limit=1000&userId=' + configUser.id,
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            async: false,
+            beforeSend: function (xhr) {
+                /* Authorization header */
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (result) {
+                if (result.list.length > 0) {
+                    result.list.map(item => {
+                        permissionGroup.set(item.storeId, item.userId)
+                    })
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败");
+                console.log(jqXHR);
+            }
+        });
+
+        console.log(permissionGroup);
+        $.ajax({
+            url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&sort=code,asc&limit=1000&page=1&showFlag=0",
+            method: "get",
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function (xhr) {
+                /* Authorization header */
+                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
+            },
+            success: function (result) {
+                var list = result.list
+                $('#tbMain').empty()
+                for (var i = 0; i < list.length; i++) {
+                    var data =  list[i]
+                    var tr = document.createElement('tr')
+
+                    tr.innerHTML =
+                        '<td>' + '<input style="margin-top: -4px" type="checkbox"' + (permissionGroup.has(data.id) ? ' checked="checked"' : '') + ' id=checkbox-config:' + data.id  +' >' + '</td>' +
+                        '<td>' + data.name + '</td>' ;
+                    document.getElementById('tbMain').appendChild(tr)
+                }
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败");
+                console.log(jqXHR);
+            }
+        });
+    }
+
+    initTable();
+</script>
+
+<script src="js/vendor/distpicker.data.js"></script>
+<script src="js/vendor/distpicker.js"></script>
+<script src="js/main.js"></script>
+</html>

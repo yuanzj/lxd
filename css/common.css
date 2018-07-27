@@ -3,6 +3,15 @@
     padding: 66px 16px 0 16px;
 }
 
+.ui-toolbar {
+
+}
+
+.ui-linear-layout{
+    float: left;
+    display: inline-block;
+}
+
 .ui-select {
     min-width: 150px;
 }

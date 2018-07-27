@@ -20,10 +20,8 @@
 
 </head>
 <body>
-<!-- Fixed navbar -->
+
 <!-- 产品配置  -->
-
-
 <div class="modal fade" id="dianchishu" tabindex="-1" role="dialog" style="margin-top: 50px">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -34,18 +32,20 @@
             <div class="modal-body" style="height: 500px">
                 <div>
                     <button class="btn btn-primary" id="btn-add-product"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
-                    <button class="btn btn-danger" id="btn-del-product" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
                 </div>
                 <table class="table" style="margin-top: 1rem">
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>产品编码</th>
                         <th>产品规格</th>
-                        <th>租赁价格</th>
-                        <th>分站收益</th>
-                        <th>驿站收益</th>
-                        <th>本地押金</th>
-                        <th>异地押金</th>
+                        <th>产品租期(天)</th>
+                        <th>产品租金(元)</th>
+                        <th>分站收益(%)</th>
+                        <th>驿站收益(%)</th>
+                        <th>本地押金(元)</th>
+                        <th>异地押金(元)</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -69,10 +69,86 @@
                 <h4 class="modal-title">产品配置</h4>
             </div>
             <div class="modal-body" style="height: 500px">
+                <!--产品编码、产品规格、产品租期、产品租金、分站收益、驿站收益、本地押金、异地押金-->
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">产品规格</label>
+                        <div class="col-sm-10">
+                            <select type="text" class="form-control ui-select" id="guigese" style="flex: 1" >
+                                <option selected="selected" value="0">---- 请选择产品规格 ----</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputZQ" class="col-sm-2 control-label">产品租期</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputZQ" placeholder="单位天">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputZJ" class="col-sm-2 control-label">产品租金</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputZJ" placeholder="单位元">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFZSY" class="col-sm-2 control-label">分站收益(%)</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputFZSY" placeholder="请输入收益百分比0~100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputYZSY" class="col-sm-2 control-label">驿站收益(%)</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputYZSY" placeholder="请输入收益百分比0~100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBDYJ" class="col-sm-2 control-label">本地押金</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputBDYJ" placeholder="请输入本地押金（单位元）">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputYDYJ" class="col-sm-2 control-label">异地押金</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputYDYJ" placeholder="请输入异地押金（单位元）">
+                        </div>
+                    </div>
+
+                </form>
+
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="btn-edit-product" >确认</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" style="margin-top: 50px">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>是否确认删除当前产品？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-del-product">确认</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -2295,7 +2371,7 @@
         return [
             '<div>',
             '<a class="peizhi2" href="#">',
-            '<i class="glyphicon glyphicon-list" title="编辑网点信息">',
+            '<i class="glyphicon glyphicon-cog" title="编辑网点信息">',
             '</i>',
             '</a>',
 
@@ -2309,7 +2385,7 @@
         return [
             '<div>',
             '<a class="peizhi" href="#">',
-            '<i class="glyphicon glyphicon-list" title="邀请码配置">',
+            '<i class="glyphicon glyphicon-cog" title="邀请码配置">',
             '</i>',
             '</a>',
 
@@ -2415,6 +2491,8 @@
         console.log(jqXHR);
     })
     var DELETE_ARR = [];
+    var earningsconfigs = null
+    var selected4EarningsDealerId = 0
     var operateEvents = {
         'click .edit1': function (e, value, row, index) {
             $(".item").each(function (index, element) {
@@ -2551,49 +2629,11 @@
 
         },
         'click .peizhi2': function (e, value, row, index) {
-            $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs?dealerId=" + row.id,
-                method: "get",
-                contentType: "application/json; charset=utf-8",
-                cache: false,
-                beforeSend: function (xhr) {
-                    /* Authorization header */
-                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                    xhr.setRequestHeader("Authorization", sessionStorage.token);
-                },
-                success: function (data) {
-                    render(data.list);
 
-
-                    function render(list) {
-                        $('#tbMain').empty()
-                        for (var i = 0; i < list.length; i++) {
-                            var tr = document.createElement('tr')
-                            tr.innerHTML =
-                                '<td>' + '<input type="checkbox">' + '</td>' +
-                                '<td>' + list[i].specificationName + '</td>' +
-                                '<td>' + list[i].price + '</td>' +
-                                '<td>' + list[i].dealerRate + '</td>' +
-                                '<td>' + list[i].storeRate + '</td>' +
-                                '<td>' + list[i].localDeposit + '</td>' +
-                                '<td>' + list[i].nonlocalDeposit + '</td>' +
-                                '<td><button class="btn btn-small btn-primary" ' + 'onclick="Event(this)">修改</button></td>'
-                            document.getElementById('tbMain').appendChild(tr)
-                        }
-                    }
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("失败");
-                    console.log(jqXHR);
-                }
-            });
             $("#dianchishu").modal('show');
-            // $("#666").on("click", function () {
-            //     $("#tbMain  tr").empty("");
-            //     $("#dianchishu").hide()
-            // })
+            selected4EarningsDealerId = row.id
+            refreshEarningsConfigs()
+
         },
         'click .peizhi': function (e, value, row, index) {
             $.ajax({
@@ -2641,46 +2681,99 @@
         }
 
     };
-    Event = function (node) {
-        var parents = node.parentNode.parentNode;
-        var child = parents.children;
-        var input_obj = child[1];
-        console.log(input_obj)
-        var activ_id = input_obj.innerHTML;
-        console.log(activ_id)
-        var id = activ_id.substring(activ_id.indexOf('id="') + 4, activ_id.lastIndexOf('"'));
-        console.log(id)
-        var a = $("#" + id).val();
-        var b = $("#2" + id).val();
-        var c = $("#3" + id).val();
-        var d = $("#4" + id).val();
-        var e = $("#5" + id).val();
 
-        var peizhijson = {
-            id: id,
-            price: a,
-            dealerRate: b,
-            storeRate: c,
-            localDeposit: d,
-            nonlocalDeposit: e
 
-        };
+    function refreshEarningsConfigs() {
         $.ajax({
-            url: " http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/" + id,
+            url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs?sort=product_code,asc&dealerId=" + selected4EarningsDealerId,
+            method: "get",
             contentType: "application/json; charset=utf-8",
-            method: "put",
+            cache: false,
             beforeSend: function (xhr) {
+                /* Authorization header */
                 xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token)
+                xhr.setRequestHeader("Authorization", sessionStorage.token);
             },
-            data: JSON.stringify(peizhijson),
-            success: function (res) {
-                console.log("成功")
-                $table.bootstrapTable("refresh", {silent: true})
+            success: function (data) {
+                render(data.list);
+
+
+                function render(list) {
+                    earningsconfigs = list
+                    $('#tbMain').empty()
+                    for (var i = 0; i < list.length; i++) {
+                        var data =  list[i]
+                        var tr = document.createElement('tr')
+
+                        tr.innerHTML =
+                            '<td>' + '<input style="margin-top: -4px" type="checkbox"' + ' id=checkbox:' + i  +'>' + '</td>' +
+                            '<td>' + data.productCode + '</td>' +
+                            '<td>' + data.specificationName + '</td>' +
+                            '<td>' + data.days + '</td>' +
+                            '<td>' + data.price + '</td>' +
+                            '<td>' + data.dealerRate + '</td>' +
+                            '<td>' + data.storeRate + '</td>' +
+                            '<td>' + data.localDeposit + '</td>' +
+                            '<td>' + data.nonlocalDeposit + '</td>' +
+
+                            '<td><span style="color: #0c86e0" class="glyphicon glyphicon-edit" id=' + i + ' onclick="modifyProduct(this.id)"></span></td>'
+                        document.getElementById('tbMain').appendChild(tr)
+                    }
+                }
+
+
             },
-            error: function (err) {
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("失败");
+                console.log(jqXHR);
             }
         });
+    }
+
+    function modifyProduct(index) {
+        var data = earningsconfigs[index];
+        console.log(earningsconfigs[index])
+        $("#edit-product").modal('show')
+        $('#guigese').attr("disabled",true);
+        getGuiGe(data.specificationName)
+
+        $("#inputZQ").val(data.days)
+        $("#inputZJ").val(data.price)
+        $("#inputFZSY").val(data.dealerRate)
+        $("#inputYZSY").val(data.storeRate)
+        $("#inputBDYJ").val(data.localDeposit)
+        $("#inputYDYJ").val(data.nonlocalDeposit)
+
+
+        $("#btn-edit-product").unbind('click').on("click", function () {
+            var peizhijson = {
+                id: data.id,
+                days: $("#inputZQ").val(),
+                price:  $("#inputZJ").val(),
+                dealerRate: $("#inputFZSY").val(),
+                storeRate: $("#inputYZSY").val(),
+                localDeposit: $("#inputBDYJ").val(),
+                nonlocalDeposit: $("#inputYDYJ").val()
+            };
+            $.ajax({
+                url: " http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/" + data.id,
+                contentType: "application/json; charset=utf-8",
+                method: "put",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token)
+                },
+                data: JSON.stringify(peizhijson),
+                success: function (res) {
+                    console.log("成功")
+                    $("#edit-product").modal('hide')
+                    refreshEarningsConfigs()
+                },
+                error: function (err) {
+                }
+            });
+        })
+
     };
     Eventyq = function (node) {
         var parents = node.parentNode.parentNode;
@@ -3801,10 +3894,157 @@
         $("#emdlat").val(arr[1]);
         $("#pickmap").hide();
     }
-    
+
+    function getGuiGe(selectedName) {
+        $.ajax({
+                url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/specifications?sort=id,asc&categoryIds=1",
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data) {
+                    var len = data.list.length;
+                    document.getElementById("guigese").length = 1;
+                    for (i = 0; i < len; i++) {
+                        if (selectedName === data.list[i].name) {
+                            $("#guigese").append($('<option selected="selected" value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        } else {
+                            $("#guigese").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            }
+        );
+    }
+
+
+    $("#btn-del-product").on("click", function () {
+
+        $('input:checkbox:checked').each(function (index, item) {
+            console.log(item.id)
+            var configIndex = item.id.substring('checkbox:'.length)
+            if (configIndex.length > 0){
+                var config = earningsconfigs[configIndex]
+                if (config) {
+                    console.log(config)
+                    $.ajax({
+                        url: 'http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/' + config.id,
+                        contentType: "application/json; charset=utf-8",
+                        method: "delete",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                            xhr.setRequestHeader("Authorization", sessionStorage.token)
+                        },
+                        success: function (res) {
+                            console.log("成功")
+                            $("#edit-product").modal('hide')
+                            refreshEarningsConfigs()
+                        },
+                        error: function (err) {
+                        }
+                    });
+                }
+            }
+        });
+    })
+
     $("#btn-add-product").on("click", function () {
         $("#edit-product").modal('show')
+        $('#guigese').attr("disabled",false);
+
+
+        $("#inputZQ").val('')
+        $("#inputZJ").val('')
+        $("#inputFZSY").val('')
+        $("#inputYZSY").val('')
+        $("#inputBDYJ").val('')
+        $("#inputYDYJ").val('')
+        getGuiGe('')
+
+        $("#btn-edit-product").unbind('click').on("click", function () {
+
+            var myselect2 = document.getElementById("guigese");
+            var index2 = myselect2.selectedIndex;
+            var idpro = myselect2.options[index2].value;
+
+            if (idpro == "0") {
+                alert('请选择规格')
+                return
+            }
+
+            if (selected4EarningsDealerId == 0) {
+                alert('分站ID不存在')
+                return
+            }
+
+            if ($("#inputZQ").val().length == 0) {
+                alert('请输入产品租期')
+                return
+            }
+
+            if ($("#inputZJ").val().length == 0) {
+                alert('请输入产品租金')
+                return
+            }
+
+            if ($("#inputFZSY").val().length == 0) {
+                alert('请输入分站收益')
+                return
+            }
+
+            if ($("#inputYZSY").val().length == 0) {
+                alert('请输入驿站收益')
+                return
+            }
+
+            if ($("#inputBDYJ").val().length == 0) {
+                alert('请输入本地押金')
+                return
+            }
+
+            if ($("#inputYDYJ").val().length == 0) {
+                alert('请输入异地押金')
+                return
+            }
+
+            var peizhijson = {
+                dealerId: selected4EarningsDealerId,
+                specificationCode: idpro,
+                days: $("#inputZQ").val(),
+                price:  $("#inputZJ").val(),
+                dealerRate: $("#inputFZSY").val(),
+                storeRate: $("#inputYZSY").val(),
+                localDeposit: $("#inputBDYJ").val(),
+                nonlocalDeposit: $("#inputYDYJ").val()
+            };
+            $.ajax({
+                url: " http://cjl3.rokyinfo.net:7200/api-order/v3.1/earningsconfigs/",
+                contentType: "application/json; charset=utf-8",
+                method: "post",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token)
+                },
+                data: JSON.stringify(peizhijson),
+                success: function (res) {
+                    console.log("成功")
+                    $("#edit-product").modal('hide')
+                    refreshEarningsConfigs()
+                },
+                error: function (err) {
+                }
+            });
+        })
     })
+
+
+
 </script>
 
 <script src="js/vendor/distpicker.data.js"></script>
