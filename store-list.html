@@ -531,7 +531,7 @@
                 if ($(this).hasClass("active")) {
                     if ($(this).text() == "统计") {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category=" + row.category,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category=" + row.category + (row.type > 0 ? ('&type=' + row.type) : ''),
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             cache: false,
