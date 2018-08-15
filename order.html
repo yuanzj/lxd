@@ -15,6 +15,7 @@
         <ul class="nav nav-tabs mytabs" id="mytabs">
             <li class="item active" id="tabletab1"><a href="#">新租</a></li>
             <li class="item" id="tabletab2"><a href="#">续租</a></li>
+            <li class="item" id="tab-unrent"><a href="#">退租</a></li>
         </ul>
     </div>
     <div id="toolbar">
@@ -115,6 +116,9 @@
                     } else if ($(this).text() == "续租") {
                         leixingvalue = 1
                         $(".searchDQ").click()
+                    } else if ($(this).text() == "退租") {
+                        leixingvalue = -1
+                        $(".searchDQ").click()
                     }
 
                 }
@@ -131,7 +135,11 @@
     var orOnLine;
 
     var url;
-    url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
+    if (leixingvalue >= 0) {
+        url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
+    } else {
+        url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/list?sort=modify_time,desc&status=3";
+    }
 
     function initTable() {
 
@@ -174,15 +182,15 @@
                     field: 'createTime',
                     title: '时间',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: time
                 },
-
                 {
                     field: 'productName',
                     title: '规格',
                     align: 'center',
-                    valign: 'middle'
-
+                    valign: 'middle',
+                    formatter: guige
                 },
                 {
                     field: 'ccuSn',
@@ -194,37 +202,29 @@
                     field: 'province',
                     title: '省',
                     align: 'center',
-                    valign: 'middle'
-
-
+                    valign: 'middle',
+                    formatter: sheng
                 },
                 {
                     field: 'city',
                     title: '市',
                     align: 'center',
-                    valign: 'middle'
-
-
+                    valign: 'middle',
+                    formatter: shi
                 },
-                // {
-                //     field: 'county',
-                //     title: '区/县',
-                //     align: 'center',
-                //     valign: 'middle'
-                //
-                //
-                // },
                 {
                     field: 'dealerName',
                     title: '分站',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: fz
                 },
                 {
                     field: 'storeName',
                     title: '驿站',
                     align: 'center',
-                    valign: 'middle'
+                    valign: 'middle',
+                    formatter: yz
                 },
                 {
 
@@ -268,15 +268,121 @@
         // sometimes footer render error.
     }
 
+    function time(value, row, index) {
+        var inner;
+
+        if (leixingvalue >= 0) {
+            inner = row.createTime
+        } else {
+            inner = row.modifyTime
+        }
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }
+
+    function guige(value, row, index) {
+        var inner;
+
+        if (leixingvalue >= 0) {
+            inner = row.productName
+        } else {
+            inner = row.productEntity.name
+        }
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }//规格
+
+    function sheng(value, row, index) {
+        var inner;
+
+        if (leixingvalue >= 0) {
+            inner = row.province
+        } else {
+            if (row.ebikeStoreEntity != null){
+                inner = row.ebikeStoreEntity.province
+            } else {
+                inner = '-'
+            }
+        }
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }
+
+    function shi(value, row, index) {
+        var inner;
+
+        if (leixingvalue >= 0) {
+            inner = row.city
+        } else {
+            if (row.ebikeStoreEntity != null){
+                inner = row.ebikeStoreEntity.city
+            } else {
+                inner = '-'
+            }
+        }
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }
+
+    function fz(value, row, index) {
+        var inner;
+
+        if (leixingvalue >= 0) {
+            inner = row.dealerName
+        } else {
+            if (row.ebikeStoreEntity != null){
+                inner = row.ebikeStoreEntity.parentEntity.name
+            } else {
+                inner = '-'
+            }
+
+        }
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }
+
+    function yz(value, row, index) {
+        var inner;
+
+        if (leixingvalue >= 0) {
+            inner = row.storeName
+        } else {
+            if (row.ebikeStoreEntity != null){
+                inner = row.ebikeStoreEntity.name
+            } else {
+                inner = '-'
+            }
+        }
+
+        return [
+            '<span>' + inner + '</span>'
+        ].join('');
+    }
+
     function realFormatter(value, row, index) {
         var inner;
 
-        if (row.realName == null) {
-            inner = ""
+        if (leixingvalue >= 0) {
+            if (row.realName == null) {
+                inner = ""
+            }
+            else {
+                inner = row.realName
+            }
+        } else {
+            inner = row.userEntity.realname
         }
-        else {
-            inner = row.realName
-        }
+
         var color = 'nowwrp';
         return [
             '<span class=' + color + '>' + inner + '</span>'
@@ -284,22 +390,27 @@
     }//用户姓名
     function chargetypeFormatter(value, row, index) {
         var inner;
-        if (row.chargeType == 0) {
-            inner = "新租"
-        }
-        else if (row.chargeType == 1) {
-            inner = "续租"
-        } else if (row.chargeType == 2) {
-            inner = "升级押金到全国范围"
+        if (leixingvalue >= 0) {
+            if (row.chargeType == 0) {
+                inner = "新租"
+            } else if (row.chargeType == 1) {
+                inner = "续租"
+            } else if (row.chargeType == 2) {
+                inner = "升级押金到全国范围"
+            } else {
+                inner = "-"
+            }
         } else {
-            inner = "-"
+            inner = "退租"
         }
+
         return [
             '<span>' + inner + '</span>'
         ].join('');
     }//租赁类型
     function yajinFormatter(value, row, index) {
-        var inner = row.deposit;
+
+        var inner = row.deposit == null ? '' : row.deposit;
         if (row.chargeType == 2) {
             var color = "red";
             return [
@@ -436,9 +547,6 @@
         console.log(res);
     }
 
-    var ueId;
-    var id1;
-
     function getHeight() {
         return $(window).height() - 50 - 16 - $('.fixed-table-toolbar').outerHeight(true);
     }
@@ -449,55 +557,19 @@
         });
     });
 
-    $("#wrap-btn-on").on("click", function () {
-        console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId);
-        console.log("已发送");
-        $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + id1 + "&ueId=" + ueId,
-            method: "put",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            }, success: function (data) {
-                console.log("成功");
-                $table.bootstrapTable("refresh", {silent: true});
-                $("#wrap").hide()
-            },
-            error: function (err) {
-                console.log(err)
-            }
-        })
-    });
-    $("#wrap-btn-off").on("click", function () {
-        $("#wrap").hide()
-    });
     $(".searchCcu").on("click", function () {
-        $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40&ccuSn=" + $(".searchResult").val(),
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-                $("#table").bootstrapTable('refresh', {'url': "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40&ccuSn=" + $(".searchResult").val()});
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败")
-                console.log(jqXHR);
-            }
-        });
 
+        if (leixingvalue >= 0) {
+            url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
+        } else {
+            url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/list?sort=modify_time,desc&status=3";
+        }
+
+        $("#table").bootstrapTable('refresh', {'url':  url + "&ccuSn=" + $(".searchResult").val()});
 
     });
+
     $(".searchDQ").on("click", function () {
-        var url;
 
         var a = $(".selpr").val();
         console.log(a);
@@ -515,16 +587,18 @@
         var myselect2 = document.getElementById("guigese");
         var index2 = myselect2.selectedIndex;
         idpro = myselect2.options[index2].value;
+
         var myselect3 = document.getElementById("zhifuse");
         var index3 = myselect3.selectedIndex;
         payment = myselect3.options[index3].innerHTML;
         paymentvalue = myselect3.options[index3].value;
 
-        // var myselect4 = document.getElementById("leixingse");
-        // var index4 = myselect4.selectedIndex;
-        // leixing = myselect4.options[index4].innerHTML;
-        // leixingvalue = myselect4.options[index4].value;
-        url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40"
+        if (leixingvalue >= 0) {
+            url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/product-orders/list?sort=p_o.create_time,desc&status=1&storeTypes=0,40";
+        } else {
+            url = "http://cjl3.rokyinfo.net:7200/api-order/v3.1/rent-orders/list?sort=modify_time,desc&status=3";
+        }
+
         if (a == "") {
             url = url
         } else {
@@ -566,27 +640,15 @@
             url = url;
         }
 
-
         console.log(url);
-        $.ajax({
-            url: url,
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-                $("#table").bootstrapTable('refresh', {url: url});
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
 
+        initTable()
+
+        if (leixingvalue >= 0) {
+        } else {
+            $table.bootstrapTable("hideColumn", "z");
+            $table.bootstrapTable("hideColumn", "payment");
+        }
     });
 
     $(function () {
