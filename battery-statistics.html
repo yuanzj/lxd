@@ -89,7 +89,7 @@
            data-page-list="[10, 20, 50, 100, ALL]"
            data-show-footer="false"
            data-side-pagination="server"
-           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ebike.create_time,desc&adminFlag=cjl"
+           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ebike.create_time,desc&adminFlag=cjl&ueType=4"
            data-cache="true"
            data-response-handler="responseHandler">
     </table>
@@ -102,7 +102,7 @@
     var dataResult;
     var orFault;
     var orOnLine;
-    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
+    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary?ueType=4";
     var currentSelectedTabName = '统计'
     var parentStoreId = ''
     var currentCategory = 1
@@ -475,7 +475,7 @@
                         type = '40'
                         break
                 }
-                url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list&type=' + type ;
+                url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list&type=' + type + '&ueType=4';
 
                 $(function () {
                     initTable();
@@ -506,7 +506,7 @@
                     type = '40'
                     break
             }
-            url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentCategory +'&showFlag=0&sort=code,asc&model=list&type=' + type ;
+            url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentCategory +'&showFlag=0&sort=code,asc&model=list&type=' + type + '&ueType=4';
 
             url += ('&parentId=' + parentStoreId)
 
@@ -531,7 +531,7 @@
                 if ($(this).hasClass("active")) {
                     if ($(this).text() == "统计") {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category=" + row.category + (row.type > 0 ? ('&type=' + row.type) : ''),
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-by-category?category=" + row.category + (row.type > 0 ? ('&type=' + row.type) : '') + '&ueType=4',
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             cache: false,
@@ -562,7 +562,7 @@
 
                     } else {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics?storeId=" + row.id,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics?storeId=" + row.id + '&ueType=4',
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             cache: false,
@@ -613,7 +613,7 @@
 
         var storeId = parentStoreId;
 
-        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentCategory + '&showFlag=0&sort=code,asc&model=list';
+        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentCategory + '&showFlag=0&sort=code,asc&model=list' + '&ueType=4';
         if (province === '') {
             if (storeId !== '') {
                 url = url + "&parentId=" + storeId
@@ -677,7 +677,7 @@
                         currentSelectedTabName = text
                         initBreadcrumb()
 
-                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentCategory + '&showFlag=0&sort=code,asc&model=list';
+                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=' + currentCategory + '&showFlag=0&sort=code,asc&model=list' + '&ueType=4';
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "zhandian");
@@ -721,7 +721,7 @@
                                 type = '40'
                                 break
                         }
-                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list&type=' + type ;
+                        url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc&model=list&type=' + type + '&ueType=4';
 
                         if (parentStoreId !== '') {
                             url += ('&parentId=' + parentStoreId)
@@ -759,7 +759,7 @@
                         initBreadcrumb()
 
 
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary";
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/rent-statistics-summary?ueType=4";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "code");

@@ -38,8 +38,9 @@
 <div class="ui-content">
     <div class="fixed-table-toolbar">
         <ul class="nav nav-tabs mytabs" id="mytabs">
-            <li class="item active" id="tabletab1"><a href="#">电池地图</a></li>
-            <li class="item" id="tabletab2"><a href="#">网点地图</a></li>
+            <li class="item active" id="tab-battery"><a href="#">电池地图</a></li>
+            <li class="item" id="tab-scooter"><a href="#">机车地图</a></li>
+            <li class="item" id="tab-store"><a href="#">网点地图</a></li>
         </ul>
     </div>
 
@@ -117,17 +118,28 @@
 
 <script type="text/javascript">
     var markers = [];
+    var ueType = 4
     document.getElementById("table1").style.display = "block";
     document.getElementById("table2").style.display = "none";
     document.getElementById("btn1").style.display = "block";
     document.getElementById("btn2").style.display = "none";
-    $("#tabletab1").on("click", function () {
+    $("#tab-battery").on("click", function () {
+        ueType = 4
         document.getElementById("table1").style.display = "block";
         document.getElementById("table2").style.display = "none";
         document.getElementById("btn1").style.display = "block";
         document.getElementById("btn2").style.display = "none";
     });
-    $("#tabletab2").on("click", function () {
+
+    $("#tab-scooter").on("click", function () {
+        ueType = 2
+        document.getElementById("table1").style.display = "block";
+        document.getElementById("table2").style.display = "none";
+        document.getElementById("btn1").style.display = "block";
+        document.getElementById("btn2").style.display = "none";
+    });
+
+    $("#tab-store").on("click", function () {
         document.getElementById("table1").style.display = "none";
         document.getElementById("table2").style.display = "block";
         document.getElementById("btn1").style.display = "none";
@@ -175,11 +187,13 @@
                 if ($(this).hasClass("active")) {
 
                     if ($(this).text() == "电池地图") {
-                        refreshmarker();
 
+                        refreshmarker();
+                    } else if ($(this).text() == "机车地图") {
+
+                        refreshmarker();
                     } else if ($(this).text() == "网点地图") {
 
-                        map.clearOverlays();
                         addstoremarker()
                     }
 
@@ -288,7 +302,7 @@
         map.enableScrollWheelZoom();
 
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=1&page=1&limit=1000&model=map",
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&storeTypes=0,40&filterType=1&page=1&limit=1000&model=map",
             method: "get",
             contentType: "application/json; charset=utf-8",
             async: false,
@@ -339,7 +353,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -426,7 +440,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -505,7 +519,7 @@
         });
 
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=3&page=1&limit=1000&model=map",
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&storeTypes=0,40&filterType=3&page=1&limit=1000&model=map",
             method: "get",
             contentType: "application/json; charset=utf-8",
             async: false,
@@ -555,7 +569,7 @@
                     marker.setLabel(label);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -643,7 +657,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -800,6 +814,8 @@
     }
 
     function addstoremarker() {
+        map.clearOverlays();
+
         map = new BMap.Map("allmap", {});    // 创建Map实例
         map.centerAndZoom(new BMap.Point(110.404, 32.915), 5);
         map.enableScrollWheelZoom();
@@ -852,7 +868,7 @@
         map.enableScrollWheelZoom();
         markers = [];
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=1&page=1&limit=1000&model=map",
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&storeTypes=0,40&filterType=1&page=1&limit=1000&model=map",
             method: "get",
             contentType: "application/json; charset=utf-8",
             async: false,
@@ -903,7 +919,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -990,7 +1006,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1069,7 +1085,7 @@
         });
 
         $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&storeTypes=0,40&filterType=3&page=1&limit=1000&model=map",
+            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&storeTypes=0,40&filterType=3&page=1&limit=1000&model=map",
             method: "get",
             contentType: "application/json; charset=utf-8",
             async: false,
@@ -1120,7 +1136,7 @@
 //                        map.addOverlay(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1208,7 +1224,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1323,7 +1339,7 @@
         var index3 = myselect3.selectedIndex;
         idpro = myselect3.options[index3].value;
 
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&type=4&page=1&limit=1000&model=map";
+        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&type=" + ueType + "&page=1&limit=1000&model=map";
         if (a == "") {
             url = url
         } else {
@@ -1413,7 +1429,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1500,7 +1516,7 @@
                     markers.push(marker);
                     marker.addEventListener("click", function () {
                         $.ajax({
-                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+                            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
                             method: "get",
                             contentType: "application/json; charset=utf-8",
                             async: false,
@@ -1629,7 +1645,7 @@
         //             markers.push(marker);
         //             marker.addEventListener("click", function () {
         //                 $.ajax({
-        //                     url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+        //                     url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
         //                     method: "get",
         //                     contentType: "application/json; charset=utf-8",
         //                     async: false,
@@ -1716,7 +1732,7 @@
         //             markers.push(marker);
         //             marker.addEventListener("click", function () {
         //                 $.ajax({
-        //                     url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=4&ccuSn=" + mapsn,
+        //                     url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?sort=ue.status,desc&adminFlag=ss&type=" + ueType + "&ccuSn=" + mapsn,
         //                     method: "get",
         //                     contentType: "application/json; charset=utf-8",
         //                     async: false,

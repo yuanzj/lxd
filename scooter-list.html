@@ -168,7 +168,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myOperationModalLabel">电池操作</h4>
+                <h4 class="modal-title" id="myOperationModalLabel">机车操作</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -195,10 +195,10 @@
 <!-- cardetailsyc  -->
 <div id="wrap-remov" class="wrap-div">
     <div class="wrap-bar">
-        <p class="wrap-title">电池移除</p>
+        <p class="wrap-title">机车移除</p>
     </div>
     <div style="width: 450px;height: 150px;background: #FFF;margin: 0 auto;opacity: 1">
-        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否移除异常电池&nbsp;<span
+        <p style="font-size: 18px;font-weight: 500; font-family:'等线';padding: 10px">是否移除异常机车&nbsp;<span
                 class="carNumber">{{carid}}</span></p>
 
         <div style="float: right;margin-top: 50px;margin-right: 25px">
@@ -298,16 +298,16 @@
 <div class="ui-content">
     <div class="fixed-table-toolbar">
         <ul class="nav nav-tabs mytabs" id="mytabs">
-            <!--异常电池、逾期租赁电池、已租赁电池、待租赁电池、禁用电池、仓库电池、丢失电池、试用电池、售后电池-->
-            <li class="item active" id="tabletab6"><a href="#">禁用电池</a></li>
-            <li class="item" id="tabletab5"><a href="#">异常电池</a></li>
-            <li class="item" id="tabletab2"><a href="#">逾期租赁电池</a></li>
-            <li class="item" id="tabletab1"><a href="#">已租赁电池</a></li>
-            <li class="item" id="tabletab3"><a href="#">待租赁电池</a></li>
-            <li class="item" id="tabletab4"><a href="#">仓库电池</a></li>
-            <li class="item" id="tab-test"><a href="#">售后电池</a></li>
-            <li class="item" id="tab-lost"><a href="#">丢失电池</a></li>
-            <li class="item" id="tab-try-out"><a href="#">试用电池</a></li>
+            <!--异常机车、逾期租赁机车、已租赁机车、待租赁机车、禁用机车、仓库机车、丢失机车、试用机车、售后机车-->
+            <li class="item active" id="tabletab6"><a href="#">禁用机车</a></li>
+            <li class="item" id="tabletab5"><a href="#">异常机车</a></li>
+            <li class="item" id="tabletab2"><a href="#">逾期租赁机车</a></li>
+            <li class="item" id="tabletab1"><a href="#">已租赁机车</a></li>
+            <li class="item" id="tabletab3"><a href="#">待租赁机车</a></li>
+            <li class="item" id="tabletab4"><a href="#">仓库机车</a></li>
+            <li class="item" id="tab-test"><a href="#">售后机车</a></li>
+            <li class="item" id="tab-lost"><a href="#">丢失机车</a></li>
+            <li class="item" id="tab-try-out"><a href="#">试用机车</a></li>
         </ul>
     </div>
     <div id="toolbar">
@@ -355,7 +355,7 @@
            data-page-list="[10, 20, 50, 100, ALL]"
            data-show-footer="false"
            data-side-pagination="server"
-           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&sort=ebike.create_time,desc&adminFlag=cjl"
+           data-url="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&sort=ebike.create_time,desc&adminFlag=cjl"
            data-cache="true"
            data-response-handler="responseHandler">
     </table>
@@ -374,7 +374,7 @@
     var orOnLine;
     var cc = 0;
     var timer2 = 0;
-    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
+    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
     var currentCategory = null
     var currentFilterType = null
     $(function () {
@@ -387,15 +387,15 @@
 
                     var text = $(this).text()
 
-                    if (text == '已租赁电池' || text == '逾期租赁电池' || text == '待租赁电池') {
+                    if (text == '已租赁机车' || text == '逾期租赁机车' || text == '待租赁机车') {
                         switch (text) {
-                            case '已租赁电池':
+                            case '已租赁机车':
                                 currentFilterType = 1
                                 break
-                            case '逾期租赁电池':
+                            case '逾期租赁机车':
                                 currentFilterType = 2
                                 break
-                            case '待租赁电池':
+                            case '待租赁机车':
                                 currentFilterType = 3
                                 break
                             default:
@@ -404,7 +404,7 @@
                         }
 
                         resetFilterBarSelected()
-                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&filterType=' + currentFilterType + '&sort=ue.end_time,desc'
+                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&filterType=' + currentFilterType + '&sort=ue.end_time,desc'
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
@@ -415,22 +415,22 @@
                         $("#erjise").css("display",'inline')
                         getStation()
 
-                    } else if (text == '仓库电池' || text == '丢失电池' || text == '试用电池' || text == '售后电池') {
+                    } else if (text == '仓库机车' || text == '丢失机车' || text == '试用机车' || text == '售后机车') {
 
                         switch (text) {
-                            case '仓库电池':
+                            case '仓库机车':
                                 currentCategory = 0
                                 break
-                            case '售后电池':
+                            case '售后机车':
                                 currentCategory = 3
                                 break
-                            case '丢失电池':
+                            case '丢失机车':
                                 currentCategory = 4
                                 break
-                            case '试用电池':
+                            case '试用机车':
                                 currentCategory = 5
                                 break
-                            case '测试电池':
+                            case '测试机车':
                                 currentCategory = 6
                                 break
                             default:
@@ -439,7 +439,7 @@
                         }
 
                         resetFilterBarSelected()
-                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&category=' + currentCategory  + '&sort=ue.store_code,asc'
+                        url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&category=' + currentCategory  + '&sort=ue.store_code,asc'
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
@@ -448,17 +448,17 @@
                         $("#select-type").css("display",'none')
                         $("#erjise").css("display",'none')
                         getStoreWithCategory()
-                    } else if (text == "异常电池") {
+                    } else if (text == "异常机车") {
                         resetFilterBarSelected()
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
                         initTable();
 
                         $("#select-type").css("display",'inline')
                         $("#erjise").css("display",'inline')
                         getStation()
-                    } else if (text == "禁用电池") {
+                    } else if (text == "禁用机车") {
                         resetFilterBarSelected()
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
                         $(function () {
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
@@ -702,7 +702,7 @@
                 },
                 {
                     field: 'jinyong',
-                    title: '电池输出',
+                    title: '机车输出',
                     align: 'center',
                     valign: 'middle',
                     formatter: jinyongFormatter
@@ -1406,11 +1406,11 @@
                     });
                     $("#btn-6").unbind('click').on("click", function () {
                         ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=1", "put", function (data) {
-                            alert("冻结电池成功")
+                            alert("冻结机车成功")
                             $table.bootstrapTable("refresh", {silent: true})
                             console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update-use-status?ccuSn=" + row.ccuSn + "&useStatus=1", "get")
                         }, function (err) {
-                            alert("冻结电池失败")
+                            alert("冻结机车失败")
                             console.log(err)
                         })
                     })
@@ -2341,11 +2341,11 @@
             $(".item").each(function (index, element) {
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "仓库电池") {
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&category=0&ccuSn=" + sn
+                    if ($(this).text() == "仓库机车") {
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&category=0&ccuSn=" + sn
                     }
                     else {
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&ccuSn=" + sn
+                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&ccuSn=" + sn
                     }
 
 
@@ -2471,7 +2471,7 @@
                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag");
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "异常电池") {
+                    if ($(this).text() == "异常机车") {
                         ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag", "get", function (data) {
                             $("#table").bootstrapTable('refresh');
                         }, function (err) {
@@ -2481,7 +2481,7 @@
 
 
                     }
-                    else if ($(this).text() == "禁用电池") {
+                    else if ($(this).text() == "禁用机车") {
 
 
                         $("#title-sn").text(row.ccuSn)
@@ -2924,7 +2924,6 @@
         var myselect2 = document.getElementById("guigese");
         var index2 = myselect2.selectedIndex;
         var idpro = myselect2.options[index2].value;
-
 
         if (url.indexOf('ue.end_time,desc') > 0) {
             url = url.substring(0, url.indexOf('ue.end_time,desc')) + 'ue.end_time,desc'
