@@ -249,6 +249,18 @@
                     valign: 'middle'
                 },
                 {
+                    field: 'startTime',
+                    title: '开始时间',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'endTime',
+                    title: '到期时间',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
                     field: 'y',
                     title: '押金',
                     align: 'center',
@@ -266,6 +278,17 @@
             ]
         });
         // sometimes footer render error.
+
+        if (leixingvalue >= 0) {
+            $table.bootstrapTable("hideColumn", "startTime");
+            $table.bootstrapTable("hideColumn", "endTime");
+            $("#zhifuse")[0].style.display='inline';
+        } else {
+            $table.bootstrapTable("hideColumn", "z");
+            $table.bootstrapTable("hideColumn", "s");
+            $table.bootstrapTable("hideColumn", "payment");
+            $("#zhifuse")[0].style.display='none';
+        }
     }
 
     function time(value, row, index) {
@@ -572,7 +595,6 @@
     $(".searchDQ").on("click", function () {
 
         var a = $(".selpr").val();
-        console.log(a);
         var b = $(".selci").val();
         var c = $(".selco").val();
 
@@ -642,13 +664,7 @@
 
         console.log(url);
 
-        initTable()
-
-        if (leixingvalue >= 0) {
-        } else {
-            $table.bootstrapTable("hideColumn", "z");
-            $table.bootstrapTable("hideColumn", "payment");
-        }
+        initTable();
     });
 
     $(function () {
