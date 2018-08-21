@@ -110,10 +110,10 @@
 </div>
 
 <div class="ui-content">
-    <div id="toolbar"  style="padding: 0 0 1rem 0">
+    <div id="toolbar">
 
-        <button class="btn btn-primary add-station" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
-        <button class="btn btn-danger add-station" data-toggle="modal" data-target="#myDelModal" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+        <button class="btn btn-primary ui-toolbar-widget add-station" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+        <button class="btn btn-danger ui-toolbar-widget add-station" data-toggle="modal" data-target="#myDelModal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
     </div>
     <table id="table"
@@ -359,14 +359,9 @@
     };
 
     function getHeight() {
-        return $(window).height() - 50 - 16 - 16;
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - mainNavHeight - 16 - 16;
     }
-
-    $(window).resize(function () {
-        $table.bootstrapTable('resetView', {
-            height: getHeight()
-        });
-    });
 
     $("#btn-delete").on('click', function () {
 
@@ -553,7 +548,26 @@
         });
     }
 
-    initTable();
+    $(function () {
+        resizeLayout()
+
+        initTable();
+    });
+
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
+    $(window).resize(function () {
+        resizeLayout()
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
 </script>
 
 <script src="js/vendor/distpicker.data.js"></script>

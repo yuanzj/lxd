@@ -65,16 +65,15 @@
     <ol class="breadcrumb" style="margin-top: 1rem">
         <li class="active">统计</li>
     </ol>
-    <div id="toolbar">
-        <div class="my-container-cheliang">
-            <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
-                <select data-province="---- 选择省 ----" class="form-control ui-select select-province"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select select-city" style="margin-left: 0.5rem"></select>
-                <button type="button" class="btn btn-primary btn-search" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </div>
-        </div>
-        <div data-toggle="distpicker" id="table4" class="form-inline topinline cheliang"></div>
+
+
+    <div data-toggle="distpicker" id="table1" class="form-inline" style="visibility: hidden">
+        <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget select-province"></select>
+        <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget select-city"></select>
+        <button type="button" class="btn btn-primary ui-toolbar-widget btn-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
     </div>
+
+
     <table id="table"
            data-ajax="ajaxRequest"
            data-search="false"
@@ -82,7 +81,7 @@
            data-show-toggle="false"
            data-show-columns="true"
            data-show-export="false"
-           data-toolbar="#toolbar"
+           data-toolbar="#table1"
            data-minimum-count-columns="2"
            data-pagination="true"
            data-id-field="ccuSn"
@@ -152,7 +151,8 @@
     }
 
     function getHeight() {
-        return $(window).height() - $('.breadcrumb').outerHeight(true) - 50 - 32 - 16 - 16;
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - $('.breadcrumb').outerHeight(true) - mainNavHeight - 32 - 16 - 16;
     }
 
     function initTable() {
@@ -672,7 +672,7 @@
                                 break
                         }
 
-                        document.getElementById("table1").style.display = "block";
+                        document.getElementById("table1").style.visibility = "hidden";
                         parentStoreId = ''
                         currentSelectedTabName = text
                         initBreadcrumb()
@@ -700,7 +700,7 @@
                         });
                     } else if (text == '直营租赁' || text == '加盟租赁' || text == '集团租赁') {
 
-                        document.getElementById("table1").style.display = "block";
+                        document.getElementById("table1").style.visibility = "visible";
                         currentCategory = 1
                         parentStoreId = ''
                         currentSelectedTabName = text
@@ -753,7 +753,7 @@
                         }
                     } else if (text == '统计') {
 
-                        document.getElementById("table1").style.display = "none";
+                        document.getElementById("table1").style.visibility = "hidden";
                         parentStoreId = ''
                         currentSelectedTabName = '统计'
                         initBreadcrumb()
@@ -791,6 +791,7 @@
     });
 
     $(function () {
+        resizeLayout()
 
         $table.bootstrapTable("hideColumn", "code");
         $table.bootstrapTable("hideColumn", "province");
@@ -811,7 +812,16 @@
 
     });
 
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
     $(window).resize(function () {
+        resizeLayout()
         $table.bootstrapTable('resetView', {
             height: getHeight()
         });

@@ -22,3 +22,13 @@
     border: 1px solid #2e77e5;
     background-color: #2e77e5;
 }
+
+.ui-toolbar-widget {
+    margin: 0 1rem 1rem 0
+}
+
+.ui-map-widget{
+
+    box-shadow:0 0 10px rgba(0,0,0,0.32);
+
+}

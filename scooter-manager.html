@@ -120,121 +120,109 @@
         </ul>
     </div>
     <div id="toolbar">
-        <div class="my-container-cheliang">
 
-            <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
-                <input type="text" class="form-control search-input searchResult"
-                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                <button type="button" class="btn btn-primary searchCcusn searchCcu" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
+        <div data-toggle="distpicker" id="table1" class="form-inline" style="display: block" >
+            <input type="text" class="form-control search-input ui-toolbar-widget searchResult"
+                   placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                   onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu"><span class="glyphicon glyphicon-search"></span></button>
 
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr1"
-                        style="margin-left: 20px;"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select selci1"></select>
-                <select data-district="---- 选择区 ----" class="form-control ui-select selco1" style="display: none"></select>
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr1"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci1"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco1" style="display: none"></select>
 
-                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse"
-                        onChange="move1()">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                    <option value="wu">无</option>
-                </select>
+            <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select ui-toolbar-widget wangdianse"
+                    onChange="move1()">
+                <option selected="selected" value="0">---- 分站 ----</option>
+                <option value="wu">无</option>
+            </select>
 
-                <select type="text" class="form-control ui-select erjise" id="erjise">
-                    <option selected="selected" value="0">---- 驿站 ----</option>
-                    <option value="wu">无</option>
+            <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise">
+                <option selected="selected" value="0">---- 驿站 ----</option>
+                <option value="wu">无</option>
 
-                </select>
+            </select>
 
-                <select type="text" class="form-control ui-select guigese" id="guigese">
-                    <option selected="selected" value="0">---- 规格 ----</option>
+            <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese">
+                <option selected="selected" value="0">---- 规格 ----</option>
 
-                </select>
-                <select type="text" class="form-control ui-select zulinse" id="zulinse">
-                    <option selected="selected" value="0">---- 租赁状态 ----</option>
-                    <option value="1">已租</option>
-                    <option value="3">未租</option>
-                </select>
-                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 1rem">查询</button>
-            </div>
-            <div data-toggle="distpicker" id="table2" class="form-inline topinline cheliang">
-                <input type="text" class="form-control search-input searchResult2"
-                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                <button type="button" class="btn btn-primary searchCcusn searchCcu2" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
-
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr2"
-                        style="margin-left: 20px;"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select selci2"></select>
-                <select data-district="---- 选择区 ----" class="form-control ui-select selco2" style="display:none;"></select>
-
-                <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select wangdianse"
-                        onChange="move2()">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                    <option value="wu">无</option>
-                </select>
-
-                <select type="text" class="form-control ui-select erjise" id="erjise2">
-                    <option selected="selected" value="0">---- 驿站 ----</option>
-                    <option value="wu">无</option>
-
-                </select>
-
-                <select type="text" class="form-control ui-select guigese" id="guigese2">
-                    <option selected="selected" value="0">---- 规格 ----</option>
-
-                </select>
-                <select type="text" class="form-control ui-select zulinse" id="zulinse2">
-                    <option selected="selected" value="0">---- 租赁状态 ----</option>
-                    <option value="1">已租</option>
-                    <option value="3">未租</option>
-                </select>
-                <button type="button" class="btn btn-primary searchDQ2" style="margin-left: 1rem">查询</button>
-            </div>
-            <div data-toggle="distpicker" id="table3" class="form-inline topinline cheliang">
-                <input type="text" class="form-control search-input searchResult3"
-                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                <button type="button" class="btn btn-primary searchCcusn searchCcu3" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
-
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr3"
-                        style="margin-left: 20px;"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select selci3"></select>
-                <select data-district="---- 选择区 ----" class="form-control ui-select selco3" style="display: none"></select>
-
-                <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control ui-select wangdianse"
-                        onChange="move3()">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                    <option value="wu">无</option>
-                </select>
-
-                <select type="text" class="form-control ui-select erjise" id="erjise3">
-                    <option selected="selected" value="0">---- 驿站 ----</option>
-                    <option value="wu">无</option>
-
-                </select>
-
-                <select type="text" class="form-control ui-select guigese" id="guigese3">
-                    <option selected="selected" value="0">---- 规格 ----</option>
-
-                </select>
-                <select type="text" class="form-control ui-select zulinse" id="zulinse3">
-                    <option selected="selected" value="0">---- 租赁状态 ----</option>
-                    <option value="1">已租</option>
-                    <option value="3">未租</option>
-                </select>
-                <button type="button" class="btn btn-primary searchDQ3" style="margin-left: 1rem">查询</button>
-            </div>
-            <div data-toggle="distpicker" id="table4" class="form-inline topinline cheliang">
-
-            </div>
-            <script type="text/javascript">
-                document.getElementById("table1").style.display = "block";
-                document.getElementById("table2").style.display = "none";
-                document.getElementById("table3").style.display = "none";
-                document.getElementById("table4").style.display = "none";
-
-            </script>
+            </select>
+            <select type="text" class="form-control ui-select ui-toolbar-widget zulinse" id="zulinse">
+                <option selected="selected" value="0">---- 租赁状态 ----</option>
+                <option value="1">已租</option>
+                <option value="3">未租</option>
+            </select>
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ">查询</button>
         </div>
+        <div data-toggle="distpicker" id="table2" class="form-inline" style="display: none">
+            <input type="text" class="form-control search-input ui-toolbar-widget searchResult2"
+                   placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                   onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu2"><span class="glyphicon glyphicon-search"></span></button>
+
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr2"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci2"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select selco2" style="display:none;"></select>
+
+            <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select ui-toolbar-widget wangdianse"
+                    onChange="move2()">
+                <option selected="selected" value="0">---- 分站 ----</option>
+                <option value="wu">无</option>
+            </select>
+
+            <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise2">
+                <option selected="selected" value="0">---- 驿站 ----</option>
+                <option value="wu">无</option>
+
+            </select>
+
+            <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese2">
+                <option selected="selected" value="0">---- 规格 ----</option>
+
+            </select>
+            <select type="text" class="form-control ui-select ui-toolbar-widget zulinse" id="zulinse2">
+                <option selected="selected" value="0">---- 租赁状态 ----</option>
+                <option value="1">已租</option>
+                <option value="3">未租</option>
+            </select>
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ2">查询</button>
+        </div>
+        <div data-toggle="distpicker" id="table3" class="form-inline" style="display: none">
+            <input type="text" class="form-control search-input ui-toolbar-widget searchResult3"
+                   placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+                   onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu3"><span class="glyphicon glyphicon-search"></span></button>
+
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr3"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci3"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco3" style="display: none"></select>
+
+            <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control ui-select ui-toolbar-widget wangdianse"
+                    onChange="move3()">
+                <option selected="selected" value="0">---- 分站 ----</option>
+                <option value="wu">无</option>
+            </select>
+
+            <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise3">
+                <option selected="selected" value="0">---- 驿站 ----</option>
+                <option value="wu">无</option>
+
+            </select>
+
+            <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese3">
+                <option selected="selected" value="0">---- 规格 ----</option>
+
+            </select>
+            <select type="text" class="form-control ui-select ui-toolbar-widget zulinse" id="zulinse3">
+                <option selected="selected" value="0">---- 租赁状态 ----</option>
+                <option value="1">已租</option>
+                <option value="3">未租</option>
+            </select>
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ3">查询</button>
+        </div>
+        <div data-toggle="distpicker" id="table4" class="form-inline" style="display: none">
+        </div>
+
     </div>
     <table id="table"
            data-ajax="ajaxRequest"
@@ -1404,15 +1392,9 @@
     }
 
     function getHeight() {
-        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true) - 50 - 16 - 16;
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true) - mainNavHeight - 16 - 16;
     }
-
-    $(window).resize(function () {
-        $table.bootstrapTable('resetView', {
-            height: getHeight()
-        });
-    });
-
 
     onTabSelectedChanged("正常属性机车");
 
@@ -2040,32 +2022,6 @@
 </script>
 <script type="text/javascript">
 
-    $(function () {
-
-        $('#datetimepicker1').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-        $('#datetimepicker2').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-        $('#datetimepicker3').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate()
-        });
-        $('#datetimepicker4').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate2()
-        });
-        $('#datetimepicker5').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate3()
-        });
-        $('#datetimepicker6').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            defaultDate : getNowFormatDate2()
-        });
-
-    });
     function getNowFormatDate() {
         var date = new Date();
         var date2 = new Date(date.getTime() - 7 * 24 * 3600 * 1000);
@@ -2206,8 +2162,52 @@
             dropZoneTitle: "拖拽文件到这里...</br>仅支持上传Excel文件",
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
 
-    });
+        });
     }
+
+    $(function () {
+
+        resizeLayout()
+
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+        $('#datetimepicker3').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            defaultDate : getNowFormatDate()
+        });
+        $('#datetimepicker4').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            defaultDate : getNowFormatDate2()
+        });
+        $('#datetimepicker5').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            defaultDate : getNowFormatDate3()
+        });
+        $('#datetimepicker6').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            defaultDate : getNowFormatDate2()
+        });
+
+    });
+
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
+    $(window).resize(function () {
+        resizeLayout()
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
 
 </script>
 <script src="js/vendor/distpicker.data.js"></script>

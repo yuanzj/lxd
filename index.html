@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/bootstrap-editable.css">
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"/>
 
-
 </head>
 <body>
 
@@ -33,7 +32,7 @@
     </div>
 </div>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" id="main-nav">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -98,6 +97,14 @@
         sessionStorage.selectedTabName = '地图展示'
         window.location.replace("./login.html")
     })
+
+    sessionStorage.mainNavHeight = $('#main-nav').height()
+
+    $(window).resize(function () {
+        sessionStorage.mainNavHeight = $('#main-nav').height()
+    });
+
+    console.log('main-nav:' + sessionStorage.mainNavHeight)
 </script>
 </body>
 </html>

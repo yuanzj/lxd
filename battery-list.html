@@ -296,7 +296,7 @@
 </div>
 
 <div class="ui-content">
-    <div class="fixed-table-toolbar">
+    <div class="fixed-table-toolbar" style="margin-bottom: 1rem">
         <ul class="nav nav-tabs mytabs" id="mytabs">
             <!--异常电池、逾期租赁电池、已租赁电池、待租赁电池、禁用电池、仓库电池、丢失电池、试用电池、售后电池-->
             <li class="item active" id="tabletab6"><a href="#">禁用电池</a></li>
@@ -310,37 +310,33 @@
             <li class="item" id="tab-try-out"><a href="#">试用电池</a></li>
         </ul>
     </div>
-    <div id="toolbar">
-        <div class="my-container-status">
+    <!--<div  class="my-container-status   ">-->
+    <!--</div>-->
+    <div  data-toggle="distpicker" class="form-inline" id="toolbar-filter" >
+        <input type="text" class="form-control ui-select search-input ui-toolbar-widget searchResult" placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}" onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+        <button type="button" class="btn btn-primary ui-toolbar-widget searchCcu"><span class="glyphicon glyphicon-search"></span></button>
 
-            <div data-toggle="distpicker" id="toolbar-filter" class="form-inline topinline status">
-                <input type="text" class="form-control ui-select search-input searchResult" placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}" onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                <button type="button" class="btn btn-primary searchCcu" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-search"></span></button>
+        <!--<label style="margin-left: 16px"></label>-->
 
-                <label style="margin-left: 16px"></label>
+        <select type="text" class="form-control ui-select ui-toolbar-widget" id="select-type" onChange="getStation()">
+            <option selected="selected" value="0">---- 请选择网点类型 ----</option>
+            <option value="40">直营租赁</option>
+            <option value="70">加盟租赁</option>
+            <option value="80">集团租赁</option>
+        </select>
 
-                <select type="text" class="form-control ui-select" id="select-type" style="margin-left: 16px;" onChange="getStation()">
-                    <option selected="selected" value="0">---- 请选择网点类型 ----</option>
-                    <option value="40">直营租赁</option>
-                    <option value="70">加盟租赁</option>
-                    <option value="80">集团租赁</option>
-                </select>
+        <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr" onChange="getStation()"></select>
+        <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci" onChange="getStation()"></select>
+        <select data-district="---- 选择区 ----" class="form-control ui-toolbar-widget ui-select selco" style="display: none"></select>
 
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr" style="margin-left: 16px;" onChange="getStation()"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select selci" style="margin-left: 8px;" onChange="getStation()"></select>
-                <select data-district="---- 选择区 ----" class="form-control ui-select selco" style="display: none"></select>
+        <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select ui-toolbar-widget wangdianse" onChange="onStationChange()"> <option selected="selected" value="0">---- 选择分站 ----</option></select>
+        <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise"><option selected="selected" value="0">---- 选择驿站 ----</option></select>
 
-                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse" onChange="onStationChange()" style="margin-left: 16px;"> <option selected="selected" value="0">---- 选择分站 ----</option></select>
-                <select type="text" class="form-control ui-select erjise" id="erjise" style="margin-left: 8px;"><option selected="selected" value="0">---- 选择驿站 ----</option></select>
+        <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese"><option selected="selected" value="0">---- 规格 ----</option></select>
 
-                <select type="text" class="form-control ui-select guigese" id="guigese" style="margin-left: 16px;"><option selected="selected" value="0">---- 规格 ----</option></select>
-
-                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 0.5rem;">查询</button>
-            </div>
-
-        </div>
+        <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ">查询</button>
     </div>
-    <div id="map"></div>
+    <!--<div id="map"></div>-->
     <table id="table"
            data-ajax="ajaxRequest"
            data-search="false"
@@ -348,7 +344,7 @@
            data-show-toggle="false"
            data-show-columns="true"
            data-show-export="false"
-           data-toolbar="#toolbar"
+           data-toolbar="#toolbar-filter"
            data-minimum-count-columns="2"
            data-pagination="true"
            data-id-field="ccuSn"
@@ -2861,14 +2857,9 @@
     }  //ajax 封装
 
     function getHeight() {
-        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true)  - 50 - 16 - 16;
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true)  - mainNavHeight - 16 - 16;
     }
-
-    $(window).resize(function () {
-        $table.bootstrapTable('resetView', {
-            height: getHeight()
-        });
-    });
 
     $("#wrap-btn-on").on("click", function () {
         console.log("cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues/update_storeId?storeId=" + storeId + "&ueId=" + ueId);
@@ -3183,8 +3174,24 @@
     });
 
     $(function () {
+        resizeLayout()
         getStation();
         getSpecifications();
+    });
+
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
+    $(window).resize(function () {
+        resizeLayout()
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
     });
 
 </script>

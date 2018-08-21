@@ -159,7 +159,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <!-- 邀请码配置  -->
 <div id="invite-wrap" class="wrap-div">
     <div style="width: 460px;height: 32px;background: #636161;margin: 0 auto;margin-top: 100px;opacity: 1">
@@ -1741,78 +1740,67 @@
             <!--<li class="item" id="tab-test"><a href="#">测试站点</a></li>-->
         </ul>
     </div>
-    <div id="toolbar" style="display: none;">
+    <div id="toolbar">
 
-        <div class="my-container-cheliang">
-            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-tab-storage">
-                <button class="btn btn-primary add-station" id="btn-addstation"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
-                <button class="btn btn-danger add-station" id="btn-delete" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+        <div data-toggle="distpicker" class=" form-inline" id="toolbar-tab-station">
+            <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-addstation2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+            <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
-                <select data-province="---- 选择省 ----" class="form-control selpr" style="margin-left: 1rem;width: 150px"></select>
-                <select data-city="---- 选择市 ----" class="form-control selci" style="margin-left: 0.5rem;width: 150px"></select>
-                <select data-district="---- 选择区 ----" class="form-control selco" style="display: none;margin-left: 0.5rem;width: 150px"></select>
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr2"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci2"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco2" style="display: none"></select>
 
-                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control wangdianse" style="margin-left: 1rem;width: 150px">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                </select>
-
-                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </div>
-
-            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-tab-station">
-                <button class="btn btn-primary add-station" id="btn-addstation2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
-                <button class="btn btn-danger add-station" id="btn-delete-1" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-
-                <select data-province="---- 选择省 ----" class="form-control selpr2" style="margin-left: 1rem;width: 150px"></select>
-                <select data-city="---- 选择市 ----" class="form-control selci2" style="margin-left: 0.5rem;width: 150px"></select>
-                <select data-district="---- 选择区 ----" class="form-control selco2" style="display: none;margin-left: 0.5rem;width: 150px"></select>
-
-                <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control wangdianse" style="margin-left: 1rem;width: 150px">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                </select>
-                <button type="button" class="btn btn-primary searchDQ2" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </div>
-
-            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-tab-sub-station">
-                <button class="btn btn-primary add-station" id="btn-addstation3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
-                <button class="btn btn-danger add-station" id="btn-delete-2" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-
-                <select data-province="---- 选择省 ----" class="form-control selpr3" style="margin-left: 1rem;width: 150px"></select>
-                <select data-city="---- 选择市 ----" class="form-control selci3" style="margin-left: 0.5rem;width: 150px"></select>
-                <select data-district="---- 选择区 ----" class="form-control selco3" style="display: none;margin-left: 0.5rem;width: 150px"></select>
-
-                <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control wangdianse" style="margin-left: 1rem;width: 150px">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                </select>
-                <button type="button" class="btn btn-primary searchDQ3" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </div>
-
-            <div data-toggle="distpicker" class=" form-inline topinline cheliang" id="toolbar-filter">
-
-                <button class="btn btn-primary add-station" id="btn-add-station"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
-                <button class="btn btn-danger add-station" id="btn-delete-3" style="margin-left: 0.5rem;"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
-
-                <select data-province="---- 选择省 ----" class="form-control select-province" style="margin-left: 1rem;width: 150px"></select>
-                <select data-city="---- 选择市 ----" class="form-control select-city" style="margin-left: 0.5rem;width: 150px"></select>
-                <select data-district="---- 选择区 ----" class="form-control select-district" style="display: none;margin-left: 0.5rem;width: 150px"></select>
-
-                <select type="text" id="section-name-categories" class="form-control" style="margin-left: 1rem;width: 150px">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                </select>
-
-                <button type="button" class="btn btn-primary btn-filter-search" style="margin-left: 1rem;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-            </div>
-
-            <script type="text/javascript">
-
-                document.getElementById("toolbar-tab-station").style.display = "block";
-                document.getElementById("toolbar-tab-sub-station").style.display = "none";
-                document.getElementById("toolbar-filter").style.display = "none";
-                document.getElementById("toolbar-tab-storage").style.display = "none";
-
-                document.getElementById("toolbar").style.display = "block";
-            </script>
+            <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select ui-toolbar-widget wangdianse">
+                <option selected="selected" value="0">---- 分站 ----</option>
+            </select>
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
         </div>
+
+        <div data-toggle="distpicker" class=" form-inline" id="toolbar-tab-storage" style="display: none" >
+            <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-addstation"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+            <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco"></select>
+
+            <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select ui-toolbar-widget wangdianse">
+                <option selected="selected" value="0">---- 分站 ----</option>
+            </select>
+
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        </div>
+
+        <div data-toggle="distpicker" class=" form-inline" id="toolbar-tab-sub-station" style="display: none" >
+            <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-addstation3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+            <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete-2"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr3"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci3"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco3"></select>
+
+            <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control ui-select ui-toolbar-widget wangdianse">
+                <option selected="selected" value="0">---- 分站 ----</option>
+            </select>
+            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ3"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        </div>
+
+        <div data-toggle="distpicker" class=" form-inline" id="toolbar-filter" style="display: none">
+
+            <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-add-station"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
+            <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete-3"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
+
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget select-province"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget select-city"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget select-district"></select>
+
+            <select type="text" id="section-name-categories" class="form-control ui-select ui-toolbar-widget">
+                <option selected="selected" value="0">---- 分站 ----</option>
+            </select>
+
+            <button type="button" class="btn btn-primary ui-toolbar-widget btn-filter-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+        </div>
+
     </div>
     <table id="table"
            data-ajax="ajaxRequest"
@@ -2662,14 +2650,9 @@
     };
 
     function getHeight() {
-        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true)  - 50 - 16 - 16;
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - $('.fixed-table-toolbar').outerHeight(true)  - mainNavHeight - 16 - 16;
     }
-
-    $(window).resize(function () {
-        $table.bootstrapTable('resetView', {
-            height: getHeight()
-        });
-    });
 
     function showMap() {
         $("#pickmap").show();
@@ -3770,6 +3753,9 @@
     initTable();
 
     $(function () {
+
+        resizeLayout()
+
         $table.bootstrapTable("hideColumn", "a");
         $table.bootstrapTable("hideColumn", "d");
         $table.bootstrapTable("hideColumn", "e");
@@ -3790,6 +3776,21 @@
     });
 
     loadBody();
+
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
+    $(window).resize(function () {
+        resizeLayout()
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
 
 </script>
 

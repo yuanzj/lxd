@@ -1,11 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0092)file:///C:/Users/apple/Desktop/%E5%90%8E%E5%8F%B0%E6%A8%A1%E6%9D%BF/mbts_30_Wopop/Wopop.html -->
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
     <title>登录</title>
-    <link href="css/style_log.css" rel="stylesheet" type="text/css">
-
-
+    <link rel="stylesheet" href="css/style_log.css">
 
 </head>
 
@@ -16,15 +14,18 @@
 
         <div class="login_padding" id="login_model">
             <div style="text-align: center;">
-                <h3 style="color: #737373;font-size: 30px;font-weight: 500;margin-top: 10px;margin-bottom: 25px;">登   录</h3>
+                <h3 style="color: #737373;font-size: 30px;font-weight: 500;margin-top: 10px;margin-bottom: 25px;">登
+                    录</h3>
 
-                <div class="text" id="text" style="border: solid 1px #ccc;height: 50px;border-radius: 5px;margin-top: 40px;background: url('img/people.png') no-repeat 10px center;">
+                <div class="text" id="text"
+                     style="border: solid 1px #ccc;height: 50px;border-radius: 5px;margin-top: 40px;background: url('img/people.png') no-repeat 10px center;">
                     <input id="username" style="box-shadow:none;    padding-top: 0;font-size: 16px;float:left;border:none;
             background:none;height:50px;line-height:30px;width:100%; text-indent:55px;outline: none;color: #555;"
                            placeholder="请输入登录名" onblur="if(this.placeholder==''){this.placeholder='请输入登录名'}"
                            onfocus="if(this.placeholder=='请输入登录名'){this.placeholder=''}" type="text"/>
                 </div>
-                <div class="text1" id="text1" style="border: solid 1px #ccc;height: 50px;background: url('img/lock.png') no-repeat 10px center;border-radius: 5px; margin-top: 40px;">
+                <div class="text1" id="text1"
+                     style="border: solid 1px #ccc;height: 50px;background: url('img/lock.png') no-repeat 10px center;border-radius: 5px; margin-top: 40px;">
                     <input id="userpwd" name="textfield2" type="password" style="box-shadow:none;padding-top: 0;font-size: 16px;float:left;
             border:none;background:none;height:50px;line-height:30px;width:100%; text-indent:55px;outline: none;color: #555;"
                            placeholder="请输入密码" onblur="if(this.placeholder==''){this.placeholder='请输入密码'}"
@@ -32,7 +33,8 @@
                 </div>
 
             </div>
-            <input type="submit" class="logbtn2" id="button"  style="width: 100%;height: 47px;cursor:pointer;margin-top: 30px" value="登 录"/>
+            <input type="submit" class="logbtn2" id="button"
+                   style="width: 100%;height: 47px;cursor:pointer;margin-top: 30px" value="登 录"/>
 
         </div>
         <div id="forget_model" class="login_padding" style="display:none">
@@ -40,7 +42,9 @@
 
             <h1>Forgot password</h1>
             <br>
-            <div class="forget_model_h2">(Please enter your registered email below and the system will automatically reset users’ password and send it to user’s registered email address.)</div>
+            <div class="forget_model_h2">(Please enter your registered email below and the system will automatically
+                reset users’ password and send it to user’s registered email address.)
+            </div>
             <label>
                 <input type="text" id="usrmail" class="txt_input txt_input2">
             </label>
@@ -50,15 +54,13 @@
                 <div class="rem_sub_l">
                 </div>
                 <label>
-                    <input type="submit" class="sub_buttons" name="button" id="Retrievenow" value="Retrieve now" style="opacity: 0.7;">　　　
-                    <input type="submit" class="sub_button" name="button" id="denglou" value="Return" style="opacity: 0.7;">　　
+                    <input type="submit" class="sub_buttons" name="button" id="Retrievenow" value="Retrieve now"
+                           style="opacity: 0.7;">　　　
+                    <input type="submit" class="sub_button" name="button" id="denglou" value="Return"
+                           style="opacity: 0.7;">　　
                 </label>
             </div>
         </div>
-
-
-
-
 
 
         <!--login_padding  Sign up end--></div>
@@ -67,38 +69,36 @@
 <br> <br>
 
 
-
-
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <script>
-    $(function(){
-        $('#button').click(function(){
+    $(function () {
+        $('#button').click(function () {
             var username = $('#username').val();
             var userpwd = $('#userpwd').val();
             $.ajax({
 
-                url:'http://cjl3.rokyinfo.net:7200/auth/token',
-                type:'POST',
+                url: 'http://cjl3.rokyinfo.net:7200/auth/token',
+                type: 'POST',
                 data: JSON.stringify({
                     phoneNumber: username,
-                    password:userpwd
+                    password: userpwd
 
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
 
-                success:function(json){
-                    sessionStorage.token=json.token;
-                    sessionStorage.firmFlag=json.firmFlag;
-                    sessionStorage.name=JSON.stringify(json.firmInfoEntityList);
-                    sessionStorage.flag=json.firmInfoEntityList[0].flag;
-                    sessionStorage.namedes=json.roles[0].name;
-                    window.location.href="./index.html";
-                    top.window.location="./index.html";
+                success: function (json) {
+                    sessionStorage.token = json.token;
+                    sessionStorage.firmFlag = json.firmFlag;
+                    sessionStorage.name = JSON.stringify(json.firmInfoEntityList);
+                    sessionStorage.flag = json.firmInfoEntityList[0].flag;
+                    sessionStorage.namedes = json.roles[0].name;
+                    window.location.href = "./index.html";
+                    top.window.location = "./index.html";
 
                 },
-                error:function(err){
+                error: function (err) {
                     console.log(err);
                     alert('用户名或密码错误');
                 }

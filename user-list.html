@@ -204,20 +204,14 @@
 </div>
 
 <div class="ui-content">
-    <div id="toolbar" class="yonghutool">
-
-        <div class="my-container-cheliang">
-
-            <div data-toggle="distpicker" class="form-inline topinline cheliang">
-                <input type="text" class="form-control searchResult" style="display: inline-block;width: 250px;"
-                       placeholder="输入手机号或身份证号搜索用户"
-                       onblur="if(this.placeholder==''){this.placeholder='输入手机号或身份证号搜索用户'}"
-                       onfocus="if(this.placeholder=='输入手机号或身份证号搜索用户'){this.placeholder=''}">
-                <button type="button" class="btn btn-primary searchCcusn searchCcu" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
-
-        </div>
-
+    <div class="form-inline" id="toolbar">
+        <input type="text"
+               class="form-control ui-toolbar-widget searchResult"
+               placeholder="输入手机号或身份证号搜索用户"
+               onblur="if(this.placeholder==''){this.placeholder='输入手机号或身份证号搜索用户'}"
+               onfocus="if(this.placeholder=='输入手机号或身份证号搜索用户'){this.placeholder=''}"
+               style="width: 250px">
+        <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu" ><span class="glyphicon glyphicon-search"></span></button>
     </div>
     <table id="table"
            data-search="false"
@@ -625,14 +619,10 @@
     }
 
     function getHeight() {
-        return $(window).height() - 50 - 16 - 16;
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - mainNavHeight - 16 - 16;
     }
 
-    $(window).resize(function () {
-        $table.bootstrapTable('resetView', {
-            height: getHeight()
-        });
-    });
     $("#deletuser").on('click', function () {
 
         if (deteleOdd(DELETE_ARR).length == 0) {
@@ -843,7 +833,26 @@
 
     })
 
-    initTable();
+    $(function () {
+        resizeLayout()
+
+        initTable();
+    });
+
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
+    $(window).resize(function () {
+        resizeLayout()
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
 </script>
 
 <script src="js/vendor/distpicker.data.js"></script>

@@ -18,58 +18,47 @@
             <li class="item" id="tab-unrent"><a href="#">退租</a></li>
         </ul>
     </div>
-    <div id="toolbar">
-        <div class="my-container-cheliang">
 
-            <div data-toggle="distpicker" id="table1" class="form-inline topinline cheliang">
-                <input type="text" class="form-control search-input searchResult"
-                       placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                       onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-                <button type="button" class="btn btn-primary searchCcusn searchCcu" style="margin-left: 1rem"><span class="glyphicon glyphicon-search"></span></button>
+    <div data-toggle="distpicker" id="table1" class="form-inline">
+        <input type="text" class="form-control search-input ui-toolbar-widget searchResult"
+               placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
+               onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
+        <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu"><span class="glyphicon glyphicon-search"></span></button>
 
-                <select data-province="---- 选择省 ----" class="form-control ui-select selpr"
-                        style="margin-left: 20px;" onChange="getMissiveType()"></select>
-                <select data-city="---- 选择市 ----" class="form-control ui-select selci" onChange="getMissiveType()"></select>
-                <select data-district="---- 选择区 ----" class="form-control selco" style="display: none"></select>
+        <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr" onChange="getMissiveType()"></select>
+        <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci" onChange="getMissiveType()"></select>
+        <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco" style="display: none"></select>
 
-                <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select wangdianse-small" onChange="move1()">
-                    <option selected="selected" value="0">---- 分站 ----</option>
-                </select>
+        <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select ui-toolbar-widget wangdianse-small" onChange="move1()">
+            <option selected="selected" value="0">---- 分站 ----</option>
+        </select>
 
-                <select type="text" class="form-control ui-select erjise-small" id="erjise">
-                    <option selected="selected" value="0">---- 驿站 ----</option>
+        <select type="text" class="form-control ui-select ui-toolbar-widget erjise-small" id="erjise">
+            <option selected="selected" value="0">---- 驿站 ----</option>
+        </select>
 
-                </select>
+        <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese">
+            <option selected="selected" value="0">---- 规格 ----</option>
+        </select>
 
-                <select type="text" class="form-control ui-select guigese" id="guigese">
-                    <option selected="selected" value="0">---- 规格 ----</option>
+        <select type="text" class="form-control ui-select ui-toolbar-widget tool-select" id="zhifuse">
+            <option selected="selected" value="0">---- 支付方式 ----</option>
+            <option>支付宝</option>
+            <option>微信支付</option>
+            <option>优惠券</option>
+        </select>
 
-                </select>
-                <!--<select type="text" class="form-control ui-select tool-select" id="leixingse">-->
-                    <!--<option selected="selected" value="9">&#45;&#45;&#45;&#45; 选择租赁类型 &#45;&#45;&#45;&#45;</option>-->
-                    <!--<option value="0">新租</option>-->
-                    <!--<option value="1">续租</option>-->
-                <!--</select>-->
-                <select type="text" class="form-control ui-select tool-select" id="zhifuse">
-                    <option selected="selected" value="0">---- 支付方式 ----</option>
-                    <option>支付宝</option>
-                    <option>微信支付</option>
-                    <option>优惠券</option>
-
-                </select>
-                <button type="button" class="btn btn-primary searchDQ" style="margin-left: 1rem">查询</button>
-            </div>
-
-        </div>
+        <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ">查询</button>
     </div>
-    <div id="map"></div>
+
     <table id="table"
+           data-ajax="ajaxRequest"
            data-search="false"
            data-show-refresh="true"
            data-show-toggle="false"
            data-show-columns="true"
            data-show-export="false"
-           data-toolbar="#toolbar"
+           data-toolbar="#table1"
            data-minimum-count-columns="2"
            data-pagination="true"
            data-id-field="ccuSn"
@@ -98,6 +87,35 @@
 <script src="js/main.js"></script>
 
 <script>
+
+    var source = null;
+    // your custom ajax request here
+    function ajaxRequest(params) {
+        if (source != null) {
+            source.cancel('Operation canceled by the user.');
+            source = null
+        }
+
+        var CancelToken = axios.CancelToken;
+        source = CancelToken.source();
+
+        axios.get(params.url,{
+            cancelToken: source.token,
+            headers:{
+                "Content-Type": "application/json;charset=UTF-8",
+                "firm": JSON.parse(sessionStorage.name)[sessionStorage.Vname].flag,
+                "Authorization": sessionStorage.token
+            },
+            params:params.data
+        })
+            .then(function(response){
+                params.success(response.data)
+
+            })
+            .catch(function(error){
+                console.log(error)
+            });
+    }
 
     var leixingvalue = 0
 
@@ -571,14 +589,9 @@
     }
 
     function getHeight() {
-        return $(window).height() - 50 - 16 - $('.fixed-table-toolbar').outerHeight(true);
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+        return $(window).height() - mainNavHeight - 16 - $('.fixed-table-toolbar').outerHeight(true);
     }
-
-    $(window).resize(function () {
-        $table.bootstrapTable('resetView', {
-            height: getHeight()
-        });
-    });
 
     $(".searchCcu").on("click", function () {
 
@@ -665,11 +678,6 @@
         console.log(url);
 
         initTable();
-    });
-
-    $(function () {
-        getMissiveType();
-        getMissiveType2();
     });
 
     function getMissiveType() {
@@ -761,6 +769,27 @@
         })
     }
 
-    initTable();
+    $(function () {
+        resizeLayout()
+
+        getMissiveType();
+        getMissiveType2();
+        initTable();
+    });
+
+    function resizeLayout() {
+
+        var mainNavHeight = Number(sessionStorage.mainNavHeight)
+
+        $(".ui-content").css('padding-top', (mainNavHeight + 16) + 'px');
+
+    }
+
+    $(window).resize(function () {
+        resizeLayout()
+        $table.bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
 </script>
 </html>
