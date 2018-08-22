@@ -365,25 +365,54 @@
         ].join("")
     }//总机车数
     function yizuFormatter(value, row, index) {
-        var inner = row.batteryRentedCount;
+        if (row.rentPercent < 0) {
+            var inner = '-'
 
-        return [
-            '<span>' + inner + '</span>'
-        ].join('');
+            return [
+                '<span>' + inner + '</span>'
+            ].join('');
+        } else {
+            var inner = row.batteryRentedCount;
+
+            return [
+                '<span>' + inner + '</span>'
+            ].join('');
+        }
+
     }//已租赁数
     function daizuFormatter(value, row, index) {
-        var inner = row.batteryUnusedCount;
 
-        return [
-            '<span>' + inner + '</span>'
-        ].join('');
+        if (row.rentPercent < 0) {
+            var inner = '-'
+
+            return [
+                '<span>' + inner + '</span>'
+            ].join('');
+        } else {
+            var inner = row.batteryUnusedCount;
+
+            return [
+                '<span>' + inner + '</span>'
+            ].join('');
+        }
+
     }//待租赁数
     function zulinlvFormatter(value, row, index) {
-        var inner = row.rentPercent + "%";
 
-        return [
-            '<span>' + inner + '</span>'
-        ].join('');
+        if (row.rentPercent < 0) {
+            var inner = '-'
+
+            return [
+                '<span>' + inner + '</span>'
+            ].join('');
+        } else {
+            var inner = row.rentPercent + "%";
+
+            return [
+                '<span>' + inner + '</span>'
+            ].join('');
+        }
+
     }//租赁率
     function jxsFormatter(value, row, index) {
         var inner = row.name;

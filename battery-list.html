@@ -451,7 +451,14 @@
                         getStoreWithCategory()
                     } else if (text == "欠压电池" || text == "离线电池") {
                         resetFilterBarSelected()
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
+                        if (text == "欠压电池") {
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&exceptionFlag=1&bmsExceptionReason=1&sort=ue.end_time,desc";
+                        } else if (text == "离线电池"){
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ue.end_time,desc";
+                        } else {
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ue.end_time,desc";
+                        }
+
                         initTable();
                         $table.bootstrapTable("hideColumn", "afterSaleReason");
 

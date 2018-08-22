@@ -448,7 +448,15 @@
                         getStoreWithCategory()
                     } else if (text == "欠压机车" || text == "离线机车") {
                         resetFilterBarSelected()
-                        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
+
+                        if (text == "欠压机车") {
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=1&sort=ue.end_time,desc";
+                        } else if (text == "离线机车") {
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ue.end_time,desc";
+                        } else {
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ue.end_time,desc";
+                        }
+
                         initTable();
                         $table.bootstrapTable("hideColumn", "afterSaleReason");
 
