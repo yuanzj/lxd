@@ -1746,8 +1746,8 @@
             <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-addstation2"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
             <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete-1"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
-            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr2"></select>
-            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci2"></select>
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr2" onChange="getMissiveType1()"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci2" onChange="getMissiveType1()"></select>
             <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco2" style="display: none"></select>
 
             <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select ui-toolbar-widget wangdianse">
@@ -1760,9 +1760,9 @@
             <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-addstation"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
             <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
-            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr"></select>
-            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci"></select>
-            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco"></select>
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr" onChange="getMissiveType()"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci" onChange="getMissiveType()"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco" style="display: none"></select>
 
             <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select ui-toolbar-widget wangdianse">
                 <option selected="selected" value="0">---- 分站 ----</option>
@@ -1775,9 +1775,9 @@
             <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-addstation3"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
             <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete-2"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
-            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr3"></select>
-            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci3"></select>
-            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco3"></select>
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr3" onChange="getMissiveType2()"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci3" onChange="getMissiveType2()"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco3" style="display:none;"></select>
 
             <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control ui-select ui-toolbar-widget wangdianse">
                 <option selected="selected" value="0">---- 分站 ----</option>
@@ -1790,9 +1790,9 @@
             <button class="btn btn-primary ui-toolbar-widget add-station" id="btn-add-station"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</button>
             <button class="btn btn-danger ui-toolbar-widget add-station" id="btn-delete-3"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除</button>
 
-            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget select-province"></select>
-            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget select-city"></select>
-            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget select-district"></select>
+            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget select-province" onChange="getCurrentSelectedTabTypes()"></select>
+            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget select-city" onChange="getCurrentSelectedTabTypes()"></select>
+            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget select-district" style="display: none"></select>
 
             <select type="text" id="section-name-categories" class="form-control ui-select ui-toolbar-widget">
                 <option selected="selected" value="0">---- 分站 ----</option>
@@ -1847,6 +1847,8 @@
 
     $("#tab-storage").on("click", function () {
         currentSelectedCategory = 0
+
+        getMissiveType()
         document.getElementById("toolbar-tab-storage").style.display = "block";
         document.getElementById("toolbar-tab-station").style.display = "none";
         document.getElementById("toolbar-filter").style.display = "none";
@@ -1854,6 +1856,8 @@
     });
     $("#tab-station").on("click", function () {
         currentSelectedCategory = 1
+
+        getMissiveType1()
         document.getElementById("toolbar-tab-storage").style.display = "none";
         document.getElementById("toolbar-tab-station").style.display = "block";
         document.getElementById("toolbar-filter").style.display = "none";
@@ -1861,6 +1865,8 @@
     });
     $("#tab-sub-station").on("click", function () {
         currentSelectedCategory = 2
+
+        getMissiveType2()
         document.getElementById("toolbar-tab-storage").style.display = "none";
         document.getElementById("toolbar-tab-station").style.display = "none";
         document.getElementById("toolbar-filter").style.display = "none";
@@ -2692,8 +2698,24 @@
     }
 
     function getCurrentSelectedTabTypes() {
+
+        var province = $(".select-province").val();
+        var city = $(".select-city").val();
+
+        var url = 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=' + currentSelectedCategory + '&showFlag=0&sort=code,asc&limit=100&page=1'
+        if (province == "") {
+            url = url
+        } else {
+            url = url + "&province=" + province
+        }
+        if (city == "") {
+            url = url
+        } else {
+            url = url + "&city=" + city
+        }
+
         $.ajax({
-                url: 'http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=' + currentSelectedCategory + '&showFlag=0&sort=code,asc&limit=100&page=1',
+                url: url,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData: false,
@@ -2721,8 +2743,24 @@
     }
 
     function getMissiveType() {
+
+        var province = $(".selpr").val();
+        var city = $(".selci").val();
+
+        var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0&showFlag=0&sort=code,asc&limit=100&page=1"
+        if (province == "") {
+            url = url
+        } else {
+            url = url + "&province=" + province
+        }
+        if (city == "") {
+            url = url
+        } else {
+            url = url + "&city=" + city
+        }
+
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0&showFlag=0&sort=code,asc&limit=100&page=1",
+                url: url,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData: false,
@@ -2733,7 +2771,7 @@
                 },
                 success: function (data) {
                     var len = data.list.length;
-                    $('#sectionName-s').attr("length", '0');
+                    document.getElementById("sectionName-s").length = 1;
                     for (i = 0; i < len; i++) {
                         $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
@@ -2746,8 +2784,9 @@
         );
     }
 
-    function getMissiveType1() {
-        $.ajax({
+    function getStation() {
+
+       $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
                 method: "get",
                 contentType: "application/json; charset=utf-8",
@@ -2759,14 +2798,57 @@
                 },
                 success: function (data) {
                     var len = data.list.length;
-                    $('#sectionName-s').attr("length", '0');
+
                     $('#channel-1').attr("length", '0');
                     $('#channel-1').empty();
+
+                    for (i = 0; i < len; i++) {
+
+                        $("#channel-1").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
+
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    getStation()
+                }
+            }
+        );
+    }
+
+    function getMissiveType1() {
+
+        var province = $(".selpr2").val();
+        var city = $(".selci2").val();
+
+        var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1"
+        if (province == "") {
+            url = url
+        } else {
+            url = url + "&province=" + province
+        }
+        if (city == "") {
+            url = url
+        } else {
+            url = url + "&city=" + city
+        }
+
+        $.ajax({
+                url: url,
+                method: "get",
+                contentType: "application/json; charset=utf-8",
+                processData: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("firm", sessionStorage.firmFlag);
+                    xhr.setRequestHeader("Authorization", sessionStorage.token);
+                },
+                success: function (data) {
+                    var len = data.list.length;
+
+                    document.getElementById("sectionName-s2").length = 1;
                     for (i = 0; i < len; i++) {
 
                         $("#sectionName-s2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
-
-                        $("#channel-1").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
 
                     }
                 },
@@ -2778,8 +2860,24 @@
     }
 
     function getMissiveType2() {
+
+        var province = $(".selpr3").val();
+        var city = $(".selci3").val();
+
+        var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1"
+        if (province == "") {
+            url = url
+        } else {
+            url = url + "&province=" + province
+        }
+        if (city == "") {
+            url = url
+        } else {
+            url = url + "&city=" + city
+        }
+
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=1&showFlag=0&sort=code,asc&limit=100&page=1",
+                url: url,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData: false,
@@ -2790,7 +2888,8 @@
                 },
                 success: function (data) {
                     var len = data.list.length;
-                    $('#sectionName-s').attr("length", '0');
+
+                    document.getElementById("sectionName-s3").length = 1;
                     for (i = 0; i < len; i++) {
                         $("#sectionName-s3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
@@ -3764,9 +3863,10 @@
         $table.bootstrapTable("hideColumn", "lat");
         $table.bootstrapTable("hideColumn", "dealer");
         $table.bootstrapTable("hideColumn", "county");
-        getMissiveType();
+
         getMissiveType1();
-        getMissiveType2();
+
+        getStation()
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss'
         });
@@ -3790,8 +3890,7 @@
         $table.bootstrapTable('resetView', {
             height: getHeight()
         });
-    });
-
+    })
 </script>
 
 </body>

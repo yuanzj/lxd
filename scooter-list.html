@@ -174,8 +174,8 @@
                 <div>
                     <p style="font-size: 20px;font-weight: 700">序列号:&nbsp;&nbsp;<span class="carNumber"></span></p>
                     <div style="display: flex">
-                        <button type="button" class="btn btn-default" style="flex: 1" id="btn-7">开启输出</button>
-                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-6">关闭输出</button>
+                        <button type="button" class="btn btn-default" style="flex: 1" id="btn-7">解锁</button>
+                        <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-6">锁车</button>
                         <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-5">重启</button>
                         <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-tz">退租</button>
                         <button type="button" class="btn btn-default" style="flex: 1;margin-left: 1rem" id="btn-dialog-disable" data-dismiss="modal">禁用</button>
@@ -299,10 +299,11 @@
     <div class="fixed-table-toolbar">
         <ul class="nav nav-tabs mytabs" id="mytabs">
             <!--异常机车、逾期租赁机车、已租赁机车、待租赁机车、禁用机车、仓库机车、丢失机车、试用机车、售后机车-->
-            <li class="item active" id="tabletab6"><a href="#">禁用机车</a></li>
-            <li class="item" id="tabletab5"><a href="#">异常机车</a></li>
+            <li class="item active" id="tabletab1"><a href="#">已租赁机车</a></li>
+            <li class="item" id="tabletab6"><a href="#">禁用机车</a></li>
+            <li class="item" id="tab-undervoltage"><a href="#">欠压机车</a></li>
+            <li class="item" id="tab-offline"><a href="#">离线机车</a></li>
             <li class="item" id="tabletab2"><a href="#">逾期租赁机车</a></li>
-            <li class="item" id="tabletab1"><a href="#">已租赁机车</a></li>
             <li class="item" id="tabletab3"><a href="#">待租赁机车</a></li>
             <li class="item" id="tabletab4"><a href="#">仓库机车</a></li>
             <li class="item" id="tab-test"><a href="#">售后机车</a></li>
@@ -325,7 +326,7 @@
 
         <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr" onChange="getStation()"></select>
         <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci" onChange="getStation()"></select>
-        <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco"></select>
+        <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco" style="display: none"></select>
 
         <select type="text" name="sectionName-s" id="sectionName-s" class="form-control ui-select ui-toolbar-widget wangdianse" onChange="onStationChange()"> <option selected="selected" value="0">---- 选择分站 ----</option></select>
         <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise"><option selected="selected" value="0">---- 选择驿站 ----</option></select>
@@ -367,9 +368,11 @@
     var orOnLine;
     var cc = 0;
     var timer2 = 0;
-    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
+
     var currentCategory = null
-    var currentFilterType = null
+    var currentFilterType = 1
+    var url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&filterType=' + currentFilterType + '&sort=ue.end_time,desc'
+
     $(function () {
         $("#mytabs li").click(function () {
             $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
@@ -402,6 +405,7 @@
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                             $table.bootstrapTable("hideColumn", "re");
+                            $table.bootstrapTable("hideColumn", "afterSaleReason");
                         });
 
                         $("#select-type").css("display",'inline')
@@ -437,14 +441,16 @@
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                             $table.bootstrapTable("hideColumn", "re");
+                            $table.bootstrapTable("hideColumn", "afterSaleReason");
                         });
                         $("#select-type").css("display",'none')
                         $("#erjise").css("display",'none')
                         getStoreWithCategory()
-                    } else if (text == "异常机车") {
+                    } else if (text == "欠压机车" || text == "离线机车") {
                         resetFilterBarSelected()
                         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
                         initTable();
+                        $table.bootstrapTable("hideColumn", "afterSaleReason");
 
                         $("#select-type").css("display",'inline')
                         $("#erjise").css("display",'inline')
@@ -746,7 +752,7 @@
                 {
                     field: 'address',
                     title: '位置',
-                    align: 'center',
+                    align: 'left',
                     valign: 'middle',
                     events: operateEvents,
                     formatter: addressFormatter
@@ -764,6 +770,12 @@
                     align: 'center',
                     valign: 'middle',
                     formatter: reasonFormatter
+                },
+                {
+                    field: 'afterSaleReason',
+                    title: '禁用原因',
+                    align: 'left',
+                    valign: 'middle'
                 },
                 {
                     field: 're',
@@ -1079,16 +1091,21 @@
 
     }  //电量
     function addressFormatter(value, row, index) {
-        var inner = row.address;
         if (row.address == null) {
-            inner = ''
+            return [
+                '<a class="like7" href="#" title="查看当前定位">',
+                '<i class="glyphicon glyphicon-map-marker">',
+                '</i>',
+                '</a>'
+            ].join('');
+        } else {
+            return [
+                '<a class="like7" href="#" title="查看当前定位">',
+                row.address,
+                '</a>'
+            ].join('');
         }
-        return [
-            '<a class="like7" href="#" title="查看当前定位">',
-            '<i class="glyphicon glyphicon-map-marker">',
-            '</i>',
-            '</a>'
-        ].join('');
+
     }  //地址
     function reasonFormatter(value, row, index) {
         var inner;
@@ -2955,6 +2972,8 @@
 
     initTable();
     $table.bootstrapTable("hideColumn", "w");
+    $table.bootstrapTable("hideColumn", "re");
+    $table.bootstrapTable("hideColumn", "afterSaleReason");
 
 </script>
 <script type="text/javascript">

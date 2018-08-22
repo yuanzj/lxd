@@ -154,74 +154,6 @@
             </select>
             <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ">查询</button>
         </div>
-        <div data-toggle="distpicker" id="table2" class="form-inline" style="display: none">
-            <input type="text" class="form-control search-input ui-toolbar-widget searchResult2"
-                   placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                   onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-            <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu2"><span class="glyphicon glyphicon-search"></span></button>
-
-            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr2"></select>
-            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci2"></select>
-            <select data-district="---- 选择区 ----" class="form-control ui-select selco2" style="display:none;"></select>
-
-            <select type="text" name="sectionName-s" id="sectionName-s2" class="form-control ui-select ui-toolbar-widget wangdianse"
-                    onChange="move2()">
-                <option selected="selected" value="0">---- 分站 ----</option>
-                <option value="wu">无</option>
-            </select>
-
-            <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise2">
-                <option selected="selected" value="0">---- 驿站 ----</option>
-                <option value="wu">无</option>
-
-            </select>
-
-            <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese2">
-                <option selected="selected" value="0">---- 规格 ----</option>
-
-            </select>
-            <select type="text" class="form-control ui-select ui-toolbar-widget zulinse" id="zulinse2">
-                <option selected="selected" value="0">---- 租赁状态 ----</option>
-                <option value="1">已租</option>
-                <option value="3">未租</option>
-            </select>
-            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ2">查询</button>
-        </div>
-        <div data-toggle="distpicker" id="table3" class="form-inline" style="display: none">
-            <input type="text" class="form-control search-input ui-toolbar-widget searchResult3"
-                   placeholder="输入序列号" onblur="if(this.placeholder==''){this.placeholder='输入序列号'}"
-                   onfocus="if(this.placeholder=='输入序列号'){this.placeholder=''}">
-            <button type="button" class="btn btn-primary ui-toolbar-widget searchCcusn searchCcu3"><span class="glyphicon glyphicon-search"></span></button>
-
-            <select data-province="---- 选择省 ----" class="form-control ui-select ui-toolbar-widget selpr3"></select>
-            <select data-city="---- 选择市 ----" class="form-control ui-select ui-toolbar-widget selci3"></select>
-            <select data-district="---- 选择区 ----" class="form-control ui-select ui-toolbar-widget selco3" style="display: none"></select>
-
-            <select type="text" name="sectionName-s" id="sectionName-s3" class="form-control ui-select ui-toolbar-widget wangdianse"
-                    onChange="move3()">
-                <option selected="selected" value="0">---- 分站 ----</option>
-                <option value="wu">无</option>
-            </select>
-
-            <select type="text" class="form-control ui-select ui-toolbar-widget erjise" id="erjise3">
-                <option selected="selected" value="0">---- 驿站 ----</option>
-                <option value="wu">无</option>
-
-            </select>
-
-            <select type="text" class="form-control ui-select ui-toolbar-widget guigese" id="guigese3">
-                <option selected="selected" value="0">---- 规格 ----</option>
-
-            </select>
-            <select type="text" class="form-control ui-select ui-toolbar-widget zulinse" id="zulinse3">
-                <option selected="selected" value="0">---- 租赁状态 ----</option>
-                <option value="1">已租</option>
-                <option value="3">未租</option>
-            </select>
-            <button type="button" class="btn btn-primary ui-toolbar-widget searchDQ3">查询</button>
-        </div>
-        <div data-toggle="distpicker" id="table4" class="form-inline" style="display: none">
-        </div>
 
     </div>
     <table id="table"
@@ -251,44 +183,13 @@
 
     var $table = $('#table');
     var dataResult;
-
-    $("#tabletab1").on("click",function () {
-        document.getElementById("table1").style.display="block";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("table3").style.display="none";
-        document.getElementById("table4").style.display="none";
-
-
-    });
-    $("#tabletab2").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="block";
-        document.getElementById("table3").style.display="none";
-        document.getElementById("table4").style.display="none";
-
-
-    });
-    $("#tabletab3").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("table3").style.display="block";
-        document.getElementById("table4").style.display="none";
-
-
-    });
-    $("#tabletab4").on("click",function () {
-        document.getElementById("table1").style.display="none";
-        document.getElementById("table2").style.display="none";
-        document.getElementById("table3").style.display="none";
-        document.getElementById("table4").style.display="block";
-
-
-    });
-
-    var url;
-    url ="http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&productFilter=1&lifeStatusFilter=1";
+    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&productFilter=1&lifeStatusFilter=1";
 
     function onTabSelectedChanged(text) {
+
+        resetFilterBarSelected()
+        getStation()
+
         if (text == "正常属性机车") {
             url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&productFilter=1&lifeStatusFilter=1";
             $(function () {
@@ -376,12 +277,6 @@
         });
 
     });
-
-
-
-
-    var  title=document.getElementById("title");
-    var navid=document.getElementById("navbarID");
 
     var source = null;
     // your custom ajax request here
@@ -730,55 +625,32 @@
         var a = $(".selpr1").val();
         var b = $(".selci1").val();
         var c = $(".selco1").val();
-        var a2 = $(".selpr2").val();
-        var b2 = $(".selci2").val();
-        var c2 = $(".selco2").val();
-        var a3 = $(".selpr3").val();
-        var b3 = $(".selci3").val();
-        var c3 = $(".selco3").val();
 
         var myselect = document.getElementById("sectionName-s");
         var index = myselect.selectedIndex;
-        idstore1 = myselect.options[index].value;
+
+        var idstore1 = myselect.options[index].value;
+
         var myselect2 = document.getElementById("guigese");
         var index2 = myselect2.selectedIndex;
-        idpro = myselect2.options[index2].value;
+
+        var idpro = myselect2.options[index2].value;
+
         var myselect3 = document.getElementById("erjise");
         var index3 = myselect3.selectedIndex;
-        idstore2 = myselect3.options[index3].value;
+
+        var idstore2 = myselect3.options[index3].value;
+
         var myselect4 = document.getElementById("zulinse");
         var index4 = myselect4.selectedIndex;
-        zulin = myselect4.options[index4].value;
 
-        var myselect21 = document.getElementById("sectionName-s2");
-        var index21 = myselect21.selectedIndex;
-        idstore12 = myselect21.options[index21].value;
-        var myselect22 = document.getElementById("guigese2");
-        var index22 = myselect22.selectedIndex;
-        idpro2 = myselect22.options[index22].value;
-        var myselect23 = document.getElementById("erjise2");
-        var index23 = myselect23.selectedIndex;
-        idstore22 = myselect23.options[index23].value;
-        var myselect24 = document.getElementById("zulinse2");
-        var index24 = myselect24.selectedIndex;
-        zulin2 = myselect24.options[index24].value;
+        var zulin = myselect4.options[index4].value;
 
-        var myselect31 = document.getElementById("sectionName-s3");
-        var index31 = myselect31.selectedIndex;
-        idstore13 = myselect31.options[index31].value;
-        var myselect32 = document.getElementById("guigese3");
-        var index32 = myselect32.selectedIndex;
-        idpro3 = myselect32.options[index32].value;
-        var myselect33 = document.getElementById("erjise3");
-        var index33 = myselect33.selectedIndex;
-        idstore23 = myselect33.options[index33].value;
-        var myselect34 = document.getElementById("zulinse3");
-        var index34 = myselect34.selectedIndex;
-        zulin3 = myselect34.options[index34].value;
         var param = {
             limit: this.pageSize, // 页面大小
             page: this.pageNumber
         };
+
         if (a == "") {
             param = param
         } else {
@@ -837,122 +709,8 @@
             var value = zulin
             param[key] = value;
         }
-        if (a2 == "") {
-            param = param
-        } else {
 
-            var key = "province";
-            var value = a2
-            param[key] = value;
-        }
-        if (b2 == "") {
-            param = param
-        } else {
-            var key = "city";
-            var value = b2;
-            param[key] = value;
-        }
-        if (c2 == "") {
-            param = param
-        } else {
-            var key = "county";
-            var value = c2
-            param[key] = value;
-        }
-        if (idstore12 == "0") {
-            param = param
-        } else if (idstore12 == "wu") {
-            var key = "noDealerFlag";
-            var value = "true"
-            param[key] = value;
-        } else {
-            var key = "dealerId";
-            var value = idstore12
-            param[key] = value;
-        }
-        if (idstore22 == "0") {
-            param = param
-        } else if (idstore22 == "wu") {
-            var key = "noStationFlag";
-            var value = "true"
-            param[key] = value;
-        } else {
-            var key = "storeId";
-            var value = idstore22
-            param[key] = value;
-        }
-        if (idpro2 == "0") {
-            param = param
-        } else {
-            var key = "productId";
-            var value = idpro2
-            param[key] = value;
-        }
-        if (zulin2 == "0") {
-            param = param
-        } else {
-            var key = "filterType";
-            var value = zulin2
-            param[key] = value;
-        }
-        if (a3 == "") {
-            param = param
-        } else {
 
-            var key = "province";
-            var value = a3
-            param[key] = value;
-        }
-        if (b3 == "") {
-            param = param
-        } else {
-            var key = "city";
-            var value = b3;
-            param[key] = value;
-        }
-        if (c3 == "") {
-            param = param
-        } else {
-            var key = "county";
-            var value = c3
-            param[key] = value;
-        }
-        if (idstore13 == "0") {
-            param = param
-        } else if (idstore13 == "wu") {
-            var key = "noDealerFlag";
-            var value = "true"
-            param[key] = value;
-        } else {
-            var key = "dealerId";
-            var value = idstore13
-            param[key] = value;
-        }
-        if (idstore23 == "0") {
-            param = param
-        } else if (idstore23 == "wu") {
-            var key = "noStationFlag";
-            var value = "true"
-            param[key] = value;
-        } else {
-            var key = "storeId";
-            var value = idstore23
-            param[key] = value;
-        }
-        if (idpro3 == "0") {
-            param = param
-        } else {
-            var key = "productId";
-            var value = idpro3
-            param[key] = value;
-        }
-        if (zulin3 == "0") {
-            param = param
-        } else {
-            var key = "filterType";
-            var value = zulin3
-            param[key] = value;
-        }
         return param;
     }
     function createTimeFormatter(value, row, index) {
@@ -1452,14 +1210,32 @@
         })
     }  //模板
     $(function(){
-        getMissiveType();
-        getMissiveType2();
+        getStation();
+        specifications();
         wangdianshaix3();
     });
 
-    function getMissiveType() {
+    function getStation() {
+        var province = $(".selpr1").val();
+        var city = $(".selci1").val();
+
+        var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1,3,4,5,6,7&showFlag=0&sort=code,asc&limit=100&page=1"
+        if (province == "") {
+            url = url
+        } else {
+            url = url + "&province=" + province
+        }
+        if (city == "") {
+            url = url
+        } else {
+            url = url + "&city=" + city
+        }
+
+        console.log(url)
+
+        var myselect = document.getElementById("sectionName-s");
         $.ajax({
-                url: "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1,3,4,5,6,7&showFlag=0&sort=code,asc&limit=100&page=1",
+                url: url,
                 method: "get",
                 contentType: "application/json; charset=utf-8",
                 processData: false,
@@ -1470,21 +1246,19 @@
                 },
                 success: function (data) {
                     var len = data.list.length;
-                    $('#sectionName-s').attr("length", '0');
+                    myselect.length = 1;
                     for (i = 0; i < len; i++) {
                         $("#sectionName-s").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
-                        $("#sectionName-s2").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
-                        $("#sectionName-s3").append($('<option value=' + data.list[i].id + '>' + data.list[i].name + '</option>'));
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    getMissiveType()
+                    getStation()
                 }
             }
         );
     }
 
-    function getMissiveType2() {
+    function specifications() {
         $.ajax({
                 url: "http://cjl3.rokyinfo.net:7200/api-order/v3.1/specifications?sort=id,asc&categoryIds=1",
                 method: "get",
@@ -1505,7 +1279,7 @@
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    getMissiveType2()
+                    specifications()
                 }
             }
         );
@@ -1562,9 +1336,11 @@
             }
         })
     });
+
     $("#111").on("click", function () {
         $("#wrap-delet").hide()
     });
+
     $(".searchWD").on("click", function () {      //wd
         var a = $(".selpr").val() ? "&province=" + $(".selpr").val() : "";
         var b = $(".selci").val() ? "&city=" + $(".selci").val() : "";
@@ -1609,389 +1385,120 @@
         });
 
     });
+
     $(".searchCcu").on("click", function () {
-        console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult").val());
-        $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult").val(),
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-                $("#table").bootstrapTable('refresh', {
-                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult").val(),
-                    pageNumber: 1,
-                    pageSize: 20
-                });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
+
+        var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2"
+        $(".item").each(function (index, element) {
+            var text = $(this).text()
+            if ($(this).hasClass("active")) {
+                if (text == "正常属性机车") {
+                    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&productFilter=1&lifeStatusFilter=1";
+                } else if (text == "异常属性机车") {
+                    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidProduct=true"
+                } else if (text == "退库属性机车") {
+                    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidDevice=true"
+                }
             }
         });
 
-
-    });
-    $(".searchCcu2").on("click", function () {
-        $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult2").val(),
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-                $("#table").bootstrapTable('refresh', {
-                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult2").val(),
-                    pageNumber: 1,
-                    pageSize: 20
-                });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
-            }
+        $("#table").bootstrapTable('refresh', {
+            'url': url + '&ccuSn=' + $(".searchResult").val(),
+            pageNumber: 1,
+            pageSize: 100
         });
 
-
     });
-    $(".searchCcu3").on("click", function () {
-        $.ajax({
-            url: "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult3").val(),
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.flag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-                $("#table").bootstrapTable('refresh', {
-                    'url': "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&ccuSn=" + $(".searchResult3").val(),
-                    pageNumber: 1,
-                    pageSize: 20
-                });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
 
-
-    });
     $(".searchDQ").on("click", function () {
         var url;
-        var a = $(".selpr1").val();
-        console.log(a);
-        var b = $(".selci1").val();
-        var c = $(".selco1").val();
+        var province = $(".selpr1").val();
+        var city = $(".selci1").val();
+        var county = $(".selco1").val();
 
         var myselect = document.getElementById("sectionName-s");
         var index = myselect.selectedIndex;
-        idstore1 = myselect.options[index].value;
-        console.log(idstore1);
+        var station = myselect.options[index].value;
+        console.log(station);
+
         var myselect2 = document.getElementById("guigese");
         var index2 = myselect2.selectedIndex;
-        idpro = myselect2.options[index2].value;
-        console.log(idpro);
+        var specification = myselect2.options[index2].value;
+        console.log(specification);
+
         var myselect3 = document.getElementById("erjise");
         var index3 = myselect3.selectedIndex;
-        idstore2 = myselect3.options[index3].value;
-        console.log(idstore2);
+        var store = myselect3.options[index3].value;
+        console.log(store);
+
         var myselect4 = document.getElementById("zulinse");
         var index4 = myselect4.selectedIndex;
-        zulin = myselect4.options[index4].value;
-        console.log(zulin);
+        var rentType = myselect4.options[index4].value;
+        console.log(rentType);
+
         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&productFilter=1&lifeStatusFilter=1"
-//        if(a==""){
-//            url=url
-//        }else {
-//            url=url+"&province="+a
-//        }
-//        if(b==""){
-//            url=url
-//        }else {
-//            url=url+"&city="+b
-//        }
-//        if(c==""){
-//            url=url
-//        }else {
-//            url=url+"&county="+c
-//        }
-//        if (idstore1=="0"){
-//            url=url
-//        }else if(idstore1=="wu"){
-//            url=url+"&noDealerFlag=true"
-//        }else {
-//            url=url+"&dealerId="+idstore1
-//        }
-//        if (idstore2=="0"){
-//            url=url
-//        }else if(idstore2=="wu"){
-//            url=url+"&noStationFlag=true"
-//        }else {
-//            url=url+"&storeId="+idstore2
-//        }
-//        if (idpro=="0"){
-//            url=url
-//        }else {
-//            url=url+"&productId="+idpro
-//        }
-//        if(zulin=="0"){
-//            url=url
-//        }else {
-//            url=url+"&filterType="+zulin
-//        }
-//        if(idstore1=="0"){
-//            if(idpro=="0"){
-//                if(zulin=="0"){
-//                    url=url
-//                }else {
-//                    url=url+"&filterType="+zulin
-//                }
-//            }else {
-//                if(zulin=="0"){
-//                    url=url+"&productId="+idpro
-//                }else {
-//                    url=url+"&productId="+idpro+"&filterType="+zulin
-//                }
-//            }
-//        }else {
-//           if(idstore2=="0"){
-//               if(idpro=="0"){
-//                   if(zulin=="0"){
-//                       url=url+"&dealerId="+idstore1
-//                   }else {
-//                       url=url+"&dealerId="+idstore1+"&filterType="+zulin
-//                   }
-//               }else {
-//                   if(zulin=="0"){
-//                       url=url+"&dealerId="+idstore1+"&productId="+idpro
-//                   }else {
-//                       url=url+"&dealerId="+idstore1+"&productId="+idpro+"&filterType="+zulin
-//                   }
-//               }
-//           }else {
-//               if(idpro=="0"){
-//                   if(zulin=="0"){
-//                       url=url+"&storeId="+idstore2
-//                   }else {
-//                       url=url+"&storeId="+idstore2+"&filterType="+zulin
-//                   }
-//               }else {
-//                   if(zulin=="0"){
-//                       url=url+"&storeId="+idstore2+"&productId="+idpro
-//                   }else {
-//                       url=url+"&storeId="+idstore2+"&productId="+idpro+"&filterType="+zulin
-//                   }
-//               }
-//           }
-//        }
-        console.log(url)
+        // url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidProduct=true"
+        // url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidDevice=true"
 
-        $.ajax({
-            url: url,
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-                $("#table").bootstrapTable('refresh', {'url': url});
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
+        $(".item").each(function (index, element) {
+            var text = $(this).text()
+            if ($(this).hasClass("active")) {
+                if (text == "正常属性机车") {
+                    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&productFilter=1&lifeStatusFilter=1";
+                } else if (text == "异常属性机车") {
+                    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidProduct=true"
+                } else if (text == "退库属性机车") {
+                    url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidDevice=true"
+                }
             }
         });
 
-    });
-    $(".searchDQ2").on("click", function () {
-        var url;
-        var a = $(".selpr2").val();
-        console.log(a);
-        var b = $(".selci2").val();
-        var c = $(".selco2").val();
 
-        var myselect = document.getElementById("sectionName-s2");
-        var index = myselect.selectedIndex;
-        idstore1 = myselect.options[index].value;
-        console.log(idstore1);
-        var myselect2 = document.getElementById("guigese2");
-        var index2 = myselect2.selectedIndex;
-        idpro = myselect2.options[index2].value;
-        console.log(idpro);
-        var myselect3 = document.getElementById("erjise2");
-        var index3 = myselect3.selectedIndex;
-        idstore2 = myselect3.options[index3].value;
-        console.log(idstore2);
-        var myselect4 = document.getElementById("zulinse2");
-        var index4 = myselect4.selectedIndex;
-        zulin = myselect4.options[index4].value;
-        console.log(zulin);
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidProduct=true"
-        if (a == "") {
+        if (province == "") {
             url = url
         } else {
-            url = url + "&province=" + a
+            url = url + "&province=" + province
         }
-        if (b == "") {
+        if (city == "") {
             url = url
         } else {
-            url = url + "&city=" + b
+            url = url + "&city=" + city
         }
-        if (c == "") {
+        if (county == "") {
             url = url
         } else {
-            url = url + "&county=" + c
+            url = url + "&county=" + county
         }
-        if (idstore1 == "0") {
+        if (station == "0") {
             url = url
-        } else if (idstore1 == "wu") {
+        } else if (station == "wu") {
             url = url + "&noDealerFlag=true"
         } else {
-            url = url + "&dealerId=" + idstore1
+            url = url + "&dealerId=" + station
         }
-        if (idstore2 == "0") {
+        if (store == "0") {
             url = url
-        } else if (idstore2 == "wu") {
+        } else if (store == "wu") {
             url = url + "&noStationFlag=true"
         } else {
-            url = url + "&storeId=" + idstore2
+            url = url + "&storeId=" + store
         }
-        if (idpro == "0") {
+        if (specification == "0") {
             url = url
         } else {
-            url = url + "&productId=" + idpro
+            url = url + "&productId=" + specification
         }
-        if (zulin == "0") {
+        if (rentType == "0") {
             url = url
         } else {
-            url = url + "&filterType=" + zulin
+            url = url + "&filterType=" + rentType
         }
         console.log(url)
 
-        $.ajax({
-            url: url,
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-
-                $("#table").bootstrapTable('refresh', {'url': url});
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
+        $("#table").bootstrapTable('refresh', {'url': url});
 
     });
-    $(".searchDQ3").on("click", function () {
-        var url;
-        var a = $(".selpr3").val();
-        console.log(a);
-        var b = $(".selci3").val();
-        var c = $(".selco3").val();
 
-        var myselect = document.getElementById("sectionName-s3");
-        var index = myselect.selectedIndex;
-        idstore1 = myselect.options[index].value;
-        console.log(idstore1);
-        var myselect2 = document.getElementById("guigese3");
-        var index2 = myselect2.selectedIndex;
-        idpro = myselect2.options[index2].value;
-        console.log(idpro);
-        var myselect3 = document.getElementById("erjise3");
-        var index3 = myselect3.selectedIndex;
-        idstore2 = myselect3.options[index3].value;
-        console.log(idstore2);
-        var myselect4 = document.getElementById("zulinse3");
-        var index4 = myselect4.selectedIndex;
-        zulin = myselect4.options[index4].value;
-        console.log(zulin);
-        url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ues?rentalFlag=1&type=2&invalidDevice=true"
-        if (a == "") {
-            url = url
-        } else {
-            url = url + "&province=" + a
-        }
-        if (b == "") {
-            url = url
-        } else {
-            url = url + "&city=" + b
-        }
-        if (c == "") {
-            url = url
-        } else {
-            url = url + "&county=" + c
-        }
-        if (idstore1 == "0") {
-            url = url
-        } else if (idstore1 == "wu") {
-            url = url + "&noDealerFlag=true"
-        } else {
-            url = url + "&dealerId=" + idstore1
-        }
-        if (idstore2 == "0") {
-            url = url
-        } else if (idstore2 == "wu") {
-            url = url + "&noStationFlag=true"
-        } else {
-            url = url + "&storeId=" + idstore2
-        }
-        if (idpro == "0") {
-            url = url
-        } else {
-            url = url + "&productId=" + idpro
-        }
-        if (zulin == "0") {
-            url = url
-        } else {
-            url = url + "&filterType=" + zulin
-        }
-        console.log(url)
-
-        $.ajax({
-            url: url,
-            method: "get",
-            contentType: "application/json; charset=utf-8",
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("firm", sessionStorage.firmFlag);
-                xhr.setRequestHeader("Authorization", sessionStorage.token);
-            },
-            success: function (data) {
-
-                $("#table").bootstrapTable('refresh', {'url': url});
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("失败");
-                console.log(jqXHR);
-            }
-        });
-
-    });
     $("#devide-y").click(function () {
         var formData = new FormData($("#uploadForm")[0]);
         console.log(formData)
@@ -2019,6 +1526,18 @@
         });
 
     });
+
+    function resetFilterBarSelected() {
+        $(".selpr1").get(0).selectedIndex = 0;
+        $(".selci1").get(0).selectedIndex = 0;
+        $(".selco1").get(0).selectedIndex = 0;
+
+        $("#sectionName-s").get(0).selectedIndex = 0;
+        $("#erjise").get(0).selectedIndex = 0;
+        $("#guigese").get(0).selectedIndex = 0;
+        $("#zulinse").get(0).selectedIndex = 0;
+
+    }
 </script>
 <script type="text/javascript">
 

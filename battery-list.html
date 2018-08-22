@@ -299,10 +299,11 @@
     <div class="fixed-table-toolbar" style="margin-bottom: 1rem">
         <ul class="nav nav-tabs mytabs" id="mytabs">
             <!--异常电池、逾期租赁电池、已租赁电池、待租赁电池、禁用电池、仓库电池、丢失电池、试用电池、售后电池-->
-            <li class="item active" id="tabletab6"><a href="#">禁用电池</a></li>
-            <li class="item" id="tabletab5"><a href="#">异常电池</a></li>
+            <li class="item active" id="tabletab1"><a href="#">已租赁电池</a></li>
+            <li class="item" id="tabletab6"><a href="#">禁用电池</a></li>
+            <li class="item" id="tab-undervoltage"><a href="#">欠压电池</a></li>
+            <li class="item" id="tab-offline"><a href="#">离线电池</a></li>
             <li class="item" id="tabletab2"><a href="#">逾期租赁电池</a></li>
-            <li class="item" id="tabletab1"><a href="#">已租赁电池</a></li>
             <li class="item" id="tabletab3"><a href="#">待租赁电池</a></li>
             <li class="item" id="tabletab4"><a href="#">仓库电池</a></li>
             <li class="item" id="tab-test"><a href="#">售后电池</a></li>
@@ -370,9 +371,11 @@
     var orOnLine;
     var cc = 0;
     var timer2 = 0;
-    var url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&afterSaleFlag=1&sort=ue.end_time,desc";
+
     var currentCategory = null
-    var currentFilterType = null
+    var currentFilterType = 1
+    url = 'http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&filterType=' + currentFilterType + '&sort=ue.end_time,desc'
+
     $(function () {
         $("#mytabs li").click(function () {
             $(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
@@ -405,6 +408,7 @@
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                             $table.bootstrapTable("hideColumn", "re");
+                            $table.bootstrapTable("hideColumn", "afterSaleReason");
                         });
 
                         $("#select-type").css("display",'inline')
@@ -440,14 +444,16 @@
                             initTable();
                             $table.bootstrapTable("hideColumn", "w");
                             $table.bootstrapTable("hideColumn", "re");
+                            $table.bootstrapTable("hideColumn", "afterSaleReason");
                         });
                         $("#select-type").css("display",'none')
                         $("#erjise").css("display",'none')
                         getStoreWithCategory()
-                    } else if (text == "异常电池") {
+                    } else if (text == "欠压电池" || text == "离线电池") {
                         resetFilterBarSelected()
                         url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=4&categories=1,2&exceptionFlag=1&sort=ue.end_time,desc";
                         initTable();
+                        $table.bootstrapTable("hideColumn", "afterSaleReason");
 
                         $("#select-type").css("display",'inline')
                         $("#erjise").css("display",'inline')
@@ -470,8 +476,6 @@
 
 
         });
-
-
     });
 
     var source = null;
@@ -613,37 +617,7 @@
                         ].join("")
                     }
 
-                }
-                // ,
-                // {
-                //     field: 'c',
-                //     title: '区/县',
-                //     align: 'center',
-                //     valign: 'middle',
-                //     formatter: function countyFormatter(value, row, index) {
-                //         if (row.ebikeStoreEntity != null) {
-                //             if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
-                //                 inner = ""
-                //             }
-                //
-                //             else {
-                //                 var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
-                //             }
-                //         }
-                //         else {
-                //             inner = ""
-                //         }
-                //         var color = 'nowwrp'
-                //         return [
-                //
-                //             '<span class=' + color + '>' + inner + '</span>'
-                //
-                //
-                //         ].join("")
-                //     }
-                //
-                // }
-                ,
+                },
                 {
                     field: 'dealerStoreName',
                     title: '分站',
@@ -749,7 +723,7 @@
                 {
                     field: 'address',
                     title: '位置',
-                    align: 'center',
+                    align: 'left',
                     valign: 'middle',
                     events: operateEvents,
                     formatter: addressFormatter
@@ -769,15 +743,18 @@
                     formatter: reasonFormatter
                 },
                 {
+                    field: 'afterSaleReason',
+                    title: '禁用原因',
+                    align: 'left',
+                    valign: 'middle'
+                },
+                {
                     field: 're',
                     title: '编辑',
                     align: 'center',
                     valign: 'middle',
-                    events: operateEvents,
                     formatter: removeFormatter
                 }
-
-
             ]
         });
         // sometimes footer render error.
@@ -1082,16 +1059,21 @@
 
     }  //电量
     function addressFormatter(value, row, index) {
-        var inner = row.address;
         if (row.address == null) {
-            inner = ''
+            return [
+                '<a class="like7" href="#" title="查看当前定位">',
+                '<i class="glyphicon glyphicon-map-marker">',
+                '</i>',
+                '</a>'
+            ].join('');
+        } else {
+            return [
+                '<a class="like7" href="#" title="查看当前定位">',
+                row.address,
+                '</a>'
+            ].join('');
         }
-        return [
-            '<a class="like7" href="#" title="查看当前定位">',
-            '<i class="glyphicon glyphicon-map-marker">',
-            '</i>',
-            '</a>'
-        ].join('');
+
     }  //地址
     function reasonFormatter(value, row, index) {
         var inner;
@@ -2957,9 +2939,6 @@
 
     });
 
-    initTable();
-    $table.bootstrapTable("hideColumn", "w");
-
 </script>
 <script type="text/javascript">
 
@@ -3171,12 +3150,14 @@
             defaultDate: getNowFormatDate2()
         });
 
-    });
-
-    $(function () {
         resizeLayout()
         getStation();
         getSpecifications();
+
+        initTable();
+        $table.bootstrapTable("hideColumn", "w");
+        $table.bootstrapTable("hideColumn", "re");
+        $table.bootstrapTable("hideColumn", "afterSaleReason");
     });
 
     function resizeLayout() {
