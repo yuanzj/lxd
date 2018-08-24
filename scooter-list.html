@@ -301,7 +301,7 @@
             <!--异常机车、逾期租赁机车、已租赁机车、待租赁机车、禁用机车、仓库机车、丢失机车、试用机车、售后机车-->
             <li class="item active" id="tabletab1"><a href="#">已租赁机车</a></li>
             <li class="item" id="tabletab6"><a href="#">禁用机车</a></li>
-            <li class="item" id="tab-undervoltage"><a href="#">欠压机车</a></li>
+            <!--<li class="item" id="tab-undervoltage"><a href="#">欠压机车</a></li>-->
             <li class="item" id="tab-offline"><a href="#">离线机车</a></li>
             <li class="item" id="tabletab2"><a href="#">逾期租赁机车</a></li>
             <li class="item" id="tabletab3"><a href="#">待租赁机车</a></li>
@@ -2489,7 +2489,7 @@
                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag");
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "异常机车") {
+                    if ($(this).text() == "离线机车") {
                         ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag", "get", function (data) {
                             $("#table").bootstrapTable('refresh');
                         }, function (err) {

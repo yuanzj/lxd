@@ -760,6 +760,7 @@
                     title: '编辑',
                     align: 'center',
                     valign: 'middle',
+                    events: operateEvents,
                     formatter: removeFormatter
                 }
             ]
@@ -2456,17 +2457,16 @@
                 console.log("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag");
                 if ($(this).hasClass("active")) {
 
-                    if ($(this).text() == "异常电池") {
+                    var text = $(this).text()
+                    if (text == "欠压电池" || text == "离线电池") {
                         ajax("http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/" + row.ccuSn + "/clean-exception-flag", "get", function (data) {
                             $("#table").bootstrapTable('refresh');
                         }, function (err) {
                             alert("移除失败");
                             console.log(err)
                         });
-
-
                     }
-                    else if ($(this).text() == "禁用电池") {
+                    else if (text == "禁用电池") {
 
 
                         $("#title-sn").text(row.ccuSn)
