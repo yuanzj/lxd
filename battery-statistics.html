@@ -275,6 +275,12 @@
                     valign: 'middle'
                 },
                 {
+                    field: 'scrapTotalCount',
+                    title: '报废',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
                     field: 'code',
                     title: '编号',
                     align: 'center',
@@ -575,6 +581,8 @@
                     $table.bootstrapTable("hideColumn", "storageTotalCount");
                     $table.bootstrapTable("hideColumn", "loseTotalCount");
                     $table.bootstrapTable("hideColumn", "trialTotalCount");
+                    $table.bootstrapTable("hideColumn", "scrapTotalCount");
+
                 });
             })
 
@@ -614,6 +622,7 @@
                 $table.bootstrapTable("hideColumn", "storageTotalCount");
                 $table.bootstrapTable("hideColumn", "loseTotalCount");
                 $table.bootstrapTable("hideColumn", "trialTotalCount");
+                $table.bootstrapTable("hideColumn", "scrapTotalCount");
             });
 
         },
@@ -775,6 +784,7 @@
                             $table.bootstrapTable("hideColumn", "storageTotalCount");
                             $table.bootstrapTable("hideColumn", "loseTotalCount");
                             $table.bootstrapTable("hideColumn", "trialTotalCount");
+                            $table.bootstrapTable("hideColumn", "scrapTotalCount");
                         });
 
                     } else if (text == '型号统计') {
@@ -877,6 +887,7 @@
                             $table.bootstrapTable("hideColumn", "storageTotalCount");
                             $table.bootstrapTable("hideColumn", "loseTotalCount");
                             $table.bootstrapTable("hideColumn", "trialTotalCount");
+                            $table.bootstrapTable("hideColumn", "scrapTotalCount");
 
                         });
                     } else if (text == '直营租赁' || text == '加盟租赁' || text == '集团租赁') {
@@ -925,6 +936,7 @@
                                 $table.bootstrapTable("hideColumn", "storageTotalCount");
                                 $table.bootstrapTable("hideColumn", "loseTotalCount");
                                 $table.bootstrapTable("hideColumn", "trialTotalCount");
+                                $table.bootstrapTable("hideColumn", "scrapTotalCount");
                             });
                         } else {
                             $(function () {
@@ -945,6 +957,7 @@
                                 $table.bootstrapTable("hideColumn", "storageTotalCount");
                                 $table.bootstrapTable("hideColumn", "loseTotalCount");
                                 $table.bootstrapTable("hideColumn", "trialTotalCount");
+                                $table.bootstrapTable("hideColumn", "scrapTotalCount");
                             });
                         }
                     } else if (text == '统计') {
@@ -982,6 +995,7 @@
                             $table.bootstrapTable("hideColumn", "storageTotalCount");
                             $table.bootstrapTable("hideColumn", "loseTotalCount");
                             $table.bootstrapTable("hideColumn", "trialTotalCount");
+                            $table.bootstrapTable("hideColumn", "scrapTotalCount");
                         });
                     }
                     console.log(url)
@@ -1020,6 +1034,7 @@
         $table.bootstrapTable("hideColumn", "storageTotalCount");
         $table.bootstrapTable("hideColumn", "loseTotalCount");
         $table.bootstrapTable("hideColumn", "trialTotalCount");
+        $table.bootstrapTable("hideColumn", "scrapTotalCount");
     });
 
     function resizeLayout() {
