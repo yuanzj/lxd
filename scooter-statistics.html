@@ -59,7 +59,7 @@
             <li class="item" id="tab-storage"><a href="#">仓库</a></li>
             <li class="item" id="tab-lost"><a href="#">丢失</a></li>
             <li class="item" id="tab-try-out"><a href="#">试用</a></li>
-            <!--<li class="item" id="tab-test"><a href="#">测试</a></li>-->
+            <li class="item" id="tab-scrap"><a href="#">报废</a></li>
         </ul>
     </div>
     <ol class="breadcrumb" style="margin-top: 1rem">
@@ -674,7 +674,7 @@
             $(".item").each(function (index, element) {
                 if ($(this).hasClass("active")) {
                     var text = $(this).text()
-                    if (text == '仓库' || text == '售后' || text == '丢失' || text == '试用' || text == '测试') {
+                    if (text == '仓库' || text == '售后' || text == '丢失' || text == '试用' || text == '测试' || text == '报废') {
 
                         switch (text) {
                             case '仓库':
@@ -691,6 +691,9 @@
                                 break
                             case '测试':
                                 currentCategory = 6
+                                break
+                            case '报废':
+                                currentCategory = 7
                                 break
                             default:
                                 currentCategory = 0
