@@ -478,16 +478,20 @@
                     align: 'center',
                     valign: 'middle',
                     formatter: function provinceFormatter(value, row, index) {
+                        var inner = ''
                         if (row.ebikeStoreEntity != null) {
                             if (row.ebikeStoreEntity.province == null || row.ebikeStoreEntity.province == "null") {
                                 inner = ""
+                            } else {
+                                inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.province : ""
                             }
-
-                            else {
-                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.province : ""
+                        } else if (row.dealerEbikeStoreEntity != null) {
+                            if (row.dealerEbikeStoreEntity.province == null || row.dealerEbikeStoreEntity.province == "null") {
+                                inner = ""
+                            } else {
+                                inner = row.dealerEbikeStoreEntity ? row.dealerEbikeStoreEntity.province : ""
                             }
-                        }
-                        else {
+                        } else {
                             inner = ""
                         }
                         var color = 'nowwrp'
@@ -506,16 +510,20 @@
                     align: 'center',
                     valign: 'middle',
                     formatter: function cityFormatter(value, row, index) {
+                        var inner = ''
                         if (row.ebikeStoreEntity != null) {
                             if (row.ebikeStoreEntity.city == null || row.ebikeStoreEntity.city == "null") {
                                 inner = ""
+                            } else {
+                                inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.city : ""
                             }
-
-                            else {
-                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.city : ""
+                        } if (row.dealerEbikeStoreEntity != null) {
+                            if (row.dealerEbikeStoreEntity.city == null || row.dealerEbikeStoreEntity.city == "null") {
+                                inner = ""
+                            } else {
+                                inner = row.dealerEbikeStoreEntity ? row.dealerEbikeStoreEntity.city : ""
                             }
-                        }
-                        else {
+                        } else {
                             inner = ""
                         }
                         var color = 'nowwrp'
@@ -1210,12 +1218,12 @@
         var city = $(".selci1").val();
 
         var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?categories=0,1,3,4,5,6,7&showFlag=0&sort=code,asc&limit=100&page=1"
-        if (province == "") {
+        if (province == "" || province == null) {
             url = url
         } else {
             url = url + "&province=" + province
         }
-        if (city == "") {
+        if (city == "" || city == null) {
             url = url
         } else {
             url = url + "&city=" + city

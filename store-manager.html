@@ -1737,7 +1737,7 @@
             <li class="item" id="tab-storage"><a href="#">仓库站点</a></li>
             <li class="item" id="tab-lose"><a href="#">丢失站点</a></li>
             <li class="item" id="tab-try-out"><a href="#">试用站点</a></li>
-            <!--<li class="item" id="tab-test"><a href="#">测试站点</a></li>-->
+            <li class="item" id="tab-scrap"><a href="#">报废站点</a></li>
         </ul>
     </div>
     <div id="toolbar">
@@ -1908,6 +1908,15 @@
         document.getElementById("toolbar-filter").style.display = "block";
         document.getElementById("toolbar-tab-sub-station").style.display = "none";
     });
+    $("#tab-scrap").on("click", function () {
+        currentSelectedCategory = 7
+
+        getCurrentSelectedTabTypes()
+        document.getElementById("toolbar-tab-storage").style.display = "none";
+        document.getElementById("toolbar-tab-station").style.display = "none";
+        document.getElementById("toolbar-filter").style.display = "block";
+        document.getElementById("toolbar-tab-sub-station").style.display = "none";
+    });
 
     var url = "http://cjl3.rokyinfo.net:7200/api-user/v3.1/ebikestores?category=1&showFlag=0&sort=code,asc";
     $(function () {
@@ -1960,7 +1969,7 @@
                             $table.bootstrapTable("hideColumn", "s");
                             $table.bootstrapTable("hideColumn", "m");
                         });
-                    } else if (text === '售后站点' || text === '丢失站点' || text === '试用站点' || text === '测试站点') {
+                    } else if (text === '售后站点' || text === '丢失站点' || text === '试用站点' || text === '测试站点' || text === '报废站点') {
 
                         switch (text) {
                             case '售后站点':
@@ -1974,6 +1983,9 @@
                                 break
                             case '测试站点':
                                 currentSelectedCategory = 6
+                                break
+                            case '报废站点':
+                                currentSelectedCategory = 7
                                 break
                         }
 
@@ -2445,7 +2457,7 @@
                             $("#editstore").hide()
                             $("input").val("");
                         })
-                    } else if (text == '售后站点' || text == '丢失站点' || text == '试用站点' || text == '测试站点') {
+                    } else if (text == '售后站点' || text == '丢失站点' || text == '试用站点' || text == '测试站点' || text == '报废站点') {
 
                         $("#alert-view-edit  .edit-name").val(row.name)
                         $("#distpicker-edit").distpicker('destroy');

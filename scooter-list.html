@@ -452,7 +452,7 @@
                         if (text == "欠压机车") {
                             url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=1&sort=ue.end_time,desc";
                         } else if (text == "离线机车") {
-                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ue.end_time,desc";
+                            url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ebike.report_time,asc";
                         } else {
                             url = "http://cjl3.rokyinfo.net:7200/api-ebike/v3.1/ebikes/list?type=2&categories=1,2&exceptionFlag=1&bmsExceptionReason=0&sort=ue.end_time,desc";
                         }
@@ -575,16 +575,20 @@
                     align: 'center',
                     valign: 'middle',
                     formatter: function provinceFormatter(value, row, index) {
+                        var inner = ''
                         if (row.ebikeStoreEntity != null) {
                             if (row.ebikeStoreEntity.province == null || row.ebikeStoreEntity.province == "null") {
                                 inner = ""
+                            } else {
+                                inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.province : ""
                             }
-
-                            else {
-                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.province : ""
+                        } else if (row.dealerEbikeStoreEntity != null) {
+                            if (row.dealerEbikeStoreEntity.province == null || row.dealerEbikeStoreEntity.province == "null") {
+                                inner = ""
+                            } else {
+                                inner = row.dealerEbikeStoreEntity ? row.dealerEbikeStoreEntity.province : ""
                             }
-                        }
-                        else {
+                        } else {
                             inner = ""
                         }
                         var color = 'nowwrp'
@@ -603,16 +607,20 @@
                     align: 'center',
                     valign: 'middle',
                     formatter: function cityFormatter(value, row, index) {
+                        var inner = ""
                         if (row.ebikeStoreEntity != null) {
                             if (row.ebikeStoreEntity.city == null || row.ebikeStoreEntity.city == "null") {
                                 inner = ""
+                            } else {
+                                inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.city : ""
                             }
-
-                            else {
-                                var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.city : ""
+                        } else if (row.dealerEbikeStoreEntity != null) {
+                            if (row.dealerEbikeStoreEntity.city == null || row.dealerEbikeStoreEntity.city == "null") {
+                                inner = ""
+                            } else {
+                                inner = row.dealerEbikeStoreEntity ? row.dealerEbikeStoreEntity.city : ""
                             }
-                        }
-                        else {
+                        } else {
                             inner = ""
                         }
                         var color = 'nowwrp'
@@ -624,37 +632,7 @@
                         ].join("")
                     }
 
-                }
-                // ,
-                // {
-                //     field: 'c',
-                //     title: '区/县',
-                //     align: 'center',
-                //     valign: 'middle',
-                //     formatter: function countyFormatter(value, row, index) {
-                //         if (row.ebikeStoreEntity != null) {
-                //             if (row.ebikeStoreEntity.county == null || row.ebikeStoreEntity.county == "null") {
-                //                 inner = ""
-                //             }
-                //
-                //             else {
-                //                 var inner = row.ebikeStoreEntity ? row.ebikeStoreEntity.county : ""
-                //             }
-                //         }
-                //         else {
-                //             inner = ""
-                //         }
-                //         var color = 'nowwrp'
-                //         return [
-                //
-                //             '<span class=' + color + '>' + inner + '</span>'
-                //
-                //
-                //         ].join("")
-                //     }
-                //
-                // }
-                ,
+                },
                 {
                     field: 'dealerStoreName',
                     title: '分站',

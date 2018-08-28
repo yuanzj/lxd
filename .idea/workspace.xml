@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd0ab234-f522-4500-a16f-da494a1cbbb7" name="Default" comment="">
+    <list default="true" id="bd0ab234-f522-4500-a16f-da494a1cbbb7" name="Default" comment="1、逾期租赁时长超过48小时的设备显示在逾期租赁电池Tab；&#10;2、离线电池/机车列表按照离线时长排序，离线越久的放在上面；&#10;3、电池/机车列表显示的省市关联分站显示，现在驿站为空的省市也显示为空；&#10;4、机车列表删除欠压机车Tab；&#10;5、机车管理删除电压列；&#10;6、电池统计的统计增加一个产品统计表，以产品型号为索引，如下：&#10;产品型号 总数 已租赁 待租赁 售后 仓库 丢失 试用&#10;7、站点类型增加一个报废站点类型">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battery-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/battery-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battery-manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/battery-manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battery-statistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/battery-statistics.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scooter-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/scooter-list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scooter-manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/scooter-manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/store-manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/store-manager.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,35 +22,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="store-manager.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/store-manager.html">
+      <file leaf-file-name="scooter-manager.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scooter-manager.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3667">
-              <caret line="1858" selection-start-line="1858" selection-end-line="1858" />
+            <state relative-caret-position="333">
+              <caret line="510" column="93" lean-forward="true" selection-start-line="510" selection-start-column="93" selection-end-line="510" selection-end-column="93" />
               <folding>
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#3;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#6;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#7;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#8;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#9;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#select#0;n#div#1;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#10;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#11;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#12;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#13;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#div#14;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#select#2;n#div#0;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#select#2;n#div#1;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#select#2;n#div#2;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#select#2;n#div#3;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#2;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,8 +40,8 @@
       <file leaf-file-name="battery-list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/battery-list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9956">
-              <caret line="762" column="42" selection-start-line="762" selection-start-column="20" selection-end-line="762" selection-end-column="42" />
+            <state relative-caret-position="380">
+              <caret line="456" column="177" selection-start-line="456" selection-start-column="156" selection-end-line="456" selection-end-column="177" />
               <folding>
                 <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
                 <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
@@ -82,8 +66,8 @@
       <file leaf-file-name="scooter-list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scooter-list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1748">
-              <caret line="304" column="68" selection-start-line="304" selection-start-column="68" selection-end-line="304" selection-end-column="68" />
+            <state relative-caret-position="256">
+              <caret line="426" column="38" selection-start-line="426" selection-start-column="34" selection-end-line="426" selection-end-column="38" />
               <folding>
                 <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
                 <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
@@ -101,11 +85,98 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="store-manager.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/store-manager.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="1898" column="74" lean-forward="true" selection-start-line="1898" selection-start-column="74" selection-end-line="1898" selection-end-column="74" />
+              <folding>
+                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#3;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#6;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#7;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#8;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#9;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#select#0;n#div#1;n#div#1;n#div#9;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#10;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#11;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#12;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#13;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#div#14;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#select#2;n#div#0;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#2;n#div#1;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#2;n#div#2;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#2;n#div#3;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#3;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#9;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="battery-statistics.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/battery-statistics.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="303">
+              <caret line="770" column="48" lean-forward="true" selection-start-line="770" selection-start-column="48" selection-end-line="770" selection-end-column="48" />
+              <folding>
+                <element signature="n#style#0;n#ol#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap-table.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/bootstrap-table/src/bootstrap-table.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5776">
+              <caret line="304" column="1" selection-start-line="304" selection-start-column="1" selection-end-line="304" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap-table.min.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/bootstrap-table/docs/dist/bootstrap-table.min.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="5616" selection-start-column="5616" selection-end-column="5616" />
+              <folding>
+                <element signature="e#2002#2300#2" expanded="true" />
+                <element signature="e#2355#2598#2" expanded="true" />
+                <element signature="e#2654#2893#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="battery-manager.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/battery-manager.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="559">
+              <caret line="534" column="34" lean-forward="true" selection-start-line="512" selection-start-column="24" selection-end-line="534" selection-end-column="34" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="247">
-              <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
               <folding>
                 <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" />
               </folding>
@@ -113,17 +184,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scooter-manager.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/scooter-manager.html">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4713">
-              <caret line="454" column="40" lean-forward="true" selection-start-line="454" selection-start-column="40" selection-end-line="454" selection-end-column="40" />
-              <folding>
-                <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#select#2;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="355">
+              <caret line="92" column="60" lean-forward="true" selection-start-line="92" selection-start-column="60" selection-end-line="92" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -141,39 +206,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>erjise</find>
-      <find>wu</find>
-      <find>searchCcu</find>
-      <find>searchDQ</find>
-      <find>mytabs</find>
-      <find>getsta</find>
-      <find>queryParams</find>
-      <find>ontabc</find>
-      <find>title</find>
-      <find>app</find>
-      <find>item</find>
-      <find>onTabSelectedChanged</find>
-      <find>正常属性机车</find>
-      <find>resetf</find>
-      <find>正常属性电池</find>
-      <find>sectionName-s2</find>
-      <find>selpr2</find>
-      <find>$(window).resize</find>
-      <find>channel-1</find>
-      <find>getMissiveType2</find>
-      <find>sectionName-s3</find>
-      <find>section-name-categories</find>
+      <find>getMissiveType3</find>
+      <find>categories=1</find>
+      <find>wangdianshaix3</find>
+      <find>sectionName-s5</find>
       <find>sectionName-s</find>
-      <find>getMissiveType</find>
-      <find>getCurrentSelectedTabTypes</find>
-      <find>禁用电池</find>
-      <find>编辑</find>
-      <find>like8</find>
-      <find>removeFormatter</find>
-      <find>电压</find>
+      <find>statistics-toolbar</find>
+      <find>mytabs</find>
+      <find>ebikeStoreEntity</find>
+      <find>dealerEbikeStoreEntity</find>
+      <find>市</find>
+      <find>试用站点</find>
+      <find>报废</find>
+      <find>离线</find>
+      <find>试用机车</find>
+      <find>测试站点</find>
+      <find>4,5,6,7</find>
+      <find>currentSelectedCategory</find>
+      <find>tab-test</find>
+      <find>tab-try-out</find>
+      <find>4,5</find>
+      <find>统计</find>
+      <find>tab-statistics-specification</find>
+      <find>statistics-tab</find>
+      <find>batteryRentedCount</find>
+      <find>batteryTotalCount</find>
+      <find>直营租赁</find>
+      <find>总电池数</find>
+      <find>batterytotal</find>
+      <find>省</find>
+      <find>规格统计</find>
     </findStrings>
     <replaceStrings>
-      <replace>section-name-categories</replace>
       <replace>btn-filter-search</replace>
       <replace>btn-add-after-sale</replace>
       <replace>btn-delete-station</replace>
@@ -203,6 +267,7 @@
       <replace>type=&quot; + ueType + &quot;</replace>
       <replace>2000</replace>
       <replace>9999</replace>
+      <replace>型号统计</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -230,7 +295,6 @@
         <option value="$PROJECT_DIR$/store-list.html" />
         <option value="$PROJECT_DIR$/css/public.css" />
         <option value="$PROJECT_DIR$/css/common.css" />
-        <option value="$PROJECT_DIR$/battery-statistics.html" />
         <option value="$PROJECT_DIR$/scooter-statistics.html" />
         <option value="$PROJECT_DIR$/login.html" />
         <option value="$PROJECT_DIR$/index.html" />
@@ -239,10 +303,11 @@
         <option value="$PROJECT_DIR$/user-manager.html" />
         <option value="$PROJECT_DIR$/map.html" />
         <option value="$PROJECT_DIR$/battery-manager.html" />
-        <option value="$PROJECT_DIR$/store-manager.html" />
         <option value="$PROJECT_DIR$/battery-list.html" />
         <option value="$PROJECT_DIR$/scooter-list.html" />
+        <option value="$PROJECT_DIR$/store-manager.html" />
         <option value="$PROJECT_DIR$/scooter-manager.html" />
+        <option value="$PROJECT_DIR$/battery-statistics.html" />
       </list>
     </option>
   </component>
@@ -258,10 +323,10 @@
       <path value="$PROJECT_DIR$/assets/multiple-select/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="983" />
+    <option name="height" value="981" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -387,7 +452,10 @@
       <workItem from="1534812021045" duration="20152000" />
       <workItem from="1534898665470" duration="23503000" />
       <workItem from="1534986361097" duration="4014000" />
-      <workItem from="1535097190254" duration="604000" />
+      <workItem from="1535097190254" duration="691000" />
+      <workItem from="1535418211550" duration="3065000" />
+      <workItem from="1535422560352" duration="2122000" />
+      <workItem from="1535427987308" duration="4268000" />
     </task>
     <task id="LOCAL-00001" summary="1. 首页优化&#10;2. 网点管理优化">
       <created>1530265262273</created>
@@ -501,11 +569,18 @@
       <option name="project" value="LOCAL" />
       <updated>1534935626049</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="1. BUG 修复">
+      <created>1535100793050</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1535100793051</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="747794000" />
+    <option name="totallyTimeSpent" value="757336000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -517,37 +592,37 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="983" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="981" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17430227" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32945284" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.09131403" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.5691057" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32945284" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24973656" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.5692666" />
+      <window_info anchor="bottom" id="Messages" order="12" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17430227" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24973656" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32945284" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -610,7 +685,8 @@
     <MESSAGE value="1. 订单信息调整" />
     <MESSAGE value="1. 小屏适配" />
     <MESSAGE value="1. 省、市列关联分站显示；&#10;2. 禁用电池\机车增加禁用原因单独列，显示编辑填写的禁用原因" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 省、市列关联分站显示；&#10;2. 禁用电池\机车增加禁用原因单独列，显示编辑填写的禁用原因" />
+    <MESSAGE value="1. BUG 修复" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. BUG 修复" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -618,14 +694,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/vendor/vue.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/login.js" />
     <entry file="file://$PROJECT_DIR$/js/vendor/vue.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -709,14 +777,6 @@
     <entry file="file://$PROJECT_DIR$/img/close-150192_640.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -749,13 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="25" column="18" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/battery-statistics.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="814" column="3" selection-start-line="814" selection-start-column="3" selection-end-line="827" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -794,13 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="109" column="9" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/map.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="760">
@@ -822,17 +868,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/battery-manager.html">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="1375" column="87" selection-start-line="1375" selection-start-column="80" selection-end-line="1375" selection-end-column="87" />
+        <state relative-caret-position="247">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <folding>
+            <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/bootstrap-table/docs/dist/bootstrap-table.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5616" selection-start-column="5616" selection-end-column="5616" />
+          <folding>
+            <element signature="e#2002#2300#2" expanded="true" />
+            <element signature="e#2355#2598#2" expanded="true" />
+            <element signature="e#2654#2893#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/bootstrap-table/src/bootstrap-table.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5776">
+          <caret line="304" column="1" selection-start-line="304" selection-start-column="1" selection-end-line="304" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="92" column="60" lean-forward="true" selection-start-line="92" selection-start-column="60" selection-end-line="92" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scooter-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="426" column="38" selection-start-line="426" selection-start-column="34" selection-end-line="426" selection-end-column="38" />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#7;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#8;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#9;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#10;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#select#3;n#div#1;n#div#11;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/store-manager.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3667">
-          <caret line="1858" selection-start-line="1858" selection-end-line="1858" />
+        <state relative-caret-position="327">
+          <caret line="1898" column="74" lean-forward="true" selection-start-line="1898" selection-start-column="74" selection-end-line="1898" selection-end-column="74" />
           <folding>
             <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
@@ -857,24 +960,19 @@
             <element signature="n#style#0;n#select#2;n#div#2;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#2;n#div#3;n#div#1;n#div#15;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="6" lean-forward="true" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-          <folding>
-            <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#input#0;n#td#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#3;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#9;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/battery-list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9956">
-          <caret line="762" column="42" selection-start-line="762" selection-start-column="20" selection-end-line="762" selection-end-column="42" />
+        <state relative-caret-position="380">
+          <caret line="456" column="177" selection-start-line="456" selection-start-column="156" selection-end-line="456" selection-end-column="177" />
           <folding>
             <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
             <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
@@ -895,35 +993,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scooter-list.html">
+    <entry file="file://$PROJECT_DIR$/battery-manager.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1748">
-          <caret line="304" column="68" selection-start-line="304" selection-start-column="68" selection-end-line="304" selection-end-column="68" />
+        <state relative-caret-position="559">
+          <caret line="534" column="34" lean-forward="true" selection-start-line="512" selection-start-column="24" selection-end-line="534" selection-end-column="34" />
           <folding>
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#6;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#7;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#8;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#9;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#div#10;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#select#3;n#div#1;n#div#11;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scooter-manager.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4713">
-          <caret line="454" column="40" lean-forward="true" selection-start-line="454" selection-start-column="40" selection-end-line="454" selection-end-column="40" />
+        <state relative-caret-position="333">
+          <caret line="510" column="93" lean-forward="true" selection-start-line="510" selection-start-column="93" selection-end-line="510" selection-end-column="93" />
           <folding>
             <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#2;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/battery-statistics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="770" column="48" lean-forward="true" selection-start-line="770" selection-start-column="48" selection-end-line="770" selection-end-column="48" />
+          <folding>
+            <element signature="n#style#0;n#ol#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
