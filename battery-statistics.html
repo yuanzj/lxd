@@ -62,14 +62,20 @@
             <li class="item" id="tab-scrap"><a href="#">报废</a></li>
         </ul>
     </div>
-    <ol class="breadcrumb" style="margin-top: 1rem">
-        <li class="active">统计</li>
-    </ol>
 
-    <div id="statistics-toolbar">
+    <div id="statistics-toolbar" style="margin-top: 1rem">
         <ul class="nav nav-tabs" id="statistics-tab">
             <li class="item active" id="tab-statistics-rent"><a href="#">租赁统计</a></li>
             <li class="item" id="tab-statistics-specification"><a href="#">型号统计</a></li>
+        </ul>
+    </div>
+
+    <div id="station-toolbar" style="display: none;margin-top: 1rem">
+        <ul class="nav nav-tabs" id="station-direct-tab">
+            <li class="item active" id="tab-statistics-province"><a href="#">省统计</a></li>
+            <li class="item" id="tab-statistics-city"><a href="#">市统计</a></li>
+            <li class="item" id="tab-statistics-station"><a href="#">分站统计</a></li>
+            <li class="item" id="tab-statistics-substation"><a href="#">驿站统计</a></li>
         </ul>
     </div>
 
@@ -102,7 +108,7 @@
 </div>
 
 </body>
-<script src="js/battery-statistics.js?version=1"></script>
+<script src="js/battery-statistics.js?version=7"></script>
 <script src="js/vendor/distpicker.data.js"></script>
 <script src="js/vendor/distpicker.js"></script>
 <script src="js/main.js"></script>
